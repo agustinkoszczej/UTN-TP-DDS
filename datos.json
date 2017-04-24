@@ -1,0 +1,26 @@
+[{
+	"empresa": "Facebook",
+	"balances": [
+		{
+			"periodo":"201706",
+			"periodicidad":"S",
+			"tipoCuenta":"FBDI",
+			"valor":"140000000"
+		},{
+			"periodo":"201612",
+			"periodicidad":"S",
+			"tipoCuenta":"FDBI",
+			"valor":"135000000"
+		}
+	]
+},{
+	"empresa":"Fibertel",
+	"balances": [
+		{
+			"periodo":"201612",
+			"periodicidad":"A",
+			"tipoCuenta":"CAO",
+			"valor":"134000000"
+		}
+	]
+}]
