@@ -1,6 +1,12 @@
 # 2017-jm-group-10
-Repositorio de TPs del grupo 10
 
-Para convertir CSV a JSON user
+Grupo 10:
+XXX
 
-./csv2json.sh datos.csv > datos.json
+Para ver el tp hacer
+mvn clean install eclipse:clean eclipse:eclipse
+
+Y deberia funcionar... cuando mucho va a dar error de que falta una dependencia
+
+Agregar la dependencia que pide en el Run Settings de eclipse.
+
