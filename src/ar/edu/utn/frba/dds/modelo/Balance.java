@@ -25,11 +25,11 @@ public class Balance {
 		this.periodicidad = periodicidad;
 	}
 
-	public String getTipoCuenta() {
+	public Cuenta getTipoCuenta() {
 		return tipoCuenta;
 	}
 
-	public void setTipoCuenta(String tipoCuenta) {
+	public void setTipoCuenta(Cuenta tipoCuenta) {
 		this.tipoCuenta = tipoCuenta;
 	}
 
@@ -44,7 +44,7 @@ public class Balance {
 	@JsonProperty("periodicidad")
 	private String periodicidad;
 	@JsonProperty("tipoCuenta")
-	private String tipoCuenta;
+	private Cuenta tipoCuenta;
 	@JsonProperty("valor")
 	private String valor;
 

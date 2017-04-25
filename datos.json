@@ -4,12 +4,12 @@
 		{
 			"periodo":"201706",
 			"periodicidad":"S",
-			"tipoCuenta":"FBDI",
+			"tipoCuenta":"EBITDA",
 			"valor":"140000000"
 		},{
 			"periodo":"201612",
 			"periodicidad":"S",
-			"tipoCuenta":"FDBI",
+			"tipoCuenta":"EBITDA",
 			"valor":"135000000"
 		}
 	]
@@ -19,7 +19,7 @@
 		{
 			"periodo":"201612",
 			"periodicidad":"A",
-			"tipoCuenta":"CAO",
+			"tipoCuenta":"FDS",
 			"valor":"134000000"
 		}
 	]
