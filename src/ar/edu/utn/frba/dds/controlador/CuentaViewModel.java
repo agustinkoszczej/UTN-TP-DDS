@@ -15,8 +15,9 @@ public class CuentaViewModel {
 	private Empresa empresaSeleccionada;
 	private ServicioCuentas unServicioDeCuentas;
 	private List<Balance> balancesEmpresaSeleccionada;
+	private String valorBalances;
 
-	private Balance balaceSeleccionadoEmpresaSeleccionada;
+	private Balance balanceSeleccionadoEmpresaSeleccionada;
 	
 	public CuentaViewModel(ServicioCuentas unServicioDeCuentas) {
 		this.unServicioDeCuentas = unServicioDeCuentas;
@@ -35,19 +36,25 @@ public class CuentaViewModel {
 	public void setEmpresaSeleccionada(Empresa empresaSeleccionada) {
 		this.empresaSeleccionada = empresaSeleccionada;
 		ObservableUtils.firePropertyChanged(this, "balancesEmpresaSeleccionada");
-
+		ObservableUtils.firePropertyChanged(this, "valorBalances");
 	}
 	
-	public Balance getBalaceSeleccionadoEmpresaSeleccionada() {
-		return balaceSeleccionadoEmpresaSeleccionada;
+	public Balance getBalanceSeleccionadoEmpresaSeleccionada() {
+		return balanceSeleccionadoEmpresaSeleccionada;
 	}
 
-	public void setBalaceSeleccionadoEmpresaSeleccionada(Balance balaceSeleccionadoEmpresaSeleccionada) {
-		this.balaceSeleccionadoEmpresaSeleccionada = balaceSeleccionadoEmpresaSeleccionada;
+	public void setBalanceSeleccionadoEmpresaSeleccionada(Balance balaceSeleccionadoEmpresaSeleccionada) {
+		this.balanceSeleccionadoEmpresaSeleccionada = balaceSeleccionadoEmpresaSeleccionada;
 	}
 
 	public List<Balance> getBalancesEmpresaSeleccionada() {
 		return empresaSeleccionada.getBalances();
 	}
 	
+	public String getValorBalances(){
+		return empresaSeleccionada.valorBalances();
+	}
+	public void setValorBalances(String valorBalances){
+		this.valorBalances = valorBalances;
+	}	
 }

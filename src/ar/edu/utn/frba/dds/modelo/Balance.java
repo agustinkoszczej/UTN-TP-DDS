@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Balance {
 	@JsonProperty("periodo")
 	private String periodo;
+
 	public String getPeriodo() {
 		return periodo;
 	}
@@ -46,9 +47,9 @@ public class Balance {
 	private String tipoCuenta;
 	@JsonProperty("valor")
 	private String valor;
-	
+
 	public Balance() {
 		super();
 	}
-	
+
 }
