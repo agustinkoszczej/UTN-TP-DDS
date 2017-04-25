@@ -31,11 +31,7 @@ public class CuentaWindow extends SimpleWindow<CuentaViewModel> {
 	@Override
 	protected void createFormPanel(Panel form) {
 		this.setTitle("Cuentas");
-//		Panel form = new Panel(mainPanel);
-		//form.setLayout(new ColumnLayout(2));
-//		mainPanel.set
 
-		//new Label(form).setText("Datos");
 		new Label(form).setText("Empresa");
 		Selector<Empresa> selectorEmpresa = new Selector<Empresa>(form).allowNull(true);
 		selectorEmpresa.bindValueToProperty("empresaSeleccionada");
@@ -50,14 +46,12 @@ public class CuentaWindow extends SimpleWindow<CuentaViewModel> {
 		tableBalances.bindValueToProperty("balaceSeleccionadoEmpresaSeleccionada");
 		
 		Column<Balance> columnaPeriodo = new Column<Balance>(tableBalances);
-		columnaPeriodo.setTitle("Tarea");
+		columnaPeriodo.setTitle("Periodo");
 		columnaPeriodo.bindContentsToProperty("periodo");
 		
 		Column<Balance> columnaTipoCuenta = new Column<Balance>(tableBalances);
-		columnaTipoCuenta.setTitle("Tarea");
-		columnaTipoCuenta.bindContentsToProperty("tipoCuenta");
-
-		
+		columnaTipoCuenta.setTitle("Tipo de Cuenta");
+		columnaTipoCuenta.bindContentsToProperty("tipoCuenta");	
 	}
 
 }

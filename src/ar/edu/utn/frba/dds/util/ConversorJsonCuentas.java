@@ -16,19 +16,6 @@ import ar.edu.utn.frba.dds.modelo.Balance;
 
 public class ConversorJsonCuentas {
 	
-	/*
-	public Cuenta mappearAlumno(String jsonString) {
-		ObjectMapper objectMapper = new ObjectMapper();
-		
-		Alumno unAlumno = null;
-		try {
-			unAlumno = objectMapper.readValue(jsonString, Alumno.class);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return unAlumno;
-	}
-*/
 	public List<Empresa> mappearEmpresas(String jsonString) {
 		ObjectMapper objectMapper = new ObjectMapper().configure(DeserializationFeature.ACCEPT_EMPTY_ARRAY_AS_NULL_OBJECT, true);
 		List<Empresa> empresas = null;

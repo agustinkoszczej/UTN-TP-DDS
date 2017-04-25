@@ -9,29 +9,6 @@ import ar.edu.utn.frba.dds.modelo.Balance;
 import ar.edu.utn.frba.dds.modelo.Empresa;
 import ar.edu.utn.frba.dds.servicio.ServicioCuentas;
 
-/**
- * Clase que representa a la dinamica de un alumno, en su realcion entre
- * el Modelo y la Vista, y es quien realaciona los Modelos de Alumno
- * con sus Tareas, y se encarga de Cargar/Actualizar los datos.
- * Tiene las siguientes propiedades y sus correspondientes Setters/Getters:
- * <ul>
- * 		<li><b>unAlumno</b>: representa al alumno sobre el cual estoy 
- * 					consultando/li>
- *  	<li><b>tareas</b>: Colleccion de elementos del tipo Tarea</li>
- *  	<li><b>tareaSeleccionada</b>: elemento del tipo Tarea sobre el que 
- *  				estoy trabajando actualmente</li>
- * 		<li><b>token</b>: Token asignado al Alumno para poder consultar
- * 					y actualizar datos</li>
- * </ul>
- * <p>Tiene un constructor:
- * <ul>
- * 		<li><b>AlumnoViewModel(String token, CalificacionesApp aplicacion)</b>: 
- * 				Establece el token para el alumno actual sobre el cual se van
- * 				a realizar las consultas y establece a quien le tengo que pedir
- * 				los datos para generar los objetos.
- * 				Tambien inicializa el objeto unAlumno y el objeto tareas</li>
- * <ul>
- */
 @Observable
 public class CuentaViewModel {
 	private List<Empresa> empresas;

@@ -14,7 +14,7 @@
 	<classpathentry kind="var" path="M2_REPO/com/sun/jersey/jersey-client/1.8/jersey-client-1.8.jar"/>
 	<classpathentry kind="var" path="M2_REPO/com/sun/jersey/jersey-core/1.8/jersey-core-1.8.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/uqbar-project/arena-jface/3.6.1/arena-jface-3.6.1.jar"/>
-	<classpathentry kind="var" path="M2_REPO/org/uqbar-project/arena-core/3.6.1/arena-core-3.6.1.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/uqbar-project/arena-core/3.6.1/arena-core-3.6.1.jar" sourcepath="M2_REPO/org/uqbar-project/arena-core/3.6.1/arena-core-3.6.1-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/uqbar-project/arena-pot/3.6.1/arena-pot-3.6.1.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/uqbar-project/arena-apo/3.6.1/arena-apo-3.6.1.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/uqbar-project/uqbar-domain/3.6.1/uqbar-domain-3.6.1.jar"/>

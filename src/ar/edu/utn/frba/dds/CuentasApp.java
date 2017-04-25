@@ -20,7 +20,6 @@ public class CuentasApp extends Application {
 	@Override
 	protected Window<?> createMainWindow() {
 		// Llamo a la clase que es mi primer ventana.
-		// Le paso el AlumnoViewModel con el servicio correspondiente
 		ServicioCuentas unServicio = new ServicioCuentas();
 		return new CuentaWindow(this, new CuentaViewModel(unServicio));
 	}
