@@ -2,6 +2,7 @@ package ar.edu.utn.frba.dds.controlador;
 
 import java.util.List;
 
+import org.uqbar.commons.model.ObservableUtils;
 import org.uqbar.commons.utils.Observable;
 
 import ar.edu.utn.frba.dds.modelo.Balance;
@@ -56,6 +57,8 @@ public class CuentaViewModel {
 
 	public void setEmpresaSeleccionada(Empresa empresaSeleccionada) {
 		this.empresaSeleccionada = empresaSeleccionada;
+		ObservableUtils.firePropertyChanged(this, "balancesEmpresaSeleccionada");
+
 	}
 	
 	public Balance getBalaceSeleccionadoEmpresaSeleccionada() {

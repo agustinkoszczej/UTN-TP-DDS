@@ -28,11 +28,6 @@ public class CuentaWindow extends SimpleWindow<CuentaViewModel> {
 		new Button(actionsPanel).setCaption("Salir").onClick(this::close);
 	}
 
-	protected void actualizarBalances() {
-		ObservableUtils.firePropertyChanged(getModel().getSource(), "balancesEmpresaSeleccionada");
-		return;
-	}
-	
 	@Override
 	protected void createFormPanel(Panel form) {
 		this.setTitle("Cuentas");
@@ -46,7 +41,6 @@ public class CuentaWindow extends SimpleWindow<CuentaViewModel> {
 		selectorEmpresa.bindValueToProperty("empresaSeleccionada");
 		selectorEmpresa.bindItemsToProperty("empresas").adaptWith(Empresa.class, "nombre");
 		selectorEmpresa.setWidth(200);
-		selectorEmpresa.onSelection(this::actualizarBalances);
 				
 		// Tabla de Balances
 		Table<Balance> tableBalances = new Table<Balance>(form, Balance.class);
