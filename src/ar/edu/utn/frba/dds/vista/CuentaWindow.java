@@ -2,18 +2,14 @@ package ar.edu.utn.frba.dds.vista;
 
 import java.awt.Color;
 
-import org.uqbar.arena.layout.ColumnLayout;
 import org.uqbar.arena.widgets.Button;
 import org.uqbar.arena.widgets.Label;
 import org.uqbar.arena.widgets.Panel;
 import org.uqbar.arena.widgets.Selector;
 import org.uqbar.arena.widgets.tables.Column;
 import org.uqbar.arena.widgets.tables.Table;
-import org.uqbar.arena.widgets.tables.Column;
-import org.uqbar.arena.widgets.tables.Table;
 import org.uqbar.arena.windows.SimpleWindow;
 import org.uqbar.arena.windows.WindowOwner;
-import org.uqbar.commons.model.ObservableUtils;
 
 import ar.edu.utn.frba.dds.controlador.CuentaViewModel;
 import ar.edu.utn.frba.dds.modelo.Balance;
@@ -54,7 +50,7 @@ public class CuentaWindow extends SimpleWindow<CuentaViewModel> {
 		
 		Column<Balance> columnaValor = new Column<Balance>(tableBalances);
 		columnaValor.setTitle("Valor");
-		columnaValor.bindContentsToProperty("valor");
+		columnaValor.bindContentsToProperty("valor").setTransformer(new DoubleStringTransformer());
 		
 		Column<Balance> columnaTipoCuenta = new Column<Balance>(tableBalances);
 		columnaTipoCuenta.setTitle("Tipo de Cuenta");
@@ -65,9 +61,8 @@ public class CuentaWindow extends SimpleWindow<CuentaViewModel> {
 		new Label(form)
 		.setText("Valor Balances:")
 		.setBackground(Color.GREEN);
-		new Label(form)
-		
-		.bindValueToProperty("valorBalances");
+		Label valorTotal = new Label(form);
+		valorTotal.bindValueToProperty("valorBalances").setTransformer(new DoubleStringValueTransformer());
 		
 	}
 

@@ -51,7 +51,7 @@ public class CuentaViewModel {
 		return empresaSeleccionada.getBalances();
 	}
 	
-	public String getValorBalances(){
+	public Double getValorBalances(){
 		return empresaSeleccionada.valorBalances();
 	}
 	public void setValorBalances(String valorBalances){

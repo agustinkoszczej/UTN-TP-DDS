@@ -33,11 +33,11 @@ public class Balance {
 		this.tipoCuenta = tipoCuenta;
 	}
 
-	public String getValor() {
+	public Double getValor() {
 		return valor;
 	}
 
-	public void setValor(String valor) {
+	public void setValor(Double valor) {
 		this.valor = valor;
 	}
 
@@ -46,7 +46,7 @@ public class Balance {
 	@JsonProperty("tipoCuenta")
 	private Cuenta tipoCuenta;
 	@JsonProperty("valor")
-	private String valor;
+	private Double valor;
 
 	public Balance() {
 		super();

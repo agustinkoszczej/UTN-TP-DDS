@@ -1,18 +1,13 @@
 package ar.edu.utn.frba.dds.util;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.Collection;
 import java.util.List;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 
 import ar.edu.utn.frba.dds.modelo.Empresa;
-import ar.edu.utn.frba.dds.modelo.Balance;
 
 public class ConversorJsonCuentas {
 	

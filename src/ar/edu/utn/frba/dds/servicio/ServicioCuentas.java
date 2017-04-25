@@ -1,8 +1,5 @@
 package ar.edu.utn.frba.dds.servicio;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.Collection;
 import java.util.List;
 
 import ar.edu.utn.frba.dds.util.ServidorDeConsultas;
