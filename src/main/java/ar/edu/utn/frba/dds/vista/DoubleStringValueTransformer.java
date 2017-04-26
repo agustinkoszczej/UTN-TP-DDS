@@ -21,7 +21,7 @@ public class DoubleStringValueTransformer implements ValueTransformer<Double, St
 	@Override
 	public String modelToView(Double unValor) {
 		//Esto lo hago porque sino aparece un numero del estilo "275E10" (con exponencial)
-		DecimalFormat formatter = new DecimalFormat("##0.00");
+		DecimalFormat formatter = new DecimalFormat("##0.000");
 		String s = formatter.format(unValor); 
 		return "$ " + s;
 	}

@@ -10,7 +10,7 @@ public class DoubleStringTransformer implements Transformer<Double, String> {
 	@Override
 	public String transform(Double unValor) {
 		//Esto lo hago porque sino aparece un numero del estilo "275E10" (con exponencial)
-		DecimalFormat formatter = new DecimalFormat("##0.00");
+		DecimalFormat formatter = new DecimalFormat("##0.000");
 		String s = formatter.format(unValor); 
 		return "$ " + s;
 	}

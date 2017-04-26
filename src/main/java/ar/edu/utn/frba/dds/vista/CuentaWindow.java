@@ -36,7 +36,7 @@ public class CuentaWindow extends SimpleWindow<CuentaViewModel> {
 		Selector<Empresa> selectorEmpresa = new Selector<Empresa>(form).allowNull(true);
 		selectorEmpresa.bindValueToProperty("empresaSeleccionada");
 		selectorEmpresa.bindItemsToProperty("empresas").adaptWith(Empresa.class, "nombre");
-		selectorEmpresa.setWidth(270);
+		selectorEmpresa.setWidth(280);
 				
 		// Tabla de Balances
 		Table<Balance> tableBalances = new Table<Balance>(form, Balance.class);
@@ -55,6 +55,7 @@ public class CuentaWindow extends SimpleWindow<CuentaViewModel> {
 		Column<Balance> columnaValor = new Column<Balance>(tableBalances);
 		columnaValor.setTitle("Valor");
 		columnaValor.bindContentsToProperty("valor").setTransformer(new DoubleStringTransformer());
+		columnaValor.setWeight(32);
 		
 		Column<Balance> columnaTipoCuenta = new Column<Balance>(tableBalances);
 		columnaTipoCuenta.setTitle("Tipo de Cuenta");

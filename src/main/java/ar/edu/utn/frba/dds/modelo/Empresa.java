@@ -29,7 +29,7 @@ public class Empresa {
 		this.balances = balances;
 	}
 
-	public Double valorBalances() {
+	public double valorBalances() {
 		return balances
 				.stream()
 				.mapToDouble(cuenta -> cuenta.getValor())
