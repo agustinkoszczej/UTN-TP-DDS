@@ -23,8 +23,8 @@ public class Balance {
 		return frecuencia;
 	}
 
-	public void setFrecuencia(Frecuencia periodicidad) {
-		this.frecuencia = periodicidad;
+	public void setFrecuencia(Frecuencia frecuencia) {
+		this.frecuencia = frecuencia;
 	}
 
 	public Cuenta getTipoCuenta() {
@@ -43,6 +43,8 @@ public class Balance {
 		this.valor = valor;
 	}
 
+	@JsonProperty("periodicidad")
+	private String periodicidad;
 	@JsonProperty("tipoCuenta")
 	private Cuenta tipoCuenta;
 	@JsonProperty("valor")

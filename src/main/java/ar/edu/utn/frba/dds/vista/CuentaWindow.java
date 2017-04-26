@@ -47,11 +47,10 @@ public class CuentaWindow extends SimpleWindow<CuentaViewModel> {
 		Column<Balance> columnaPeriodo = new Column<Balance>(tableBalances);
 		columnaPeriodo.setTitle("Periodo");
 		columnaPeriodo.bindContentsToProperty("periodo");
-
+		
 		Column<Balance> columnaFrecuencia = new Column<Balance>(tableBalances);
 		columnaFrecuencia.setTitle("Frecuencia");
 		columnaFrecuencia.bindContentsToProperty("frecuencia");
-
 		
 		Column<Balance> columnaValor = new Column<Balance>(tableBalances);
 		columnaValor.setTitle("Valor");
