@@ -1,4 +1,4 @@
-package test;
+package test.java.ar.edu.utn.frba.dds;
 
 import static org.junit.Assert.*;
 
@@ -8,10 +8,10 @@ import java.util.List;
 
 import org.junit.Test;
 
-import ar.edu.utn.frba.dds.modelo.Empresa;
-import ar.edu.utn.frba.dds.servicio.ServicioCuentas;
-import ar.edu.utn.frba.dds.util.ConversorJsonCuentas;
-import ar.edu.utn.frba.dds.util.ServidorDeConsultas;
+import main.java.ar.edu.utn.frba.dds.modelo.Empresa;
+import main.java.ar.edu.utn.frba.dds.servicio.ServicioCuentas;
+import main.java.ar.edu.utn.frba.dds.util.ConversorJsonCuentas;
+import main.java.ar.edu.utn.frba.dds.util.ServidorDeConsultas;
 
 public class EmpresaTest {
 	@Test

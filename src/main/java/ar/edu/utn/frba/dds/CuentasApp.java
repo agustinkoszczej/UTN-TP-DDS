@@ -1,11 +1,11 @@
-package ar.edu.utn.frba.dds;
+package main.java.ar.edu.utn.frba.dds;
 
 import org.uqbar.arena.Application;
 import org.uqbar.arena.windows.Window;
 
-import ar.edu.utn.frba.dds.controlador.CuentaViewModel;
-import ar.edu.utn.frba.dds.servicio.ServicioCuentas;
-import ar.edu.utn.frba.dds.vista.CuentaWindow;
+import main.java.ar.edu.utn.frba.dds.controlador.CuentaViewModel;
+import main.java.ar.edu.utn.frba.dds.servicio.ServicioCuentas;
+import main.java.ar.edu.utn.frba.dds.vista.CuentaWindow;
 
 
 public class CuentasApp extends Application {
