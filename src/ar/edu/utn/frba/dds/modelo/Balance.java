@@ -8,6 +8,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Balance {
 	@JsonProperty("periodo")
 	private String periodo;
+	@JsonProperty("frecuencia")
+	private Frecuencia frecuencia;
 
 	public String getPeriodo() {
 		return periodo;
@@ -17,12 +19,12 @@ public class Balance {
 		this.periodo = periodo;
 	}
 
-	public String getPeriodicidad() {
-		return periodicidad;
+	public Frecuencia getFrecuencia() {
+		return frecuencia;
 	}
 
-	public void setPeriodicidad(String periodicidad) {
-		this.periodicidad = periodicidad;
+	public void setFrecuencia(Frecuencia periodicidad) {
+		this.frecuencia = periodicidad;
 	}
 
 	public Cuenta getTipoCuenta() {
@@ -41,8 +43,6 @@ public class Balance {
 		this.valor = valor;
 	}
 
-	@JsonProperty("periodicidad")
-	private String periodicidad;
 	@JsonProperty("tipoCuenta")
 	private Cuenta tipoCuenta;
 	@JsonProperty("valor")
