@@ -1,4 +1,4 @@
-package ar.edu.utn.frba.dds.vista;
+package main.java.ar.edu.utn.frba.dds.vista;
 
 import org.uqbar.arena.bindings.ValueTransformer;
 

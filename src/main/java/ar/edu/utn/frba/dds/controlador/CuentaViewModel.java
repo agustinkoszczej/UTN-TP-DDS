@@ -1,13 +1,13 @@
-package ar.edu.utn.frba.dds.controlador;
+package main.java.ar.edu.utn.frba.dds.controlador;
 
 import java.util.List;
 
 import org.uqbar.commons.model.ObservableUtils;
 import org.uqbar.commons.utils.Observable;
 
-import ar.edu.utn.frba.dds.modelo.Balance;
-import ar.edu.utn.frba.dds.modelo.Empresa;
-import ar.edu.utn.frba.dds.servicio.ServicioCuentas;
+import main.java.ar.edu.utn.frba.dds.modelo.Balance;
+import main.java.ar.edu.utn.frba.dds.modelo.Empresa;
+import main.java.ar.edu.utn.frba.dds.servicio.ServicioCuentas;
 
 @Observable
 public class CuentaViewModel {
