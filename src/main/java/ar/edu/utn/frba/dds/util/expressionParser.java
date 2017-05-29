@@ -1,171 +1,105 @@
 package main.java.ar.edu.utn.frba.dds.util;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Stack;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class expressionParser {
-	
+
 	@SuppressWarnings("unused")
-	private static void sum(String a, String b) {
-		System.out.println("ACA VA LA SUMA");
+	private static Integer sum(Integer a, Integer b) {
+		//System.out.print("FUNCION SUMA: ");
+		//Integer total = a + b;
+		//System.out.println(total.toString());
+		return a + b;
+	}
+
+	@SuppressWarnings("unused")
+	private static Integer minus(Integer a, Integer b) {
+		return a - b;
+	}
+
+	@SuppressWarnings("unused")
+	private static Integer mult(Integer a, Integer b) {
+		return a * b;
+	}
+
+	@SuppressWarnings("unused")
+	private static Integer div(Integer a, Integer b) {
+		return a / b;
 	}
 	
-    private enum Operator
-    {
-        ADD(1, "sum"), SUBTRACT(1, "minus"), MULTIPLY(2, "mult"), DIVIDE(2, "divide"), LPARENTH(0, null), RPARENTH(0, null);
-        final Integer precedence;
-        final String methodName;
-        Operator(Integer p, String m) { precedence = p; methodName = m;}
-    }
-    
-    private enum symbolType {
-    	constant,
-    	function,
-    	operator,
-    	invalid,
-    	epsilon;
-    }
+	private enum Operator {
+		ADD(1, "sum"), SUBTRACT(1, "minus"), MULTIPLY(2, "mult"), DIVIDE(2, "div");
+		final Integer precedence;
+		final String methodName;
 
-    private static Map<String, Operator> ops = new HashMap<String, Operator>() {{
-        put("+", Operator.ADD);
-        put("-", Operator.SUBTRACT);
-        put("*", Operator.MULTIPLY);
-        put("/", Operator.DIVIDE);
-        put("(", Operator.LPARENTH);
-        put(")", Operator.RPARENTH);
-    }};
+		Operator(Integer p, String m) {
+			precedence = p;
+			methodName = m;
+		}
+	}
 
-    private static boolean isHigerPrec(String op, String sub)
-    {
-        return (ops.containsKey(sub) && ops.get(sub).precedence >= ops.get(op).precedence);
-    }
+	private static Map<String, Operator> ops = new HashMap<String, Operator>() {
+		{
+			put("+", Operator.ADD);
+			put("-", Operator.SUBTRACT);
+			put("*", Operator.MULTIPLY);
+			put("/", Operator.DIVIDE);
+		}
+	};
 
-  	private static String currentString;
-    private static symbolType currentState;
-	private static Map<String, symbolType> tokens = new LinkedHashMap<String, symbolType>();
-  
-    public static String evaluate(String expression)  {
-	  currentString = "";
-      currentState = null;
-      // TODO: Verificar que siempre haga una vuelta mas con un epsilon para la ultima expresion
-      //       se puede agregar un caracter de espacio
-      for(Integer currentCharPosition = 0; currentCharPosition < expression.length(); currentCharPosition++) {
-        char charToEval = expression.charAt(currentCharPosition);
-        evaluateChar(charToEval);
-      }
-	  
-      Class<expressionParser> expressionParserClass = expressionParser.class;
-      Method methodCall;
-      for(Map.Entry<String, symbolType> token : tokens.entrySet()) {
-        System.out.print(token.getKey());
-        System.out.print(" - ");
-        System.out.println(token.getValue());
-        if (ops.containsKey(token.getKey())) {
-        	// FIXME: ver que el el metodo no sea null, como el casod e los parentesis
-            try {
-    			methodCall = expressionParserClass.getDeclaredMethod(ops.get(token.getKey()).methodName, String.class, String.class);
-    			methodCall.invoke(null, "a", "b");
-    		} catch (NoSuchMethodException e) {
-    			// TODO Auto-generated catch block
-    			e.printStackTrace();
-    		} catch (SecurityException e) {
-    			// TODO Auto-generated catch block
-    			e.printStackTrace();
-    		} catch (IllegalAccessException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IllegalArgumentException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (InvocationTargetException e) {
+	private static boolean isHigerPrec(String op, String sub) {
+		return (ops.containsKey(sub) && ops.get(sub).precedence >= ops.get(op).precedence);
+	}
+
+	private static String pattern = "\\+|\\-|\\*|\\/|\\(|\\)|[0-9]+(\\.[0-9]*)?|[a-zA-Z]+[a-zA-Z0-9]*";
+	private static Pattern evaluationPattern = Pattern.compile(pattern);
+
+	public static Boolean isValid(String expression) {
+		Integer expressionLength = expression.replaceAll("\\s+", "").length();
+
+		Matcher evaluationMatcher = evaluationPattern.matcher(expression);
+		while (evaluationMatcher.find()) {
+			expressionLength -= evaluationMatcher.group().length();
+		}
+		return expressionLength == 0;
+	}
+
+	public static void evaluate(String expression) {
+		Class<expressionParser> expressionParserClass = expressionParser.class;
+		Method methodCall;
+		Stack<String> stackTokens = new Stack<String>();
+		Stack<Operator> stackOperators = new Stack<Operator>();
+
+		Matcher evaluationMatcher = evaluationPattern.matcher(expression);
+		while (evaluationMatcher.find()) {
+			System.out.println("Valor: \"" + evaluationMatcher.group() + "\"");
+			if (ops.containsKey(evaluationMatcher.group()))
+				stackOperators.push(ops.get(evaluationMatcher.group()));
+			else
+				stackTokens.push(evaluationMatcher.group());
+		}
+
+		while (!stackOperators.empty()) {
+			Operator operation = stackOperators.pop();
+			Integer operand1 = Integer.parseInt(stackTokens.pop());
+			Integer operand2 = Integer.parseInt(stackTokens.pop());
+			Integer result = 0;
+			try {
+				methodCall = expressionParserClass.getDeclaredMethod(operation.methodName, Integer.class,
+						Integer.class);
+				result = (Integer) methodCall.invoke(null, operand1, operand2);
+				stackTokens.push(result.toString());
+			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-        }
-	  }
-      return "";
-    }
 
-    private static void evaluateChar(char charToEval) {
-		switch (symbolType(charToEval)) {
-		case constant:
-          if ((currentState == null) || (currentState == symbolType.constant)) {
-            currentState = symbolType.constant;
-          	currentString += String.valueOf(charToEval);
-          } else if (currentState == symbolType.function) {
-            currentState = symbolType.function;
-          	currentString += String.valueOf(charToEval);
-          } else if (currentState == symbolType.operator) {
-            tokens.put(currentString, currentState);
-            currentState = symbolType.constant;
-          	currentString = String.valueOf(charToEval);
-          } else {
-            // tirar excepcion
-          }
-          //System.out.println(String.valueOf(charToEval));
-		  break;
-		case epsilon:
-          if (currentState != null) {
-          	tokens.put(currentString, currentState);
-		  	currentString = "";
-          	currentState = null;
-          }
-          break;
-		case function:
-          if ((currentState == null) || (currentState == symbolType.function)) {
-            currentState = symbolType.function;
-          	currentString += String.valueOf(charToEval);
-          } else if (currentState == symbolType.operator) {
-            tokens.put(currentString, currentState);
-            currentState = symbolType.function;
-          	currentString = String.valueOf(charToEval);
-          } else {
-          	// tirar excepcion
-          }
-			break;
-		case operator:
-          if (currentState == null) {
-            currentState = symbolType.operator;
-          	currentString += String.valueOf(charToEval);
-          } else { 
-            tokens.put(currentString, currentState);
-            currentState = symbolType.operator;
-          	currentString = String.valueOf(charToEval);
-          }
-			break;
-		case invalid:
-          // tirar excepcion de caracter no valido
-			break;
 		}
 	}
-	
-	private static symbolType symbolType(char symbolToEval) {
-		Integer symbolValue = (int) symbolToEval;
-		if ((symbolValue >= 48) && (symbolValue <= 57)) // [0..9]
-			return symbolType.constant;
-		if ((symbolValue >= 40) && (symbolValue <= 41)) // ()
-			return symbolType.operator;
-		if (symbolValue == 42) // *
-			return symbolType.operator;
-		if (symbolValue == 43) // +
-			return symbolType.operator;
-		if (symbolValue == 45) // -
-			return symbolType.operator;
-		if (symbolValue == 47) // /
-			return symbolType.operator;
-		if ((symbolValue >= 65) && (symbolValue <= 90)) // [A..Z]
-			return symbolType.function;
-		if ((symbolValue >= 97) && (symbolValue <= 122)) // [a..z]
-			return symbolType.function;
-		if (symbolValue == 9)  // tab
-			return symbolType.epsilon;
-		if (symbolValue == 13)  // enter
-			return symbolType.epsilon;
-		if (symbolValue == 32)  // space
-			return symbolType.epsilon;
-		return symbolType.invalid;
-	}
+
 }
