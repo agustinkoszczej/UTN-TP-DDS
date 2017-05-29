@@ -7,7 +7,7 @@
   <classpathentry kind="var" path="M2_REPO/com/sun/jersey/jersey-client/1.8/jersey-client-1.8.jar"/>
   <classpathentry kind="var" path="M2_REPO/com/sun/jersey/jersey-core/1.8/jersey-core-1.8.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/uqbar-project/arena-jface/3.6.1/arena-jface-3.6.1.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/uqbar-project/arena-core/3.6.1/arena-core-3.6.1.jar" sourcepath="M2_REPO/org/uqbar-project/arena-core/3.6.1/arena-core-3.6.1-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/uqbar-project/arena-core/3.6.1/arena-core-3.6.1.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/uqbar-project/arena-pot/3.6.1/arena-pot-3.6.1.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/uqbar-project/arena-apo/3.6.1/arena-apo-3.6.1.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/uqbar-project/uqbar-domain/3.6.1/uqbar-domain-3.6.1.jar"/>
@@ -38,7 +38,7 @@
   <classpathentry kind="var" path="M2_REPO/org/eclipse/org.eclipse.osgi/3.4.3.R34x_v20081215-1030/org.eclipse.osgi-3.4.3.R34x_v20081215-1030.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/eclipse/org.eclipse.swt/3.4.2.v3452b/org.eclipse.swt-3.4.2.v3452b.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/eclipse/ui/org.eclipse.ui.workbench/3.4.2.M20090127-1700/org.eclipse.ui.workbench-3.4.2.M20090127-1700.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/eclipse/swt/gtk/org.eclipse.swt.gtk.linux.x86_64/3.5.2.v3557f/org.eclipse.swt.gtk.linux.x86_64-3.5.2.v3557f.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/eclipse/swt/win32/org.eclipse.swt.win32.win32.x86_64/3.4.1.v3449c/org.eclipse.swt.win32.win32.x86_64-3.4.1.v3449c.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/ini4j/ini4j/0.5.4/ini4j-0.5.4.jar"/>
   <classpathentry kind="var" path="M2_REPO/com/fasterxml/jackson/core/jackson-databind/2.8.7/jackson-databind-2.8.7.jar"/>
   <classpathentry kind="var" path="M2_REPO/com/fasterxml/jackson/core/jackson-annotations/2.8.7/jackson-annotations-2.8.7.jar"/>
