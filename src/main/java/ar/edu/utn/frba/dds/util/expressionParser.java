@@ -32,8 +32,8 @@ public class expressionParser {
 		return a / b;
 	}
 	
-	private enum Operator {
-		ADD(1, "sum"), SUBTRACT(1, "minus"), MULTIPLY(2, "mult"), DIVIDE(2, "div");
+	public enum Operator {
+		ADD(1, "sum"), SUBSTRACT(1, "minus"), MULTIPLY(2, "mult"), DIVIDE(2, "div");
 		final Integer precedence;
 		final String methodName;
 
@@ -46,7 +46,7 @@ public class expressionParser {
 	private static Map<String, Operator> ops = new HashMap<String, Operator>() {
 		{
 			put("+", Operator.ADD);
-			put("-", Operator.SUBTRACT);
+			put("-", Operator.SUBSTRACT);
 			put("*", Operator.MULTIPLY);
 			put("/", Operator.DIVIDE);
 		}

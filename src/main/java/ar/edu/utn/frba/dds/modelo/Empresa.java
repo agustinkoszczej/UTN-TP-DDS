@@ -1,6 +1,7 @@
 package main.java.ar.edu.utn.frba.dds.modelo;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.uqbar.commons.utils.Observable;
 
@@ -13,6 +14,20 @@ public class Empresa {
 	@JsonProperty("balances")
 	private List<Balance> balances;
 
+	public Balance obtenerBalance(Cuenta tipoCuenta, String periodo){
+		try{
+			Balance bal = balances.stream().filter(balance -> balance.getPeriodo() == periodo && balance.getTipoCuenta() == tipoCuenta).findFirst().get();
+			return bal;
+		}catch(NoSuchElementException e){
+			//TODO: hacer algo si no tiene el balance que buscamos
+		}
+		return null;
+	}
+	
+	public Double valorCuenta(Cuenta tipoCuenta, String periodo){
+		return this.obtenerBalance(tipoCuenta, periodo).getValor();
+	}
+	
 	public String getNombre() {
 		return nombre;
 	}
@@ -20,7 +35,7 @@ public class Empresa {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-
+	
 	public List<Balance> getBalances() {
 		return balances;
 	}
