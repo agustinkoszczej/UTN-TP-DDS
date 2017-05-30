@@ -6,6 +6,7 @@ import org.uqbar.arena.windows.Window;
 import main.java.ar.edu.utn.frba.dds.controlador.CuentaViewModel;
 import main.java.ar.edu.utn.frba.dds.servicio.ServicioCuentas;
 import main.java.ar.edu.utn.frba.dds.vista.CuentaWindow;
+import main.java.ar.edu.utn.frba.dds.vista.MainMenuWindow;
 
 
 public class CuentasApp extends Application {
@@ -20,10 +21,10 @@ public class CuentasApp extends Application {
 	@Override
 	protected Window<?> createMainWindow() {
 		// Llamo a la clase que es mi primer ventana.
-		ServicioCuentas unServicio = new ServicioCuentas();
-		return new CuentaWindow(this, new CuentaViewModel(unServicio));
+		/*ServicioCuentas unServicio = new ServicioCuentas();
+		return new CuentaWindow(this, new CuentaViewModel(unServicio));*/
+		return new MainMenuWindow(this);
+		
 	}
-	
-	
-	
 }
+	
