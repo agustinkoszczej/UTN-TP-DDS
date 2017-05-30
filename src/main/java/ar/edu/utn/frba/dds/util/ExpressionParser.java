@@ -100,7 +100,7 @@ public class ExpressionParser {
 		return result;
     }
 	
-	private <T> T  HigerPrec(Stack<T> stack, Class<T> type, Object value ) {
+	private <T extends Object> T  HigerPrec(Stack<T> stack, Class<T> type, Object value ) {
 		T precOp = type.cast(value);
 		T newOp = stack.pop();
 		stack.push(precOp);
