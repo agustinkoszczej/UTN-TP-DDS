@@ -9,10 +9,6 @@ import java.util.Stack;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import main.java.ar.edu.utn.frba.dds.modelo.Cuenta;
-import main.java.ar.edu.utn.frba.dds.modelo.Indicador;
-import main.java.ar.edu.utn.frba.dds.modelo.RepositorioIndicadores;
-
 public class ExpressionParser {
 
 	public ExpressionParser(String expression) {
@@ -23,18 +19,21 @@ public class ExpressionParser {
 	private String expression;
 	private Stack<String> stackTokens = new Stack<String>();
 	private Stack<Operator> stackOperators = new Stack<Operator>();
-	private Collection<Cuenta> cuentaAssociated= new ArrayList<Cuenta>();
-	private Collection<Indicador> indicadorAssociated = new ArrayList<Indicador>();
 	private Map<String, Integer> variables = new HashMap<String, Integer>();
 	
-	public Collection<Cuenta> getCuentaAssociated() {
-		return cuentaAssociated;
+	public void setVariableValue(String variableName, Integer valor) {
+		variables.remove(variableName);
+		variables.put(variableName, valor);
 	}
-
-	public Collection<Indicador> getIndicadorAssociated() {
-		return indicadorAssociated;
+	
+	public Collection<String> getVaVariableNames() {
+		Collection<String> variableList = new ArrayList<String>();
+		for (Map.Entry<String, Integer> variable : variables.entrySet()) {
+			variableList.add(variable.getKey());
+		}
+		return variableList;
 	}
-
+	
 	public void setExpression(String expression) {
 		this.expression = expression;
 		this.evaluate();
@@ -78,13 +77,6 @@ public class ExpressionParser {
 		Matcher variableToken = ExpressionParser.evaluationPatternVariable.matcher(token);
 		if (variableToken.matches()) {
 			variables.put(token, 0);
-			if (Cuenta.valueOf(token) != null) {
-				cuentaAssociated.add(Cuenta.valueOf(token));
-			} else if (RepositorioIndicadores.existeIndicador(token) != null) {
-				indicadorAssociated.add(RepositorioIndicadores.existeIndicador(token));
-			} else {
-				throw new Exception("No existe el indicador/cuenta especificado");
-			}
 		}
 	}
 	

@@ -17,7 +17,26 @@ public class Indicador {
 	
 	public Double calcular(Empresa empresa, String periodo){
 		Double resultado = null;
+		
+		parser = new ExpressionParser("10+2*10");
+		for(String nombreVariable : parser.getVaVariableNames()) {
+			try {
+				validarVariables(nombreVariable);
+			} catch (Exception e) {
+				return Double.parseDouble("0");
+			}
+		}
 		return resultado;
+	}
+	
+	private void validarVariables(String nombreVariable) throws Exception {
+		if (Cuenta.valueOf(nombreVariable) != null) {
+			cuentas.add(Cuenta.valueOf(nombreVariable));
+		} else if (RepositorioIndicadores.existeIndicador(nombreVariable) != null) {
+			indicadores.add(RepositorioIndicadores.existeIndicador(nombreVariable));
+		} else {
+			throw new Exception("No existe el indicador/cuenta especificado");
+		}
 	}
 	
 	public String getNombreIndicador() {
