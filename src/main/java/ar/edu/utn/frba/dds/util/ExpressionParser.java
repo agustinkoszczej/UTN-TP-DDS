@@ -91,18 +91,22 @@ public class ExpressionParser {
           operand1 = tokenValue(stackTokens.pop());
           operand2 = tokenValue(stackTokens.pop());
           if (!stackOperators.empty() && isHigerPrec(operation, stackOperators.peek())) {
-            Operator tmpOperation = operation;
-            Integer tmpOperand = operand1;
-            operand1 = tokenValue(stackTokens.pop());
-            operation = stackOperators.pop();
-            stackTokens.push(tmpOperand.toString());
-            stackOperators.push(tmpOperation);
+        	operation = HigerPrec(stackOperators, Operator.class, operation);
+        	operand1 = tokenValue(HigerPrec(stackTokens, String.class , operand1.toString()));
           }
           result = calculateExpression(operation.methodName, operand1, operand2);
           stackTokens.push(result.toString());
 		}
 		return result;
     }
+	
+	private <T> T  HigerPrec(Stack<T> stack, Class<T> type, Object value ) {
+		T precOp = type.cast(value);
+		T newOp = stack.pop();
+		stack.push(precOp);
+		precOp = null;
+		return newOp;		
+	}
 	
 	private Integer tokenValue(String token) {
 		if (variables.containsKey(token)) 
