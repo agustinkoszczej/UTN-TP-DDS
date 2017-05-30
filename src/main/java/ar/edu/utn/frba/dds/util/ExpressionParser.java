@@ -25,6 +25,7 @@ public class ExpressionParser {
 	private Stack<Operator> stackOperators = new Stack<Operator>();
 	private Collection<Cuenta> cuentaAssociated= new ArrayList<Cuenta>();
 	private Collection<Indicador> indicadorAssociated = new ArrayList<Indicador>();
+	private Map<String, Integer> variables = new HashMap<String, Integer>();
 	
 	public Collection<Cuenta> getCuentaAssociated() {
 		return cuentaAssociated;
@@ -76,6 +77,7 @@ public class ExpressionParser {
 	private void isValidTokenVariable(String token) throws Exception {
 		Matcher variableToken = ExpressionParser.evaluationPatternVariable.matcher(token);
 		if (variableToken.matches()) {
+			variables.put(token, 0);
 			if (Cuenta.valueOf(token) != null) {
 				cuentaAssociated.add(Cuenta.valueOf(token));
 			} else if (RepositorioIndicadores.existeIndicador(token) != null) {
@@ -94,17 +96,12 @@ public class ExpressionParser {
 
         while (!stackOperators.empty()) {
           operation = stackOperators.pop();
-          
-          // TODO: Hacer una funcion aparte para parsear los operadores, donde le paso el string y me devuelve un int
-          //       Esa funcion es la que va a verificar que exista la cuenta o el indicador, y lo devuelve como entero
-          //       o en caso de ser entero lo devuelve como entero
-          
-          operand1 = Integer.parseInt(stackTokens.pop());
-          operand2 = Integer.parseInt(stackTokens.pop());
+          operand1 = tokenValue(stackTokens.pop());
+          operand2 = tokenValue(stackTokens.pop());
           if (!stackOperators.empty() && isHigerPrec(operation, stackOperators.peek())) {
             Operator tmpOperation = operation;
             Integer tmpOperand = operand1;
-            operand1 = Integer.parseInt(stackTokens.pop());
+            operand1 = tokenValue(stackTokens.pop());
             operation = stackOperators.pop();
             stackTokens.push(tmpOperand.toString());
             stackOperators.push(tmpOperation);
@@ -114,6 +111,13 @@ public class ExpressionParser {
 		}
 		return result;
     }
+	
+	private Integer tokenValue(String token) {
+		if (variables.containsKey(token)) 
+			return variables.get(token);
+		else
+			return Integer.parseInt(token);
+	}
 	
 	private Integer calculateExpression(String methodName, Integer operand1, Integer operand2) {
 		Class<ExpressionParser> expressionParserClass = ExpressionParser.class;
