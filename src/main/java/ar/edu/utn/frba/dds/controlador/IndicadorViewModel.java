@@ -19,7 +19,12 @@ public class IndicadorViewModel {
 
 
 public IndicadorViewModel() {
-	unIndicador = new Indicador(null, null);
+	try {
+		unIndicador = new Indicador(null, null);
+	} catch (Exception e) {
+		// Tira excepcion si le metiste cualquiera
+		e.printStackTrace();
+	}
 	indicadoresRegistrados = RepositorioIndicadores.indicadores;
 	}
 

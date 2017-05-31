@@ -12,9 +12,12 @@ import ar.edu.utn.frba.dds.util.ExpressionEval;
 
 public class Indicador {
 
-	public Indicador(@JsonProperty("nombre")String nombreIndicador, @JsonProperty("expresion")String expresion) {
+	public Indicador(@JsonProperty("nombre")String nombreIndicador, @JsonProperty("expresion")String expresion) throws Exception {
 		super();
 		this.nombreIndicador = nombreIndicador;
+		for(String nombreVariable : new ExpressionEval(expresion).getVaVariableNames()){
+			validarVariables(nombreVariable);
+		}
 		this.expresion = expresion;
 	}
 	
@@ -33,7 +36,6 @@ public class Indicador {
 		parser = new ExpressionEval(expresion);
 
 		for(String nombreVariable : parser.getVaVariableNames()) {
-			validarVariables(nombreVariable);
 			parser.setVariableValue(nombreVariable, (int)(double) obtenerOperando(empresa, periodo, nombreVariable));
 		}
 		return (double) parser.calculate();
