@@ -13,6 +13,7 @@ import ar.edu.utn.frba.dds.modelo.Indicador;
 import ar.edu.utn.frba.dds.modelo.RepositorioIndicadores;
 import ar.edu.utn.frba.dds.servicio.ServicioIndicadores;
 import ar.edu.utn.frba.dds.util.ExpressionParser;
+import ar.edu.utn.frba.dds.util.ExpressionEval;
 
 public class IndicadoresTest {
 	private Indicador indicadorW, indicadorX, indicadorY, indicadorZ;
@@ -29,12 +30,12 @@ public class IndicadoresTest {
 
 	@Test
 	public void indicadorConValorSolamente(){
-		ExpressionParser expresionW = new ExpressionParser(indicadorW.getExpresion());
+		ExpressionEval expresionW = new ExpressionEval(indicadorW.getExpresion());
 		Assert.assertEquals((Integer)15, expresionW.calculate());
 	}
 	@Test
 	public void indicadorConCuentaSolamente(){
-		ExpressionParser expresionX = new ExpressionParser(indicadorX.getExpresion());
+		ExpressionEval expresionX = new ExpressionEval(indicadorX.getExpresion());
 		/*System.out.println(expresionX.getExpression());
 		System.out.println(expresionX.getStackTokens());
 		System.out.println(expresionX.getStackOperators());
@@ -44,12 +45,12 @@ public class IndicadoresTest {
 	}
 	@Test
 	public void indicadorConCuentaYValor(){
-		ExpressionParser expresionY = new ExpressionParser(indicadorY.getExpresion());
+		ExpressionEval expresionY = new ExpressionEval(indicadorY.getExpresion());
 		//Assert.assertEquals((Integer)25, expresionY.calculate());
 	}
 	@Test
 	public void indicadorConIndicadorValorYCuenta(){
-		ExpressionParser expresionZ = new ExpressionParser(indicadorZ.getExpresion());
+		ExpressionEval expresionZ = new ExpressionEval(indicadorZ.getExpresion());
 		//Assert.assertEquals((Integer)40, expresionZ.calculate());
 	}
 	
