@@ -1,4 +1,4 @@
-package main.java.ar.edu.utn.frba.dds.vista;
+package ar.edu.utn.frba.dds.vista;
 
 import java.awt.Color;
 
@@ -16,10 +16,10 @@ import org.uqbar.arena.windows.SimpleWindow;
 import org.uqbar.arena.windows.WindowOwner;
 import org.uqbar.commons.utils.Observable;
 
-import main.java.ar.edu.utn.frba.dds.controlador.CuentaViewModel;
-import main.java.ar.edu.utn.frba.dds.controlador.IndicadorViewModel;
-import main.java.ar.edu.utn.frba.dds.controlador.MainMenuModel;
-import main.java.ar.edu.utn.frba.dds.servicio.ServicioCuentas;
+import ar.edu.utn.frba.dds.controlador.CuentaViewModel;
+import ar.edu.utn.frba.dds.controlador.IndicadorViewModel;
+import ar.edu.utn.frba.dds.controlador.MainMenuModel;
+import ar.edu.utn.frba.dds.servicio.ServicioCuentas;
 
 public class MainMenuWindow extends SimpleWindow<MainMenuModel> {
 

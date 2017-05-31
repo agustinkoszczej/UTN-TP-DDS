@@ -1,4 +1,4 @@
-package main.java.ar.edu.utn.frba.dds.util;
+package ar.edu.utn.frba.dds.util;
 
 
 import java.io.BufferedReader;

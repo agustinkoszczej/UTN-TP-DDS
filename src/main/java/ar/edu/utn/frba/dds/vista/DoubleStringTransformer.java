@@ -1,4 +1,4 @@
-package main.java.ar.edu.utn.frba.dds.vista;
+package ar.edu.utn.frba.dds.vista;
 
 import org.apache.commons.collections15.Transformer;
 

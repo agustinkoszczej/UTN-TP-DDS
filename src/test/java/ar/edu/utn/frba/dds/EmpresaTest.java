@@ -1,4 +1,4 @@
-package test.java.ar.edu.utn.frba.dds;
+package ar.edu.utn.frba.dds;
 
 import static org.junit.Assert.*;
 
@@ -9,10 +9,10 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 
-import main.java.ar.edu.utn.frba.dds.modelo.Empresa;
-import main.java.ar.edu.utn.frba.dds.servicio.ServicioCuentas;
-import main.java.ar.edu.utn.frba.dds.util.ConversorJson;
-import main.java.ar.edu.utn.frba.dds.util.ServidorDeConsultas;
+import ar.edu.utn.frba.dds.modelo.Empresa;
+import ar.edu.utn.frba.dds.servicio.ServicioCuentas;
+import ar.edu.utn.frba.dds.util.ConversorJson;
+import ar.edu.utn.frba.dds.util.ServidorDeConsultas;
 
 public class EmpresaTest {
 	private static final double DELTA = 1e-15;

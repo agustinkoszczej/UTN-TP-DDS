@@ -1,4 +1,4 @@
-package main.java.ar.edu.utn.frba.dds.servicio;
+package ar.edu.utn.frba.dds.servicio;
 
 import java.io.File;
 import java.io.IOException;
@@ -8,9 +8,9 @@ import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import main.java.ar.edu.utn.frba.dds.modelo.Indicador;
-import main.java.ar.edu.utn.frba.dds.util.ConversorJson;
-import main.java.ar.edu.utn.frba.dds.util.ServidorDeConsultas;
+import ar.edu.utn.frba.dds.modelo.Indicador;
+import ar.edu.utn.frba.dds.util.ConversorJson;
+import ar.edu.utn.frba.dds.util.ServidorDeConsultas;
 
 public class ServicioIndicadores {
 	private ServidorDeConsultas servidor;

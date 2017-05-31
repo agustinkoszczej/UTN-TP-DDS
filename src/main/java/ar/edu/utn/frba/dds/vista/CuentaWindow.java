@@ -1,4 +1,4 @@
-package main.java.ar.edu.utn.frba.dds.vista;
+package ar.edu.utn.frba.dds.vista;
 
 import java.awt.Color;
 
@@ -11,9 +11,9 @@ import org.uqbar.arena.widgets.tables.Table;
 import org.uqbar.arena.windows.SimpleWindow;
 import org.uqbar.arena.windows.WindowOwner;
 
-import main.java.ar.edu.utn.frba.dds.controlador.CuentaViewModel;
-import main.java.ar.edu.utn.frba.dds.modelo.Balance;
-import main.java.ar.edu.utn.frba.dds.modelo.Empresa;
+import ar.edu.utn.frba.dds.controlador.CuentaViewModel;
+import ar.edu.utn.frba.dds.modelo.Balance;
+import ar.edu.utn.frba.dds.modelo.Empresa;
 
 public class CuentaWindow extends SimpleWindow<CuentaViewModel> {
 	

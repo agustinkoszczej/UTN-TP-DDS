@@ -1,4 +1,4 @@
-package main.java.ar.edu.utn.frba.dds.modelo;
+package ar.edu.utn.frba.dds.modelo;
 
 import java.util.ArrayList;
 import java.util.Collection;

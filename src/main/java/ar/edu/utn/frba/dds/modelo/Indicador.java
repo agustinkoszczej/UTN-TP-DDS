@@ -1,4 +1,4 @@
-package main.java.ar.edu.utn.frba.dds.modelo;
+package ar.edu.utn.frba.dds.modelo;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -6,7 +6,7 @@ import java.util.Optional;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import main.java.ar.edu.utn.frba.dds.util.ExpressionParser;
+import ar.edu.utn.frba.dds.util.ExpressionParser;
 
 public class Indicador {
 

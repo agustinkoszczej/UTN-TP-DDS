@@ -1,4 +1,4 @@
-package test.java.ar.edu.utn.frba.dds;
+package ar.edu.utn.frba.dds;
 
 import static org.junit.Assert.*;
 
@@ -6,9 +6,9 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import main.java.ar.edu.utn.frba.dds.modelo.Cuenta;
-import main.java.ar.edu.utn.frba.dds.modelo.Indicador;
-import main.java.ar.edu.utn.frba.dds.util.ExpressionParser;
+import ar.edu.utn.frba.dds.modelo.Cuenta;
+import ar.edu.utn.frba.dds.modelo.Indicador;
+import ar.edu.utn.frba.dds.util.ExpressionParser;
 
 public class IndicadoresTest {
 	private Indicador indicadorW, indicadorX, indicadorY, indicadorZ;
@@ -26,7 +26,7 @@ public class IndicadoresTest {
 	@Test
 	public void indicadorConValorSolamente(){
 		ExpressionParser expresionW = new ExpressionParser(indicadorW.getExpresion());
-		//Assert.assertEquals((Integer)15, expresionW.calculate());
+		Assert.assertEquals((Integer)15, expresionW.calculate());
 	}
 	@Test
 	public void indicadorConCuentaSolamente(){

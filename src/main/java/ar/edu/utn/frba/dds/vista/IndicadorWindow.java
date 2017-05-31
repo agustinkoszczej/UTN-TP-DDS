@@ -1,4 +1,4 @@
-package main.java.ar.edu.utn.frba.dds.vista;
+package ar.edu.utn.frba.dds.vista;
 
 import java.awt.Color;
 
@@ -13,11 +13,11 @@ import org.uqbar.arena.windows.SimpleWindow;
 import org.uqbar.arena.windows.WindowOwner;
 import org.uqbar.lacar.ui.model.Action;
 
-import main.java.ar.edu.utn.frba.dds.controlador.CuentaViewModel;
-import main.java.ar.edu.utn.frba.dds.controlador.IndicadorViewModel;
-import main.java.ar.edu.utn.frba.dds.modelo.Balance;
-import main.java.ar.edu.utn.frba.dds.modelo.Empresa;
-import main.java.ar.edu.utn.frba.dds.servicio.ServicioCuentas;
+import ar.edu.utn.frba.dds.controlador.CuentaViewModel;
+import ar.edu.utn.frba.dds.controlador.IndicadorViewModel;
+import ar.edu.utn.frba.dds.modelo.Balance;
+import ar.edu.utn.frba.dds.modelo.Empresa;
+import ar.edu.utn.frba.dds.servicio.ServicioCuentas;
 
 public class IndicadorWindow extends SimpleWindow<IndicadorViewModel> {
 	

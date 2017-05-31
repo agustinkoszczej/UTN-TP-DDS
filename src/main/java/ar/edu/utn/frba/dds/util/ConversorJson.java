@@ -1,4 +1,4 @@
-package main.java.ar.edu.utn.frba.dds.util;
+package ar.edu.utn.frba.dds.util;
 
 import java.io.IOException;
 import java.util.List;
@@ -9,8 +9,8 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import main.java.ar.edu.utn.frba.dds.modelo.Empresa;
-import main.java.ar.edu.utn.frba.dds.modelo.Indicador;
+import ar.edu.utn.frba.dds.modelo.Empresa;
+import ar.edu.utn.frba.dds.modelo.Indicador;
 
 public class ConversorJson {
 	
