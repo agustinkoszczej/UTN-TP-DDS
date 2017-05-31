@@ -6,7 +6,7 @@ import java.util.Optional;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import ar.edu.utn.frba.dds.util.ExpressionParser;
+import ar.edu.utn.frba.dds.util.ExpressionEval;
 
 public class Indicador {
 
@@ -24,11 +24,11 @@ public class Indicador {
 	private Collection<Indicador> indicadores = new ArrayList<Indicador>();
 	private Collection<Cuenta> cuentas = new ArrayList<Cuenta>();
 	
-	private ExpressionParser parser;
+	private ExpressionEval parser;
 	
 	public Double calcular(Empresa empresa, String periodo){
 		
-		parser = new ExpressionParser(expresion);
+		parser = new ExpressionEval(expresion);
 		for(String nombreVariable : parser.getVaVariableNames()) {
 			try {
 				validarVariables(nombreVariable);
