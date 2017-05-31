@@ -25,9 +25,6 @@ public class IndicadoresTest {
 	@Test
 	public void indicadorConValorSolamente(){
 		ExpressionParser expresionW = new ExpressionParser(indicadorW.getExpresion());
-		
-		System.out.println(expresionW.getExpression());
-		//Assert.assertEquals((Integer)5, expresionW.calculate());
-		Assert.assertTrue(true);
+		Assert.assertEquals((Integer)5, expresionW.calculate());
 	}
 }

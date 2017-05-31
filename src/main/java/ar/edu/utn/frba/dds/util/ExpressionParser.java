@@ -85,7 +85,11 @@ public class ExpressionParser {
         Integer operand1;
         Integer operand2;
         Integer result = 0;
-
+        
+        if(stackOperators.empty() && stackTokens.size() == 1){
+        	result = Integer.parseInt(expression);
+        }
+        else{
         while (!stackOperators.empty()) {
           operation = stackOperators.pop();
           operand1 = tokenValue(stackTokens.pop());
@@ -97,6 +101,7 @@ public class ExpressionParser {
           result = calculateExpression(operation.methodName, operand1, operand2);
           stackTokens.push(result.toString());
 		}
+        }
 		return result;
     }
 	
