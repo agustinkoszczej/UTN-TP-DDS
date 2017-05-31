@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import main.java.ar.edu.utn.frba.dds.util.ExpressionParser;
 
 public class Indicador {
@@ -14,7 +16,9 @@ public class Indicador {
 		this.expresion = expresion;
 	}
 	
+	@JsonProperty("nombre")
 	public String nombreIndicador;
+	@JsonProperty("expresion")
 	public String expresion;
 	
 	private Collection<Indicador> indicadores = new ArrayList<Indicador>();

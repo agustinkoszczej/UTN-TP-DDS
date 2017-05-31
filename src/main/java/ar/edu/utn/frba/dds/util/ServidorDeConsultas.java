@@ -4,6 +4,10 @@ package main.java.ar.edu.utn.frba.dds.util;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
+
 
 public class ServidorDeConsultas {
 	public String obtenerDatosDeCuentas() {
@@ -23,5 +27,10 @@ public class ServidorDeConsultas {
 			e.printStackTrace();
 		}
 		return resultado;
+	}
+	
+	public String obtenerJson(String archivo) throws IOException {
+		Path path = (Path) FileSystems.getDefault().getPath(archivo);
+		return String.join("", Files.readAllLines(path));
 	}
 }

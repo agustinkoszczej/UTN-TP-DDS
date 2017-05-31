@@ -11,7 +11,7 @@ import org.junit.Test;
 
 import main.java.ar.edu.utn.frba.dds.modelo.Empresa;
 import main.java.ar.edu.utn.frba.dds.servicio.ServicioCuentas;
-import main.java.ar.edu.utn.frba.dds.util.ConversorJsonCuentas;
+import main.java.ar.edu.utn.frba.dds.util.ConversorJson;
 import main.java.ar.edu.utn.frba.dds.util.ServidorDeConsultas;
 
 public class EmpresaTest {
