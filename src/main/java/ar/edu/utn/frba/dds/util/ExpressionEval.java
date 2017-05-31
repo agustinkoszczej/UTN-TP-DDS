@@ -57,7 +57,7 @@ public class ExpressionEval {
 	}
 	
 	public Integer calculate() {
-		// TODO: Ver casos de cadena vacia y solo un operando
+		// TODO: Ver casos de cadena vacia y solo un operaando
 
         Operator operation;
         Integer operand1;
