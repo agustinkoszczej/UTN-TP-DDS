@@ -16,10 +16,12 @@ import org.uqbar.arena.windows.SimpleWindow;
 import org.uqbar.arena.windows.WindowOwner;
 import org.uqbar.commons.utils.Observable;
 
+import ar.edu.utn.frba.dds.controlador.ConsultaIndicadorViewModel;
 import ar.edu.utn.frba.dds.controlador.CuentaViewModel;
 import ar.edu.utn.frba.dds.controlador.IndicadorViewModel;
 import ar.edu.utn.frba.dds.controlador.MainMenuModel;
 import ar.edu.utn.frba.dds.servicio.ServicioCuentas;
+import ar.edu.utn.frba.dds.servicio.ServicioIndicadores;
 
 public class MainMenuWindow extends SimpleWindow<MainMenuModel> {
 
@@ -54,8 +56,10 @@ public class MainMenuWindow extends SimpleWindow<MainMenuModel> {
 
 	public void consultarIndicadores() {
 		// TODO
-		//ServicioCuentas unServicio = new ServicioCuentas();
-		IndicadorWindow dialog = new IndicadorWindow(this, new IndicadorViewModel());
+		ServicioCuentas unServicioCuentas = new ServicioCuentas();
+		ServicioIndicadores unServicioIndicadores = new ServicioIndicadores();
+		//IndicadorWindow dialog = new IndicadorWindow(this, new IndicadorViewModel());
+		ConsultaIndicadorWindow dialog = new ConsultaIndicadorWindow(this, new ConsultaIndicadorViewModel(unServicioCuentas,unServicioIndicadores));
 
 		dialog.open();
 	}
