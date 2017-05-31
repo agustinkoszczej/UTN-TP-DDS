@@ -34,6 +34,7 @@ public class IndicadorWindow extends SimpleWindow<IndicadorViewModel> {
 	
 	private void guardarExpresionRegular() {
 		//no hace nada aun
+		getModel().getSource().guardarIndicador();
 	}
 
 	private Action createCuentaWindow() {

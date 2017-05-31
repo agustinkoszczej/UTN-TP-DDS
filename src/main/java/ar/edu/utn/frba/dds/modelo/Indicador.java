@@ -1,5 +1,7 @@
 package ar.edu.utn.frba.dds.modelo;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
@@ -10,9 +12,12 @@ import ar.edu.utn.frba.dds.util.ExpressionEval;
 
 public class Indicador {
 
-	public Indicador(String nombreIndicador, String expresion) {
+	public Indicador(@JsonProperty("nombre")String nombreIndicador, @JsonProperty("expresion")String expresion) throws Exception {
 		super();
 		this.nombreIndicador = nombreIndicador;
+		for(String nombreVariable : new ExpressionEval(expresion).getVaVariableNames()){
+			validarVariables(nombreVariable);
+		}
 		this.expresion = expresion;
 	}
 	
@@ -26,16 +31,12 @@ public class Indicador {
 	
 	private ExpressionEval parser;
 	
-	public Double calcular(Empresa empresa, String periodo){
+	public Double calcular(Empresa empresa, String periodo) throws Exception{
 		
 		parser = new ExpressionEval(expresion);
+
 		for(String nombreVariable : parser.getVaVariableNames()) {
-			try {
-				validarVariables(nombreVariable);
-				parser.setVariableValue(nombreVariable, (int)(double) obtenerOperando(empresa, periodo, nombreVariable));
-			} catch (Exception e) {
-				return Double.parseDouble("0");
-			}
+			parser.setVariableValue(nombreVariable, (int)(double) obtenerOperando(empresa, periodo, nombreVariable));
 		}
 		return (double) parser.calculate();
 	}
@@ -50,7 +51,7 @@ public class Indicador {
 		}
 	}
 	
-	private Double obtenerOperando(Empresa empresa, String periodo, String operandoActual){			
+	private Double obtenerOperando(Empresa empresa, String periodo, String operandoActual) throws Exception{			
 			Double operando;
 			
 			Optional<Indicador> optIndicador = indicadores.stream().filter(indicador -> indicador.getNombreIndicador() == operandoActual).findFirst();
@@ -61,6 +62,16 @@ public class Indicador {
 			
 			return operando;
 		}
+	
+	@Override
+	public boolean equals(Object other){
+	    if (other == null) return false;
+	    if (other == this) return true;
+	    if (!(other instanceof Indicador))return false;
+	    Indicador otroIndicador = (Indicador)other;
+
+	    return otroIndicador.getExpresion().equals(this.expresion) && otroIndicador.getNombreIndicador().equals(this.nombreIndicador);
+	}
 	
 	public String getNombreIndicador() {
 		return nombreIndicador;

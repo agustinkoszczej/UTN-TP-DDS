@@ -29,8 +29,12 @@ public class ServidorDeConsultas {
 		return resultado;
 	}
 	
-	public String obtenerJson(String archivo) throws IOException {
+	public String obtenerJson(String archivo) {
 		Path path = (Path) FileSystems.getDefault().getPath(archivo);
-		return String.join("", Files.readAllLines(path));
+		try {
+			return String.join("", Files.readAllLines(path));
+		} catch (IOException e) {
+			return "";
+		}
 	}
 }

@@ -4,9 +4,18 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
+import ar.edu.utn.frba.dds.servicio.ServicioIndicadores;
+
 public class RepositorioIndicadores {
+	
+	public static void CargarIndicadores(){
+		indicadores = new ServicioIndicadores().obtenerIndicadores();
+	}
+	
 	public static Collection<Indicador> indicadores = new ArrayList<Indicador>();
 	public static Indicador existeIndicador(String nombreIndicador) {
+		//actualizamos los indicadores
+		CargarIndicadores();
 		if (indicadores.isEmpty()) {
 			return null;
 		} else if (indicadores.stream().map(indicador -> indicador.getNombreIndicador()).collect(Collectors.toList()).contains(nombreIndicador)) {
