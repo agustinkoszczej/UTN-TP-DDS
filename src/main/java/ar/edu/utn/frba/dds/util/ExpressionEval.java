@@ -76,7 +76,7 @@ public class ExpressionEval {
         	operation = HigerPrec(stackOperators, Operator.class, operation);
         	operand1 = tokenValue(HigerPrec(stackTokens, String.class , operand1.toString()));
           }
-          result = calculateExpression(operation.methodName, operand1, operand2);
+          result = calculateExpression(operation.methodName, operand2, operand1);
           stackTokens.push(result.toString());
 		}
         }
