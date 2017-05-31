@@ -8,6 +8,12 @@ import main.java.ar.edu.utn.frba.dds.util.ExpressionParser;
 
 public class Indicador {
 
+	public Indicador(String nombreIndicador, String expresion) {
+		super();
+		this.nombreIndicador = nombreIndicador;
+		this.expresion = expresion;
+	}
+	
 	public String nombreIndicador;
 	public String expresion;
 	
@@ -60,10 +66,10 @@ public class Indicador {
 	public void setNombreIndicador(String nombreIndicador) {
 		this.nombreIndicador = nombreIndicador;
 	}
-	public String getCadena() {
+	public String getExpresion() {
 		return expresion;
 	}
-	public void setCadena(String cadena) {
-		this.expresion = cadena;
+	public void setExpresion(String expresion) {
+		this.expresion = expresion;
 	}
 }

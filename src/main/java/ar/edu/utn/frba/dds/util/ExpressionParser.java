@@ -10,7 +10,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ExpressionParser {
-
+	
 	public ExpressionParser(String expression) {
 		this.expression = expression;
 		this.evaluate();
