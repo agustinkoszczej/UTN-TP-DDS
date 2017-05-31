@@ -17,17 +17,17 @@ public class Indicador {
 	private ExpressionParser parser;
 	
 	public Double calcular(Empresa empresa, String periodo){
-		Double resultado = null;
 		
-		parser = new ExpressionParser("10+2*10");
+		parser = new ExpressionParser(expresion);
 		for(String nombreVariable : parser.getVaVariableNames()) {
 			try {
 				validarVariables(nombreVariable);
+				parser.setVariableValue(nombreVariable, (int)(double) obtenerOperando(empresa, periodo, nombreVariable));
 			} catch (Exception e) {
 				return Double.parseDouble("0");
 			}
 		}
-		return resultado;
+		return (double) parser.calculate();
 	}
 	
 	private void validarVariables(String nombreVariable) throws Exception {
@@ -40,16 +40,14 @@ public class Indicador {
 		}
 	}
 	
-	private Double obtenerOperando(Empresa empresa, String periodo){
-			String operandoActual = null;// = operandos.pop();
-			
+	private Double obtenerOperando(Empresa empresa, String periodo, String operandoActual){			
 			Double operando;
 			
-				Optional<Indicador> optIndicador = indicadores.stream().filter(indicador -> indicador.getNombreIndicador() == operandoActual).findFirst();
-				if(optIndicador.isPresent())
-					operando = optIndicador.get().calcular(empresa, periodo);
-				else
-					operando = empresa.valorCuenta(Cuenta.valueOf(operandoActual), periodo);	
+			Optional<Indicador> optIndicador = indicadores.stream().filter(indicador -> indicador.getNombreIndicador() == operandoActual).findFirst();
+			if(optIndicador.isPresent())
+				operando = optIndicador.get().calcular(empresa, periodo);
+			else
+				operando = empresa.valorCuenta(Cuenta.valueOf(operandoActual), periodo);	
 			
 			return operando;
 		}
