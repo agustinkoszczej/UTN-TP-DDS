@@ -17,15 +17,15 @@ public class IndicadorViewModel {
 
 
 public IndicadorViewModel() {
-		unIndicador = new Indicador();
+	unIndicador = new Indicador(null, null);
 	}
 
 	public void setCadena(String cadena){
-		this.unIndicador.setCadena(cadena);
+		this.unIndicador.setExpresion(cadena);
 	}
 	
 	public String getCadena(){
-		return unIndicador.getCadena();
+		return unIndicador.getExpresion();
 	}
 	
 	public void setNombreIndicador(String nombreIndicador){
