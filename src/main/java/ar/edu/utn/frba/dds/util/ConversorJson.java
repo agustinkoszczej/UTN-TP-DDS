@@ -1,7 +1,10 @@
 package ar.edu.utn.frba.dds.util;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -29,7 +32,10 @@ public class ConversorJson {
 	
 	public List<Indicador> mapearIndicadores(String jsonString){
 		ObjectMapper objectMapper = new ObjectMapper().configure(DeserializationFeature.ACCEPT_EMPTY_ARRAY_AS_NULL_OBJECT, true);
-		List<Indicador> list = null;
+		List<Indicador> list = new ArrayList<Indicador>();
+		
+		if(jsonString.isEmpty()) return list;
+		
 		try {
 			list = objectMapper.readValue(jsonString, new TypeReference<List<Indicador>>(){});
 		} catch (JsonParseException e) {

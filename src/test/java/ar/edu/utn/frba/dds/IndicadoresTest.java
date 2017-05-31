@@ -2,12 +2,16 @@ package ar.edu.utn.frba.dds;
 
 import static org.junit.Assert.*;
 
+import java.io.IOException;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import ar.edu.utn.frba.dds.modelo.Cuenta;
 import ar.edu.utn.frba.dds.modelo.Indicador;
+import ar.edu.utn.frba.dds.modelo.RepositorioIndicadores;
+import ar.edu.utn.frba.dds.servicio.ServicioIndicadores;
 import ar.edu.utn.frba.dds.util.ExpressionParser;
 
 public class IndicadoresTest {
@@ -47,5 +51,22 @@ public class IndicadoresTest {
 	public void indicadorConIndicadorValorYCuenta(){
 		ExpressionParser expresionZ = new ExpressionParser(indicadorZ.getExpresion());
 		//Assert.assertEquals((Integer)40, expresionZ.calculate());
+	}
+	
+	@Test
+	public void guardarIndicadorEnJson(){
+		
+		//Guardamos el indicador
+		try {
+			new ServicioIndicadores().guardarIndicador(indicadorY);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		//Lo levantamos del archivo
+		Indicador levantado = RepositorioIndicadores.existeIndicador(indicadorY.nombreIndicador);
+		
+		Assert.assertEquals(indicadorY, levantado);
 	}
 }

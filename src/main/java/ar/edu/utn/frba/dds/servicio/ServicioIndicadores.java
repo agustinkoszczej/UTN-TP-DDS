@@ -2,7 +2,9 @@ package ar.edu.utn.frba.dds.servicio;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -25,15 +27,17 @@ public class ServicioIndicadores {
 		servidor = new ServidorDeConsultas();
 	}
 	
-	public List<Indicador> obtenerIndicadores() throws IOException {
-		String jsonIndicadores = servidor.obtenerJson(archivo);
+	public List<Indicador> obtenerIndicadores() {
+		String jsonIndicadores = null;
+		jsonIndicadores = servidor.obtenerJson(archivo);
 		return conversorJson.mapearIndicadores(jsonIndicadores);
 	}
 	
 	//Agarra los ya guardados en el archivo, le agrega el nuevo y los vuelve a guardar
-	public void guardarIndicador(Indicador indicador) throws JsonGenerationException, JsonMappingException, IOException{
+	public void guardarIndicador(Indicador indicador) throws IOException{
 		ObjectMapper mapper = new ObjectMapper();
 		List<Indicador> indicadoresActuales = obtenerIndicadores();
+		if(indicadoresActuales.contains(indicador)) return;
 		indicadoresActuales.add(indicador);
 		mapper.writeValue(new File(archivo), indicadoresActuales);
 	}
