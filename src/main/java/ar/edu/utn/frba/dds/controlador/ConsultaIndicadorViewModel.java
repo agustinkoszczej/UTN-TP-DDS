@@ -31,7 +31,12 @@ public class ConsultaIndicadorViewModel {
 
 public ConsultaIndicadorViewModel(ServicioCuentas unServicioCuentas, ServicioIndicadores unServicioIndicadores) {
 	
-	unIndicador = new Indicador(null, null);
+	try {
+		unIndicador = new Indicador(null, null);
+	} catch (Exception e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
 	this.unServicioCuentas = unServicioCuentas;
 	this.unServicioIndicadores = unServicioIndicadores;
 	empresas = unServicioCuentas.obtenerEmpresas();
