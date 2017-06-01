@@ -6,10 +6,15 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
 
+import org.uqbar.commons.utils.Observable;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import ar.edu.utn.frba.dds.util.ExpressionEval;
 
+@Observable
+@JsonIgnoreProperties(value = { "changeSupport" })
 public class Indicador {
 
 	public Indicador(@JsonProperty("nombre")String nombreIndicador, @JsonProperty("expresion")String expresion) throws Exception {
