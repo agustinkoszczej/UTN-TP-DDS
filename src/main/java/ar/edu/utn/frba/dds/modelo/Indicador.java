@@ -4,6 +4,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 import org.uqbar.commons.utils.Observable;
@@ -20,9 +21,6 @@ public class Indicador {
 	public Indicador(@JsonProperty("nombre")String nombreIndicador, @JsonProperty("expresion")String expresion) throws Exception {
 		super();
 		this.nombreIndicador = nombreIndicador;
-		for(String nombreVariable : new ExpressionEval(expresion).getVaVariableNames()){
-			validarVariables(nombreVariable);
-		}
 		this.expresion = expresion;
 	}
 	
@@ -31,8 +29,8 @@ public class Indicador {
 	@JsonProperty("expresion")
 	public String expresion;
 	
-	private Collection<Indicador> indicadores = new ArrayList<Indicador>();
-	private Collection<Cuenta> cuentas = new ArrayList<Cuenta>();
+	public List<Indicador> indicadores = new ArrayList<Indicador>();
+	public List<Cuenta> cuentas = new ArrayList<Cuenta>();
 	
 	private ExpressionEval parser;
 	
@@ -46,20 +44,35 @@ public class Indicador {
 		return (double) parser.calculate();
 	}
 	
-	private void validarVariables(String nombreVariable) throws Exception {
-		if (Cuenta.valueOf(nombreVariable) != null) {
-			cuentas.add(Cuenta.valueOf(nombreVariable));
-		} else if (RepositorioIndicadores.existeIndicador(nombreVariable) != null) {
-			indicadores.add(RepositorioIndicadores.existeIndicador(nombreVariable));
-		} else {
-			throw new Exception("No existe el indicador/cuenta especificado");
+	public void validarVariables() throws Exception {
+		
+		for(String nombreVariable : new ExpressionEval(expresion).getVaVariableNames()){
+			if (RepositorioIndicadores.existeIndicador(nombreVariable) != null) {
+				List<Indicador> indicadoress = this.indicadores;
+				indicadoress.add(RepositorioIndicadores.existeIndicador(nombreVariable));
+				this.setIndicadores(indicadoress);
+			} else if (Cuenta.valueOf(nombreVariable) != null) {
+				List<Cuenta> cuentass = this.cuentas;
+				cuentass.add(Cuenta.valueOf(nombreVariable));
+				this.setCuentas(cuentass);
+			} else{
+				throw new Exception("No existe la cuenta o indicador");
+			}
 		}
+	}
+	
+	public void setIndicadores(List<Indicador> indicadores){
+		this.indicadores = indicadores;
+	}
+	
+	public void setCuentas(List<Cuenta> cuentas){
+		this.cuentas = cuentas;
 	}
 	
 	private Double obtenerOperando(Empresa empresa, String periodo, String operandoActual) throws Exception{			
 			Double operando;
 			
-			Optional<Indicador> optIndicador = indicadores.stream().filter(indicador -> indicador.getNombreIndicador() == operandoActual).findFirst();
+			Optional<Indicador> optIndicador = this.getIndicadores().stream().filter(indicador -> indicador.getNombreIndicador().equals(operandoActual)).findFirst();
 			if(optIndicador.isPresent())
 				operando = optIndicador.get().calcular(empresa, periodo);
 			else
@@ -68,6 +81,10 @@ public class Indicador {
 			return operando;
 		}
 	
+	private List<Indicador> getIndicadores() {
+		return this.indicadores;
+	}
+
 	@Override
 	public boolean equals(Object other){
 	    if (other == null) return false;
@@ -75,7 +92,7 @@ public class Indicador {
 	    if (!(other instanceof Indicador))return false;
 	    Indicador otroIndicador = (Indicador)other;
 
-	    return otroIndicador.getExpresion().equals(this.expresion) && otroIndicador.getNombreIndicador().equals(this.nombreIndicador);
+	    return otroIndicador.getNombreIndicador().equals(this.nombreIndicador);
 	}
 	
 	public String getNombreIndicador() {

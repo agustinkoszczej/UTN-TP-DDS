@@ -57,6 +57,7 @@ public IndicadorViewModel() {
 		ServicioIndicadores servicioIndicador = new ServicioIndicadores();
 			try {
 				unIndicador = new Indicador(nombre, expresion);
+				unIndicador.validarVariables();
 				servicioIndicador.guardarIndicador(unIndicador);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block

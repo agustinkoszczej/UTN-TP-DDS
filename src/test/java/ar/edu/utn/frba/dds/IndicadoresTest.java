@@ -77,6 +77,8 @@ public class IndicadoresTest {
 	public void facebookConIndicadorW() throws Exception {
 		
 		indicadorW = new Indicador("IndicadorW", "15");
+		indicadorW.validarVariables();
+		new ServicioIndicadores().guardarIndicador(indicadorW);
 		
 		Double resultado = (double) 15;
 		Assert.assertEquals(resultado, indicadorW.calcular(facebook, "201706"));
@@ -86,6 +88,8 @@ public class IndicadoresTest {
 	public void facebookConIndicadorX() throws Exception {
 
 		indicadorX = new Indicador("IndicadorX", "EBITDA");
+		indicadorX.validarVariables();
+		new ServicioIndicadores().guardarIndicador(indicadorX);
 		
 		Double resultado = (double) cuenta_EBITDA;
 		Assert.assertEquals(resultado, indicadorX.calcular(facebook, "201706"));
@@ -95,24 +99,33 @@ public class IndicadoresTest {
 	public void facebookConIndicadorY() throws Exception {
 
 		indicadorY = new Indicador("IndicadorY", "EBITDA + 5");
-		
+		indicadorY.validarVariables();
+		new ServicioIndicadores().guardarIndicador(indicadorY);
 		Double resultado = (double) (cuenta_EBITDA + 5);
 		Assert.assertEquals(resultado, indicadorY.calcular(facebook, "201706"));
 	}
 	
-	
+	@Test
 	public void facebookConIndicadorZ() throws Exception {
 		indicadorZ = new Indicador("IndicadorZ", "IndicadorW + 5 + EBITDA");
+		indicadorZ.validarVariables();
+		new ServicioIndicadores().guardarIndicador(indicadorZ);
 		Double resultado = (double) (15 + 5 + cuenta_EBITDA);
 		Assert.assertEquals(resultado, indicadorZ.calcular(facebook, "201706"));
 	}
 	
-	
+	@Test
 	public void facebookConIndicadorComplejo() throws Exception {
 		indicadorW = new Indicador("IndicadorW", "15");
+		indicadorW.validarVariables();
+		new ServicioIndicadores().guardarIndicador(indicadorW);
 		indicadorZ = new Indicador("IndicadorZ", "IndicadorW + 5 + EBITDA");
-		indicadorComplejo = new Indicador("IndicadorComplejo", "IndicadorZ * 10 - EBITDA");
-		Double resultado = (double) ((15 + 5 + cuenta_EBITDA) * 10 - cuenta_EBITDA);
+		indicadorZ.validarVariables();
+		new ServicioIndicadores().guardarIndicador(indicadorZ);
+		indicadorComplejo = new Indicador("IndicadorBastanteComplejo", "IndicadorZ - 10");
+		indicadorComplejo.validarVariables();
+		new ServicioIndicadores().guardarIndicador(indicadorComplejo);
+		Double resultado = (double) ((15 + 5 + cuenta_EBITDA) - 10);
 		Assert.assertEquals(resultado, indicadorZ.calcular(facebook, "201706"));
 	}
 
@@ -120,7 +133,7 @@ public class IndicadoresTest {
 	public void facebookConIndicadorInexistenteDeberiaFallar() throws Exception {
 
 		indicadorInexistente = new Indicador("IndicadorInexistente", "5 + Error");
-		
+		indicadorInexistente.validarVariables();
 		indicadorInexistente.calcular(facebook, "201706");
 	}
 	
