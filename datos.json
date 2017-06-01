@@ -23,4 +23,31 @@
 			"valor":"134000000"
 		}
 	]
+},{
+	"empresa":"Arena",
+	"balances": [
+		{
+			"periodo":"201705",
+			"frecuencia":"S",
+			"tipoCuenta":"IngresoNetoOperacionesContinuas",
+			"valor":"100000"
+		}
+	]
+},{
+	"empresa":"Vacia"
+},{
+	"empresa":"Balances Negativos",
+	"balances": [
+		{
+			"periodo":"201705",
+			"frecuencia":"S",
+			"tipoCuenta":"IngresoNetoOperacionesContinuas",
+			"valor":"5"
+		},{
+			"periodo":"201705",
+			"frecuencia":"S",
+			"tipoCuenta":"IngresoNetoOperacionesContinuas",
+			"valor":"-20"
+		}
+	]
 }]

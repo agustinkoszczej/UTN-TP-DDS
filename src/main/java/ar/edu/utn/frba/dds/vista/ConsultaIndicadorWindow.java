@@ -31,18 +31,33 @@ public class ConsultaIndicadorWindow extends SimpleWindow<ConsultaIndicadorViewM
 		new Button(panel)
 		.setCaption("Ingresar indicador")
 		.onClick(this::abrirIndicadorWindow);
+		
+		new Button(panel)
+		.setCaption("Aplicar indicador")
+		.onClick(() -> {
+			try {
+				aplicarIndicador();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		});
 	}
 
 	public void abrirIndicadorWindow() {
 		IndicadorWindow dialog = new IndicadorWindow(this, new IndicadorViewModel());
-				//ConsultaIndicadorWindow dialog = new ConsultaIndicadorWindow(this, new ConsultaIndicadorViewModel(unServicioCuentas,unServicioIndicadores));
-
+		this.close();
 		dialog.open();
+	}
+	
+	public void aplicarIndicador() throws Exception{
+		//TODO
+		getModel().getSource().aplicarIndicador();
 	}
 	
 	@Override
 	protected void createFormPanel(Panel form) {
-		// TODO Auto-generated method stub
+		
 		this.setTitle("Consulta Indicadores");
 		
 		new Label(form).setText("Empresa");
@@ -59,6 +74,14 @@ public class ConsultaIndicadorWindow extends SimpleWindow<ConsultaIndicadorViewM
 		selectorPeriodo.bindItemsToProperty("balancesEmpresaSeleccionada").adaptWith(Balance.class, "periodo");
 		selectorPeriodo.setWidth(280);
 		
+		new Label(form).setText("Indicador");
+		
+		Selector<Indicador> selectorIndicador = new Selector<Indicador>(form).allowNull(true);
+		selectorIndicador.bindValueToProperty("indicadorSeleccionado");
+		selectorIndicador.bindItemsToProperty("repositorioIndicadores").adaptWith(Indicador.class, "nombreIndicador");
+		selectorIndicador.setWidth(280);
+		
+		new Label(form).setText("Indicadores disponibles");
 		Table<Indicador> tableIndicadores = new Table<Indicador>(form, Indicador.class);
 		tableIndicadores.setHeight(400);
 		
@@ -74,10 +97,11 @@ public class ConsultaIndicadorWindow extends SimpleWindow<ConsultaIndicadorViewM
 		columnaExpresion.setTitle("expresion");
 		columnaExpresion.bindContentsToProperty("expresion");
 		
+		new Label(form)
+		.setText("Valor Indicador Aplicado")
+		.setBackground(Color.GREEN);
+		Label valorIndicador = new Label(form);
+		valorIndicador.bindValueToProperty("valorIndicador");
+		
 	}
-
-
-	
-
-	
 }

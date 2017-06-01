@@ -13,11 +13,13 @@ import org.uqbar.arena.windows.SimpleWindow;
 import org.uqbar.arena.windows.WindowOwner;
 import org.uqbar.lacar.ui.model.Action;
 
+import ar.edu.utn.frba.dds.controlador.ConsultaIndicadorViewModel;
 import ar.edu.utn.frba.dds.controlador.CuentaViewModel;
 import ar.edu.utn.frba.dds.controlador.IndicadorViewModel;
 import ar.edu.utn.frba.dds.modelo.Balance;
 import ar.edu.utn.frba.dds.modelo.Empresa;
 import ar.edu.utn.frba.dds.servicio.ServicioCuentas;
+import ar.edu.utn.frba.dds.servicio.ServicioIndicadores;
 
 public class IndicadorWindow extends SimpleWindow<IndicadorViewModel> {
 	
@@ -34,7 +36,13 @@ public class IndicadorWindow extends SimpleWindow<IndicadorViewModel> {
 	
 	private void guardarExpresionRegular() {
 		//no hace nada aun
+		ServicioCuentas unServicio = new ServicioCuentas();
 		getModel().getSource().guardarIndicador();
+		this.close();
+		ServicioCuentas unServicioCuentas = new ServicioCuentas();
+		ServicioIndicadores unServicioIndicadores = new ServicioIndicadores();
+		ConsultaIndicadorWindow dialog = new ConsultaIndicadorWindow(this, new ConsultaIndicadorViewModel(unServicioCuentas,unServicioIndicadores));
+		dialog.open();
 	}
 
 	private Action createCuentaWindow() {

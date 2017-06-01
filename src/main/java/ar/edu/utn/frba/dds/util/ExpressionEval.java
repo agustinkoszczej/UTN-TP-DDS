@@ -65,13 +65,15 @@ public class ExpressionEval {
         Integer operand1;
         Integer operand2;
         Integer result = 0;
-        
+       
         if(stackOperators.empty() && stackTokens.size() == 1){
         	if(StringUtils.isNumeric(expression))
         		result = Integer.parseInt(expression);
         	else
         		result = tokenValue(stackTokens.pop());
         }
+        else if(expression.charAt(0) == '-' && StringUtils.isNumeric(expression.substring(1)))
+        		return 0;
         else{
         while (!stackOperators.empty()) {
           operation = stackOperators.pop();

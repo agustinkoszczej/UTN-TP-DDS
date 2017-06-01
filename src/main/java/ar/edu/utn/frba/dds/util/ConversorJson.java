@@ -35,9 +35,9 @@ public class ConversorJson {
 		List<Indicador> list = new ArrayList<Indicador>();
 		
 		if(jsonString.isEmpty()) return list;
-		
+		TypeReference<List<Indicador>> mapIndicadoresList = new TypeReference<List<Indicador>>(){};
 		try {
-			list = objectMapper.readValue(jsonString, new TypeReference<List<Indicador>>(){});
+			list = objectMapper.readValue(jsonString, mapIndicadoresList);
 		} catch (JsonParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

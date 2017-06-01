@@ -62,8 +62,7 @@ public class ExpressionParser {
 			}
 			previousToken = expressionMatch.group();
 		}
-		System.out.println(stackTokens);
-		System.out.println(variables);
+
 		return expressionLength.equals(0);
 	}
 	

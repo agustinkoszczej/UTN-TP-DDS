@@ -11,6 +11,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import ar.edu.utn.frba.dds.modelo.Indicador;
+import ar.edu.utn.frba.dds.modelo.RepositorioIndicadores;
 import ar.edu.utn.frba.dds.util.ConversorJson;
 import ar.edu.utn.frba.dds.util.ServidorDeConsultas;
 
@@ -35,9 +36,12 @@ public class ServicioIndicadores {
 	
 	//Agarra los ya guardados en el archivo, le agrega el nuevo y los vuelve a guardar
 	public void guardarIndicador(Indicador indicador) throws IOException{
+		
 		ObjectMapper mapper = new ObjectMapper();
 		List<Indicador> indicadoresActuales = obtenerIndicadores();
-		if(indicadoresActuales.contains(indicador)) return;
+		if(indicadoresActuales.contains(indicador))
+			return;
+		RepositorioIndicadores.agregarIndicador(indicador);
 		indicadoresActuales.add(indicador);
 		mapper.writeValue(new File(archivo), indicadoresActuales);
 	}
