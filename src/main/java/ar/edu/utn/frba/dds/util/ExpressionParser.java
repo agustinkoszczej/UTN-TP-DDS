@@ -42,7 +42,8 @@ public class ExpressionParser {
 
 	public Boolean parse(String expression) {
 		Integer expressionLength = expression.replaceAll("\\s+", "").length();
-
+		String previousToken = "";
+		String unaryOperator = "";
 		
 		// TODO: verificar sintaxis no validas como ++ o 25PT [25 PT]
 
@@ -52,20 +53,42 @@ public class ExpressionParser {
 		//}
 		Matcher expressionMatch = ExpressionParser.evaluationPattern.matcher(expression);
 		while (expressionMatch.find()) {
-			stackExpression(expressionMatch.group());
+			try {
+				stackExpression(expressionMatch.group(), previousToken, unaryOperator);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			previousToken = expressionMatch.group();
 		}
 		System.out.println(stackTokens);
 		System.out.println(variables);
 		return expressionLength.equals(0);
 	}
 	
-	private void stackExpression(String token) {
-		if (isOperator(token)) {
-			stackOperators.push(getOperator(token));
+	private void stackExpression(String token, String previousToken, String unaryOperator) throws Exception {
+		if (unaryOperator.length() != 0) {
+			if (isOperator(token)) {
+				throw new Exception("Expresion sintactica no valida");
+			} else {
+				stackTokens.push(unaryOperator.concat(token));
+				unaryOperator = "";
+				if (isVariable(token))
+					throw new Exception("Expresion sintactica no valida");
+			}
 		} else {
-			stackTokens.push(token);
-			if (isVariable(token))
-				variables.add(token);
+			if (isOperator(token)) {
+				stackOperators.push(getOperator(token));
+			} else {
+				stackTokens.push(token);
+				if (isVariable(token))
+					variables.add(token);
+			}
+		}
+		if (previousToken.length() > 0) {
+			if (isOperator(previousToken) && (token.compareTo("-") == 0)) 
+				unaryOperator = token;
+		} else if (token.compareTo("-") == 0) {
+			unaryOperator = token;
 		}
 	}
 	
