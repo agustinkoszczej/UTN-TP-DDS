@@ -35,8 +35,7 @@ public class ConsultaIndicadorWindow extends SimpleWindow<ConsultaIndicadorViewM
 
 	public void abrirIndicadorWindow() {
 		IndicadorWindow dialog = new IndicadorWindow(this, new IndicadorViewModel());
-				//ConsultaIndicadorWindow dialog = new ConsultaIndicadorWindow(this, new ConsultaIndicadorViewModel(unServicioCuentas,unServicioIndicadores));
-
+		this.close();
 		dialog.open();
 	}
 	
