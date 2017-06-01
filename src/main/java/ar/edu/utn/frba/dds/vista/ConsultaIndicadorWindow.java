@@ -60,7 +60,8 @@ public class ConsultaIndicadorWindow extends SimpleWindow<ConsultaIndicadorViewM
 		selectorPeriodo.setWidth(280);
 		
 		Table<Indicador> tableIndicadores = new Table<Indicador>(form, Indicador.class);
-		tableIndicadores.setHeight(300);
+		tableIndicadores.setHeight(400);
+		
 		tableIndicadores.bindItemsToProperty("repositorioIndicadores");
 		tableIndicadores.bindValueToProperty("indicadorSeleccionado");
 		

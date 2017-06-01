@@ -36,14 +36,7 @@ public class IndicadoresTest {
 		empresas = servicio_cuentas.obtenerEmpresas();
 		
 		facebook = empresas.get(0);
-
-		indicadorW = new Indicador("IndicadorW", "15");
-		indicadorX = new Indicador("IndicadorX", "EBITDA");
-		indicadorY = new Indicador("IndicadorY", "EBITDA + 5");
-		indicadorZ = new Indicador("IndicadorZ", "IndicadorW + 5 + EBITDA");
-		indicadorComplejo = new Indicador("IndicadorComplejo", "IndicadorZ * 10 - EBITDA");
-
-		indicadorInexistente = new Indicador("IndicadorInexistente", "5 + Error");
+		
 	}
 
 	@Test
@@ -82,34 +75,49 @@ public class IndicadoresTest {
 
 	@Test
 	public void facebookConIndicadorW() throws Exception {
+		
+		indicadorW = new Indicador("IndicadorW", "15");
+		
 		Double resultado = (double) 15;
 		Assert.assertEquals(resultado, indicadorW.calcular(facebook, "201706"));
 	}
 
 	@Test
 	public void facebookConIndicadorX() throws Exception {
+
+		indicadorX = new Indicador("IndicadorX", "EBITDA");
+		
 		Double resultado = (double) cuenta_EBITDA;
 		Assert.assertEquals(resultado, indicadorX.calcular(facebook, "201706"));
 	}
 
 	@Test
 	public void facebookConIndicadorY() throws Exception {
+
+		indicadorY = new Indicador("IndicadorY", "EBITDA + 5");
+		
 		Double resultado = (double) (cuenta_EBITDA + 5);
 		Assert.assertEquals(resultado, indicadorY.calcular(facebook, "201706"));
 	}
 
 	public void facebookConIndicadorZ() throws Exception {
+		indicadorZ = new Indicador("IndicadorZ", "IndicadorW + 5 + EBITDA");
 		Double resultado = (double) (15 + 5 + cuenta_EBITDA);
 		Assert.assertEquals(resultado, indicadorZ.calcular(facebook, "201706"));
 	}
 	
 	public void facebookConIndicadorComplejo() throws Exception {
+		indicadorZ = new Indicador("IndicadorZ", "IndicadorW + 5 + EBITDA");
+		indicadorComplejo = new Indicador("IndicadorComplejo", "IndicadorZ * 10 - EBITDA");
 		Double resultado = (double) ((15 + 5 + cuenta_EBITDA) * 10 - cuenta_EBITDA);
 		Assert.assertEquals(resultado, indicadorZ.calcular(facebook, "201706"));
 	}
 
 	@Test(expected = Exception.class)
 	public void facebookConIndicadorInexistenteDeberiaFallar() throws Exception {
+
+		indicadorInexistente = new Indicador("IndicadorInexistente", "5 + Error");
+		
 		indicadorInexistente.calcular(facebook, "201706");
 	}
 
