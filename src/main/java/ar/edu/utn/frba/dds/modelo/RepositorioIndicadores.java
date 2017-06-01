@@ -2,6 +2,7 @@ package ar.edu.utn.frba.dds.modelo;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import ar.edu.utn.frba.dds.servicio.ServicioIndicadores;
@@ -10,6 +11,9 @@ public class RepositorioIndicadores {
 	
 	public static void CargarIndicadores(){
 		indicadores = new ServicioIndicadores().obtenerIndicadores();
+	}
+	public void setIndicadores(List<Indicador> indicadores){
+		this.indicadores = indicadores;
 	}
 	
 	public static Collection<Indicador> indicadores = new ArrayList<Indicador>();

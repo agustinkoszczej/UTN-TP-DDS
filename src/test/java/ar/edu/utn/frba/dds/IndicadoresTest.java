@@ -99,14 +99,17 @@ public class IndicadoresTest {
 		Double resultado = (double) (cuenta_EBITDA + 5);
 		Assert.assertEquals(resultado, indicadorY.calcular(facebook, "201706"));
 	}
-
+	
+	
 	public void facebookConIndicadorZ() throws Exception {
 		indicadorZ = new Indicador("IndicadorZ", "IndicadorW + 5 + EBITDA");
 		Double resultado = (double) (15 + 5 + cuenta_EBITDA);
 		Assert.assertEquals(resultado, indicadorZ.calcular(facebook, "201706"));
 	}
 	
+	
 	public void facebookConIndicadorComplejo() throws Exception {
+		indicadorW = new Indicador("IndicadorW", "15");
 		indicadorZ = new Indicador("IndicadorZ", "IndicadorW + 5 + EBITDA");
 		indicadorComplejo = new Indicador("IndicadorComplejo", "IndicadorZ * 10 - EBITDA");
 		Double resultado = (double) ((15 + 5 + cuenta_EBITDA) * 10 - cuenta_EBITDA);
@@ -120,5 +123,13 @@ public class IndicadoresTest {
 		
 		indicadorInexistente.calcular(facebook, "201706");
 	}
+	
+	/*@Test
+	public void precedenciaParser(){
+
+		indicadorInexistente = new Indicador("IndicadorInexistente", "5 + Error");
+		
+		indicadorInexistente.calcular(facebook, "201706");
+	}*/
 
 }

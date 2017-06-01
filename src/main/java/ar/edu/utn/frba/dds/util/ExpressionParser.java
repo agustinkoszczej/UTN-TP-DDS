@@ -54,8 +54,7 @@ public class ExpressionParser {
 		while (expressionMatch.find()) {
 			stackExpression(expressionMatch.group());
 		}
-		System.out.println(stackTokens);
-		System.out.println(variables);
+
 		return expressionLength.equals(0);
 	}
 	
