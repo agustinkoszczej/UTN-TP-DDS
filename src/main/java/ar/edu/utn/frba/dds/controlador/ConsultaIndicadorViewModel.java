@@ -27,6 +27,8 @@ public class ConsultaIndicadorViewModel {
 	private List<Balance> balancesEmpresaSeleccionada;
 	private Balance balanceSeleccionado;
 	
+	private Double valorIndicador;
+	
 
 
 public ConsultaIndicadorViewModel(ServicioCuentas unServicioCuentas, ServicioIndicadores unServicioIndicadores) {
@@ -85,5 +87,17 @@ public ConsultaIndicadorViewModel(ServicioCuentas unServicioCuentas, ServicioInd
 	
 	public void setIndicadorSeleccionado(Indicador unIndicador) {
 		this.indicadorSeleccionado = unIndicador;
+	}
+	
+	
+	public Double getValorIndicador(){
+		return valorIndicador;
+	}
+	public void setValorIndicador(Double valorIndicador){
+		this.valorIndicador = valorIndicador;
+	}
+	
+	public void aplicarIndicador() throws Exception {
+		this.setValorIndicador(indicadorSeleccionado.calcular(empresaSeleccionada, balanceSeleccionado.getPeriodo()));
 	}
 }

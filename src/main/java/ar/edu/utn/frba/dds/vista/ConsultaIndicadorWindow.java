@@ -34,7 +34,14 @@ public class ConsultaIndicadorWindow extends SimpleWindow<ConsultaIndicadorViewM
 		
 		new Button(panel)
 		.setCaption("Aplicar indicador")
-		.onClick(this::aplicarIndicador);
+		.onClick(() -> {
+			try {
+				aplicarIndicador();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		});
 	}
 
 	public void abrirIndicadorWindow() {
@@ -43,9 +50,9 @@ public class ConsultaIndicadorWindow extends SimpleWindow<ConsultaIndicadorViewM
 		dialog.open();
 	}
 	
-	public void aplicarIndicador(){
+	public void aplicarIndicador() throws Exception{
 		//TODO
-		
+		getModel().getSource().aplicarIndicador();
 	}
 	
 	@Override
@@ -89,6 +96,12 @@ public class ConsultaIndicadorWindow extends SimpleWindow<ConsultaIndicadorViewM
 		Column<Indicador> columnaExpresion = new Column<Indicador>(tableIndicadores);
 		columnaExpresion.setTitle("expresion");
 		columnaExpresion.bindContentsToProperty("expresion");
+		
+		new Label(form)
+		.setText("Valor Indicador Aplicado")
+		.setBackground(Color.GREEN);
+		Label valorIndicador = new Label(form);
+		valorIndicador.bindValueToProperty("valorIndicador");
 		
 	}
 }
