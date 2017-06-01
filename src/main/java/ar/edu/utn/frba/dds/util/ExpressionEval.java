@@ -9,6 +9,8 @@ import java.util.Stack;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang.StringUtils;
+
 public class ExpressionEval {
 	
 	private ExpressionParser parser = new ExpressionParser();
@@ -65,7 +67,10 @@ public class ExpressionEval {
         Integer result = 0;
         
         if(stackOperators.empty() && stackTokens.size() == 1){
-        	result = Integer.parseInt(expression);
+        	if(StringUtils.isNumeric(expression))
+        		result = Integer.parseInt(expression);
+        	else
+        		result = tokenValue(stackTokens.pop());
         }
         else{
         while (!stackOperators.empty()) {
