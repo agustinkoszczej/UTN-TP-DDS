@@ -31,6 +31,10 @@ public class ConsultaIndicadorWindow extends SimpleWindow<ConsultaIndicadorViewM
 		new Button(panel)
 		.setCaption("Ingresar indicador")
 		.onClick(this::abrirIndicadorWindow);
+		
+		new Button(panel)
+		.setCaption("Aplicar indicador")
+		.onClick(this::aplicarIndicador);
 	}
 
 	public void abrirIndicadorWindow() {
@@ -39,9 +43,14 @@ public class ConsultaIndicadorWindow extends SimpleWindow<ConsultaIndicadorViewM
 		dialog.open();
 	}
 	
+	public void aplicarIndicador(){
+		//TODO
+		
+	}
+	
 	@Override
 	protected void createFormPanel(Panel form) {
-		// TODO Auto-generated method stub
+		
 		this.setTitle("Consulta Indicadores");
 		
 		new Label(form).setText("Empresa");
@@ -58,6 +67,14 @@ public class ConsultaIndicadorWindow extends SimpleWindow<ConsultaIndicadorViewM
 		selectorPeriodo.bindItemsToProperty("balancesEmpresaSeleccionada").adaptWith(Balance.class, "periodo");
 		selectorPeriodo.setWidth(280);
 		
+		new Label(form).setText("Indicador");
+		
+		Selector<Indicador> selectorIndicador = new Selector<Indicador>(form).allowNull(true);
+		selectorIndicador.bindValueToProperty("indicadorSeleccionado");
+		selectorIndicador.bindItemsToProperty("repositorioIndicadores").adaptWith(Indicador.class, "nombreIndicador");
+		selectorIndicador.setWidth(280);
+		
+		new Label(form).setText("Indicadores disponibles");
 		Table<Indicador> tableIndicadores = new Table<Indicador>(form, Indicador.class);
 		tableIndicadores.setHeight(400);
 		
@@ -74,9 +91,4 @@ public class ConsultaIndicadorWindow extends SimpleWindow<ConsultaIndicadorViewM
 		columnaExpresion.bindContentsToProperty("expresion");
 		
 	}
-
-
-	
-
-	
 }
