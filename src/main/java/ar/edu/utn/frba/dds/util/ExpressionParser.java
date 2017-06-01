@@ -51,6 +51,8 @@ public class ExpressionParser {
 		//ExpressionParser.evaluationPattern.splitAsStream(expression).forEach(token -> stackExpression(token));
 		//	expressionLength -= ExpressionParser.evaluationPattern.splitAsStream(expression).mapToInt(token -> token.length()).sum();
 		//}
+		System.out.println(expression);
+
 		Matcher expressionMatch = ExpressionParser.evaluationPattern.matcher(expression);
 		while (expressionMatch.find()) {
 			try {
@@ -65,30 +67,42 @@ public class ExpressionParser {
 		return expressionLength.equals(0);
 	}
 	
+	private void setString(String unString, String nuevoString) {
+	    try {
+	        final Class<String> type = String.class;
+	        final java.lang.reflect.Field valueField = type.getDeclaredField("value");
+	        valueField.setAccessible(true);
+	        valueField.set(unString, nuevoString.toCharArray());
+	    } catch (Exception e) {
+	    }
+	}
+	
 	private void stackExpression(String token, String previousToken, String unaryOperator) throws Exception {
-		if (unaryOperator.length() != 0) {
+		if ((previousToken.length() > 0) &&  (unaryOperator.length() == 0)) {
+			if (isOperator(previousToken) && (token.compareTo("-") == 0)) 
+				setString(unaryOperator, token);
+		} else if (token.compareTo("-") == 0) {
+			setString(unaryOperator, token);
+			setString(token, "");
+		}
+		if ((unaryOperator.length() != 0) && (previousToken.length() > 0)) {
 			if (isOperator(token)) {
 				throw new Exception("Expresion sintactica no valida");
 			} else {
+				System.out.println("Proceso: " + unaryOperator.concat(token));
 				stackTokens.push(unaryOperator.concat(token));
-				unaryOperator = "";
+				setString(unaryOperator, "");
 				if (isVariable(token))
 					throw new Exception("Expresion sintactica no valida");
 			}
 		} else {
 			if (isOperator(token)) {
 				stackOperators.push(getOperator(token));
-			} else {
+			} else if (token.length() > 0) {
 				stackTokens.push(token);
 				if (isVariable(token))
 					variables.add(token);
 			}
-		}
-		if (previousToken.length() > 0) {
-			if (isOperator(previousToken) && (token.compareTo("-") == 0)) 
-				unaryOperator = token;
-		} else if (token.compareTo("-") == 0) {
-			unaryOperator = token;
 		}
 	}
 	
