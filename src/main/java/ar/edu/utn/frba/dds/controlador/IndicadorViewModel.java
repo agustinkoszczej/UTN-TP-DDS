@@ -18,11 +18,13 @@ public class IndicadorViewModel {
 	private Indicador unIndicador;
 	private Collection<Indicador> indicadoresRegistrados;
 	private Indicador indicadorSeleccionado;
+	private String expresion;
+	private String nombre;
 
 
 public IndicadorViewModel() {
 	try {
-		unIndicador = new Indicador(null, null);
+		//unIndicador = new Indicador(null, null);
 	} catch (Exception e) {
 		// Tira excepcion si le metiste cualquiera
 		e.printStackTrace();
@@ -31,27 +33,35 @@ public IndicadorViewModel() {
 	}
 
 	public void setCadena(String cadena){
-		this.unIndicador.setExpresion(cadena);
+		//this.unIndicador.setExpresion(cadena);
+		this.expresion = cadena;
 	}
 	
 	public String getCadena(){
-		return unIndicador.getExpresion();
+		//return unIndicador.getExpresion();
+		return expresion;
 	}
 	
 	public void setNombreIndicador(String nombreIndicador){
-		this.unIndicador.setNombreIndicador(nombreIndicador);
+		//this.unIndicador.setNombreIndicador(nombreIndicador);
+		this.nombre = nombreIndicador;
 	}
 	
 	public String getNombreIndicador(){
-		return unIndicador.getNombreIndicador();
+		//return unIndicador.getNombreIndicador();
+		return nombre;
 	}
 
 	public void guardarIndicador() {
 		// TODO Auto-generated method stub
 		ServicioIndicadores servicioIndicador = new ServicioIndicadores();
 			try {
+				unIndicador = new Indicador(nombre, expresion);
 				servicioIndicador.guardarIndicador(unIndicador);
 			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}

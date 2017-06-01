@@ -32,7 +32,7 @@ public class ConsultaIndicadorViewModel {
 public ConsultaIndicadorViewModel(ServicioCuentas unServicioCuentas, ServicioIndicadores unServicioIndicadores) {
 	
 	try {
-		unIndicador = new Indicador(null, null);
+	//	unIndicador = new Indicador(null, null);
 	} catch (Exception e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
