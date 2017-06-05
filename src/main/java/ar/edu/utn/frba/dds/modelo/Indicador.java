@@ -50,8 +50,6 @@ public class Indicador {
 		return expression.resultado();
 	}
 	
-	
-	
 	public List<Indicador> indicadores = new ArrayList<Indicador>();
 	public List<Cuenta> cuentas = new ArrayList<Cuenta>();
 	
