@@ -2,7 +2,6 @@ package ar.edu.utn.frba.dds.modelo;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,7 +22,7 @@ public class RepositorioIndicadores {
 		
 	}
 	public void setIndicadores(List<Indicador> indicadores){
-		this.indicadores = indicadores;
+		RepositorioIndicadores.indicadores = indicadores;
 	}
 	
 	public static Collection<Indicador> indicadores = new ArrayList<Indicador>();

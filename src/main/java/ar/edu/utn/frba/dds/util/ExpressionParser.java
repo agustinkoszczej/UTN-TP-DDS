@@ -8,6 +8,11 @@ import java.util.Stack;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import ar.edu.utn.frba.dds.ast.AST;
+import ar.edu.utn.frba.dds.ast.Constante;
+import ar.edu.utn.frba.dds.ast.Operacion;
+import ar.edu.utn.frba.dds.modelo.Indicador;
+
 public class ExpressionParser {
 	
 	private static String patternParser = "\\+|\\-|\\*|\\/|[0-9]+(\\.[0-9]*)?|[a-zA-Z]+[a-zA-Z0-9]*";
@@ -23,7 +28,62 @@ public class ExpressionParser {
 			put("/", Operator.DIVIDE);
 		}
 	};
+	
+	private AST ASTgenerado;
+	private Operacion lastOperator;
+	private AST lastToken;
+	
+	public AST ASTresult(String expression) {
+		//Integer expressionLength = expression.replaceAll("\\s+", "").length();
+		
+		// TODO: verificar sintaxis no validas como ++ o 25PT [25 PT]
+		// TODO: verificar que todos los tokens son validos
+		
+		Matcher expressionMatch = ExpressionParser.evaluationPattern.matcher(expression);
+		while (expressionMatch.find()) {
+			parseAST(expressionMatch.group());
+		}
+		return ASTgenerado;
+	}
+	
+	private void parseAST(String token) {
+		if (isOperator(token)) {
+			if (lastOperator == null) {
+				lastOperator = new Operacion();
+			}
+			ASTgenerado = lastOperator;
+		} else if (token.length() > 0) {
+			if (isVariable(token)) {
+				if (lastToken == null) {
+					lastToken = (AST) new Indicador(); 
+				}
+				// agrego variable que puede ser cuenta o indicador
+				stackTokens.push(token);
+			} else {
+				if (lastToken == null) {
+					lastToken = (AST) new Constante(); 
+				}
+				stackTokens.push(token);
+			}
+		} else {
+			// error!
+		}
+	}
+	
+	private Boolean isOperator(String token) {
+		return ExpressionParser.ops.containsKey(token);
+	}
+	
+	private Operator getOperator(String token) {
+		return ExpressionParser.ops.get(token);
+	}
+	
+	private Boolean isVariable(String token) {
+		return token.matches(ExpressionParser.patternVariable);
+	}
 
+	// De aca para abajo se depreca todo!
+	
 	private Stack<String> stackTokens = new Stack<String>();
 	private Stack<Operator> stackOperators = new Stack<Operator>();
 	private List<String> variables = new ArrayList<String>();
@@ -42,8 +102,6 @@ public class ExpressionParser {
 
 	public Boolean parse(String expression) {
 		Integer expressionLength = expression.replaceAll("\\s+", "").length();
-		String previousToken = "";
-		String unaryOperator = "";
 		
 		// TODO: verificar sintaxis no validas como ++ o 25PT [25 PT]
 
@@ -55,66 +113,21 @@ public class ExpressionParser {
 
 		Matcher expressionMatch = ExpressionParser.evaluationPattern.matcher(expression);
 		while (expressionMatch.find()) {
-			try {
-				stackExpression(expressionMatch.group(), previousToken, unaryOperator);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			previousToken = expressionMatch.group();
+			stackExpression(expressionMatch.group());
 		}
 
 		return expressionLength.equals(0);
 	}
-	
-	private void setString(String unString, String nuevoString) {
-	    try {
-	        final Class<String> type = String.class;
-	        final java.lang.reflect.Field valueField = type.getDeclaredField("value");
-	        valueField.setAccessible(true);
-	        valueField.set(unString, nuevoString.toCharArray());
-	    } catch (Exception e) {
-	    }
-	}
-	
-	private void stackExpression(String token, String previousToken, String unaryOperator) throws Exception {
-		if ((previousToken.length() > 0) &&  (unaryOperator.length() == 0)) {
-			if (isOperator(previousToken) && (token.compareTo("-") == 0)) 
-				setString(unaryOperator, token);
-		} else if (token.compareTo("-") == 0) {
-			setString(unaryOperator, token);
-			setString(token, "");
-		}
-		if ((unaryOperator.length() != 0) && (previousToken.length() > 0)) {
-			if (isOperator(token)) {
-				throw new Exception("Expresion sintactica no valida");
-			} else {
-				System.out.println("Proceso: " + unaryOperator.concat(token));
-				stackTokens.push(unaryOperator.concat(token));
-				setString(unaryOperator, "");
-				if (isVariable(token))
-					throw new Exception("Expresion sintactica no valida");
-			}
-		} else {
-			if (isOperator(token)) {
-				stackOperators.push(getOperator(token));
-			} else if (token.length() > 0) {
-				stackTokens.push(token);
-				if (isVariable(token))
-					variables.add(token);
-			}
+		
+	private void stackExpression(String token) {
+		if (isOperator(token)) {
+			stackOperators.push(getOperator(token));
+		} else if (token.length() > 0) {
+			stackTokens.push(token);
+			if (isVariable(token))
+				variables.add(token);
 		}
 	}
 	
-	private Boolean isOperator(String token) {
-		return ExpressionParser.ops.containsKey(token);
-	}
-	
-	private Operator getOperator(String token) {
-		return ExpressionParser.ops.get(token);
-	}
-	
-	private Boolean isVariable(String token) {
-		return token.matches(ExpressionParser.patternVariable);
-	}
 
 }

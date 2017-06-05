@@ -13,8 +13,9 @@ import  ar.edu.utn.frba.dds.servicio.ServicioCuentas;
 public class CuentaViewModel {
 	private List<Empresa> empresas;
 	private Empresa empresaSeleccionada;
+	@SuppressWarnings("unused")
 	private ServicioCuentas unServicioDeCuentas;
-	private List<Balance> balancesEmpresaSeleccionada;
+	@SuppressWarnings("unused")
 	private String valorBalances;
 
 	private Balance balanceSeleccionadoEmpresaSeleccionada;

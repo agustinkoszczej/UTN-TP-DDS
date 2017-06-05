@@ -5,19 +5,13 @@ import java.awt.Color;
 import org.uqbar.arena.widgets.Button;
 import org.uqbar.arena.widgets.Label;
 import org.uqbar.arena.widgets.Panel;
-import org.uqbar.arena.widgets.Selector;
 import org.uqbar.arena.widgets.TextBox;
-import org.uqbar.arena.widgets.tables.Column;
-import org.uqbar.arena.widgets.tables.Table;
 import org.uqbar.arena.windows.SimpleWindow;
 import org.uqbar.arena.windows.WindowOwner;
 import org.uqbar.lacar.ui.model.Action;
 
 import ar.edu.utn.frba.dds.controlador.ConsultaIndicadorViewModel;
-import ar.edu.utn.frba.dds.controlador.CuentaViewModel;
 import ar.edu.utn.frba.dds.controlador.IndicadorViewModel;
-import ar.edu.utn.frba.dds.modelo.Balance;
-import ar.edu.utn.frba.dds.modelo.Empresa;
 import ar.edu.utn.frba.dds.servicio.ServicioCuentas;
 import ar.edu.utn.frba.dds.servicio.ServicioIndicadores;
 
@@ -36,7 +30,8 @@ public class IndicadorWindow extends SimpleWindow<IndicadorViewModel> {
 	
 	private void guardarExpresionRegular() {
 		//no hace nada aun
-		ServicioCuentas unServicio = new ServicioCuentas();
+		// Se comento porque sigue sin hacer nada
+		//ServicioCuentas unServicio = new ServicioCuentas();
 		getModel().getSource().guardarIndicador();
 		this.close();
 		ServicioCuentas unServicioCuentas = new ServicioCuentas();
@@ -45,6 +40,8 @@ public class IndicadorWindow extends SimpleWindow<IndicadorViewModel> {
 		dialog.open();
 	}
 
+	// TODO: Ver si esta funcion se usa en algun lado!
+	@SuppressWarnings("unused")
 	private Action createCuentaWindow() {
 		// TODO Auto-generated method stub
 		ServicioCuentas unServicio = new ServicioCuentas();

@@ -1,6 +1,5 @@
 package ar.edu.utn.frba.dds.controlador;
 
-import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
 
@@ -13,19 +12,17 @@ import ar.edu.utn.frba.dds.modelo.Indicador;
 import ar.edu.utn.frba.dds.modelo.RepositorioIndicadores;
 import ar.edu.utn.frba.dds.servicio.ServicioCuentas;
 import ar.edu.utn.frba.dds.servicio.ServicioIndicadores;
-import ar.edu.utn.frba.dds.vista.ConsultaIndicadorWindow;
-import ar.edu.utn.frba.dds.vista.IndicadorWindow;
 
 @Observable
 public class ConsultaIndicadorViewModel {
 	private List<Empresa> empresas;
 	private Empresa empresaSeleccionada;
-	private Indicador unIndicador;
 	private Collection<Indicador> indicadoresRegistrados;
 	private Indicador indicadorSeleccionado;
+	@SuppressWarnings("unused")
 	private ServicioCuentas unServicioCuentas;
+	@SuppressWarnings("unused")
 	private ServicioIndicadores unServicioIndicadores;
-	private List<Balance> balancesEmpresaSeleccionada;
 	private Balance balanceSeleccionado;
 	
 	private Double valorIndicador;

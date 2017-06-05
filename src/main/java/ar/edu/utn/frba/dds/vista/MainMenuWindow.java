@@ -1,24 +1,14 @@
 package ar.edu.utn.frba.dds.vista;
 
-import java.awt.Color;
-
-import org.uqbar.arena.layout.ColumnLayout;
-import org.uqbar.arena.layout.HorizontalLayout;
 import org.uqbar.arena.layout.VerticalLayout;
 import org.uqbar.arena.widgets.Button;
 import org.uqbar.arena.widgets.Label;
 import org.uqbar.arena.widgets.Panel;
-import org.uqbar.arena.widgets.Selector;
-import org.uqbar.arena.widgets.tables.Column;
-import org.uqbar.arena.widgets.tables.Table;
-import org.uqbar.arena.windows.Dialog;
 import org.uqbar.arena.windows.SimpleWindow;
 import org.uqbar.arena.windows.WindowOwner;
-import org.uqbar.commons.utils.Observable;
 
 import ar.edu.utn.frba.dds.controlador.ConsultaIndicadorViewModel;
 import ar.edu.utn.frba.dds.controlador.CuentaViewModel;
-import ar.edu.utn.frba.dds.controlador.IndicadorViewModel;
 import ar.edu.utn.frba.dds.controlador.MainMenuModel;
 import ar.edu.utn.frba.dds.servicio.ServicioCuentas;
 import ar.edu.utn.frba.dds.servicio.ServicioIndicadores;

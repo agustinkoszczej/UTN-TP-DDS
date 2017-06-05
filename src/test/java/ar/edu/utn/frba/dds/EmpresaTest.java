@@ -83,12 +83,12 @@ public class EmpresaTest {
 		Balance balanceNormal = new Balance();
 		Balance balanceSinValor = new Balance();
 		
-		balanceNormal.setFrecuencia(Frecuencia.M);
+		balanceNormal.setFrecuencia(Frecuencia.Mensual);
 		balanceNormal.setPeriodo("201705");
 		balanceNormal.setTipoCuenta(Cuenta.FDS);
 		balanceNormal.setValor((double) 100);
 		
-		balanceSinValor.setFrecuencia(Frecuencia.M);
+		balanceSinValor.setFrecuencia(Frecuencia.Mensual);
 		balanceSinValor.setPeriodo("201705");
 		balanceSinValor.setTipoCuenta(Cuenta.FDS);
 		

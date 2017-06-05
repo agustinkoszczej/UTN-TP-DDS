@@ -6,15 +6,13 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import org.apache.commons.lang.StringUtils;
 
 public class ExpressionEval {
 	
-	private ExpressionParser parser = new ExpressionParser();
 	private String expression;
+	private ExpressionParser parser = new ExpressionParser();
 	private Map<String, Integer> variables = new HashMap<String, Integer>();
 	
 	public ExpressionEval(String expression) {

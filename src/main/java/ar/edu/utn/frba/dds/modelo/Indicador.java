@@ -1,9 +1,6 @@
 package ar.edu.utn.frba.dds.modelo;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,22 +9,48 @@ import org.uqbar.commons.utils.Observable;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import ar.edu.utn.frba.dds.ast.AST;
 import ar.edu.utn.frba.dds.util.ExpressionEval;
+import ar.edu.utn.frba.dds.util.ExpressionParser;
 
 @Observable
 @JsonIgnoreProperties(value = { "changeSupport" })
 public class Indicador {
 
-	public Indicador(@JsonProperty("nombre")String nombreIndicador, @JsonProperty("expresion")String expresion) throws Exception {
+	// Se agrego el metodo para generar un indicador vacio
+	public Indicador() {
 		super();
-		this.nombreIndicador = nombreIndicador;
-		this.expresion = expresion;
 	}
 	
+	// FIXME: Es necesario llamar a los Json Property aca??
+	public Indicador(@JsonProperty("nombre")String nombreIndicador, @JsonProperty("expresion")String expresion) throws Exception {
+		// super();
+		// FIXME: Cual es la superclase de Indicador si no esta heredando nada???
+		this.nombreIndicador = nombreIndicador;
+		
+		// TODO: Aca se deberia reemplazar por el metodo que devuelve un AST
+		this.expresion = expresion;
+		
+		// Asigno el AST al resultado de parsear la expresion
+		ExpressionParser parser = new ExpressionParser();
+		expression = parser.ASTresult(expresion);
+	}
+
+	
+	// FIXME: porque los property son publicos??? Tendria que tener setter/getters
 	@JsonProperty("nombre")
 	public String nombreIndicador;
 	@JsonProperty("expresion")
 	public String expresion;
+	
+	private AST expression;
+	
+	
+	public Integer calcularAST(Empresa empresa, String periodo){
+		return expression.resultado();
+	}
+	
+	
 	
 	public List<Indicador> indicadores = new ArrayList<Indicador>();
 	public List<Cuenta> cuentas = new ArrayList<Cuenta>();
@@ -85,19 +108,35 @@ public class Indicador {
 		return this.indicadores;
 	}
 
-	@Override
-	public boolean equals(Object other){
-	    if (other == null) return false;
-	    if (other == this) return true;
-	    if (!(other instanceof Indicador))return false;
-	    Indicador otroIndicador = (Indicador)other;
-
-	    return otroIndicador.getNombreIndicador().equals(this.nombreIndicador);
-	}
 	
 	public String getNombreIndicador() {
 		return nombreIndicador;
 	}
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((nombreIndicador == null) ? 0 : nombreIndicador.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null)
+			return false;
+		if (this == obj)
+			return true;
+		if (getClass() != obj.getClass())
+			return false;
+		Indicador other = (Indicador) obj;
+		if (nombreIndicador == null) {
+			if (other.nombreIndicador != null)
+				return false;
+		} else if (!nombreIndicador.equals(other.nombreIndicador))
+			return false;
+		return true;
+	}
+
 	public void setNombreIndicador(String nombreIndicador) {
 		this.nombreIndicador = nombreIndicador;
 	}

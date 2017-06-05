@@ -16,7 +16,6 @@ import ar.edu.utn.frba.dds.controlador.IndicadorViewModel;
 import ar.edu.utn.frba.dds.modelo.Balance;
 import ar.edu.utn.frba.dds.modelo.Empresa;
 import ar.edu.utn.frba.dds.modelo.Indicador;
-import ar.edu.utn.frba.dds.modelo.RepositorioIndicadores;
 
 public class ConsultaIndicadorWindow extends SimpleWindow<ConsultaIndicadorViewModel> {
 	
