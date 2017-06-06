@@ -11,6 +11,7 @@ import java.util.regex.Pattern;
 import ar.edu.utn.frba.dds.ast.AST;
 import ar.edu.utn.frba.dds.ast.Constante;
 import ar.edu.utn.frba.dds.ast.Operacion;
+import ar.edu.utn.frba.dds.modelo.Indicador;
 
 public class ExpressionParser {
 
@@ -49,24 +50,29 @@ public class ExpressionParser {
 		}
 	}
 
+	// TODO: Ver casos con multiples operadores
 	private void addOperator(String operator) {
 		if (lastOperator == null) {
 			lastOperator = new Operacion(getOperator(operator));
 		}
 		if ( (lastOperator != null) && (lastToken != null) ) {
 			if ((ASTgenerado != null) && (ASTgenerado.getClass() == Operacion.class)) {
+				Operacion newOperator = new Operacion(getOperator(operator));
 				if (lastOperator.getOperacion().precedence > getOperator(operator).precedence) { // de multiplicacion sigue suma
-					// buscar la ultima suma realizada (Posiblemente necesite otra variable o funcion para saber esto)
-					// armo hoja a partir de la ultima suma aplicada
+					newOperator.agregarOperando(lastOperator);
+					lastOperator.setOperacionPrecedente(newOperator);
+					lastOperator = newOperator;
+					ASTgenerado = lastOperator; // TODO: ver si se puede poner en otro lado para no repetir asignacion
 				} else if (lastOperator.getOperacion().precedence == getOperator(operator).precedence) {
-					// genero operacion nueva
-					// asigno lastOperation a derecha
-					// asigno lastOperation a operacionNueva
+					lastOperator.setOperacionPrecedente(newOperator);
+					newOperator.agregarOperando(lastOperator);
+					lastOperator = newOperator;
+					ASTgenerado = lastOperator; // TODO: ver si se puede poner en otro lado para no repetir asignacion
 				} else { // de suma a multiplicacion
-					// obtener elemento izquierdo (#1)
-					// agregar operacion a izquierda
-					// elemento a derecha
-					// establecer lastOperator a esta operacion
+					newOperator.agregarOperando(lastOperator.getOperando(2));
+					newOperator.setOperacionPrecedente(lastOperator);
+					lastOperator.setOperando(2,newOperator);
+					lastOperator = newOperator;
 				}
 			} else if ( (ASTgenerado == null) || (ASTgenerado.getClass() != Operacion.class) )  {
 					lastOperator.agregarOperando(lastToken);
@@ -81,17 +87,26 @@ public class ExpressionParser {
 
 	private void addConstant(String constant) {
 		if (lastToken == null) {
-			lastToken = (AST) new Constante(constant);
+			lastToken = addVariable(constant);
 		}
 		if (ASTgenerado == null) {
 			ASTgenerado = lastToken;
 		} else {
 			if (ASTgenerado.getClass() == Operacion.class) {
-				lastToken = (AST) new Constante(constant);
-				((Operacion) ASTgenerado).agregarOperando(lastToken);
+				lastToken = addVariable(constant);
+				lastOperator.agregarOperando(lastToken);
 			} else if (ASTgenerado.getClass() == Constante.class) {
 				// TODO: explotar por doble contaste
 			}
+		}
+	}
+	
+	private AST addVariable(String constant) {
+		if (!isVariable(constant)) {
+			return new Constante(constant);
+		} else {
+			return new Indicador(); // TODO: validar que sea una cuenta o un indicador que ya existe
+			// TODO: ver si se implementa un ConstanteIndicador y ConstanteCuenta con tipo AST y que o bien hereden o llamen a Indicador y Cuentas
 		}
 	}
 

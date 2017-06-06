@@ -10,12 +10,28 @@ public class Operacion implements AST {
 		return operacion;
 	}
 
+	private Operacion operacionPrecedente;
+	
+	public void setOperacionPrecedente(Operacion operacionPrecedente) {
+		this.operacionPrecedente = operacionPrecedente;
+	}
+
+	public Operacion getOperacionPrecedente() {
+		return operacionPrecedente;
+	}
+
 	// TODO: Cambiar implementacion por Array de Optional
-	private Object[] operandos = {null, null};
+	private AST[] operandos = {null, null};
 
 	public Operacion(Operator operator) {
 		operacion = operator;
 	}
+
+	public Operacion(Operator operator, Operacion operacionPrecedente) {
+		this.operacion = operator;
+		this.operacionPrecedente = operacionPrecedente;
+	}
+
 	
 	@Override
 	public Integer resultado() {
@@ -64,6 +80,14 @@ public class Operacion implements AST {
 	@SuppressWarnings("unused")
 	private static Integer div(Integer a, Integer b) {
 		return a / b;
+	}
+
+	public AST getOperando(int i) {
+		return operandos[i];
+	}
+
+	public void setOperando(int i, Operacion newOperator) {
+		operandos[i] = newOperator;
 	}
 
 }

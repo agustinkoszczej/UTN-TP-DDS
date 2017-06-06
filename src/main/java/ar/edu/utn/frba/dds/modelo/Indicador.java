@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.uqbar.commons.utils.Observable;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -15,8 +16,20 @@ import ar.edu.utn.frba.dds.util.ExpressionParser;
 
 @Observable
 @JsonIgnoreProperties(value = { "changeSupport" })
-public class Indicador {
+public class Indicador implements AST {
 
+	@JsonIgnore
+	private String empresa;
+	@JsonIgnore
+	private String periodo;
+	
+	@Override
+	public Integer resultado() {
+		// TODO: si falta empresa o periodo explota!!
+		return expression.resultado();
+	}
+
+	
 	// Se agrego el metodo para generar un indicador vacio
 	public Indicador() {
 		super();
@@ -144,4 +157,5 @@ public class Indicador {
 	public void setExpresion(String expresion) {
 		this.expresion = expresion;
 	}
+
 }
