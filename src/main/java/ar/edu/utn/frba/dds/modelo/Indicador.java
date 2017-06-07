@@ -64,7 +64,7 @@ public class Indicador implements AST {
 	}
 	
 	public List<Indicador> indicadores = new ArrayList<Indicador>();
-	public List<Cuenta> cuentas = new ArrayList<Cuenta>();
+	public List<TipoDeCuenta> cuentas = new ArrayList<TipoDeCuenta>();
 	
 	private ExpressionEval parser;
 	
@@ -85,9 +85,9 @@ public class Indicador implements AST {
 				List<Indicador> indicadoress = this.indicadores;
 				indicadoress.add(RepositorioIndicadores.existeIndicador(nombreVariable));
 				this.setIndicadores(indicadoress);
-			} else if (Cuenta.valueOf(nombreVariable) != null) {
-				List<Cuenta> cuentass = this.cuentas;
-				cuentass.add(Cuenta.valueOf(nombreVariable));
+			} else if (TipoDeCuenta.valueOf(nombreVariable) != null) {
+				List<TipoDeCuenta> cuentass = this.cuentas;
+				cuentass.add(TipoDeCuenta.valueOf(nombreVariable));
 				this.setCuentas(cuentass);
 			} else{
 				throw new Exception("No existe la cuenta o indicador");
@@ -99,7 +99,7 @@ public class Indicador implements AST {
 		this.indicadores = indicadores;
 	}
 	
-	public void setCuentas(List<Cuenta> cuentas){
+	public void setCuentas(List<TipoDeCuenta> cuentas){
 		this.cuentas = cuentas;
 	}
 	
@@ -110,7 +110,7 @@ public class Indicador implements AST {
 			if(optIndicador.isPresent())
 				operando = optIndicador.get().calcular(empresa, periodo);
 			else
-				operando = empresa.valorCuenta(Cuenta.valueOf(operandoActual), periodo);	
+				operando = empresa.valorCuenta(TipoDeCuenta.valueOf(operandoActual), periodo);	
 			
 			return operando;
 		}

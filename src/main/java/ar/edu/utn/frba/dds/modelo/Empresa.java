@@ -14,7 +14,7 @@ public class Empresa {
 	@JsonProperty("balances")
 	private List<Balance> balances;
 
-	public Balance obtenerBalance(Cuenta tipoCuenta, String periodo){
+	public Balance obtenerBalance(TipoDeCuenta tipoCuenta, String periodo){
 		try{
 			Balance bal = balances.stream().filter(balance -> balance.getPeriodo().equals(periodo) && balance.getTipoCuenta().equals(tipoCuenta)).findFirst().get();
 			return bal;
@@ -24,7 +24,7 @@ public class Empresa {
 		return null;
 	}
 	
-	public Double valorCuenta(Cuenta tipoCuenta, String periodo){
+	public Double valorCuenta(TipoDeCuenta tipoCuenta, String periodo){
 		return this.obtenerBalance(tipoCuenta, periodo).getValor();
 	}
 	

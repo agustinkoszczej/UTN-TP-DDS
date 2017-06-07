@@ -12,7 +12,7 @@ import ar.edu.utn.frba.dds.expresion.ExpresionConstante;
 import ar.edu.utn.frba.dds.expresion.ExpresionCuenta;
 import ar.edu.utn.frba.dds.expresion.Operacion;
 import ar.edu.utn.frba.dds.modelo.Balance;
-import ar.edu.utn.frba.dds.modelo.Cuenta;
+import ar.edu.utn.frba.dds.modelo.TipoDeCuenta;
 import ar.edu.utn.frba.dds.modelo.Empresa;
 
 public class ExpresionesTest {
@@ -24,7 +24,7 @@ public class ExpresionesTest {
 		empresaprueba = new Empresa();
 		Balance balance = new Balance();
 		balance.setPeriodo("20170100");
-		balance.setTipoCuenta(Cuenta.EBITDA);
+		balance.setTipoCuenta(TipoDeCuenta.EBITDA);
 		balance.setValor(new Double(25000));
 		
 		List<Balance> listaBalances = new ArrayList<Balance>();
@@ -43,14 +43,14 @@ public class ExpresionesTest {
 	
 	@Test
 	public void instanciarYCalcularUnaExpresionCuenta(){
-		ExpresionCuenta exp = new ExpresionCuenta(Cuenta.EBITDA);
+		ExpresionCuenta exp = new ExpresionCuenta(TipoDeCuenta.EBITDA);
 		Integer resultado = exp.calculate(empresaprueba, "20170100");
 		Assert.assertEquals((Integer)25000,  resultado);
 	}
 	
 	@Test
 	public void instanciarYCalcularUnaExpresionCompuesta(){
-		ExpresionCuenta expCuentaEBITDA = new ExpresionCuenta(Cuenta.EBITDA);
+		ExpresionCuenta expCuentaEBITDA = new ExpresionCuenta(TipoDeCuenta.EBITDA);
 		ExpresionConstante expConstante = new ExpresionConstante(7);
 		
 		ExpresionCompuesta exp = new ExpresionCompuesta(expCuentaEBITDA, Operacion.operacionSuma(), expConstante);
@@ -61,7 +61,7 @@ public class ExpresionesTest {
 	
 	@Test
 	public void instanciarYCalcularUnaExpresionCompuestaConExpresionesCompuestas(){
-		ExpresionCuenta expCuentaEBITDA = new ExpresionCuenta(Cuenta.EBITDA);
+		ExpresionCuenta expCuentaEBITDA = new ExpresionCuenta(TipoDeCuenta.EBITDA);
 		ExpresionConstante expConstante = new ExpresionConstante(7);
 		
 		ExpresionCompuesta expCompuesta1 = new ExpresionCompuesta(expCuentaEBITDA, Operacion.operacionSuma(), expConstante); // da 25007
@@ -74,7 +74,7 @@ public class ExpresionesTest {
 	
 	@Test
 	public void instanciarYCalcularUnaExpresionCompuestaConExpresionesCompuestasMasComplicada(){
-		ExpresionCuenta expCuentaEBITDA = new ExpresionCuenta(Cuenta.EBITDA);
+		ExpresionCuenta expCuentaEBITDA = new ExpresionCuenta(TipoDeCuenta.EBITDA);
 		ExpresionConstante expConstante = new ExpresionConstante(7);
 		
 		ExpresionCompuesta expCompuesta1 = new ExpresionCompuesta(expCuentaEBITDA, Operacion.operacionSuma(), expConstante); // da 25007
@@ -89,7 +89,7 @@ public class ExpresionesTest {
 	
 	@Test
 	public void transformarExpresionAString(){
-		ExpresionCuenta expCuentaEBITDA = new ExpresionCuenta(Cuenta.EBITDA);
+		ExpresionCuenta expCuentaEBITDA = new ExpresionCuenta(TipoDeCuenta.EBITDA);
 		ExpresionConstante expConstante = new ExpresionConstante(7);
 		
 		ExpresionCompuesta expCompuesta1 = new ExpresionCompuesta(expCuentaEBITDA, Operacion.operacionSuma(), expConstante); // da 25007

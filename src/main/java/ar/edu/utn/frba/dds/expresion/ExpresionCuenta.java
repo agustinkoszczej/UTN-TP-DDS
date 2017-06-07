@@ -1,13 +1,13 @@
 package ar.edu.utn.frba.dds.expresion;
 
-import ar.edu.utn.frba.dds.modelo.Cuenta;
+import ar.edu.utn.frba.dds.modelo.TipoDeCuenta;
 import ar.edu.utn.frba.dds.modelo.Empresa;
 
 public class ExpresionCuenta extends ExpresionSimple{
 
-	Cuenta cuenta;
+	TipoDeCuenta cuenta;
 	
-	public ExpresionCuenta(Cuenta cuenta){
+	public ExpresionCuenta(TipoDeCuenta cuenta){
 		this.cuenta = cuenta;
 	}
 	

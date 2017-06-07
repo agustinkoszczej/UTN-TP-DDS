@@ -13,7 +13,7 @@ import org.uqbar.arena.windows.Window;
 
 import ar.edu.utn.frba.dds.controlador.CuentaViewModel;
 import ar.edu.utn.frba.dds.modelo.Balance;
-import ar.edu.utn.frba.dds.modelo.Cuenta;
+import ar.edu.utn.frba.dds.modelo.TipoDeCuenta;
 import ar.edu.utn.frba.dds.modelo.Empresa;
 import ar.edu.utn.frba.dds.modelo.Frecuencia;
 import ar.edu.utn.frba.dds.servicio.ServicioCuentas;
@@ -85,12 +85,12 @@ public class EmpresaTest {
 		
 		balanceNormal.setFrecuencia(Frecuencia.Mensual);
 		balanceNormal.setPeriodo("201705");
-		balanceNormal.setTipoCuenta(Cuenta.FDS);
+		balanceNormal.setTipoCuenta(TipoDeCuenta.FDS);
 		balanceNormal.setValor((double) 100);
 		
 		balanceSinValor.setFrecuencia(Frecuencia.Mensual);
 		balanceSinValor.setPeriodo("201705");
-		balanceSinValor.setTipoCuenta(Cuenta.FDS);
+		balanceSinValor.setTipoCuenta(TipoDeCuenta.FDS);
 		
 		List<Balance> balances;
 		balances = new ArrayList<Balance>();

@@ -1,6 +1,6 @@
 package ar.edu.utn.frba.dds.modelo;
 
-public enum Cuenta {
+public enum TipoDeCuenta {
 	EBITDA,
 	FDS,
 	FreeCashFlow,
