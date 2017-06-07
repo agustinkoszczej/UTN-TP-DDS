@@ -15,6 +15,10 @@ public class ExpresionConstante extends ExpresionSimple {
 		//TODO: Cambiar a double cuando pasemos todo a double
 		return constante;
 	}
+	
+	public String toString(){
+		return constante.toString();
+	}
 
 }
 

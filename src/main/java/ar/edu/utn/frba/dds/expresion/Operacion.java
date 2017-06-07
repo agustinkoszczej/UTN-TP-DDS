@@ -37,6 +37,9 @@ public class Operacion {
 	    return null;
 	}
 
+	public String toString(){
+		return operador.symbol;
+	}
 	
 	//Instanciadores estaticos
 	public static Operacion operacionSuma(){

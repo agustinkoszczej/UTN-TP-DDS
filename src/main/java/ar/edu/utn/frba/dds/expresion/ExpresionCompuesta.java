@@ -14,10 +14,13 @@ public class ExpresionCompuesta implements Expresion{
 		this.operando2 = operando2;
 	}
 	
-	
 	@Override
 	public Integer calculate(Empresa empresa, String periodo) {
 		return op.calcular(operando1.calculate(empresa, periodo), operando2.calculate(empresa, periodo));
+	}
+	
+	public String toString(){
+		return operando1.toString() + op.toString() + operando2.toString();
 	}
 
 }

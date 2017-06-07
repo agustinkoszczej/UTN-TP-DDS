@@ -16,6 +16,10 @@ public class ExpresionCuenta extends ExpresionSimple{
 		//TODO: corregir y sacarle el intValue() cuando devolvamos Double
 		return empresa.valorCuenta(cuenta, periodo).intValue();
 	}
+	
+	public String toString(){
+		return cuenta.toString();
+	}
 
 }
 

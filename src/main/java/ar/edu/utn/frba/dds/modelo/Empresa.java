@@ -17,8 +17,6 @@ public class Empresa {
 	public Balance obtenerBalance(Cuenta tipoCuenta, String periodo){
 		try{
 			Balance bal = balances.stream().filter(balance -> balance.getPeriodo().equals(periodo) && balance.getTipoCuenta().equals(tipoCuenta)).findFirst().get();
-			System.out.println(bal.toString());
-			System.out.println("hola");
 			return bal;
 		}catch(NoSuchElementException e){
 			//TODO: hacer algo si no tiene el balance que buscamos

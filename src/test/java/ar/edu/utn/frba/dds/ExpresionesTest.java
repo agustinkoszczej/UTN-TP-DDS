@@ -87,4 +87,20 @@ public class ExpresionesTest {
 		Assert.assertEquals((Integer)25000, resultado);
 	}
 	
+	@Test
+	public void transformarExpresionAString(){
+		ExpresionCuenta expCuentaEBITDA = new ExpresionCuenta(Cuenta.EBITDA);
+		ExpresionConstante expConstante = new ExpresionConstante(7);
+		
+		ExpresionCompuesta expCompuesta1 = new ExpresionCompuesta(expCuentaEBITDA, Operacion.operacionSuma(), expConstante); // da 25007
+		ExpresionCompuesta expCompuesta2 = new ExpresionCompuesta(expCompuesta1, Operacion.operacionSuma(), expCuentaEBITDA); // da 50007		
+		
+		ExpresionCompuesta expCompuesta3 = new ExpresionCompuesta(expCompuesta2, Operacion.operacionResta(), expCompuesta1);
+		
+		String expCompuesta3EnString = expCompuesta3.toString();
+		Assert.assertEquals("EBITDA+7+EBITDA-EBITDA+7", expCompuesta3EnString);
+		
+		System.out.println(expCompuesta3.toString());
+	}
+	
 }
