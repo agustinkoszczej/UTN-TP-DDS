@@ -1,34 +1,21 @@
 package ar.edu.utn.frba.dds.modelo;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
 import org.uqbar.commons.utils.Observable;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import ar.edu.utn.frba.dds.ast.AST;
-import ar.edu.utn.frba.dds.util.ExpressionEval;
-import ar.edu.utn.frba.dds.util.ExpressionParser;
+import ar.edu.utn.frba.dds.expresion.Expresion;
 
 @Observable
 @JsonIgnoreProperties(value = { "changeSupport" })
-public class Indicador implements AST {
+public class Indicador {
 
 	@JsonIgnore
 	private String empresa;
 	@JsonIgnore
 	private String periodo;
-	
-	@Override
-	public Integer resultado() {
-		// TODO: si falta empresa o periodo explota!!
-		return expression.resultado();
-	}
-
 	
 	// Se agrego el metodo para generar un indicador vacio
 	public Indicador() {
@@ -36,17 +23,15 @@ public class Indicador implements AST {
 	}
 	
 	// FIXME: Es necesario llamar a los Json Property aca??
-	public Indicador(@JsonProperty("nombre")String nombreIndicador, @JsonProperty("expresion")String expresion) throws Exception {
-		// super();
-		// FIXME: Cual es la superclase de Indicador si no esta heredando nada???
+	public Indicador(@JsonProperty("nombre")String nombreIndicador, @JsonProperty("expresion")Expresion expresion) throws Exception {
 		this.nombreIndicador = nombreIndicador;
-		
-		// TODO: Aca se deberia reemplazar por el metodo que devuelve un AST
 		this.expresion = expresion;
 		
 		// Asigno el AST al resultado de parsear la expresion
+		/*
 		ExpressionParser parser = new ExpressionParser();
 		expression = parser.ASTresult(expresion);
+		*/
 	}
 
 	
@@ -54,15 +39,17 @@ public class Indicador implements AST {
 	@JsonProperty("nombre")
 	public String nombreIndicador;
 	@JsonProperty("expresion")
-	public String expresion;
+	public Expresion expresion;
 	
-	private AST expression;
-	
-	
-	public Integer calcularAST(Empresa empresa, String periodo){
-		return expression.resultado();
+	public Integer calcular(Empresa empresa, String periodo){
+		return expresion.calculate(empresa, periodo);
 	}
 	
+	public String formula(){
+		return expresion.toString();
+	}
+	
+	/*
 	public List<Indicador> indicadores = new ArrayList<Indicador>();
 	public List<TipoDeCuenta> cuentas = new ArrayList<TipoDeCuenta>();
 	
@@ -157,5 +144,5 @@ public class Indicador implements AST {
 	public void setExpresion(String expresion) {
 		this.expresion = expresion;
 	}
-
+	*/
 }
