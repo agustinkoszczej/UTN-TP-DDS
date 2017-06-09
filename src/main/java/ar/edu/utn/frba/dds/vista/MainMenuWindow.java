@@ -13,12 +13,10 @@ import ar.edu.utn.frba.dds.controlador.MainMenuModel;
 import ar.edu.utn.frba.dds.servicio.ServicioCuentas;
 import ar.edu.utn.frba.dds.servicio.ServicioIndicadores;
 
-public class MainMenuWindow extends SimpleWindow<MainMenuModel> {
-
-	static MainMenuModel model = new MainMenuModel();
+public class MainMenuWindow<T> extends SimpleWindow<T> {
 
 	public MainMenuWindow(WindowOwner parent) {
-		super(parent, model);
+		super(parent, (T) new Object());
 	}
 
 	@Override
