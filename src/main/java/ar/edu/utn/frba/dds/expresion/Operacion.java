@@ -3,13 +3,17 @@ package ar.edu.utn.frba.dds.expresion;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import ar.edu.utn.frba.dds.util.Operator;
 
 public class Operacion {
 
 	Operator operador;
 	
-	public Operacion(Operator operador){
+	@JsonCreator
+	public Operacion(@JsonProperty("operador")Operator operador){
 		this.operador = operador;
 	}
 	
@@ -88,5 +92,13 @@ public class Operacion {
 	@SuppressWarnings("unused")
 	private static Integer div(Integer a, Integer b) {
 		return a / b;
+	}
+
+	public Operator getOperador() {
+		return operador;
+	}
+
+	public void setOperador(Operator operador) {
+		this.operador = operador;
 	}
 }

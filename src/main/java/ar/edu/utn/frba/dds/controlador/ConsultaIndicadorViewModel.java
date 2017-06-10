@@ -25,7 +25,7 @@ public class ConsultaIndicadorViewModel {
 	private ServicioIndicadores unServicioIndicadores;
 	private Balance balanceSeleccionado;
 	
-	private Double valorIndicador;
+	private Integer valorIndicador;
 	
 
 
@@ -83,10 +83,10 @@ public ConsultaIndicadorViewModel(ServicioCuentas unServicioCuentas, ServicioInd
 	}
 	
 	
-	public Double getValorIndicador(){
+	public Integer getValorIndicador(){
 		return valorIndicador;
 	}
-	public void setValorIndicador(Double valorIndicador){
+	public void setValorIndicador(Integer valorIndicador){
 		this.valorIndicador = valorIndicador;
 	}
 	

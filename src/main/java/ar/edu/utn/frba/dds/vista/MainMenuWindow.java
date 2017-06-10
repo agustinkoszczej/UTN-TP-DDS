@@ -9,7 +9,6 @@ import org.uqbar.arena.windows.WindowOwner;
 
 import ar.edu.utn.frba.dds.controlador.ConsultaIndicadorViewModel;
 import ar.edu.utn.frba.dds.controlador.CuentaViewModel;
-import ar.edu.utn.frba.dds.controlador.MainMenuModel;
 import ar.edu.utn.frba.dds.servicio.ServicioCuentas;
 import ar.edu.utn.frba.dds.servicio.ServicioIndicadores;
 

@@ -50,16 +50,12 @@ public IndicadorViewModel() {
 
 	public void guardarIndicador() {
 		// TODO Auto-generated method stub
-		ServicioIndicadores servicioIndicador = new ServicioIndicadores();
 			try {
-				unIndicador = new Indicador(nombre, expresion);
-				unIndicador.validarVariables();
-				servicioIndicador.guardarIndicador(unIndicador);
+				//unIndicador = new Indicador(nombre, expresion);
+				
+				RepositorioIndicadores.agregarYguardarIndicador(unIndicador);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
+				// TODO: Mostrar alerta de que no se pudo guardar el indicador
 				e.printStackTrace();
 			}
 	}

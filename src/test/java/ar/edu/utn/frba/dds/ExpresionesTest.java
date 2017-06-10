@@ -1,11 +1,22 @@
 package ar.edu.utn.frba.dds;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import ar.edu.utn.frba.dds.expresion.ExpresionCompuesta;
 import ar.edu.utn.frba.dds.expresion.ExpresionConstante;
@@ -14,6 +25,8 @@ import ar.edu.utn.frba.dds.expresion.Operacion;
 import ar.edu.utn.frba.dds.modelo.Balance;
 import ar.edu.utn.frba.dds.modelo.TipoDeCuenta;
 import ar.edu.utn.frba.dds.modelo.Empresa;
+import ar.edu.utn.frba.dds.modelo.Indicador;
+import ar.edu.utn.frba.dds.modelo.RepositorioIndicadores;
 
 public class ExpresionesTest {
 
@@ -145,6 +158,58 @@ public class ExpresionesTest {
 		List<Object> listaDeElementos = expCompuesta3.listaDeElementos();
 
 		Assert.assertEquals(listaHardcodeada, listaDeElementos);
+	}
+	
+	@Test
+	public void probandoPersistencia() throws JsonGenerationException, JsonMappingException, IOException{
+		ObjectMapper mapper = new ObjectMapper();
+		
+		ExpresionCuenta expCuentaEBITDA = new ExpresionCuenta(TipoDeCuenta.EBITDA);
+		ExpresionConstante expConstante = new ExpresionConstante(7);
+		
+		ExpresionCompuesta expCompuesta1 = new ExpresionCompuesta(expCuentaEBITDA, Operacion.operacionSuma(), expConstante); 
+		ExpresionCompuesta expCompuesta2 = new ExpresionCompuesta(expCompuesta1, Operacion.operacionSuma(), expCuentaEBITDA);	
+		
+		ExpresionCompuesta expCompuesta3 = new ExpresionCompuesta(expCompuesta2, Operacion.operacionResta(), expCompuesta1);
+		
+
+		
+		Indicador indicador = new Indicador("numeroUno", expCompuesta3);
+		
+		RepositorioIndicadores.CargarYValidarIndicadores();
+		System.out.println(RepositorioIndicadores.indicadores);
+		
+		
+		
+		
+		
+		
+		
+		
+		/*
+		System.out.println(indicador.formula());
+		List<Indicador> listaaaa = new ArrayList<Indicador>();
+		listaaaa.add(indicador);
+		listaaaa.add(indicador);
+		//guardarlos
+		mapper.writeValue(new File("probando.json"), listaaaa);
+		
+		//traerlo
+		String json = new String(Files.readAllBytes(Paths.get("probando.json")), StandardCharsets.UTF_8);
+		ObjectMapper objectMapper = new ObjectMapper().configure(DeserializationFeature.ACCEPT_EMPTY_ARRAY_AS_NULL_OBJECT, true);
+		
+		
+		List<Indicador> list = new ArrayList<Indicador>();
+		
+		TypeReference<List<Indicador>> mapIndicadoresList = new TypeReference<List<Indicador>>(){};
+		list = objectMapper.readValue(json, mapIndicadoresList);
+		
+		Indicador indicadorLevantado = list.get(0);
+		
+		/*
+		Indicador indicadorLevantado = objectMapper.readValue(json, new TypeReference<Indicador>(){});
+		*/
+		
 	}
 	
 }

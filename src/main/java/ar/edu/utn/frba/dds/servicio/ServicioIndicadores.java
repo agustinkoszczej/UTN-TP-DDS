@@ -39,9 +39,10 @@ public class ServicioIndicadores {
 		
 		ObjectMapper mapper = new ObjectMapper();
 		List<Indicador> indicadoresActuales = obtenerIndicadores();
+		//si esta un indicador con el mismo nombre lo reemplazamos
 		if(indicadoresActuales.contains(indicador))
-			return;
-		RepositorioIndicadores.agregarIndicador(indicador);
+			indicadoresActuales.remove(indicador);
+		
 		indicadoresActuales.add(indicador);
 		mapper.writeValue(new File(archivo), indicadoresActuales);
 	}

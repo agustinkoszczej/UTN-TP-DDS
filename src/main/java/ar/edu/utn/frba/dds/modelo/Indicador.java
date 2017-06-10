@@ -23,7 +23,7 @@ public class Indicador {
 	}
 	
 	// FIXME: Es necesario llamar a los Json Property aca??
-	public Indicador(@JsonProperty("nombre")String nombreIndicador, @JsonProperty("expresion")Expresion expresion) throws Exception {
+	public Indicador(@JsonProperty("nombre")String nombreIndicador, @JsonProperty("expresion")Expresion expresion){
 		this.nombreIndicador = nombreIndicador;
 		this.expresion = expresion;
 		
@@ -47,6 +47,32 @@ public class Indicador {
 	
 	public String formula(){
 		return expresion.toString();
+	}
+	
+	public String getNombre(){
+		return nombreIndicador;
+	}
+
+	public void validarVariables() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public String toString(){
+		return this.nombreIndicador + " = " + this.formula();
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null)
+			return false;
+		if (this == obj)
+			return true;
+		if (getClass() != obj.getClass())
+			return false;
+		Indicador other = (Indicador) obj;
+		return other.getNombre().equals(this.getNombre());
 	}
 	
 	/*
