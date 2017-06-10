@@ -1,6 +1,10 @@
 package ar.edu.utn.frba.dds.expresion;
 
 import ar.edu.utn.frba.dds.modelo.TipoDeCuenta;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import ar.edu.utn.frba.dds.modelo.Empresa;
 
 public class ExpresionCuenta extends ExpresionSimple{
@@ -21,6 +25,11 @@ public class ExpresionCuenta extends ExpresionSimple{
 		return cuenta.toString();
 	}
 
+	public List<Object> listaDeElementos() {
+		List<Object> listaConUnElemento = new ArrayList<Object>();
+		listaConUnElemento.add(cuenta);
+		return listaConUnElemento;
+	}
 }
 
 

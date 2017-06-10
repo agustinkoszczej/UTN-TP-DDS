@@ -99,8 +99,52 @@ public class ExpresionesTest {
 		
 		String expCompuesta3EnString = expCompuesta3.toString();
 		Assert.assertEquals("EBITDA+7+EBITDA-EBITDA+7", expCompuesta3EnString);
+	}
+	
+	@Test
+	public void listarLosElementosDeUnaExpresionConstante(){
+		Integer constante = 7;
+		ExpresionConstante exp = new ExpresionConstante(constante);
 		
-		System.out.println(expCompuesta3.toString());
+		List<Object> listaDeElementos = exp.listaDeElementos();
+		Integer elemento = (Integer) listaDeElementos.get(0);
+		Assert.assertEquals(constante, elemento);
+	}
+	
+	@Test
+	public void listarLosElementosDeUnaExpresionCuenta(){
+		ExpresionCuenta exp = new ExpresionCuenta(TipoDeCuenta.EBITDA);
+		
+		List<Object> listaDeElementos = exp.listaDeElementos();
+		TipoDeCuenta cuenta = (TipoDeCuenta) listaDeElementos.get(0);
+		
+		Assert.assertEquals(TipoDeCuenta.EBITDA, cuenta);
+	}
+	
+	@Test
+	public void listarLosElementosDeUnaExpresionCompuesta(){
+		ExpresionCuenta expCuentaEBITDA = new ExpresionCuenta(TipoDeCuenta.EBITDA);
+		ExpresionConstante expConstante = new ExpresionConstante(7);
+		
+		ExpresionCompuesta expCompuesta1 = new ExpresionCompuesta(expCuentaEBITDA, Operacion.operacionSuma(), expConstante); 
+		ExpresionCompuesta expCompuesta2 = new ExpresionCompuesta(expCompuesta1, Operacion.operacionSuma(), expCuentaEBITDA);	
+		
+		ExpresionCompuesta expCompuesta3 = new ExpresionCompuesta(expCompuesta2, Operacion.operacionResta(), expCompuesta1);
+		
+		List<Object> listaHardcodeada = new ArrayList<Object>();
+		listaHardcodeada.add(TipoDeCuenta.EBITDA);
+		listaHardcodeada.add(Operacion.operacionSuma());
+		listaHardcodeada.add(7);
+		listaHardcodeada.add(Operacion.operacionSuma());
+		listaHardcodeada.add(TipoDeCuenta.EBITDA);
+		listaHardcodeada.add(Operacion.operacionResta());
+		listaHardcodeada.add(TipoDeCuenta.EBITDA);
+		listaHardcodeada.add(Operacion.operacionSuma());
+		listaHardcodeada.add(7);
+		
+		List<Object> listaDeElementos = expCompuesta3.listaDeElementos();
+
+		Assert.assertEquals(listaHardcodeada, listaDeElementos);
 	}
 	
 }

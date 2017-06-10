@@ -37,6 +37,18 @@ public class Operacion {
 	    return null;
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null)
+			return false;
+		if (this == obj)
+			return true;
+		if (getClass() != obj.getClass())
+			return false;
+		Operacion other = (Operacion) obj;
+		return other.toString().equals(this.toString());
+	}
+	
 	public String toString(){
 		return operador.symbol;
 	}
