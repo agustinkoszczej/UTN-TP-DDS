@@ -100,12 +100,12 @@ public class ExpressionParser {
 			}
 		}
 	}
-	
+	//TODO Esto rompe Julian
 	private AST addVariable(String constant) {
 		if (!isVariable(constant)) {
 			return new Constante(constant);
 		} else {
-			return new Indicador(); // TODO: validar que sea una cuenta o un indicador que ya existe
+			return (AST) new Indicador(); // TODO: validar que sea una cuenta o un indicador que ya existe
 			// TODO: ver si se implementa un ConstanteIndicador y ConstanteCuenta con tipo AST y que o bien hereden o llamen a Indicador y Cuentas
 		}
 	}

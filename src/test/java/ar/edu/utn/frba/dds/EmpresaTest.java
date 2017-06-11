@@ -20,7 +20,7 @@ import ar.edu.utn.frba.dds.servicio.ServicioCuentas;
 import ar.edu.utn.frba.dds.servicio.ServicioIndicadores;
 import ar.edu.utn.frba.dds.util.ConversorJson;
 import ar.edu.utn.frba.dds.util.ServidorDeConsultas;
-import ar.edu.utn.frba.dds.vista.CuentaWindow;
+import ar.edu.utn.frba.dds.vista.ConsultaCuentaWindow;
 import ar.edu.utn.frba.dds.vista.MainMenuWindow;
 
 public class EmpresaTest {

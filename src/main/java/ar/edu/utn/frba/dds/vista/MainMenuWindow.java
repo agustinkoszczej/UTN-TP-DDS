@@ -7,15 +7,18 @@ import org.uqbar.arena.widgets.Panel;
 import org.uqbar.arena.windows.SimpleWindow;
 import org.uqbar.arena.windows.WindowOwner;
 
-import ar.edu.utn.frba.dds.controlador.ConsultaIndicadorViewModel;
+import ar.edu.utn.frba.dds.controlador.IndicadorViewModel;
 import ar.edu.utn.frba.dds.controlador.CuentaViewModel;
 import ar.edu.utn.frba.dds.servicio.ServicioCuentas;
 import ar.edu.utn.frba.dds.servicio.ServicioIndicadores;
 
 public class MainMenuWindow<T> extends SimpleWindow<T> {
 
+	private ServicioCuentas servicioCuentas;
+	@SuppressWarnings("unchecked")
 	public MainMenuWindow(WindowOwner parent) {
 		super(parent, (T) new Object());
+		servicioCuentas = new ServicioCuentas();
 	}
 
 	@Override
@@ -42,22 +45,14 @@ public class MainMenuWindow<T> extends SimpleWindow<T> {
 	}
 
 	public void consultarIndicadores() {
-		// TODO
-		ServicioCuentas unServicioCuentas = new ServicioCuentas();
-		ServicioIndicadores unServicioIndicadores = new ServicioIndicadores();
-		//IndicadorWindow dialog = new IndicadorWindow(this, new IndicadorViewModel());
-		ConsultaIndicadorWindow dialog = new ConsultaIndicadorWindow(this, new ConsultaIndicadorViewModel(unServicioCuentas,unServicioIndicadores));
-
+		ServicioIndicadores servicioIndicadores = new ServicioIndicadores();
+		ConsultaIndicadorWindow dialog = new ConsultaIndicadorWindow(this, servicioCuentas, servicioIndicadores);
 		dialog.open();
 	}
 
 	public void consultarCuentas() {
-		ServicioCuentas unServicio = new ServicioCuentas();
-
-		CuentaWindow dialog = new CuentaWindow(this, new CuentaViewModel(unServicio));
-
+		ConsultaCuentaWindow dialog = new ConsultaCuentaWindow(this, new CuentaViewModel(servicioCuentas));
 		dialog.open();
-		// dialog.onAccept(() -> { });
 	}
 
 	@Override
