@@ -10,9 +10,9 @@ import ar.edu.utn.frba.dds.modelo.Empresa;
 
 public class ExpresionCompuesta implements Expresion{
 
-	Expresion operando1;
-	Operacion op;
-	Expresion operando2;
+	private Expresion operando1;
+	private Operacion op;
+	private Expresion operando2;
 	
 	@JsonCreator
 	public ExpresionCompuesta(@JsonProperty("operando1")Expresion operando1, 

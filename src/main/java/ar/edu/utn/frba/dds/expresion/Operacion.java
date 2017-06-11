@@ -10,7 +10,7 @@ import ar.edu.utn.frba.dds.util.Operator;
 
 public class Operacion {
 
-	Operator operador;
+	private Operator operador;
 	
 	@JsonCreator
 	public Operacion(@JsonProperty("operador")Operator operador){

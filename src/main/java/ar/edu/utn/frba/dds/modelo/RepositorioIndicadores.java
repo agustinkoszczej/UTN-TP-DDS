@@ -11,7 +11,8 @@ import ar.edu.utn.frba.dds.servicio.ServicioIndicadores;
 public class RepositorioIndicadores {
 	
 	public static void CargarYValidarIndicadores(){
-		indicadores = new ServicioIndicadores().obtenerIndicadores();		
+		indicadores = new ServicioIndicadores().obtenerIndicadores();
+		indicadores.stream().forEach(indicador -> indicador.validarYActualizarVariables(indicadores.stream().collect(Collectors.toList())));
 	}
 	
 	public void setIndicadores(List<Indicador> indicadores){
@@ -25,8 +26,8 @@ public class RepositorioIndicadores {
 		
 		if (indicadores.isEmpty())
 			return null;
-		if (indicadores.stream().map(indicador -> indicador.getNombre()).collect(Collectors.toList()).contains(nombreIndicador)) {
-			return indicadores.stream().filter(indicador -> indicador.getNombre().equals(nombreIndicador)).collect(Collectors.toList()).get(0);
+		if (indicadores.stream().map(indicador -> indicador.getNombreIndicador()).collect(Collectors.toList()).contains(nombreIndicador)) {
+			return indicadores.stream().filter(indicador -> indicador.getNombreIndicador().equals(nombreIndicador)).collect(Collectors.toList()).get(0);
 		} else {
 			return null;
 		}

@@ -30,11 +30,11 @@ import ar.edu.utn.frba.dds.modelo.RepositorioIndicadores;
 
 public class ExpresionesTest {
 
-	Empresa empresaprueba;
+	Empresa empresaPrueba;
 	
 	@Before
 	public void init() {
-		empresaprueba = new Empresa();
+		empresaPrueba = new Empresa();
 		Balance balance = new Balance();
 		balance.setPeriodo("20170100");
 		balance.setTipoCuenta(TipoDeCuenta.EBITDA);
@@ -42,7 +42,7 @@ public class ExpresionesTest {
 		
 		List<Balance> listaBalances = new ArrayList<Balance>();
 		listaBalances.add(balance);
-		empresaprueba.setBalances(listaBalances);
+		empresaPrueba.setBalances(listaBalances);
 	}
 	
 	
@@ -57,7 +57,7 @@ public class ExpresionesTest {
 	@Test
 	public void instanciarYCalcularUnaExpresionCuenta(){
 		ExpresionCuenta exp = new ExpresionCuenta(TipoDeCuenta.EBITDA);
-		Integer resultado = exp.calculate(empresaprueba, "20170100");
+		Integer resultado = exp.calculate(empresaPrueba, "20170100");
 		Assert.assertEquals((Integer)25000,  resultado);
 	}
 	
@@ -68,7 +68,7 @@ public class ExpresionesTest {
 		
 		ExpresionCompuesta exp = new ExpresionCompuesta(expCuentaEBITDA, Operacion.operacionSuma(), expConstante);
 				
-		Integer resultado = exp.calculate(empresaprueba, "20170100");
+		Integer resultado = exp.calculate(empresaPrueba, "20170100");
 		Assert.assertEquals((Integer)25007,  resultado);
 	}
 	
@@ -80,7 +80,7 @@ public class ExpresionesTest {
 		ExpresionCompuesta expCompuesta1 = new ExpresionCompuesta(expCuentaEBITDA, Operacion.operacionSuma(), expConstante); // da 25007
 		ExpresionCompuesta expCompuesta2 = new ExpresionCompuesta(expCompuesta1, Operacion.operacionSuma(), expCuentaEBITDA);		
 		
-		Integer resultado = expCompuesta2.calculate(empresaprueba, "20170100");
+		Integer resultado = expCompuesta2.calculate(empresaPrueba, "20170100");
 		
 		Assert.assertEquals((Integer)50007, resultado);
 	}
@@ -95,7 +95,7 @@ public class ExpresionesTest {
 		
 		ExpresionCompuesta expCompuesta3 = new ExpresionCompuesta(expCompuesta2, Operacion.operacionResta(), expCompuesta1);
 		
-		Integer resultado = expCompuesta3.calculate(empresaprueba, "20170100");
+		Integer resultado = expCompuesta3.calculate(empresaPrueba, "20170100");
 		
 		Assert.assertEquals((Integer)25000, resultado);
 	}
@@ -160,56 +160,5 @@ public class ExpresionesTest {
 		Assert.assertEquals(listaHardcodeada, listaDeElementos);
 	}
 	
-	@Test
-	public void probandoPersistencia() throws JsonGenerationException, JsonMappingException, IOException{
-		ObjectMapper mapper = new ObjectMapper();
-		
-		ExpresionCuenta expCuentaEBITDA = new ExpresionCuenta(TipoDeCuenta.EBITDA);
-		ExpresionConstante expConstante = new ExpresionConstante(7);
-		
-		ExpresionCompuesta expCompuesta1 = new ExpresionCompuesta(expCuentaEBITDA, Operacion.operacionSuma(), expConstante); 
-		ExpresionCompuesta expCompuesta2 = new ExpresionCompuesta(expCompuesta1, Operacion.operacionSuma(), expCuentaEBITDA);	
-		
-		ExpresionCompuesta expCompuesta3 = new ExpresionCompuesta(expCompuesta2, Operacion.operacionResta(), expCompuesta1);
-		
-
-		
-		Indicador indicador = new Indicador("numeroUno", expCompuesta3);
-		
-		RepositorioIndicadores.CargarYValidarIndicadores();
-		System.out.println(RepositorioIndicadores.indicadores);
-		
-		
-		
-		
-		
-		
-		
-		
-		/*
-		System.out.println(indicador.formula());
-		List<Indicador> listaaaa = new ArrayList<Indicador>();
-		listaaaa.add(indicador);
-		listaaaa.add(indicador);
-		//guardarlos
-		mapper.writeValue(new File("probando.json"), listaaaa);
-		
-		//traerlo
-		String json = new String(Files.readAllBytes(Paths.get("probando.json")), StandardCharsets.UTF_8);
-		ObjectMapper objectMapper = new ObjectMapper().configure(DeserializationFeature.ACCEPT_EMPTY_ARRAY_AS_NULL_OBJECT, true);
-		
-		
-		List<Indicador> list = new ArrayList<Indicador>();
-		
-		TypeReference<List<Indicador>> mapIndicadoresList = new TypeReference<List<Indicador>>(){};
-		list = objectMapper.readValue(json, mapIndicadoresList);
-		
-		Indicador indicadorLevantado = list.get(0);
-		
-		/*
-		Indicador indicadorLevantado = objectMapper.readValue(json, new TypeReference<Indicador>(){});
-		*/
-		
-	}
 	
 }

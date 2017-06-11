@@ -49,9 +49,14 @@ public class ConsultaIndicadorWindow extends SimpleWindow<ConsultaIndicadorViewM
 		dialog.open();
 	}
 	
-	public void aplicarIndicador() throws Exception{
-		//TODO
-		getModel().getSource().aplicarIndicador();
+	public void aplicarIndicador(){
+		try {
+			getModel().getSource().aplicarIndicador();
+		} catch (Exception e) {
+			// TODO Mostrar un mensaje con el mensaje de la excepcion
+			
+			e.printStackTrace();
+		}
 	}
 	
 	@Override

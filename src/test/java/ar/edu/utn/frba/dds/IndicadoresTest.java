@@ -1,148 +1,199 @@
 package ar.edu.utn.frba.dds;
 
-import static org.junit.Assert.*;
-
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import ar.edu.utn.frba.dds.modelo.TipoDeCuenta;
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import ar.edu.utn.frba.dds.expresion.*;
+import ar.edu.utn.frba.dds.modelo.Balance;
 import ar.edu.utn.frba.dds.modelo.Empresa;
 import ar.edu.utn.frba.dds.modelo.Indicador;
-import ar.edu.utn.frba.dds.servicio.ServicioCuentas;
-import ar.edu.utn.frba.dds.servicio.ServicioIndicadores;
-import ar.edu.utn.frba.dds.util.ExpressionEval;
-import ar.edu.utn.frba.dds.util.ExpressionParser;
+import ar.edu.utn.frba.dds.modelo.RepositorioIndicadores;
+import ar.edu.utn.frba.dds.modelo.TipoDeCuenta;
 
 public class IndicadoresTest {
-	private Indicador indicadorW, indicadorX, indicadorY, indicadorZ, indicadorInexistente, indicadorComplejo;
-	private ServicioCuentas servicio_cuentas;
-	private ServicioIndicadores servicio_indicadores;
-	private List<Empresa> empresas;
-	private Empresa facebook;
-	private Double cuenta_EBITDA = (double) 140000000;
 
+	Empresa empresaPrueba;
+	
 	@Before
 	public void init() {
-
-		servicio_cuentas = new ServicioCuentas();
-		empresas = new ArrayList<Empresa>();
+		empresaPrueba = new Empresa();
+		Balance balance = new Balance();
+		balance.setPeriodo("20170100");
+		balance.setTipoCuenta(TipoDeCuenta.EBITDA);
+		balance.setValor(new Double(25000));
 		
-		servicio_indicadores = new ServicioIndicadores();
-
-		empresas = servicio_cuentas.obtenerEmpresas();
-		
-		facebook = empresas.get(0);
-		
-	}
-
-	@Test
-	public void probandoParserConNumeroDeUnDigitoSolamente() {
-		ExpressionEval expression = new ExpressionEval("1"); //
-		Assert.assertEquals((Integer) 1, expression.calculate());
-	}
-
-	@Test
-	public void probandoParserConVariosDigitos() {
-		ExpressionEval expression = new ExpressionEval("1500");
-		Assert.assertEquals((Integer) 1500, expression.calculate());
-	}
-
-	@Test
-	public void probandoParserConNumerosNegativosDevuelve0() {
-		ExpressionEval expression = new ExpressionEval("-1500");
-		Assert.assertEquals((Integer) 0, expression.calculate());
-	}
-
-	@Test
-	public void probandoParserConOperadoresBasicos() {
-		// Suma
-		ExpressionEval expression = new ExpressionEval("15 + 3");
-		Assert.assertEquals((Integer) 18, expression.calculate());
-		// Resta
-		expression = new ExpressionEval("15 - 3");
-		Assert.assertEquals((Integer) 12, expression.calculate());
-		// Multiplicaci√≥n
-		expression = new ExpressionEval("15 * 3");
-		Assert.assertEquals((Integer) 45, expression.calculate());
-		// Divisi√≥n
-		expression = new ExpressionEval("15 / 3");
-		Assert.assertEquals((Integer) 5, expression.calculate());
-	}
-
-	@Test
-	public void facebookConIndicadorW() throws Exception {
-		
-		indicadorW = new Indicador("IndicadorW", "15");
-		indicadorW.validarVariables();
-		new ServicioIndicadores().guardarIndicador(indicadorW);
-		
-		Double resultado = (double) 15;
-		Assert.assertEquals(resultado, indicadorW.calcular(facebook, "201706"));
-	}
-
-	@Test
-	public void facebookConIndicadorX() throws Exception {
-
-		indicadorX = new Indicador("IndicadorX", "EBITDA");
-		indicadorX.validarVariables();
-		new ServicioIndicadores().guardarIndicador(indicadorX);
-		
-		Double resultado = (double) cuenta_EBITDA;
-		Assert.assertEquals(resultado, indicadorX.calcular(facebook, "201706"));
-	}
-
-	@Test
-	public void facebookConIndicadorY() throws Exception {
-
-		indicadorY = new Indicador("IndicadorY", "EBITDA + 5");
-		indicadorY.validarVariables();
-		new ServicioIndicadores().guardarIndicador(indicadorY);
-		Double resultado = (double) (cuenta_EBITDA + 5);
-		Assert.assertEquals(resultado, indicadorY.calcular(facebook, "201706"));
+		List<Balance> listaBalances = new ArrayList<Balance>();
+		listaBalances.add(balance);
+		empresaPrueba.setBalances(listaBalances);
 	}
 	
 	@Test
-	public void facebookConIndicadorZ() throws Exception {
-		indicadorZ = new Indicador("IndicadorZ", "IndicadorW + 5 + EBITDA");
-		indicadorZ.validarVariables();
-		new ServicioIndicadores().guardarIndicador(indicadorZ);
-		Double resultado = (double) (15 + 5 + cuenta_EBITDA);
-		Assert.assertEquals(resultado, indicadorZ.calcular(facebook, "201706"));
+	public void instanciarUnIndicador() throws Exception{
+		ExpresionCuenta expCuentaEBITDA = new ExpresionCuenta(TipoDeCuenta.EBITDA);
+		ExpresionConstante expConstante = new ExpresionConstante(7);
+		
+		ExpresionCompuesta expCompuesta1 = new ExpresionCompuesta(expCuentaEBITDA, Operacion.operacionSuma(), expConstante); // da 25007
+		
+		Indicador indicador1 = new Indicador("Indicador1", expCompuesta1);
+		
+		Assert.assertEquals((Integer)25007, indicador1.calcular(empresaPrueba, "20170100"));
 	}
 	
 	@Test
-	public void facebookConIndicadorComplejo() throws Exception {
-		indicadorW = new Indicador("IndicadorW", "15");
-		indicadorW.validarVariables();
-		new ServicioIndicadores().guardarIndicador(indicadorW);
-		indicadorZ = new Indicador("IndicadorZ", "IndicadorW + 5 + EBITDA");
-		indicadorZ.validarVariables();
-		new ServicioIndicadores().guardarIndicador(indicadorZ);
-		indicadorComplejo = new Indicador("IndicadorBastanteComplejo", "IndicadorZ - 10");
-		indicadorComplejo.validarVariables();
-		new ServicioIndicadores().guardarIndicador(indicadorComplejo);
-		Double resultado = (double) ((15 + 5 + cuenta_EBITDA) - 10);
-		Assert.assertEquals(resultado, indicadorZ.calcular(facebook, "201706"));
+	public void instanciarUnIndicadorCompuesto() throws Exception{
+		ExpresionCuenta expCuentaEBITDA = new ExpresionCuenta(TipoDeCuenta.EBITDA);
+		ExpresionConstante expConstante = new ExpresionConstante(7);
+		
+		ExpresionCompuesta expCompuesta1 = new ExpresionCompuesta(expCuentaEBITDA, Operacion.operacionSuma(), expConstante); // da 25007
+		
+		Indicador indicador1 = new Indicador("Indicador1", expCompuesta1);
+		
+		ExpresionCompuesta expCompuesta2 = new ExpresionCompuesta(new ExpresionIndicador(indicador1), Operacion.operacionSuma(), expCuentaEBITDA);		
+		
+		Indicador indicador2 = new Indicador("Indicador2", expCompuesta2);
+		
+		Integer resultado = indicador2.calcular(empresaPrueba, "20170100");
+		
+		Assert.assertEquals((Integer)50007, resultado);
 	}
+	
+	@Test
+	public void mostrarLaExpresionDeUnIndicador(){
+		ExpresionCuenta expCuentaEBITDA = new ExpresionCuenta(TipoDeCuenta.EBITDA);
+		ExpresionConstante expConstante = new ExpresionConstante(7);
+		
+		ExpresionCompuesta expCompuesta1 = new ExpresionCompuesta(expCuentaEBITDA, Operacion.operacionSuma(), expConstante); // da 25007
+		
+		Indicador indicador1 = new Indicador("Indicador1", expCompuesta1);
+		
+		ExpresionCompuesta expCompuesta2 = new ExpresionCompuesta(new ExpresionIndicador(indicador1), Operacion.operacionSuma(), expCuentaEBITDA);
+		
+		Indicador indicador2 = new Indicador("Indicador2", expCompuesta2);
+		
+		Assert.assertEquals("Indicador2 = Indicador1+EBITDA", indicador2.toString());
+	}
+	
+	@Test
+	public void mostrarLaListaDeIndicadoresDeUnIndicador(){
+		ExpresionCuenta expCuentaEBITDA = new ExpresionCuenta(TipoDeCuenta.EBITDA);
+		ExpresionConstante expConstante = new ExpresionConstante(7);
+		
+		ExpresionCompuesta expCompuesta1 = new ExpresionCompuesta(expCuentaEBITDA, Operacion.operacionSuma(), expConstante); // da 25007
+		
+		Indicador indicador1 = new Indicador("Indicador1", expCompuesta1);
+		
+		ExpresionCompuesta expCompuesta2 = new ExpresionCompuesta(new ExpresionIndicador(indicador1), Operacion.operacionSuma(), expCuentaEBITDA);		
+		
+		Indicador indicador2 = new Indicador("Indicador2", expCompuesta2);
 
+		Assert.assertEquals("[Indicador1 = EBITDA+7]", indicador2.listaIndicadores().toString());
+	}
+	
+	@Test
+	public void validarYActualizarIndicadoresInternosDeUnIndicador(){
+		ExpresionCuenta expCuentaEBITDA = new ExpresionCuenta(TipoDeCuenta.EBITDA);
+		ExpresionConstante expConstante = new ExpresionConstante(7);
+		
+		ExpresionCompuesta expCompuesta1 = new ExpresionCompuesta(expCuentaEBITDA, Operacion.operacionSuma(), expConstante); // da 25007
+		
+		Indicador indicador1 = new Indicador("Indicador1", expCompuesta1);
+		
+		ExpresionCompuesta expCompuesta2 = new ExpresionCompuesta(new ExpresionIndicador(indicador1), Operacion.operacionSuma(), expCuentaEBITDA);
+		
+		Indicador indicador2 = new Indicador("Indicador2", expCompuesta2);
+		
+		List<Indicador> indicadoresActualizados = new ArrayList<Indicador>();
+		//Creamos un un indicador con el mismo nombre como si lo hubieramos cargado del archivo
+		//Este indicador nuevo tiene una formula diferente al anterior, pero el mismo nombre,
+		//por lo que deberia actualizarse cuando llamamos a validarYActualizar
+		Indicador indicadorCargado = new Indicador("Indicador1", expConstante);
+		indicadoresActualizados.add(indicadorCargado);
+		
+		indicador2.validarYActualizarVariables(indicadoresActualizados);
+		Assert.assertEquals("[Indicador1 = 7]", indicador2.listaIndicadores().toString());
+		
+	}
+	
 	@Test(expected = Exception.class)
-	public void facebookConIndicadorInexistenteDeberiaFallar() throws Exception {
-
-		indicadorInexistente = new Indicador("IndicadorInexistente", "5 + Error");
-		indicadorInexistente.validarVariables();
-		indicadorInexistente.calcular(facebook, "201706");
+	public void indicadorConIndicadoresQueNoEstanEnElArchivoDeberiaTirarExcepcion() throws Exception{
+		
+		ExpresionCuenta expCuentaEBITDA = new ExpresionCuenta(TipoDeCuenta.EBITDA);
+		ExpresionConstante expConstante = new ExpresionConstante(7);
+		
+		ExpresionCompuesta expCompuesta1 = new ExpresionCompuesta(expCuentaEBITDA, Operacion.operacionSuma(), expConstante); // da 25007
+		
+		Indicador indicador1 = new Indicador("Indicador1", expCompuesta1);
+		
+		ExpresionCompuesta expCompuesta2 = new ExpresionCompuesta(new ExpresionIndicador(indicador1), Operacion.operacionSuma(), expCuentaEBITDA);
+		
+		Indicador indicador2 = new Indicador("Indicador2", expCompuesta2);
+		
+		List<Indicador> indicadoresActualizados = new ArrayList<Indicador>();
+		//Creamos una lista vacia que seria como el archivo que leimos si estuviera vacio,
+		//Por ende, nuestro indicador2, que contiene al indicador1, deberia detectar que Èste
+		//no est· en la lista, y deberia romper al tratar de calcularse
+		
+		indicador2.validarYActualizarVariables(indicadoresActualizados);
+		
+		indicador2.calcular(empresaPrueba, "20170100");
+		
 	}
 	
-	/*@Test
-	public void precedenciaParser(){
-
-		indicadorInexistente = new Indicador("IndicadorInexistente", "5 + Error");
+	@Test
+	public void indicadoresPersistidosDeberianSerLosMismosQueLosLeidosDelArchivo() throws JsonGenerationException, JsonMappingException, IOException{
 		
-		indicadorInexistente.calcular(facebook, "201706");
-	}*/
-
+		//Creamos indicadores
+		ExpresionCuenta expCuentaEBITDA = new ExpresionCuenta(TipoDeCuenta.EBITDA);
+		ExpresionConstante expConstante = new ExpresionConstante(7);
+		
+		ExpresionCompuesta expCompuesta1 = new ExpresionCompuesta(expCuentaEBITDA, Operacion.operacionSuma(), expConstante); 
+		ExpresionCompuesta expCompuesta2 = new ExpresionCompuesta(expCompuesta1, Operacion.operacionSuma(), expCuentaEBITDA);	
+		
+		ExpresionCompuesta expCompuesta3 = new ExpresionCompuesta(expCompuesta2, Operacion.operacionResta(), expCompuesta1);
+		
+		Indicador indicador1 = new Indicador("INDICADOR1", expCompuesta3);
+		
+		Indicador indicador2 = new Indicador("INDICADOR2", new ExpresionIndicador(indicador1));
+		
+		List<Indicador> listaAGuardar = new ArrayList<Indicador>();
+		listaAGuardar.add(indicador1);
+		listaAGuardar.add(indicador2);
+		
+		//Guardamos en el archivo
+		String archivoDePrueba = "probando.json";
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.writeValue(new File(archivoDePrueba), listaAGuardar);
+		
+		
+		//Levantamos del archivo
+		String json = new String(Files.readAllBytes(Paths.get(archivoDePrueba)), StandardCharsets.UTF_8);
+		ObjectMapper objectMapper = new ObjectMapper().configure(DeserializationFeature.ACCEPT_EMPTY_ARRAY_AS_NULL_OBJECT, true);
+		
+		List<Indicador> listaALevantar = new ArrayList<Indicador>();
+		
+		TypeReference<List<Indicador>> mapIndicadoresList = new TypeReference<List<Indicador>>(){};
+		listaALevantar = objectMapper.readValue(json, mapIndicadoresList);
+		
+		Files.delete(Paths.get(archivoDePrueba));
+		
+		Assert.assertEquals(listaAGuardar, listaALevantar);
+		
+	}
+	
 }

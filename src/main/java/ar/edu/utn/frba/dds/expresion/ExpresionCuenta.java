@@ -12,7 +12,7 @@ import ar.edu.utn.frba.dds.modelo.Empresa;
 
 public class ExpresionCuenta extends ExpresionSimple{
 
-	TipoDeCuenta cuenta;
+	private TipoDeCuenta cuenta;
 	
 	@JsonCreator
 	public ExpresionCuenta(@JsonProperty("cuenta")TipoDeCuenta cuenta){

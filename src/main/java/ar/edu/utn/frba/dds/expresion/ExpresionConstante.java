@@ -10,7 +10,7 @@ import ar.edu.utn.frba.dds.modelo.Empresa;
 
 public class ExpresionConstante extends ExpresionSimple {
 
-	Integer constante;
+	private Integer constante;
 	
 	@JsonCreator
 	public ExpresionConstante(@JsonProperty("constante")Integer constante){
