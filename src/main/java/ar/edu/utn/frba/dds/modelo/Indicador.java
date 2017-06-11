@@ -36,7 +36,7 @@ public class Indicador {
 	private List<Indicador> indicadoresCorruptos;
 	
 	public Integer calcular(Empresa empresa, String periodo) throws Exception{
-		if(indicadoresCorruptos.isEmpty())
+		if(!tieneIndicadoresCorruptos())
 			return expresion.calculate(empresa, periodo);
 		else
 			throw new Exception("Los indicadores " + indicadoresCorruptos + " no estan en el archivo de indicadores.");
@@ -107,6 +107,11 @@ public class Indicador {
 	public String getNombreIndicador(){
 		return nombreIndicador;
 	}
+
+	public boolean tieneIndicadoresCorruptos() {
+		return !indicadoresCorruptos.isEmpty();
+	}
+
 	
 	/*
 	public List<Indicador> indicadores = new ArrayList<Indicador>();

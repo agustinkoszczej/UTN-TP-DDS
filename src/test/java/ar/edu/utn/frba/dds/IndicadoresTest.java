@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -29,9 +30,16 @@ import ar.edu.utn.frba.dds.modelo.TipoDeCuenta;
 public class IndicadoresTest {
 
 	Empresa empresaPrueba;
+	Indicador indicador1;
+	ExpresionCuenta expCuentaEBITDA;
+	ExpresionConstante expConstante;
+	ExpresionCompuesta expCompuesta1;
+	String mockJsonIndicadores = "mockIndicadores.json";
+	List<Indicador> listaAGuardar;
+	ObjectMapper mapper;
 	
 	@Before
-	public void init() {
+	public void init() throws JsonMappingException, JsonGenerationException, IOException {
 		empresaPrueba = new Empresa();
 		Balance balance = new Balance();
 		balance.setPeriodo("20170100");
@@ -41,28 +49,47 @@ public class IndicadoresTest {
 		List<Balance> listaBalances = new ArrayList<Balance>();
 		listaBalances.add(balance);
 		empresaPrueba.setBalances(listaBalances);
+		 expCuentaEBITDA = new ExpresionCuenta(TipoDeCuenta.EBITDA);
+		 expConstante = new ExpresionConstante(7);
+		
+		expCompuesta1 = new ExpresionCompuesta(expCuentaEBITDA, Operacion.operacionSuma(), expConstante); // da 25007
+
+		indicador1 = new Indicador("Indicador1", expCompuesta1);
+		listaAGuardar = new ArrayList<Indicador>();
+		listaAGuardar.add(indicador1);
+		mapper = new ObjectMapper();
+		mapper.writeValue(new File(mockJsonIndicadores), listaAGuardar);
+			
+	}
+	
+	@After
+	public void terminate() throws IOException{
+		listaAGuardar.clear();
+		Files.delete(Paths.get(mockJsonIndicadores));
 	}
 	
 	@Test
-	public void instanciarUnIndicador() throws Exception{
-		ExpresionCuenta expCuentaEBITDA = new ExpresionCuenta(TipoDeCuenta.EBITDA);
-		ExpresionConstante expConstante = new ExpresionConstante(7);
+	public void calcularUnIndicador() throws Exception{
 		
-		ExpresionCompuesta expCompuesta1 = new ExpresionCompuesta(expCuentaEBITDA, Operacion.operacionSuma(), expConstante); // da 25007
-		
-		Indicador indicador1 = new Indicador("Indicador1", expCompuesta1);
 		
 		Assert.assertEquals((Integer)25007, indicador1.calcular(empresaPrueba, "20170100"));
 	}
 	
+
+	@Test
+	public void leeIndicadorDeUnJson() throws Exception {
+		String json = new String(Files.readAllBytes(Paths.get(mockJsonIndicadores)), StandardCharsets.UTF_8);
+		ObjectMapper objectMapper = new ObjectMapper().configure(DeserializationFeature.ACCEPT_EMPTY_ARRAY_AS_NULL_OBJECT, true);
+		
+		List<Indicador> listaALevantar = new ArrayList<Indicador>();
+		TypeReference<List<Indicador>> mapIndicadoresList = new TypeReference<List<Indicador>>(){};
+		listaALevantar = objectMapper.readValue(json, mapIndicadoresList);
+		Indicador indicadorDeLista = listaALevantar.get(0);
+		Assert.assertEquals((Integer)25007, indicadorDeLista.calcular(empresaPrueba, "20170100"));
+	}
+	
 	@Test
 	public void instanciarUnIndicadorCompuesto() throws Exception{
-		ExpresionCuenta expCuentaEBITDA = new ExpresionCuenta(TipoDeCuenta.EBITDA);
-		ExpresionConstante expConstante = new ExpresionConstante(7);
-		
-		ExpresionCompuesta expCompuesta1 = new ExpresionCompuesta(expCuentaEBITDA, Operacion.operacionSuma(), expConstante); // da 25007
-		
-		Indicador indicador1 = new Indicador("Indicador1", expCompuesta1);
 		
 		ExpresionCompuesta expCompuesta2 = new ExpresionCompuesta(new ExpresionIndicador(indicador1), Operacion.operacionSuma(), expCuentaEBITDA);		
 		
@@ -75,13 +102,6 @@ public class IndicadoresTest {
 	
 	@Test
 	public void mostrarLaExpresionDeUnIndicador(){
-		ExpresionCuenta expCuentaEBITDA = new ExpresionCuenta(TipoDeCuenta.EBITDA);
-		ExpresionConstante expConstante = new ExpresionConstante(7);
-		
-		ExpresionCompuesta expCompuesta1 = new ExpresionCompuesta(expCuentaEBITDA, Operacion.operacionSuma(), expConstante); // da 25007
-		
-		Indicador indicador1 = new Indicador("Indicador1", expCompuesta1);
-		
 		ExpresionCompuesta expCompuesta2 = new ExpresionCompuesta(new ExpresionIndicador(indicador1), Operacion.operacionSuma(), expCuentaEBITDA);
 		
 		Indicador indicador2 = new Indicador("Indicador2", expCompuesta2);
@@ -91,12 +111,6 @@ public class IndicadoresTest {
 	
 	@Test
 	public void mostrarLaListaDeIndicadoresDeUnIndicador(){
-		ExpresionCuenta expCuentaEBITDA = new ExpresionCuenta(TipoDeCuenta.EBITDA);
-		ExpresionConstante expConstante = new ExpresionConstante(7);
-		
-		ExpresionCompuesta expCompuesta1 = new ExpresionCompuesta(expCuentaEBITDA, Operacion.operacionSuma(), expConstante); // da 25007
-		
-		Indicador indicador1 = new Indicador("Indicador1", expCompuesta1);
 		
 		ExpresionCompuesta expCompuesta2 = new ExpresionCompuesta(new ExpresionIndicador(indicador1), Operacion.operacionSuma(), expCuentaEBITDA);		
 		
@@ -107,12 +121,6 @@ public class IndicadoresTest {
 	
 	@Test
 	public void validarYActualizarIndicadoresInternosDeUnIndicador(){
-		ExpresionCuenta expCuentaEBITDA = new ExpresionCuenta(TipoDeCuenta.EBITDA);
-		ExpresionConstante expConstante = new ExpresionConstante(7);
-		
-		ExpresionCompuesta expCompuesta1 = new ExpresionCompuesta(expCuentaEBITDA, Operacion.operacionSuma(), expConstante); // da 25007
-		
-		Indicador indicador1 = new Indicador("Indicador1", expCompuesta1);
 		
 		ExpresionCompuesta expCompuesta2 = new ExpresionCompuesta(new ExpresionIndicador(indicador1), Operacion.operacionSuma(), expCuentaEBITDA);
 		
@@ -130,15 +138,25 @@ public class IndicadoresTest {
 		
 	}
 	
+	@Test
+	public void indicadorConIndicadoresQueNoEstanEnElArchivoTieneSonCorruptos() throws Exception{
+		
+		ExpresionCompuesta expCompuesta2 = new ExpresionCompuesta(new ExpresionIndicador(indicador1), Operacion.operacionSuma(), expCuentaEBITDA);
+		
+		Indicador indicador2 = new Indicador("Indicador2", expCompuesta2);
+		
+		List<Indicador> indicadoresActualizados = new ArrayList<Indicador>();
+		//Creamos una lista vacia que seria como el archivo que leimos si estuviera vacio,
+		//Por ende, nuestro indicador2, que contiene al indicador1, deberia detectar que éste
+		//no está en la lista, y deberia romper al tratar de calcularse
+		
+		indicador2.validarYActualizarVariables(indicadoresActualizados);
+		
+		Assert.assertTrue(indicador2.tieneIndicadoresCorruptos());
+	}
+	
 	@Test(expected = Exception.class)
 	public void indicadorConIndicadoresQueNoEstanEnElArchivoDeberiaTirarExcepcion() throws Exception{
-		
-		ExpresionCuenta expCuentaEBITDA = new ExpresionCuenta(TipoDeCuenta.EBITDA);
-		ExpresionConstante expConstante = new ExpresionConstante(7);
-		
-		ExpresionCompuesta expCompuesta1 = new ExpresionCompuesta(expCuentaEBITDA, Operacion.operacionSuma(), expConstante); // da 25007
-		
-		Indicador indicador1 = new Indicador("Indicador1", expCompuesta1);
 		
 		ExpresionCompuesta expCompuesta2 = new ExpresionCompuesta(new ExpresionIndicador(indicador1), Operacion.operacionSuma(), expCuentaEBITDA);
 		
@@ -152,32 +170,26 @@ public class IndicadoresTest {
 		indicador2.validarYActualizarVariables(indicadoresActualizados);
 		
 		indicador2.calcular(empresaPrueba, "20170100");
-		
 	}
+	
+	
 	
 	@Test
 	public void indicadoresPersistidosDeberianSerLosMismosQueLosLeidosDelArchivo() throws JsonGenerationException, JsonMappingException, IOException{
 		
 		//Creamos indicadores
-		ExpresionCuenta expCuentaEBITDA = new ExpresionCuenta(TipoDeCuenta.EBITDA);
-		ExpresionConstante expConstante = new ExpresionConstante(7);
-		
-		ExpresionCompuesta expCompuesta1 = new ExpresionCompuesta(expCuentaEBITDA, Operacion.operacionSuma(), expConstante); 
 		ExpresionCompuesta expCompuesta2 = new ExpresionCompuesta(expCompuesta1, Operacion.operacionSuma(), expCuentaEBITDA);	
 		
 		ExpresionCompuesta expCompuesta3 = new ExpresionCompuesta(expCompuesta2, Operacion.operacionResta(), expCompuesta1);
 		
-		Indicador indicador1 = new Indicador("INDICADOR1", expCompuesta3);
+		indicador1 = new Indicador("INDICADOR1", expCompuesta3);
 		
 		Indicador indicador2 = new Indicador("INDICADOR2", new ExpresionIndicador(indicador1));
 		
-		List<Indicador> listaAGuardar = new ArrayList<Indicador>();
-		listaAGuardar.add(indicador1);
 		listaAGuardar.add(indicador2);
 		
 		//Guardamos en el archivo
 		String archivoDePrueba = "probando.json";
-		ObjectMapper mapper = new ObjectMapper();
 		mapper.writeValue(new File(archivoDePrueba), listaAGuardar);
 		
 		
