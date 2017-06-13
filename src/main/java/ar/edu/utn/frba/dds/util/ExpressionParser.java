@@ -27,8 +27,8 @@ public class ExpressionParser {
 			put("-", Operator.SUBSTRACT);
 			put("*", Operator.MULTIPLY);
 			put("/", Operator.DIVIDE);
-		}
-	};
+
+	}};
 
 	private Boolean isOperator(String token) {
 		return ExpressionParser.ops.containsKey(token);

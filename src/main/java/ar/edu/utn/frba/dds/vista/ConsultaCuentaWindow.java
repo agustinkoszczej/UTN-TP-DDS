@@ -15,9 +15,9 @@ import ar.edu.utn.frba.dds.controlador.CuentaViewModel;
 import ar.edu.utn.frba.dds.modelo.Balance;
 import ar.edu.utn.frba.dds.modelo.Empresa;
 
-public class CuentaWindow extends SimpleWindow<CuentaViewModel> {
+public class ConsultaCuentaWindow extends SimpleWindow<CuentaViewModel> {
 	
-	public CuentaWindow(WindowOwner parent, CuentaViewModel cuentaModel) {
+	public ConsultaCuentaWindow(WindowOwner parent, CuentaViewModel cuentaModel) {
 		super(parent, cuentaModel);
 	}
 
@@ -28,7 +28,7 @@ public class CuentaWindow extends SimpleWindow<CuentaViewModel> {
 
 	@Override
 	protected void createFormPanel(Panel form) {
-		this.setTitle("Cuentas");
+		this.setTitle("Consulta Cuentas");
 		new Label(form)
 		.setText("Empresa")
 		.setBackground(Color.ORANGE);

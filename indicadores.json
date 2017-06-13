@@ -1,1 +1,9 @@
-[{"nombre":"UnoNormal","expresion":"EBITDA","indicadores":[],"cuentas":["EBITDA"]},{"nombre":"UnoComplejo","expresion":"EBITDA + 50","indicadores":[],"cuentas":["EBITDA"]},{"nombre":"UnoCompuesto","expresion":"UnoComplejo - UnoNormal","indicadores":[{"nombre":"UnoNormal","expresion":"EBITDA","indicadores":[],"cuentas":["EBITDA","EBITDA"]},{"nombre":"UnoComplejo","expresion":"EBITDA + 50","indicadores":[],"cuentas":["EBITDA","EBITDA"]}],"cuentas":[]}]
+[{"nombre":"numeroUno","expresion":{"@class":".ExpresionCompuesta","operando1":
+{"@class":".ExpresionCompuesta","operando1":
+{"@class":".ExpresionCompuesta","operando1":
+{"@class":".ExpresionCuenta","cuenta":"EBITDA"},"operando2":
+{"@class":".ExpresionConstante","constante":7},"op":{"operador":"ADD"}},"operando2":
+{"@class":".ExpresionCuenta","cuenta":"EBITDA"},"op":{"operador":"ADD"}},"operando2":
+{"@class":".ExpresionCompuesta","operando1":{"@class":".ExpresionCuenta","cuenta":"EBITDA"},"operando2":
+{"@class":".ExpresionConstante","constante":7},"op":{"operador":"ADD"}},"op":
+{"operador":"SUBSTRACT"}}}]
