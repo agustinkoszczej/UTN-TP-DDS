@@ -1,17 +1,17 @@
 package ar.edu.utn.frba.dds.util;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Stack;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import ar.edu.utn.frba.dds.ast.AST;
-import ar.edu.utn.frba.dds.ast.Constante;
-import ar.edu.utn.frba.dds.ast.Operacion;
+import ar.edu.utn.frba.dds.expresion.Expresion;
+import ar.edu.utn.frba.dds.expresion.ExpresionCompuesta;
+import ar.edu.utn.frba.dds.expresion.ExpresionConstante;
+import ar.edu.utn.frba.dds.expresion.ExpresionCuenta;
+import ar.edu.utn.frba.dds.expresion.Operacion;
 import ar.edu.utn.frba.dds.modelo.Indicador;
+import ar.edu.utn.frba.dds.modelo.TipoDeCuenta;
 
 public class ExpressionParser {
 
@@ -19,158 +19,105 @@ public class ExpressionParser {
 	private static Pattern evaluationPattern = Pattern.compile(patternParser);
 
 	private static String patternVariable = "^[a-zA-Z]+[a-zA-Z0-9]*$";
+	private static String patternNumber = "^[0-9]+(\\.[0-9]*)?$";
 
-	private static Map<String, Operator> ops=new HashMap<String,Operator>(){{put("+",Operator.ADD);put("-",Operator.SUBSTRACT);put("*",Operator.MULTIPLY);put("/",Operator.DIVIDE);}};
-
-	private AST ASTgenerado;
-	private Operacion lastOperator;
-	private AST lastToken;
-
-	public AST ASTresult(String expression) {
-		// Integer expressionLength = expression.replaceAll("\\s+",
-		// "").length();
-
-		// TODO: verificar sintaxis no validas como ++ o 25PT [25 PT]
-		// TODO: verificar que todos los tokens son validos
-
-		Matcher expressionMatch = ExpressionParser.evaluationPattern.matcher(expression);
-		while (expressionMatch.find()) {
-			parseAST(expressionMatch.group());
+	private static Map<String, Operator> ops = new HashMap<String, Operator>() {
+		{
+			put("+", Operator.ADD);
+			put("-", Operator.SUBSTRACT);
+			put("*", Operator.MULTIPLY);
+			put("/", Operator.DIVIDE);
 		}
-		return ASTgenerado;
-	}
-
-	private void parseAST(String token) {
-		if (isOperator(token)) {
-			addOperator(token);
-		} else if (token.length() > 0) {
-			addConstant(token);
-		} else {
-			// TODO: error!
-		}
-	}
-
-	// TODO: Ver casos con multiples operadores
-	private void addOperator(String operator) {
-		if (lastOperator == null) {
-			lastOperator = new Operacion(getOperator(operator));
-		}
-		if ( (lastOperator != null) && (lastToken != null) ) {
-			if ((ASTgenerado != null) && (ASTgenerado.getClass() == Operacion.class)) {
-				Operacion newOperator = new Operacion(getOperator(operator));
-				if (lastOperator.getOperacion().precedence > getOperator(operator).precedence) { // de multiplicacion sigue suma
-					newOperator.agregarOperando(lastOperator);
-					lastOperator.setOperacionPrecedente(newOperator);
-					lastOperator = newOperator;
-					ASTgenerado = lastOperator; // TODO: ver si se puede poner en otro lado para no repetir asignacion
-				} else if (lastOperator.getOperacion().precedence == getOperator(operator).precedence) {
-					lastOperator.setOperacionPrecedente(newOperator);
-					newOperator.agregarOperando(lastOperator);
-					lastOperator = newOperator;
-					ASTgenerado = lastOperator; // TODO: ver si se puede poner en otro lado para no repetir asignacion
-				} else { // de suma a multiplicacion
-					newOperator.agregarOperando(lastOperator.getOperando(2));
-					newOperator.setOperacionPrecedente(lastOperator);
-					lastOperator.setOperando(2,newOperator);
-					lastOperator = newOperator;
-				}
-			} else if ( (ASTgenerado == null) || (ASTgenerado.getClass() != Operacion.class) )  {
-					lastOperator.agregarOperando(lastToken);
-					ASTgenerado = lastOperator;
-			} else {
-				// TODO: Excepcion no contralada
-			}
-		} else {
-			//TODO: explotar
-		}
-	}
-
-	private void addConstant(String constant) {
-		if (lastToken == null) {
-			lastToken = addVariable(constant);
-		}
-		if (ASTgenerado == null) {
-			ASTgenerado = lastToken;
-		} else {
-			if (ASTgenerado.getClass() == Operacion.class) {
-				lastToken = addVariable(constant);
-				lastOperator.agregarOperando(lastToken);
-			} else if (ASTgenerado.getClass() == Constante.class) {
-				// TODO: explotar por doble contaste
-			}
-		}
-	}
-	
-	private AST addVariable(String constant) {
-		if (!isVariable(constant)) {
-			return new Constante(constant);
-		} else {
-			return new Indicador(); // TODO: validar que sea una cuenta o un indicador que ya existe
-			// TODO: ver si se implementa un ConstanteIndicador y ConstanteCuenta con tipo AST y que o bien hereden o llamen a Indicador y Cuentas
-		}
-	}
+	};
 
 	private Boolean isOperator(String token) {
 		return ExpressionParser.ops.containsKey(token);
-	}
-
-	private Operator getOperator(String token) {
-		return ExpressionParser.ops.get(token);
 	}
 
 	private Boolean isVariable(String token) {
 		return token.matches(ExpressionParser.patternVariable);
 	}
 
-	// De aca para abajo se depreca todo!
-
-	private Stack<String> stackTokens = new Stack<String>();
-	private Stack<Operator> stackOperators = new Stack<Operator>();
-	private List<String> variables = new ArrayList<String>();
-
-	public Stack<String> getStackTokens() {
-		return stackTokens;
+	private Boolean isNumber(String token) {
+		return token.matches(ExpressionParser.patternNumber);
 	}
-
-	public Stack<Operator> getStackOperators() {
-		return stackOperators;
+	
+	private Expresion parseExpresion(String token, String proxToken, Expresion resultExpresion) {
+		if ((resultExpresion == null) && (proxToken == null)) {
+			return new ExpresionConstante(Integer.parseInt(token));
+		}
+		if (resultExpresion.getClass() == ExpresionConstante.class) {
+		}
+		return null;
 	}
-
-	public List<String> getVariables() {
-		return variables;
-	}
-
-	public Boolean parse(String expression) {
-		Integer expressionLength = expression.replaceAll("\\s+", "").length();
-
-		// TODO: verificar sintaxis no validas como ++ o 25PT [25 PT]
-
-		// TODO: Ver porque no funciona el forEach, no esta haciendo el analisis
-		// de la expresion regular
-		// ExpressionParser.evaluationPattern.splitAsStream(expression).forEach(token
-		// -> stackExpression(token));
-		// expressionLength -=
-		// ExpressionParser.evaluationPattern.splitAsStream(expression).mapToInt(token
-		// -> token.length()).sum();
-		// }
-		System.out.println(expression);
-
-		Matcher expressionMatch = ExpressionParser.evaluationPattern.matcher(expression);
+	
+	public Expresion buildExpressionFrom(String expresion) {
+		Expresion resultExpression = null;
+		Matcher expressionMatch = ExpressionParser.evaluationPattern.matcher(expresion);
+		String token = "";
+		String proxToken = "";
+		
+		if (expressionMatch.find()) {
+			token = expressionMatch.group();
+			if ((isOperator(token)) && (token.compareTo("-") == 0) && (expressionMatch.find())) {
+				token += expressionMatch.group();
+			} else if ((!isNumber(token)) || (!isVariable(token))) {
+				// ERROR: Solo se paso un operador
+			}
+		} else {
+			// ERROR: No se pudo parsear expresion
+		}
+		resultExpression = parseExpresion(token, null, resultExpression);
+		
+		// -5*-5 => token = -5;  proxToken = *
 		while (expressionMatch.find()) {
-			stackExpression(expressionMatch.group());
+			proxToken = expressionMatch.group();
+			// TODO: Refactorizar por un metodo
+			if ((proxToken.compareTo("-") == 0) && isOperator(token)) {
+				if (expressionMatch.find()) {
+					if (isNumber(expressionMatch.group()) || isVariable(expressionMatch.group())) { // FIXME: Que pasa con Cuentas o Indicadores negativos?? Rta: Habria que agregar un *(-1)
+						proxToken += expressionMatch.group();
+					} else {
+						// ERROR se pasaron 3 operadores juntos
+					}
+				} else {
+					// ERROR se paso un operador y no hay operando
+				}
+			}
+			resultExpression = parseExpresion(token, proxToken, resultExpression);
+			token=proxToken; 
 		}
 
-		return expressionLength.equals(0);
+		
+		return resultExpression;
 	}
 
-	private void stackExpression(String token) {
-		if (isOperator(token)) {
-			stackOperators.push(getOperator(token));
-		} else if (token.length() > 0) {
-			stackTokens.push(token);
-			if (isVariable(token))
-				variables.add(token);
+	private Operator tokenType(String token) {
+		if (ops.get(token) != null) {
+			return ops.get(token);
+		} else {
+			if (isNumber(token)) {
+				return Operator.CONSTANT;
+			} else if (isVariable(token)) {
+				return Operator.VARIABLE;
+			} else {
+				// caracter no valido
+				return null;
+			}
 		}
+	}
+	
+	private Expresion buildExpresion(Expresion anterior, Expresion operando, Operacion operacion) {
+		// segun precedencia armo expresion
+		return null;
+	}
+	
+	private Expresion getToken(Matcher expressionMatch) {
+		expressionMatch.find();
+		String token = expressionMatch.group();
+		//parseExpression(token);
+		return null;
+		// devolver Expression
 	}
 
 }
