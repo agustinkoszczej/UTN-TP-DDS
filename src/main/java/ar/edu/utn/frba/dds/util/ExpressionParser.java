@@ -5,14 +5,12 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import ar.edu.utn.frba.dds.IndicadoresTest;
 import ar.edu.utn.frba.dds.expresion.Expresion;
 import ar.edu.utn.frba.dds.expresion.ExpresionCompuesta;
 import ar.edu.utn.frba.dds.expresion.ExpresionConstante;
 import ar.edu.utn.frba.dds.expresion.ExpresionCuenta;
 import ar.edu.utn.frba.dds.expresion.ExpresionIndicador;
 import ar.edu.utn.frba.dds.expresion.Operacion;
-import ar.edu.utn.frba.dds.modelo.Indicador;
 import ar.edu.utn.frba.dds.modelo.RepositorioIndicadores;
 import ar.edu.utn.frba.dds.modelo.TipoDeCuenta;
 
@@ -78,18 +76,7 @@ public class ExpressionParser {
 
 	private Expresion parseExpresion(String currToken, String proxToken, Expresion resultExpresion) {
 		if ((resultExpresion == null) && (proxToken == null)) {
-			if (isNumber(currToken)) {
-				return new ExpresionConstante(Integer.parseInt(currToken));
-			} else if (isVariable(currToken)) {
-				ExpresionConstante expresionI = new ExpresionConstante(-1);
-				Operacion operacion = new Operacion(Operator.MULTIPLY);
-				// TODO: Verificar que sea negativo
-				// TODO: si es negativo ya devuelve expresion compuesta
-				Expresion expresionD = getFromToken(proxToken);
-				return new ExpresionCompuesta(expresionI, operacion, expresionD);
-			} else {
-				// ERROR: No era ni un numero ni una variable
-			}
+			return getFromToken(currToken);
 		}
 		// Para el caso particular que el primer token fuera una Constante o una cuenta positiva
 		if (resultExpresion.getClass() == ExpresionConstante.class) {
@@ -98,8 +85,8 @@ public class ExpressionParser {
 			Expresion expresionD = getFromToken(proxToken);
 			return new ExpresionCompuesta(expresionI, operacion, expresionD);
 		}
-		// TODO ver si es el caso de SUMA o MULTIPLICACION y ordenar if
-		if ( ((ExpresionCompuesta)resultExpresion).getOp().getOperador().precedence > ops.get(currToken).precedence ) {
+		// TODO ver si es el caso de SUMA(1) o MULTIPLICACION(2)
+		if ( ((ExpresionCompuesta)resultExpresion).getOp().getOperador().precedence < ops.get(currToken).precedence ) {
 			ExpresionCompuesta expresionI = (ExpresionCompuesta)resultExpresion;
 			Operacion operacion = new Operacion(ops.get(currToken));
 			Expresion expresionD = getFromToken(proxToken);
@@ -139,10 +126,18 @@ public class ExpressionParser {
 		if (isNumber(token)) {
 			return new ExpresionConstante(Integer.parseInt(token));
 		} else if (isVariable(token)) {
+			ExpresionConstante expresionI = new ExpresionConstante(-1);
+			Operacion operacion = new Operacion(Operator.MULTIPLY);
+			Expresion expresionD = null;
 			if (RepositorioIndicadores.obtenerSiExiste(token) != null) {
-				return new ExpresionIndicador(RepositorioIndicadores.obtenerSiExiste(token));
+				expresionD = new ExpresionIndicador(RepositorioIndicadores.obtenerSiExiste(token));
 			} else {
-				return new ExpresionCuenta(TipoDeCuenta.valueOf(token));
+				expresionD = new ExpresionCuenta(TipoDeCuenta.valueOf(token));
+			}
+			if (token.matches("^[\\-].*")) {
+				return new ExpresionCompuesta(expresionI, operacion, expresionD);
+			} else {
+				return expresionD;
 			}
 		} else {
 			// ERROR el token no es ni variable ni constante, me pasaron cualquier token HDP!
