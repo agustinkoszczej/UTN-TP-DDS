@@ -2,12 +2,16 @@ package ar.edu.utn.frba.dds.vista;
 
 import java.awt.Color;
 
+import javax.swing.JOptionPane;
+
+import org.eclipse.jface.dialogs.DialogMessageArea;
 import org.uqbar.arena.widgets.Button;
 import org.uqbar.arena.widgets.Label;
 import org.uqbar.arena.widgets.Panel;
 import org.uqbar.arena.widgets.Selector;
 import org.uqbar.arena.widgets.tables.Column;
 import org.uqbar.arena.widgets.tables.Table;
+import org.uqbar.arena.windows.Dialog;
 import org.uqbar.arena.windows.SimpleWindow;
 import org.uqbar.arena.windows.WindowOwner;
 
@@ -33,14 +37,7 @@ public class ConsultaIndicadorWindow extends SimpleWindow<IndicadorViewModel> {
 		
 		new Button(panel)
 		.setCaption("Aplicar indicador")
-		.onClick(() -> {
-			try {
-				aplicarIndicador();
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		});
+		.onClick(this::aplicarIndicador);
 		new Button(panel)
 		.setCaption("Salir")
 		.onClick(this::close)
@@ -49,7 +46,7 @@ public class ConsultaIndicadorWindow extends SimpleWindow<IndicadorViewModel> {
 
 	public void ingresarIndicador() {
 		IngresoIndicadorWindow dialog = new IngresoIndicadorWindow(this, getModel().getSource());
-		//this.close();
+		getModel().getSource().limpiarIngreso();	
 		dialog.open();
 	}
 	
@@ -58,8 +55,7 @@ public class ConsultaIndicadorWindow extends SimpleWindow<IndicadorViewModel> {
 			getModel().getSource().aplicarIndicador();
 		} catch (Exception e) {
 			// TODO Mostrar un mensaje con el mensaje de la excepcion
-			
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null,"No se pudo aplicar el Indicador"); 
 		}
 	}
 	

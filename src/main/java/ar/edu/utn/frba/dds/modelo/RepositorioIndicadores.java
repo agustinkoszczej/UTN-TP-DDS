@@ -6,6 +6,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.swing.JOptionPane;
+
 import ar.edu.utn.frba.dds.servicio.ServicioIndicadores;
 
 public class RepositorioIndicadores {
@@ -39,8 +41,10 @@ public class RepositorioIndicadores {
 
 	public static void agregarYguardarIndicador(Indicador in) throws IOException {
 		//si esta un indicador con el mismo nombre lo reemplazamos
-		if(indicadores.contains(in))
+		if(indicadores.contains(in)){
 			indicadores.remove(in);
+			JOptionPane.showMessageDialog(null,"Se sobrescribira el indicador"); 
+		}	
 		agregarIndicador(in);
 		new ServicioIndicadores().guardarIndicador(in);
 	}

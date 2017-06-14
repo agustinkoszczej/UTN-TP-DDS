@@ -2,12 +2,16 @@ package ar.edu.utn.frba.dds.controlador;
 
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import org.uqbar.commons.model.ObservableUtils;
 import org.uqbar.commons.utils.Observable;
 
+import ar.edu.utn.frba.dds.expresion.Expresion;
 import ar.edu.utn.frba.dds.modelo.Balance;
 import ar.edu.utn.frba.dds.modelo.Empresa;
 import ar.edu.utn.frba.dds.modelo.Indicador;
+import ar.edu.utn.frba.dds.modelo.RepositorioIndicadores;
 import ar.edu.utn.frba.dds.servicio.ServicioCuentas;
 import ar.edu.utn.frba.dds.servicio.ServicioIndicadores;
 import ar.edu.utn.frba.dds.util.ExpressionParser;
@@ -133,16 +137,20 @@ public IndicadorViewModel(ServicioCuentas servicioCuentas, ServicioIndicadores s
 	
 	public void guardarIndicador() {
 		ExpressionParser parser = new ExpressionParser();
-		//parser.buildExpressionFrom(cadenaIndicadorAIngresar); TODO Julian: Este metodo no existe y
-		//si queres los indicadores actuales, estan en la variable 'indicadores'
 			
-		
-		/*try {
-				// Aca deberia guardarlo despues de parsear el string
-				//RepositorioIndicadores.agregarYguardarIndicador(unIndicador);
-			} catch (IOException e) {
-				// Mostrar alerta de que no se pudo guardar el indicador
-				e.printStackTrace();
-			}*/
+		try {
+				Expresion expresion = parser.buildExpressionFrom(cadenaIndicadorAIngresar);
+				Indicador ind = new Indicador(nombreIndicadorAIngresar, expresion);
+				RepositorioIndicadores.agregarYguardarIndicador(ind);
+				this.indicadores = new ServicioIndicadores().obtenerIndicadores();
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(null,"ERROR al cargar indicador"); 
+				//e.printStackTrace();
+			}
+	}
+	
+	public void limpiarIngreso(){
+		this.nombreIndicadorAIngresar = "";
+		this.cadenaIndicadorAIngresar = "";
 	}
 }
