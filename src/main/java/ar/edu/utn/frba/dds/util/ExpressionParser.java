@@ -13,6 +13,7 @@ import ar.edu.utn.frba.dds.expresion.ExpresionIndicador;
 import ar.edu.utn.frba.dds.expresion.Operacion;
 import ar.edu.utn.frba.dds.modelo.RepositorioIndicadores;
 import ar.edu.utn.frba.dds.modelo.TipoDeCuenta;
+import ar.edu.utn.frba.dds.util.exceptions.InvalidTokenException;
 
 public class ExpressionParser {
 
@@ -48,7 +49,7 @@ public class ExpressionParser {
 		return token.matches(ExpressionParser.patternNumber);
 	}
 
-	private String nextToken(Matcher expressionMatch) {
+	private String nextToken(Matcher expressionMatch) throws InvalidTokenException {
 		String nextToken = null;
 		String currToken = null;
 
@@ -67,9 +68,11 @@ public class ExpressionParser {
 				nextToken += expressionMatch.group();
 			} else if ((!isNumber(nextToken)) || (!isVariable(nextToken))) {
 				// ERROR: Solo se paso un operador
+				throw new InvalidTokenException();
 			}
 		} else {
 			// ERROR: No se pudo parsear expresion
+			throw new InvalidTokenException();
 		}
 		return nextToken;
 	}
@@ -103,7 +106,7 @@ public class ExpressionParser {
 		}
 	}
 	
-	public Expresion buildExpressionFrom(String expresion) {
+	public Expresion buildExpressionFrom(String expresion) throws InvalidTokenException {
 		Expresion resultExpression = null;
 		Matcher expressionMatch = ExpressionParser.evaluationPattern.matcher(expresion);
 		String currToken = "";

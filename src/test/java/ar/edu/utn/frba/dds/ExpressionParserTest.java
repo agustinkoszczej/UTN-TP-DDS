@@ -5,11 +5,12 @@ import org.junit.Test;
 
 import ar.edu.utn.frba.dds.expresion.Expresion;
 import ar.edu.utn.frba.dds.util.ExpressionParser;
+import ar.edu.utn.frba.dds.util.exceptions.InvalidTokenException;
 
 public class ExpressionParserTest {
 	ExpressionParser parser;
 	@Test
-	public void numerosEnterosPositivos() {
+	public void numerosEnterosPositivos() throws InvalidTokenException {
 		parser = new ExpressionParser();
 		Expresion resultado = parser.buildExpressionFrom("5");
 		Integer resultadoCalculo = resultado.calculate(null, null);
@@ -18,7 +19,7 @@ public class ExpressionParserTest {
 	}
 
 	@Test
-	public void numerosEnterosNegativos() {
+	public void numerosEnterosNegativos() throws InvalidTokenException {
 		parser = new ExpressionParser();
 		Expresion resultado = parser.buildExpressionFrom("-5");
 		Integer resultadoCalculo = resultado.calculate(null, null);
@@ -27,7 +28,7 @@ public class ExpressionParserTest {
 	}
 
 	@Test
-	public void sumaNumerosEnterosPositivos() {
+	public void sumaNumerosEnterosPositivos() throws InvalidTokenException {
 		parser = new ExpressionParser();
 		Expresion resultado = parser.buildExpressionFrom("5+4");
 		Integer resultadoCalculo = resultado.calculate(null, null);
@@ -36,7 +37,7 @@ public class ExpressionParserTest {
 	}
 
 	@Test
-	public void sumaNumerosEnterosNegativos() {
+	public void sumaNumerosEnterosNegativos() throws InvalidTokenException {
 		parser = new ExpressionParser();
 		Expresion resultado = parser.buildExpressionFrom("-5+7");
 		Integer resultadoCalculo = resultado.calculate(null, null);
