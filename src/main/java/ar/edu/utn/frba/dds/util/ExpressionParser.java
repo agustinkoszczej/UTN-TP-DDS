@@ -14,6 +14,8 @@ import ar.edu.utn.frba.dds.expresion.Operacion;
 import ar.edu.utn.frba.dds.modelo.RepositorioIndicadores;
 import ar.edu.utn.frba.dds.modelo.TipoDeCuenta;
 import ar.edu.utn.frba.dds.util.exceptions.InvalidTokenException;
+import ar.edu.utn.frba.dds.util.exceptions.SyntaxErrorException;
+import ar.edu.utn.frba.dds.util.exceptions.TypeExpresionException;
 
 public class ExpressionParser {
 
@@ -66,18 +68,20 @@ public class ExpressionParser {
 			if ((isOperator(nextToken)) && (nextToken.compareTo("-") == 0) && (isOperator(currToken))
 					&& (expressionMatch.find())) {
 				nextToken += expressionMatch.group();
-			} else if ((!isNumber(nextToken)) || (!isVariable(nextToken))) {
-				// ERROR: Solo se paso un operador
-				throw new InvalidTokenException();
+//			} else if ((!isNumber(nextToken)) || (!isVariable(nextToken))) {
+//				// ERROR: Solo se paso un operador
+//				// el token no es ni un numero, ni una variable, ni un operador
+//				throw new InvalidTokenException();
 			}
 		} else {
 			// ERROR: No se pudo parsear expresion
+			// se acabaron las expresiones para parsear
 			throw new InvalidTokenException();
 		}
 		return nextToken;
 	}
 
-	private Expresion parseExpresion(String currToken, String proxToken, Expresion resultExpresion) {
+	private Expresion parseExpresion(String currToken, String proxToken, Expresion resultExpresion) throws TypeExpresionException {
 		if ((resultExpresion == null) && (proxToken == null)) {
 			return getFromToken(currToken);
 		}
@@ -91,7 +95,7 @@ public class ExpressionParser {
 		// TODO ver si es el caso de SUMA(1) o MULTIPLICACION(2)
 		if (resultExpresion.getClass() != ExpresionCompuesta.class) {
 			// TODO: Explotar por el aire, algo muy FEO paso!!
-			return null;
+			throw new TypeExpresionException();
 		}
 		if ( ((ExpresionCompuesta)resultExpresion).getOp().getOperador().precedence < ops.get(currToken).precedence ) {
 			ExpresionCompuesta expresionI = (ExpresionCompuesta)resultExpresion;
@@ -106,7 +110,7 @@ public class ExpressionParser {
 		}
 	}
 	
-	public Expresion buildExpressionFrom(String expresion) throws InvalidTokenException {
+	public Expresion buildExpressionFrom(String expresion) throws InvalidTokenException, SyntaxErrorException, TypeExpresionException {
 		Expresion resultExpression = null;
 		Matcher expressionMatch = ExpressionParser.evaluationPattern.matcher(expresion);
 		String currToken = "";
@@ -128,6 +132,8 @@ public class ExpressionParser {
 	        	resultExpression = parseExpresion(currToken, proxToken, resultExpression);
 	        } else {
 	        	// ERROR: Paso algo raro en la expresion porque no vino Operacion Operando
+	        	// esto es un error syntactico porque me pasaron ** o 89PEPE o algo asi
+	        	throw new SyntaxErrorException();
 	        }
 	      }
 	      return resultExpression;
