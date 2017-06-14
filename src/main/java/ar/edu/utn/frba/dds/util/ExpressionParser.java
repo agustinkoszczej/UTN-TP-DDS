@@ -86,6 +86,10 @@ public class ExpressionParser {
 			return new ExpresionCompuesta(expresionI, operacion, expresionD);
 		}
 		// TODO ver si es el caso de SUMA(1) o MULTIPLICACION(2)
+		if (resultExpresion.getClass() != ExpresionCompuesta.class) {
+			// TODO: Explotar por el aire, algo muy FEO paso!!
+			return null;
+		}
 		if ( ((ExpresionCompuesta)resultExpresion).getOp().getOperador().precedence < ops.get(currToken).precedence ) {
 			ExpresionCompuesta expresionI = (ExpresionCompuesta)resultExpresion;
 			Operacion operacion = new Operacion(ops.get(currToken));
