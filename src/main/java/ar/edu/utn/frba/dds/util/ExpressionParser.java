@@ -55,11 +55,11 @@ public class ExpressionParser {
 		// TOOD: Se puede implementar una funcion que verifique el match y haga el find, y explote aparte
 		
 		// Para el caso de que el primer lexema sea un signo "-"
-		if (expressionMatch.matches()) {
+		try {
 			currToken = expressionMatch.group();
-			System.out.println(currToken);
+		} catch (IllegalStateException e) {
+			currToken = null;
 		}
-
 		if (expressionMatch.find()) {
 			nextToken = expressionMatch.group();
 			if ((isOperator(nextToken)) && (nextToken.compareTo("-") == 0) && (isOperator(currToken))
@@ -116,8 +116,12 @@ public class ExpressionParser {
 	        currToken = nextToken(expressionMatch);
 //	        System.out.println("Token: " + currToken);
 	        proxToken = nextToken(expressionMatch);
-//	        System.out.println("Token: " + proxToken);
-			resultExpression = parseExpresion(currToken, proxToken, resultExpression);
+	        if (isOperator(currToken) && ( isVariable(proxToken) || isNumber(proxToken) ) ) {
+//		        System.out.println("Token: " + proxToken);
+	        	resultExpression = parseExpresion(currToken, proxToken, resultExpression);
+	        } else {
+	        	// ERROR: Paso algo raro en la expresion porque no vino Operacion Operando
+	        }
 	      }
 	      return resultExpression;
 	}
