@@ -86,17 +86,13 @@ public class ExpressionParser {
 		if ((resultExpresion == null) && (proxToken == null)) {
 			return getFromToken(currToken);
 		}
-		// Para el caso particular que el primer token fuera una Constante o una cuenta positiva
-		if (resultExpresion.getClass() == ExpresionSimple.class) {
+		if (resultExpresion.getClass() != ExpresionCompuesta.class) {
 			ExpresionSimple expresionI = (ExpresionSimple) resultExpresion;
 			Operacion operacion = new Operacion(ops.get(currToken));
 			Expresion expresionD = getFromToken(proxToken);
 			return new ExpresionCompuesta(expresionI, operacion, expresionD);
-		}
-		// TODO ver si es el caso de SUMA(1) o MULTIPLICACION(2)
-		if (resultExpresion.getClass() != ExpresionCompuesta.class) {
-			// TODO: Explotar por el aire, algo muy FEO paso!!
-			throw new TypeExpresionException();
+			// TODO: en caso de que no sea de tipo simple la expresion (null por ejemplo)
+			// Explotar por el aire, algo muy FEO paso!!
 		}
 		if ( ((ExpresionCompuesta)resultExpresion).getOp().getOperador().precedence < ops.get(currToken).precedence ) {
 			ExpresionCompuesta expresionI = (ExpresionCompuesta)resultExpresion;
