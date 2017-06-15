@@ -94,7 +94,7 @@ public class ExpressionParser {
 			// TODO: en caso de que no sea de tipo simple la expresion (null por ejemplo)
 			// Explotar por el aire, algo muy FEO paso!!
 		}
-		if ( ((ExpresionCompuesta)resultExpresion).getOp().getOperador().precedence < ops.get(currToken).precedence ) {
+		if ( ((ExpresionCompuesta)resultExpresion).getOp().getOperador().precedence >= ops.get(currToken).precedence ) {
 			ExpresionCompuesta expresionI = (ExpresionCompuesta)resultExpresion;
 			Operacion operacion = new Operacion(ops.get(currToken));
 			Expresion expresionD = getFromToken(proxToken);
