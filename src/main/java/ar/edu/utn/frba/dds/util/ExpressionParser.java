@@ -10,6 +10,7 @@ import ar.edu.utn.frba.dds.expresion.ExpresionCompuesta;
 import ar.edu.utn.frba.dds.expresion.ExpresionConstante;
 import ar.edu.utn.frba.dds.expresion.ExpresionCuenta;
 import ar.edu.utn.frba.dds.expresion.ExpresionIndicador;
+import ar.edu.utn.frba.dds.expresion.ExpresionSimple;
 import ar.edu.utn.frba.dds.expresion.Operacion;
 import ar.edu.utn.frba.dds.modelo.RepositorioIndicadores;
 import ar.edu.utn.frba.dds.modelo.TipoDeCuenta;
@@ -86,8 +87,8 @@ public class ExpressionParser {
 			return getFromToken(currToken);
 		}
 		// Para el caso particular que el primer token fuera una Constante o una cuenta positiva
-		if (resultExpresion.getClass() == ExpresionConstante.class) {
-			ExpresionConstante expresionI = (ExpresionConstante) resultExpresion;
+		if (resultExpresion.getClass() == ExpresionSimple.class) {
+			ExpresionSimple expresionI = (ExpresionSimple) resultExpresion;
 			Operacion operacion = new Operacion(ops.get(currToken));
 			Expresion expresionD = getFromToken(proxToken);
 			return new ExpresionCompuesta(expresionI, operacion, expresionD);
