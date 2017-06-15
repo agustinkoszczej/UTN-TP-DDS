@@ -29,9 +29,13 @@ public class ServidorDeConsultas {
 		return resultado;
 	}
 	
+	
 	public String obtenerJson(String archivo){
 		String json = null;
 		try {
+		if(Files.notExists(Paths.get(archivo)))
+			Files.createFile(Paths.get(archivo));
+	
 			json = new String(Files.readAllBytes(Paths.get(archivo)), StandardCharsets.UTF_8);
 		} catch (IOException e) {
 			// TODO Tirar un mensaje de que no existe el archivo de indicadores.json, que deberia existir siempre como dijo Jona
