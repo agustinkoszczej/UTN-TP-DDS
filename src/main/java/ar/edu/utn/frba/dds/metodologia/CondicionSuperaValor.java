@@ -1,5 +1,9 @@
 package ar.edu.utn.frba.dds.metodologia;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+import ar.edu.utn.frba.dds.modelo.Balance;
 import ar.edu.utn.frba.dds.modelo.Empresa;
 import ar.edu.utn.frba.dds.modelo.Indicador;
 
@@ -8,12 +12,43 @@ public class CondicionSuperaValor implements CondicionTaxativa {
 	private Comparador comparador;
 	private String inicioPeriodo;
 	private String finPeriodo;
-	private Double valorSuperar;
+	private int valorSuperar;
 	
 	@Override
 	public Boolean deberiaInvertirEn(Empresa empresa) {
 		// TODO Auto-generated method stub
-		return null;
+		List<Balance> balancesAceptados = devolverBalancesDentroDelPeriodo(empresa);
+		Boolean cumplio = false;
+			
+		cumplio = balancesAceptados.stream().allMatch(balance -> {
+			try {
+			return	seCumpleComparacion(indicador.calcular(empresa, balance.getPeriodo()), valorSuperar);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return false;
+		});
+		
+		return cumplio;
+	}
+
+	private List<Balance> devolverBalancesDentroDelPeriodo(Empresa empresa) {
+		return (List<Balance>) empresa.getBalances()
+			   .stream()
+			   .filter(balance -> balance.getPeriodo().compareTo(inicioPeriodo) >= 0 && 
+			   						balance.getPeriodo().compareTo(finPeriodo) <= 0).collect(Collectors.toList());
+	}
+
+	private Boolean seCumpleComparacion(int valor, int valorSuperar2) throws Exception {
+		// TODO Auto-generated method stub
+		if(comparador.name() == "MAYOR")
+			return valor > valorSuperar2;
+		if(comparador.name() == "MENOR")
+			return valor < valorSuperar2;
+		else throw new Exception("No es posible comparar con el comparador usado");
+					
+		
 	}
 
 	public Indicador getIndicador() {
@@ -48,11 +83,11 @@ public class CondicionSuperaValor implements CondicionTaxativa {
 		this.finPeriodo = finPeriodo;
 	}
 
-	public Double getValorSuperar() {
+	public int getValorSuperar() {
 		return valorSuperar;
 	}
 
-	public void setValorSuperar(Double valorSuperar) {
+	public void setValorSuperar(int valorSuperar) {
 		this.valorSuperar = valorSuperar;
 	}
 	

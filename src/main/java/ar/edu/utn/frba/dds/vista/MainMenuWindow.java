@@ -8,6 +8,7 @@ import org.uqbar.arena.windows.SimpleWindow;
 import org.uqbar.arena.windows.WindowOwner;
 
 import ar.edu.utn.frba.dds.controlador.IndicadorViewModel;
+import ar.edu.utn.frba.dds.controlador.MetodologiaViewModel;
 import ar.edu.utn.frba.dds.controlador.CuentaViewModel;
 import ar.edu.utn.frba.dds.servicio.ServicioCuentas;
 import ar.edu.utn.frba.dds.servicio.ServicioIndicadores;
@@ -42,6 +43,10 @@ public class MainMenuWindow<T> extends SimpleWindow<T> {
 		.onClick(this::consultarIndicadores)
 		.setFontSize(15);
 
+		new Button(mainPanel)
+		.setCaption("Consultar Metodologias")
+		.onClick(this::consultarMetodologias)
+		.setFontSize(15);
 	}
 
 	public void consultarIndicadores() {
@@ -52,6 +57,11 @@ public class MainMenuWindow<T> extends SimpleWindow<T> {
 
 	public void consultarCuentas() {
 		ConsultaCuentaWindow dialog = new ConsultaCuentaWindow(this, new CuentaViewModel(servicioCuentas));
+		dialog.open();
+	}
+	
+	public void consultarMetodologias() {
+		ConsultaMetodologiaWindow dialog = new ConsultaMetodologiaWindow(this, new MetodologiaViewModel(servicioCuentas,new ServicioIndicadores()));
 		dialog.open();
 	}
 
