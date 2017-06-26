@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import ar.edu.utn.frba.dds.expresion.ExpresionCuenta;
 import ar.edu.utn.frba.dds.metodologia.Comparador;
+import ar.edu.utn.frba.dds.metodologia.ComparadorDesempenio;
 import ar.edu.utn.frba.dds.metodologia.CondicionSuperaValor;
 import ar.edu.utn.frba.dds.modelo.Balance;
 import ar.edu.utn.frba.dds.modelo.Empresa;
@@ -61,7 +62,6 @@ public class CondicionesTest {
 		condicionValor.setFinPeriodo("20170100");
 		condicionValor.setComparador(Comparador.MENOR);
 		condicionValor.setValorSuperar(30000);
-		Indicador indicador = new Indicador("indicador", new ExpresionCuenta(TipoDeCuenta.EBITDA));
 		condicionValor.setIndicador(indicador);
 		
 		Assert.assertEquals(true, condicionValor.deberiaInvertirEn(empresa));
@@ -78,5 +78,60 @@ public class CondicionesTest {
 		condicionValor.setValorSuperar(30000);
 		condicionValor.setIndicador(indicador);
 		condicionValor.deberiaInvertirEn(empresa);
+		
+	}
+	
+	@Test
+	public void convieneEmpresaConIndicadorMasAlto() {
+		Empresa empresa2 = new Empresa();
+		Balance balance2 = new Balance();
+		balance2.setPeriodo("20170100");
+		balance2.setTipoCuenta(TipoDeCuenta.EBITDA);
+		balance2.setValor(new Double(20000));
+		List<Balance> listaBalances = new ArrayList<Balance>();
+		listaBalances.add(balance2);
+		empresa2.setBalances(listaBalances);
+		
+		ComparadorDesempenio comparadorDesempenio = new ComparadorDesempenio();
+		comparadorDesempenio.setComparador(Comparador.MAYOR);
+		comparadorDesempenio.setIndicador(indicador);
+		comparadorDesempenio.setPeriodoComparacion("20170100");
+		Assert.assertEquals(empresa, comparadorDesempenio.cualEmpresaInvertir(empresa, empresa2));
+	}
+	
+	@Test
+	public void convieneEmpresaConIndicadorMasBajo() {
+		Empresa empresa2 = new Empresa();
+		Balance balance2 = new Balance();
+		balance2.setPeriodo("20170100");
+		balance2.setTipoCuenta(TipoDeCuenta.EBITDA);
+		balance2.setValor(new Double(20000));
+		List<Balance> listaBalances = new ArrayList<Balance>();
+		listaBalances.add(balance2);
+		empresa2.setBalances(listaBalances);
+		
+		ComparadorDesempenio comparadorDesempenio = new ComparadorDesempenio();
+		comparadorDesempenio.setComparador(Comparador.MENOR);
+		comparadorDesempenio.setIndicador(indicador);
+		comparadorDesempenio.setPeriodoComparacion("20170100");
+		Assert.assertEquals(empresa2, comparadorDesempenio.cualEmpresaInvertir(empresa, empresa2));
+	}
+	
+	@Test(expected = Exception.class)
+	public void noDefineQueEmpresaConviene() {
+		Empresa empresa2 = new Empresa();
+		Balance balance2 = new Balance();
+		balance2.setPeriodo("20170100");
+		balance2.setTipoCuenta(TipoDeCuenta.EBITDA);
+		balance2.setValor(new Double(20000));
+		List<Balance> listaBalances = new ArrayList<Balance>();
+		listaBalances.add(balance2);
+		empresa2.setBalances(listaBalances);
+		
+		ComparadorDesempenio comparadorDesempenio = new ComparadorDesempenio();
+		comparadorDesempenio.setComparador(Comparador.IGUAL);
+		comparadorDesempenio.setIndicador(indicador);
+		comparadorDesempenio.setPeriodoComparacion("20170100");
+		comparadorDesempenio.cualEmpresaInvertir(empresa, empresa2);
 	}
 }

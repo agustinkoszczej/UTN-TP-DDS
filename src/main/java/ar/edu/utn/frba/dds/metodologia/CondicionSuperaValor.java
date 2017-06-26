@@ -19,15 +19,16 @@ public class CondicionSuperaValor implements CondicionTaxativa {
 		// TODO Auto-generated method stub
 		List<Balance> balancesAceptados = devolverBalancesDentroDelPeriodo(empresa);
 		Boolean cumplio = false;
-			
 		cumplio = balancesAceptados.stream().allMatch(balance -> {
+			int valor = 0;
 			try {
-			return	seCumpleComparacion(indicador.calcular(empresa, balance.getPeriodo()), valorSuperar);
+				valor = indicador.calcular(empresa, balance.getPeriodo());
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			return false;
+
+			return	seCumpleComparacion(valor, valorSuperar);
 		});
 		
 		return cumplio;
@@ -40,13 +41,13 @@ public class CondicionSuperaValor implements CondicionTaxativa {
 			   						balance.getPeriodo().compareTo(finPeriodo) <= 0).collect(Collectors.toList());
 	}
 
-	private Boolean seCumpleComparacion(int valor, int valorSuperar2) throws Exception {
+	private Boolean seCumpleComparacion(int valor, int valorSuperar2) {
 		// TODO Auto-generated method stub
 		if(comparador.name() == "MAYOR")
 			return valor > valorSuperar2;
 		if(comparador.name() == "MENOR")
 			return valor < valorSuperar2;
-		else throw new Exception("No es posible comparar con el comparador usado");
+		else throw new NullPointerException("No es posible comparar con el comparador usado");
 					
 		
 	}
