@@ -10,6 +10,7 @@ import org.junit.Test;
 import ar.edu.utn.frba.dds.expresion.ExpresionCuenta;
 import ar.edu.utn.frba.dds.metodologia.Comparador;
 import ar.edu.utn.frba.dds.metodologia.ComparadorDesempenio;
+import ar.edu.utn.frba.dds.metodologia.CondicionConsistenciaTiempo;
 import ar.edu.utn.frba.dds.metodologia.CondicionSuperaValor;
 import ar.edu.utn.frba.dds.modelo.Balance;
 import ar.edu.utn.frba.dds.modelo.Empresa;
@@ -128,10 +129,29 @@ public class CondicionesTest {
 		listaBalances.add(balance2);
 		empresa2.setBalances(listaBalances);
 		
+		
 		ComparadorDesempenio comparadorDesempenio = new ComparadorDesempenio();
 		comparadorDesempenio.setComparador(Comparador.IGUAL);
 		comparadorDesempenio.setIndicador(indicador);
 		comparadorDesempenio.setPeriodoComparacion("20170100");
 		comparadorDesempenio.cualEmpresaInvertir(empresa, empresa2);
+	}
+	
+	@Test
+	public void esConsistentementeCrecienteEnPeriodo(){
+		Balance balance2 = new Balance();
+		balance2.setPeriodo("20170600");
+		balance2.setTipoCuenta(TipoDeCuenta.EBITDA);
+		balance2.setValor(new Double(26000));
+		listaBalances.add(balance2);
+		empresa.setBalances(listaBalances);
+		
+		CondicionConsistenciaTiempo condicionCreciente = new CondicionConsistenciaTiempo();
+		condicionCreciente.setInicioPeriodo("20170100");
+		condicionCreciente.setFinPeriodo("20170600");
+		condicionCreciente.setComparador(Comparador.MAYOR);
+		Indicador indicador = new Indicador("indicador", new ExpresionCuenta(TipoDeCuenta.EBITDA));
+		condicionCreciente.setIndicador(indicador);
+		Assert.assertTrue(condicionCreciente.deberiaInvertirEn(empresa));
 	}
 }
