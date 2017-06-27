@@ -1,5 +1,8 @@
 package ar.edu.utn.frba.dds.metodologia;
 
+import java.util.List;
+
+import ar.edu.utn.frba.dds.modelo.Balance;
 import ar.edu.utn.frba.dds.modelo.Empresa;
 
 public class CondicionAntiguedad implements CondicionTaxativa {
@@ -18,8 +21,11 @@ public class CondicionAntiguedad implements CondicionTaxativa {
 
 	@Override
 	public Boolean deberiaInvertirEn(Empresa empresa) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		int antiguedadEmpresa = (int)empresa.getAntiguedad();
+		
+		
+		return antiguedadEmpresa >= aniosNecesarios;
 	}
 	
 	

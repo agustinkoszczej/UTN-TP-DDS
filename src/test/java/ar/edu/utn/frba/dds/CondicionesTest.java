@@ -9,7 +9,9 @@ import org.junit.Test;
 
 import ar.edu.utn.frba.dds.expresion.ExpresionCuenta;
 import ar.edu.utn.frba.dds.metodologia.Comparador;
+import ar.edu.utn.frba.dds.metodologia.ComparadorAntiguedad;
 import ar.edu.utn.frba.dds.metodologia.ComparadorDesempenio;
+import ar.edu.utn.frba.dds.metodologia.CondicionAntiguedad;
 import ar.edu.utn.frba.dds.metodologia.CondicionConsistenciaTiempo;
 import ar.edu.utn.frba.dds.metodologia.CondicionSuperaValor;
 import ar.edu.utn.frba.dds.modelo.Balance;
@@ -153,5 +155,31 @@ public class CondicionesTest {
 		Indicador indicador = new Indicador("indicador", new ExpresionCuenta(TipoDeCuenta.EBITDA));
 		condicionCreciente.setIndicador(indicador);
 		Assert.assertTrue(condicionCreciente.deberiaInvertirEn(empresa));
+	}
+	
+	@Test
+	public void cumpleLongevidadTaxativa(){
+		CondicionAntiguedad condicionAntiguedad = new CondicionAntiguedad();
+		balance.setPeriodo("200706");
+		listaBalances.add(balance);
+		empresa.setBalances(listaBalances);
+		condicionAntiguedad.setAniosNecesarios(10);
+		Assert.assertTrue(condicionAntiguedad.deberiaInvertirEn(empresa));
+	}
+	
+	@Test
+	public void cumpleLongetividadComparativa(){
+		Empresa empresa2 = new Empresa();
+		Balance balance2 = new Balance();
+		balance2.setPeriodo("20130600");
+		balance2.setTipoCuenta(TipoDeCuenta.EBITDA);
+		balance2.setValor(new Double(26000));
+		List<Balance> listaBalances2 = new ArrayList<Balance>();
+		listaBalances2.add(balance2);
+		empresa2.setBalances(listaBalances2);
+		ComparadorAntiguedad comparadorAntiguedad = new ComparadorAntiguedad();
+		comparadorAntiguedad.setComparador(Comparador.MAYOR);
+		System.out.println(empresa.getAntiguedad());
+		Assert.assertEquals(empresa2, comparadorAntiguedad.cualEmpresaInvertir(empresa, empresa2));
 	}
 }
