@@ -1,7 +1,9 @@
 package ar.edu.utn.frba.dds.modelo;
 
+import java.util.Calendar;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.OptionalDouble;
 
 import org.uqbar.commons.utils.Observable;
 
@@ -49,6 +51,18 @@ public class Empresa {
 				.stream()
 				.mapToDouble(cuenta -> cuenta.getValor())
 				.sum();
+	}
+	
+	public int getAntiguedad() {
+		Calendar cal= Calendar.getInstance(); 
+		int anioActual = cal.get(Calendar.YEAR); 
+		OptionalDouble antiguedad = balances
+				.stream()
+				.mapToDouble(balance -> Integer.parseInt(balance.getPeriodo().substring(0, 4)))
+				.min();
+		
+		return anioActual - (int)antiguedad.getAsDouble();
+		
 	}
 
 	public Empresa() {
