@@ -29,7 +29,6 @@ public class ComparadorAntiguedad implements CondicionComparativa {
 				.max((empresa1, empresa2) -> Double.compare(empresa1.getAntiguedad(), empresa2.getAntiguedad()))
 				.get();
 		*/
-		System.out.println(emp2.getAntiguedad());
 		int valor = esMejorValor(emp1.getAntiguedad(), emp2.getAntiguedad());
 		
 		if(valor == emp1.getAntiguedad())
@@ -41,7 +40,6 @@ public class ComparadorAntiguedad implements CondicionComparativa {
 	}
 
 	private int esMejorValor(int valor1, int valor2) {
-		System.out.println(valor2);
 		if(comparador.name() == "MAYOR")
 			return Integer.max(valor1, valor2);
 		if(comparador.name() == "MENOR")

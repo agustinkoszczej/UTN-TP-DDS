@@ -13,14 +13,13 @@ import ar.edu.utn.frba.dds.metodologia.ComparadorAntiguedad;
 import ar.edu.utn.frba.dds.metodologia.ComparadorDesempenio;
 import ar.edu.utn.frba.dds.metodologia.CondicionAntiguedad;
 import ar.edu.utn.frba.dds.metodologia.CondicionConsistenciaTiempo;
+import ar.edu.utn.frba.dds.metodologia.CondicionGeneral;
 import ar.edu.utn.frba.dds.metodologia.CondicionSuperaValor;
+import ar.edu.utn.frba.dds.metodologia.TipoOperacion;
 import ar.edu.utn.frba.dds.modelo.Balance;
 import ar.edu.utn.frba.dds.modelo.Empresa;
 import ar.edu.utn.frba.dds.modelo.Indicador;
 import ar.edu.utn.frba.dds.modelo.TipoDeCuenta;
-import scala.Int;
-
-import static org.junit.Assert.*;
 
 public class CondicionesTest {
 
@@ -179,7 +178,60 @@ public class CondicionesTest {
 		empresa2.setBalances(listaBalances2);
 		ComparadorAntiguedad comparadorAntiguedad = new ComparadorAntiguedad();
 		comparadorAntiguedad.setComparador(Comparador.MAYOR);
-		System.out.println(empresa.getAntiguedad());
 		Assert.assertEquals(empresa2, comparadorAntiguedad.cualEmpresaInvertir(empresa, empresa2));
 	}
+	
+	@Test
+	public void cumpleCondicionSumatoria(){
+		listaBalances.add(balance);
+		empresa.setBalances(listaBalances);
+		CondicionGeneral condicionGeneral = new CondicionGeneral();
+
+		condicionGeneral.setComparador(Comparador.MAYOR);
+		condicionGeneral.setValorASuperar(40000);
+		condicionGeneral.setIndicador(indicador);
+		condicionGeneral.setTipoOperacion(TipoOperacion.SUMATORIA);
+		Assert.assertTrue(condicionGeneral.deberiaInvertirEn(empresa));
+	}
+	
+	@Test
+	public void cumpleCondicionPromedio(){
+		Balance balance2 = new Balance();
+
+		balance2.setPeriodo("20130600");
+		balance2.setTipoCuenta(TipoDeCuenta.EBITDA);
+		balance2.setValor((double)15000);
+		listaBalances.add(balance2);
+		empresa.setBalances(listaBalances);
+		CondicionGeneral condicionGeneral = new CondicionGeneral();
+
+		condicionGeneral.setComparador(Comparador.MAYOR);
+		condicionGeneral.setValorASuperar(19999);
+		condicionGeneral.setIndicador(indicador);
+		condicionGeneral.setTipoOperacion(TipoOperacion.PROMEDIO);
+		Assert.assertTrue(condicionGeneral.deberiaInvertirEn(empresa));
+	}
+	
+	@Test
+	public void cumpleCondicionMediana(){
+		Balance balance2 = new Balance();
+		balance2.setPeriodo("20130600");
+		balance2.setTipoCuenta(TipoDeCuenta.EBITDA);
+		balance2.setValor((double)15000);
+		Balance balance3 = new Balance();
+		balance3.setPeriodo("20150600");
+		balance3.setTipoCuenta(TipoDeCuenta.EBITDA);
+		balance3.setValor((double)20000);
+		listaBalances.add(balance2);
+		listaBalances.add(balance3);
+		empresa.setBalances(listaBalances);
+		CondicionGeneral condicionGeneral = new CondicionGeneral();
+
+		condicionGeneral.setComparador(Comparador.MAYOR);
+		condicionGeneral.setValorASuperar(19999); //deberia dar 20000 la mediana de los tres valores
+		condicionGeneral.setIndicador(indicador);
+		condicionGeneral.setTipoOperacion(TipoOperacion.MEDIANA);
+		Assert.assertTrue(condicionGeneral.deberiaInvertirEn(empresa));
+	}
+	
 }
