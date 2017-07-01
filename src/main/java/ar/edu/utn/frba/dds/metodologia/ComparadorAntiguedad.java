@@ -5,9 +5,10 @@ import java.util.List;
 
 import ar.edu.utn.frba.dds.modelo.Empresa;
 
-public class ComparadorAntiguedad implements CondicionComparativa {
+public class ComparadorAntiguedad extends CondicionComparativa {
 	
 	private Comparador comparador;
+	private String nombre;
 	
 	public Comparador getComparador() {
 		return comparador;
@@ -17,7 +18,6 @@ public class ComparadorAntiguedad implements CondicionComparativa {
 		this.comparador = comparador;
 	}
 
-	@Override
 	public Empresa cualEmpresaInvertir(Empresa emp1, Empresa emp2) {
 		//Opcion 1: Lo opera como lista de dos elementos
 		/*
@@ -45,6 +45,14 @@ public class ComparadorAntiguedad implements CondicionComparativa {
 		if(comparador.name() == "MENOR")
 			return Integer.min(valor1, valor2);
 		else throw new NullPointerException("No es posible comparar con el comparador usado");
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 	
 }

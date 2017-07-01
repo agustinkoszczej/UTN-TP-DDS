@@ -5,7 +5,7 @@ import java.util.List;
 import ar.edu.utn.frba.dds.modelo.Balance;
 import ar.edu.utn.frba.dds.modelo.Empresa;
 
-public class CondicionAntiguedad implements CondicionTaxativa {
+public class CondicionAntiguedad extends CondicionTaxativa {
 	
 	private int aniosNecesarios;
 	
@@ -27,6 +27,7 @@ public class CondicionAntiguedad implements CondicionTaxativa {
 		
 		return antiguedadEmpresa >= aniosNecesarios;
 	}
+
 	
 	
 }

@@ -7,13 +7,14 @@ import ar.edu.utn.frba.dds.modelo.Empresa;
 import ar.edu.utn.frba.dds.modelo.Indicador;
 import net.sf.oval.constraint.Max;
 
-public class ComparadorDesempenio implements CondicionComparativa{
+public class ComparadorDesempenio extends CondicionComparativa{
 
+	private String nombre;
 	private Indicador indicador;
 	private Comparador comparador;
 	private String periodoComparacion;
 	
-	@Override
+	
 	public Empresa cualEmpresaInvertir(Empresa emp1, Empresa emp2) {
 	
 		int valorEmpresa1 = 0;
@@ -75,6 +76,14 @@ public class ComparadorDesempenio implements CondicionComparativa{
 
 	public void setPeriodoComparacion(String periodoComparacion) {
 		this.periodoComparacion = periodoComparacion;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 	
 	

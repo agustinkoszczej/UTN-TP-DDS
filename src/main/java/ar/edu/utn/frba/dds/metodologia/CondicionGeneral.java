@@ -11,12 +11,13 @@ import ar.edu.utn.frba.dds.modelo.Balance;
 import ar.edu.utn.frba.dds.modelo.Empresa;
 import ar.edu.utn.frba.dds.modelo.Indicador;
 
-public class CondicionGeneral implements CondicionTaxativa {
+public class CondicionGeneral extends CondicionTaxativa {
 
 	private Indicador indicador;
 	private TipoOperacion tipoOperacion;
 	private double valorASuperar;
 	private Comparador comparador;
+	private String nombre;
 	
 	public Indicador getIndicador() {
 		return indicador;
@@ -123,6 +124,14 @@ public class CondicionGeneral implements CondicionTaxativa {
 			e.printStackTrace();
 		}
 		return 0;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 
 }

@@ -7,13 +7,14 @@ import ar.edu.utn.frba.dds.modelo.Balance;
 import ar.edu.utn.frba.dds.modelo.Empresa;
 import ar.edu.utn.frba.dds.modelo.Indicador;
 
-public class CondicionConsistenciaTiempo implements CondicionTaxativa {
+public class CondicionConsistenciaTiempo extends CondicionTaxativa {
 
 	private Indicador indicador;
 	private Comparador comparador;
 	private String inicioPeriodo;
 	private String finPeriodo;
 	private int valorInicio = 0;
+	private String nombre;
 
 	@Override
 	public Boolean deberiaInvertirEn(Empresa empresa) {
@@ -88,6 +89,13 @@ public class CondicionConsistenciaTiempo implements CondicionTaxativa {
 
 	public void setInicioPeriodo(String inicioPeriodo) {
 		this.inicioPeriodo = inicioPeriodo;
+	}
+
+
+
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 	
 	

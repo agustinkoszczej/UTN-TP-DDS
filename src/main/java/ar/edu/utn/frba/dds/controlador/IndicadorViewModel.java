@@ -87,8 +87,8 @@ public IndicadorViewModel(ServicioCuentas servicioCuentas, ServicioIndicadores s
 	
 	public List<Balance> getBalancesEmpresaSeleccionada() {
 		
-		return empresaSeleccionada.getBalances();
-		
+		//return empresaSeleccionada.getBalances();
+		return null;
 	}
 	
 	public Balance getBalanceSeleccionado() {
