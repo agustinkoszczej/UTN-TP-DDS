@@ -1,9 +1,15 @@
 package ar.edu.utn.frba.dds.metodologia;
 
-import ar.edu.utn.frba.dds.modelo.Empresa;
+import org.uqbar.commons.utils.Observable;
 
-public interface CondicionTaxativa {
+import ar.edu.utn.frba.dds.modelo.Empresa;
+@Observable
+public class CondicionTaxativa extends Condicion {
 	
-	public Boolean deberiaInvertirEn(Empresa empresa);
-	
+	public Boolean deberiaInvertirEn(Empresa empresa) {
+		return null;};
+
+	public void agregarAMetodologia(Metodologia metodo){
+		metodo.agregarCondicion((Condicion)this);
+	}
 }

@@ -7,12 +7,13 @@ import ar.edu.utn.frba.dds.modelo.Balance;
 import ar.edu.utn.frba.dds.modelo.Empresa;
 import ar.edu.utn.frba.dds.modelo.Indicador;
 
-public class CondicionSuperaValor implements CondicionTaxativa {
+public class CondicionSuperaValor extends CondicionTaxativa {
 	private Indicador indicador;
 	private Comparador comparador;
 	private String inicioPeriodo;
 	private String finPeriodo;
 	private int valorSuperar;
+	private String nombre;
 	
 	@Override
 	public Boolean deberiaInvertirEn(Empresa empresa) {
@@ -90,6 +91,14 @@ public class CondicionSuperaValor implements CondicionTaxativa {
 
 	public void setValorSuperar(int valorSuperar) {
 		this.valorSuperar = valorSuperar;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 	
 	
