@@ -8,7 +8,6 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-
 public class ServidorDeConsultas {
 	public String obtenerDatosDeCuentas() {
 		FileReader fileReader = null; 
@@ -33,8 +32,8 @@ public class ServidorDeConsultas {
 	public String obtenerJson(String archivo){
 		String json = null;
 		try {
-		if(Files.notExists(Paths.get(archivo)))
-			Files.createFile(Paths.get(archivo));
+			if(Files.notExists(Paths.get(archivo)))
+				Files.createFile(Paths.get(archivo));
 	
 			json = new String(Files.readAllBytes(Paths.get(archivo)), StandardCharsets.UTF_8);
 		} catch (IOException e) {
