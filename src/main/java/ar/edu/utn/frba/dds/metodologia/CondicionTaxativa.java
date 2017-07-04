@@ -7,7 +7,8 @@ import ar.edu.utn.frba.dds.modelo.Empresa;
 public class CondicionTaxativa extends Condicion {
 	
 	public Boolean deberiaInvertirEn(Empresa empresa) {
-		return null;};
+		return null;
+	};
 
 	public void agregarAMetodologia(Metodologia metodo){
 		metodo.agregarCondicion((Condicion)this);

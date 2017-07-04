@@ -55,7 +55,7 @@ public class Metodologia {
 	}
 
 	private Boolean aplicaCondicionesTaxativas(Empresa empresa) {
-		return null;//condicionesTaxativas.stream().allMatch(condicion -> condicion.deberiaInvertirEn(empresa));
+		return getCondicionesTaxativas().stream().allMatch(condicion -> condicion.deberiaInvertirEn(empresa));
 	}
 
 	public String getNombre() {
@@ -69,6 +69,7 @@ public class Metodologia {
 				filter(condicion -> condicion instanceof CondicionTaxativa)
 				.map(condicion -> (CondicionTaxativa) condicion).
 				collect(Collectors.toList());
+		// TODO: Ver si se puede hacer un return de condiciones2 directamente
 		return condiciones2.stream().filter(condicion -> condicion instanceof CondicionTaxativa).collect(Collectors.toList());
 	}
 	

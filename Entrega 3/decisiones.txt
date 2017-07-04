@@ -1,0 +1,20 @@
+##Entrega 3 - Decisiones de Diseño
+
+Puede ocurrir que las empresas al compararse tenga informacion que se entrega con diferentes frecuencia, alguna puede ser anual, otra bimestral. 
+Para estos casos, las comparativas evolutivas dan error, o no dan informacion.
+
+Para poder determinar la antiguedad de una empresa, se agrega un campo a la empresa que indica a partir de la fecha de creacion de la misma, ya sea
+cotizando o no en bolsa para ese momento.
+
+Para los casos donde la metodologia incluye ejecutar varias condiciones, no me tengo ninguna garantia de que la empresa quede primera en todas las condiciones
+Entonces, para se puede agregar a cada empresa, por cada condicion, una columna que va de 100-(100/N*P), donde N es la cantidad de empresas comparadas, P es la 
+posicion en la cual quedo la empresa y al sumar los valores de cada una de estas columnas para la misma empresa, y hacer un sort final, se puede obtener un 
+rankeo real de la empresa. 
+Las condiciones por ser equivalente (es decir, tienen la misma ponderacion), no es necesario realizar una multiplicacion o acumulacion sobre las mismas.
+En caso de que esto varie, la formular pasaria a ser [100-(100/N*P)]*H, donde H es el valor de ponderacion de la condicion particular.
+Volviendo a nuestro caso, si hay 4 condiciones, cada H va a valer 0.25 (100/C)  {donde C es la cantidad de condiciones}, por lo que no tiene necesidad realizar el calculo.
+
+Las metodologias tienen condiciones, entonces se crea un repo de metodologia y uno de condiciones.
+
+Se va a agregar el campo fecha de creacion a empresa, para determinar la longevidad de la misma
+

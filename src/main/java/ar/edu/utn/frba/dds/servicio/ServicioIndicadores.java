@@ -2,16 +2,11 @@ package ar.edu.utn.frba.dds.servicio;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 
-import com.fasterxml.jackson.core.JsonGenerationException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import ar.edu.utn.frba.dds.modelo.Indicador;
-import ar.edu.utn.frba.dds.modelo.RepositorioIndicadores;
 import ar.edu.utn.frba.dds.util.ConversorJson;
 import ar.edu.utn.frba.dds.util.ServidorDeConsultas;
 

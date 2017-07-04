@@ -1,0 +1,43 @@
+# Casos de Prueba
+## Metodologias
+
+Dado que una metodologia **M**  esta compuesta por un conjunto de condiciones **C**, las cuales estan compuestas por conjuntos de indicadores **I**
+
+Se define el alcance se las pruebas para las metodologias a probar las mismas, y las condiciones, asumiendo que el conjunto de **I** fue probado y funciona correctamente.
+
+###El conjunto **M** se puede particionar en 
+
+1M - **M** que dan como resultado una empresa (como caso base)
+2M - **M** que dan como resultado un conjunto de empresas ordenadas
+3M - **M** que ante valores no esperados, deben fallar
+
+###Las particiones 1M y 2M de **M**, tienen definidas a su vez un conjunto de **C**, que se pueden particionar en los siguientes conjuntos
+
+1C - **C** que es una condicion valida
+2C - **C** que es una condicion que debe dar error
+
+###Dentro del caso 1C, se particionan los siguientes conjuntos
+
+A1C - **C** de tipo taxativa mayor a sumatoria
+B1C - **C** de tipo taxativa mayor a promedio
+C1C - **C** de tipo taxativa mayor a mediana
+D1C - **C** de tipo taxativa menor a sumatoria (con una prueba de menor del tipo, se considera equivalente a probar sumatorio, promedio, y mediana en menor)
+G1C - **C** de tipo evolutiva mayor a N tiempo
+H1C - **C** de tipo evolutiva menor a N tiempo
+
+###Probados los casos particulares de **C** se deberan realizar pruebas con **M** en los casos 1M y 2M
+
+A1M - **M** de tipo taxativa para una empresa
+B2M - **M** de tipo taxativa para varias empresas
+C1M - **M** de tipo evolutiva para una empresa
+D2M - **M** de tipo evolutiva para varias empresas
+E1M - **M** de tipo taxativa y evolutiva para una empresa
+F2M - **M** de tipo taxativa y evolutiva para varias empresas
+
+###Pruebas especificas para la Metodologia de Warren
+
+G - Prueba de **C** ROE durante 10 años
+H - Prueba de **C** Debt (Total deuda {creo es EBITDA} / (Capital total - Total deuda))
+I - Prueba empresa creciendo durante 10 años
+J - Prueba longevidad empresa
+K - Combinacion de pruebas G-H-I-J
