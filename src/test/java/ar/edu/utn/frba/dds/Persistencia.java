@@ -6,12 +6,12 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
 import ar.edu.utn.frba.dds.metodologia.Metodologia;
 import ar.edu.utn.frba.dds.modelo.RepositorioMetodologias;
-import ar.edu.utn.frba.dds.util.exceptions.InvalidTokenException;
-import ar.edu.utn.frba.dds.util.exceptions.SyntaxErrorException;
-import ar.edu.utn.frba.dds.util.exceptions.TypeExpresionException;
+
+import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.MatcherAssert.assertThat;
+
 
 public class Persistencia {
 
@@ -47,7 +47,9 @@ public class Persistencia {
 		Metodologia unaMetodologia = new Metodologia();
 		unaMetodologia.setNombre("prueba");
 		List<Metodologia> listaMetod = new ArrayList<Metodologia>();
+		listaMetod.add(unaMetodologia);
 		repoMetod.agregarMetodologia(unaMetodologia);
-		//Assert.assertThat(repoMetod.getMetodologias(), is(listaMetod));
+		List<Metodologia> otraLista = repoMetod.getMetodologias();
+		assertThat(otraLista, is(listaMetod));
 	}
 }
