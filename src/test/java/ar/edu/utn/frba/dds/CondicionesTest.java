@@ -40,7 +40,7 @@ public class CondicionesTest {
 		listaBalances = new ArrayList<Balance>();
 		listaBalances.add(balance);
 		empresa.setBalances(listaBalances);
-
+		empresa.setAnioCreacion(2006);
 		indicador = new Indicador("indicador", new ExpresionCuenta(TipoDeCuenta.EBITDA));
 	}
 	
@@ -99,7 +99,7 @@ public class CondicionesTest {
 		ComparadorDesempenio comparadorDesempenio = new ComparadorDesempenio();
 		comparadorDesempenio.setComparador(Comparador.MAYOR);
 		comparadorDesempenio.setIndicador(indicador);
-		comparadorDesempenio.setPeriodoComparacion("20170100");
+		comparadorDesempenio.setInicioPeriodo("20170100");
 		Assert.assertEquals(empresa, comparadorDesempenio.cualEmpresaInvertir(empresa, empresa2));
 	}
 	
@@ -117,7 +117,7 @@ public class CondicionesTest {
 		ComparadorDesempenio comparadorDesempenio = new ComparadorDesempenio();
 		comparadorDesempenio.setComparador(Comparador.MENOR);
 		comparadorDesempenio.setIndicador(indicador);
-		comparadorDesempenio.setPeriodoComparacion("20170100");
+		comparadorDesempenio.setInicioPeriodo("20170100");
 		Assert.assertEquals(empresa2, comparadorDesempenio.cualEmpresaInvertir(empresa, empresa2));
 	}
 	
@@ -136,7 +136,7 @@ public class CondicionesTest {
 		ComparadorDesempenio comparadorDesempenio = new ComparadorDesempenio();
 		comparadorDesempenio.setComparador(Comparador.IGUAL);
 		comparadorDesempenio.setIndicador(indicador);
-		comparadorDesempenio.setPeriodoComparacion("20170100");
+		comparadorDesempenio.setInicioPeriodo("20170100");
 		comparadorDesempenio.cualEmpresaInvertir(empresa, empresa2);
 	}
 	
@@ -172,6 +172,7 @@ public class CondicionesTest {
 	public void cumpleLongetividadComparativa(){
 		Empresa empresa2 = new Empresa();
 		Balance balance2 = new Balance();
+		empresa2.setAnioCreacion(2003);
 		balance2.setPeriodo("20130600");
 		balance2.setTipoCuenta(TipoDeCuenta.EBITDA);
 		balance2.setValor(new Double(26000));

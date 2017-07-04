@@ -10,7 +10,5 @@ public class CondicionTaxativa extends Condicion {
 		return null;
 	};
 
-	public void agregarAMetodologia(Metodologia metodo){
-		metodo.agregarCondicion((Condicion)this);
-	}
+	
 }

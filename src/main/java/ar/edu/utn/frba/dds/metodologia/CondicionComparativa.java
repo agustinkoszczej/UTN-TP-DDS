@@ -10,5 +10,14 @@ public class CondicionComparativa extends Condicion {
 		return null;
 	}
 
+
+	protected int esMejorValor(int valorEmpresa1, int valorEmpresa2) {
+		if(comparador.name() == "MAYOR")
+			return Integer.max(valorEmpresa1, valorEmpresa2);
+		if(comparador.name() == "MENOR")
+			return Integer.min(valorEmpresa1, valorEmpresa2);
+		else throw new NullPointerException("No es posible comparar con el comparador usado");
+	}
+	
 	
 }

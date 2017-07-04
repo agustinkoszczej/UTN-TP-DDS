@@ -5,27 +5,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Collections;
 
-import ar.edu.utn.frba.dds.modelo.Balance;
 import ar.edu.utn.frba.dds.modelo.Empresa;
-import ar.edu.utn.frba.dds.modelo.Indicador;
 
 public class CondicionGeneral extends CondicionTaxativa {
 
-	private Indicador indicador;
 	private TipoOperacion tipoOperacion;
 	private double valorASuperar;
-	private Comparador comparador;
-	private String nombre;
 	
-	public Indicador getIndicador() {
-		return indicador;
-	}
-
-	public void setIndicador(Indicador indicador) {
-		this.indicador = indicador;
-	}
 
 	public TipoOperacion getTipoOperacion() {
 		return tipoOperacion;
@@ -43,13 +30,6 @@ public class CondicionGeneral extends CondicionTaxativa {
 		this.valorASuperar = valorASuperar;
 	}
 
-	public Comparador getComparador() {
-		return comparador;
-	}
-
-	public void setComparador(Comparador comparador) {
-		this.comparador = comparador;
-	}
 
 	@Override
 	public Boolean deberiaInvertirEn(Empresa empresa) {
@@ -80,22 +60,13 @@ public class CondicionGeneral extends CondicionTaxativa {
 				.sum();
 	}
 
-	private double valorBalance(Empresa empresa, Balance balance) {
-		
-		
-		try {
-			return indicador.calcular(empresa, balance.getPeriodo());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return 0;
-	}
+	
 
 	private double medianaValor(Empresa empresa) {
 		List<Double> valores = new ArrayList<Double>();
 		valores = (List<Double>) empresa.getBalances()
 				.stream()
-				.mapToDouble(balance -> valorBalance(empresa, balance))
+				.mapToDouble(balance -> (double)valorBalance(empresa, balance))
 				.sorted()
 				.boxed().collect(Collectors.toList());
 		if(valores.size() % 2 == 0)
@@ -124,14 +95,6 @@ public class CondicionGeneral extends CondicionTaxativa {
 			e.printStackTrace();
 		}
 		return 0;
-	}
-
-	public String getNombre() {
-		return nombre;
-	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
 	}
 
 }
