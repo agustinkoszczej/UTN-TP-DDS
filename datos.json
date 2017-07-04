@@ -1,5 +1,6 @@
 [{
 	"empresa": "Facebook",
+	"anioCreacion":2004,
 	"balances": [
 		{
 			"periodo":"201706",
@@ -15,6 +16,7 @@
 	]
 },{
 	"empresa":"Fibertel",
+	"anioCreacion":2000,
 	"balances": [
 		{
 			"periodo":"201612",
@@ -25,6 +27,7 @@
 	]
 },{
 	"empresa":"Arena",
+	"anioCreacion":2016,
 	"balances": [
 		{
 			"periodo":"201705",
@@ -37,6 +40,7 @@
 	"empresa":"Vacia"
 },{
 	"empresa":"Balances Negativos",
+	"anioCreacion":2017,
 	"balances": [
 		{
 			"periodo":"201705",

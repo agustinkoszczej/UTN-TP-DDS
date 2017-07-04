@@ -9,7 +9,5 @@ public class CondicionTaxativa extends Condicion {
 	public Boolean deberiaInvertirEn(Empresa empresa) {
 		return null;};
 
-	public void agregarAMetodologia(Metodologia metodo){
-		metodo.agregarCondicion((Condicion)this);
-	}
+	
 }

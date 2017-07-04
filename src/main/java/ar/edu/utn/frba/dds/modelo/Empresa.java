@@ -13,8 +13,19 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Empresa {
 	@JsonProperty("empresa")
 	private String nombre;
+	@JsonProperty("anioCreacion")
+	private int anioCreacion; 
 	@JsonProperty("balances")
 	private List<Balance> balances;
+	
+
+	public int getAnioCreacion() {
+		return anioCreacion;
+	}
+
+	public void setAnioCreacion(int anioCreacion) {
+		this.anioCreacion = anioCreacion;
+	}
 
 	public Balance obtenerBalance(TipoDeCuenta tipoCuenta, String periodo){
 		try{
@@ -56,13 +67,15 @@ public class Empresa {
 	public int getAntiguedad() {
 		Calendar cal= Calendar.getInstance(); 
 		int anioActual = cal.get(Calendar.YEAR); 
+		/*
 		OptionalDouble antiguedad = balances
 				.stream()
 				.mapToDouble(balance -> Integer.parseInt(balance.getPeriodo().substring(0, 4)))
 				.min();
 		
 		return anioActual - (int)antiguedad.getAsDouble();
-		
+		*/
+		return anioActual - anioCreacion;
 	}
 
 	public Empresa() {
