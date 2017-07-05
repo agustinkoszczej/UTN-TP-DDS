@@ -63,10 +63,7 @@ public class MainMenuWindow<T> extends SimpleWindow<T> {
 	public void consultarMetodologias() {
 		ConsultaMetodologiaWindow dialog = new ConsultaMetodologiaWindow(this, new MetodologiaViewModel(servicioCuentas,new ServicioIndicadores()));
 
-		System.out.println("olaff");
 		dialog.open();
-
-		System.out.println("ola3");
 	}
 
 	@Override
