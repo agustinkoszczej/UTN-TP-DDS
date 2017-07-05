@@ -65,8 +65,6 @@ public class ConversorJson {
 	}
 
 	public List<Metodologia> mapearMetodologias(String jsonString) {
-		if ((jsonString == null) || jsonString.isEmpty()) 
-				return new ArrayList<Metodologia>();
 		ObjectMapper objectMapper = new ObjectMapper().configure(DeserializationFeature.ACCEPT_EMPTY_ARRAY_AS_NULL_OBJECT, true);
 		List<Metodologia> metodologias = null;
 		TypeReference<List<Metodologia>> mapMetodologiaList = new TypeReference<List<Metodologia>>() {};

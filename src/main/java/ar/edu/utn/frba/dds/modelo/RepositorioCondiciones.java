@@ -9,7 +9,7 @@ import ar.edu.utn.frba.dds.servicio.ServicioCondiciones;
 
 public class RepositorioCondiciones {
 	private static RepositorioCondiciones repositorioCondiciones = null;
-	
+	private static ServicioCondiciones servicioCondiciones = new ServicioCondiciones();
 	private static List<Condicion> condiciones;
 	
 	private RepositorioCondiciones() { }
@@ -19,7 +19,7 @@ public class RepositorioCondiciones {
 			return repositorioCondiciones;
 		else {
 			repositorioCondiciones = new RepositorioCondiciones();
-			condiciones = new ServicioCondiciones().obtenerCondiciones();
+			condiciones = servicioCondiciones.obtenerCondiciones();
 			return repositorioCondiciones;
 		}
 	}
@@ -29,9 +29,11 @@ public class RepositorioCondiciones {
 	}
 	
 	public void agregarCondicion(Condicion unaCondicion){
+		if(condiciones.contains(unaCondicion))
+			condiciones.remove(unaCondicion);
 		condiciones.add(unaCondicion);
 		try {
-			new ServicioCondiciones().guardarCondicion(unaCondicion);
+			servicioCondiciones.guardarCondicion(unaCondicion);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

@@ -12,6 +12,8 @@ public class RepositorioMetodologias {
 	
 	private static List<Metodologia> metodologias;
 	
+	private static ServicioMetodologias servicioMetodologias = new ServicioMetodologias();
+	
 	private RepositorioMetodologias() { }
 	
 	public static RepositorioMetodologias getInstance() {
@@ -19,7 +21,7 @@ public class RepositorioMetodologias {
 			return repositorioMetodologias;
 		else {
 			repositorioMetodologias = new RepositorioMetodologias();
-			metodologias = new ServicioMetodologias().obtenerMetodologias();
+			metodologias = servicioMetodologias.obtenerMetodologias();
 			return repositorioMetodologias;
 		}
 	}
@@ -29,9 +31,20 @@ public class RepositorioMetodologias {
 	}
 	
 	public void agregarMetodologia(Metodologia unaMetodologia){
+		/*List<Metodologia> unaLista = null;
+		unaLista = metodologias.stream().filter(metodologia -> metodologia.getNombre().equals(unaMetodologia.getNombre())).collect(Collectors.toList());
+		if (unaLista == null)
+			metodologias.add(unaMetodologia);
+		else {
+			metodologias.remove(unaLista.get(0));
+			metodologias.add(unaMetodologia);
+		}*/
+		if(metodologias.contains(unaMetodologia))
+			metodologias.remove(unaMetodologia);
+		
 		metodologias.add(unaMetodologia);
 		try {
-			new ServicioMetodologias().guardarMetodologia(unaMetodologia);
+			servicioMetodologias.guardarMetodologia(unaMetodologia);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

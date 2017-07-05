@@ -14,7 +14,7 @@ public class ServicioIndicadores {
 	private ServidorDeConsultas servidor;
 	private ConversorJson conversorJson;
 
-	private String archivo = "indicadores.json";
+	private File JSONFile = new File("indicadores.json");
 	
 	public ServicioIndicadores() {
 		// Inicializo el conversor
@@ -25,7 +25,7 @@ public class ServicioIndicadores {
 	
 	public List<Indicador> obtenerIndicadores() {
 		String jsonIndicadores = null;
-		jsonIndicadores = servidor.obtenerJson(archivo);
+		jsonIndicadores = servidor.obtenerJson(JSONFile);
 		return conversorJson.mapearIndicadores(jsonIndicadores);
 	}
 	
@@ -39,6 +39,6 @@ public class ServicioIndicadores {
 			indicadoresActuales.remove(indicador);
 		
 		indicadoresActuales.add(indicador);
-		mapper.writeValue(new File(archivo), indicadoresActuales);
+		mapper.writeValue(JSONFile, indicadoresActuales);
 	}
 }

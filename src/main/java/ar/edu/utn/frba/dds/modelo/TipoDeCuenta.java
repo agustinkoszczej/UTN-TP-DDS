@@ -5,7 +5,12 @@ public enum TipoDeCuenta {
 	FDS,
 	FreeCashFlow,
 	IngresoNetoOperacionesContinuas,
-	IngresoNetoOperatcionesDiscontinuas;
+	IngresoNetoOperatcionesDiscontinuas,
+	IngresoNeto,
+	Dividendos,
+	CapitalTotal,
+	Deuda,
+	CostoTotal;
 	
 	@Override
 	public String toString() {

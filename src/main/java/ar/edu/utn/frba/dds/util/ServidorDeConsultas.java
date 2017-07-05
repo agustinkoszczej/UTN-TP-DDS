@@ -2,6 +2,7 @@ package ar.edu.utn.frba.dds.util;
 
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -28,14 +29,13 @@ public class ServidorDeConsultas {
 		return resultado;
 	}
 	
-	
-	public String obtenerJson(String archivo){
+	public String obtenerJson(File JSONFile){
 		String json = null;
 		try {
-			if(Files.notExists(Paths.get(archivo)))
-				Files.createFile(Paths.get(archivo));
+			if(Files.notExists(JSONFile.toPath())) // Paths.get(JSONFile.getName())))
+				Files.createFile(JSONFile.toPath());
 	
-			json = new String(Files.readAllBytes(Paths.get(archivo)), StandardCharsets.UTF_8);
+			json = new String(Files.readAllBytes(JSONFile.toPath()), StandardCharsets.UTF_8);
 		} catch (IOException e) {
 			// TODO Tirar un mensaje de que no existe el archivo de indicadores.json, que deberia existir siempre como dijo Jona
 			e.printStackTrace();
@@ -45,6 +45,8 @@ public class ServidorDeConsultas {
 	/*
 	public String obtenerJson(String archivo) {
 		Path path = (Path) FileSystems.getDefault().getPath(archivo);
+		//Paths.get("unArchivo.json");
+		
 		try {
 			return String.join("", Files.readAllLines(path));
 		} catch (IOException e) {
