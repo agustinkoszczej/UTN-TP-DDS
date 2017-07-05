@@ -1,15 +1,19 @@
 package ar.edu.utn.frba.dds.controlador;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import org.uqbar.commons.utils.Observable;
 
+import com.ibm.icu.util.Calendar;
+
 import ar.edu.utn.frba.dds.metodologia.Comparador;
 import ar.edu.utn.frba.dds.metodologia.Condicion;
 import ar.edu.utn.frba.dds.metodologia.CondicionAntiguedad;
 import ar.edu.utn.frba.dds.metodologia.CondicionSuperaValor;
+import ar.edu.utn.frba.dds.modelo.BuilderCondicion;
 import ar.edu.utn.frba.dds.modelo.Indicador;
 import ar.edu.utn.frba.dds.servicio.ServicioIndicadores;
 
@@ -24,6 +28,8 @@ public class CondicionViewModel {
 	private String nombreCondicion;
 
 	private String stringCondicion;
+	private List<String> tipoClases;
+	private String claseSeleccionada;
 	private Condicion condicionSeleccionada;
 	private List<Condicion> condicionesDisponibles;
 	private Indicador indicadorSeleccionado;
@@ -31,11 +37,18 @@ public class CondicionViewModel {
 	private List<Comparador> comparadores;
 	private Comparador comparador;
 	private List<Condicion> condiciones;
+	private Boolean comparaEmpresas;
 	//private String condicionSeleccionada;
-	
+	private BuilderCondicion builder;
 	
 	
 	public CondicionViewModel() {
+		Calendar cal = Calendar.getInstance();
+		cal.get(Calendar.EXTENDED_YEAR);
+		SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+		System.out.println(format.format(cal.getTime()));
+		
+		
 		this.servicioIndicadores = new ServicioIndicadores();
 		
 		this.condicionesTotales = new ArrayList<Condicion>();
@@ -46,12 +59,13 @@ public class CondicionViewModel {
 		condicionValor.setValorSuperar(30000);
 		condicionValor.setNombreCondicion("supera EBITDA 30000");
 		condicionesTotales.add(condicionValor);
-		
 		condiciones = new ArrayList<Condicion>();
 
 		condiciones.addAll(Arrays.asList(new CondicionAntiguedad(), new CondicionSuperaValor()));
 		//condiciones.add(Condicion.devolverCondicionDesdeNombre("CondicionTaxativa"));
 		//condiciones.add("CondicionTaxativa");
+
+		BuilderCondicion builder = new BuilderCondicion();
 	}
 	
 	public List<Condicion> getCondicionesTotales() {
@@ -161,6 +175,51 @@ public class CondicionViewModel {
 
 	public void setCondiciones(List<Condicion> condiciones) {
 		this.condiciones = condiciones;
+	}
+
+	public List<String> getTipoClases() {
+		return Arrays.asList("Taxativa","Comparativa","Combinada");
+	}
+
+	public void setTipoClases(List<String> tipoClase) {
+		this.tipoClases = tipoClase;
+	}
+
+	public String getClaseSeleccionada() {
+		return claseSeleccionada;
+	}
+
+	public void setClaseSeleccionada(String claseSeleccionada) {
+		this.claseSeleccionada = claseSeleccionada;
+	}
+
+	public Boolean getComparaEmpresas() {
+		return comparaEmpresas;
+	}
+
+	public void setComparaEmpresas(Boolean comparaEmpresas) {
+		this.comparaEmpresas = comparaEmpresas;
+		builder.setEsComparativa(comparaEmpresas);
+	}
+	
+	public void setPeriodoInicioActual(Boolean periodoInicioActual)
+	{
+		if(periodoInicioActual)
+			builder.setPeriodoInicio(getPeriodoActual());
+	}
+
+	public void setPeriodoFinActual(Boolean periodoFinActual)
+	{
+		if(periodoFinActual)
+			builder.setPeriodoFin(getPeriodoActual());
+	}
+
+	
+	public String getPeriodoActual(){
+		Calendar cal = Calendar.getInstance();
+		cal.get(Calendar.EXTENDED_YEAR);
+		SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+		return format.format(cal.getTime());
 	}
 
 	
