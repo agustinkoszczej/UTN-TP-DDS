@@ -6,16 +6,22 @@ import java.util.stream.Collectors;
 
 import org.uqbar.commons.utils.Observable;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import ar.edu.utn.frba.dds.modelo.Empresa;
 
 @Observable
+@JsonIgnoreProperties(value = { "changeSupport" })
 public class Metodologia {
 	
 	private int contador; //la unica forma que encontre para que no rompa la funcion aplicaCondicionesComparativas
 	//TODO ver si se puede poner local y que no me pida final
+	@JsonProperty("nombre")
 	protected String nombre;
 	//protected List<CondicionTaxativa> condicionesTaxativas;
 	//protected List<CondicionComparativa> condicionesComparativas;
+	@JsonProperty("condiciones")
 	protected List<Condicion> condiciones;
 	
 	public Metodologia(){

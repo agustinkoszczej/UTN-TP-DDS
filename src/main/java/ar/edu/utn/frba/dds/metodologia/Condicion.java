@@ -6,16 +6,29 @@ import java.util.stream.Collectors;
 
 import org.uqbar.commons.utils.Observable;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
 import ar.edu.utn.frba.dds.modelo.Balance;
 import ar.edu.utn.frba.dds.modelo.Empresa;
 import ar.edu.utn.frba.dds.modelo.Indicador;
 
 @Observable
+@JsonTypeInfo(
+	    use = JsonTypeInfo.Id.MINIMAL_CLASS,
+	    include = JsonTypeInfo.As.PROPERTY,
+	    property = "@class")
 public abstract class Condicion {
+	@JsonProperty("nombreCondicion")
 	protected String nombreCondicion;
+	@JsonProperty("comparador")
 	protected Comparador comparador;
+	@JsonProperty("indicador")
 	protected Indicador indicador;
+	@JsonProperty("inicioPeriodo")
 	protected String inicioPeriodo; //tambien usado como periodo cuando es uno solo
+	@JsonProperty("finPeriodo")
 	protected String finPeriodo;
 
 
@@ -84,7 +97,6 @@ public abstract class Condicion {
 	public void setComparador(Comparador comparador) {
 		this.comparador = comparador;
 	}
-
 
 	protected Balance buscarBalanceEnPeriodo(Empresa empresa) {
 		try{
