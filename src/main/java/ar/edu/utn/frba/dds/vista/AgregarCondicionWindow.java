@@ -24,7 +24,7 @@ public class AgregarCondicionWindow extends SimpleWindow<MetodologiaViewModel>  
 		.onClick(this::abrirNuevaCondicionWindow);
 		
 		new Button(panel)
-		.setCaption("Aceptar metodologia")
+		.setCaption("Agregar a metodologia")
 		.onClick(this::agregarCondicion);
 		new Button(panel)
 		.setCaption("Salir")

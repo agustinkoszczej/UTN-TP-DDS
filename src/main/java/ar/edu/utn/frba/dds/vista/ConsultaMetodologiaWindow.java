@@ -52,7 +52,7 @@ public class ConsultaMetodologiaWindow extends SimpleWindow<MetodologiaViewModel
 	}
 	
 	private void aceptarMetodologia(){
-		
+		this.getModel().getSource().aceptarMetodologia();
 	}
 
 	@Override

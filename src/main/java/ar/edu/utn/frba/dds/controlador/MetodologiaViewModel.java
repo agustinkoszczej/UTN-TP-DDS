@@ -1,5 +1,6 @@
 package ar.edu.utn.frba.dds.controlador;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,8 +16,10 @@ import ar.edu.utn.frba.dds.metodologia.CondicionAntiguedad;
 import ar.edu.utn.frba.dds.metodologia.CondicionSuperaValor;
 import ar.edu.utn.frba.dds.metodologia.CondicionTaxativa;
 import ar.edu.utn.frba.dds.metodologia.Metodologia;
+import ar.edu.utn.frba.dds.servicio.ServicioCondiciones;
 import ar.edu.utn.frba.dds.servicio.ServicioCuentas;
 import ar.edu.utn.frba.dds.servicio.ServicioIndicadores;
+import ar.edu.utn.frba.dds.servicio.ServicioMetodologias;
 
 @Observable
 public class MetodologiaViewModel{
@@ -35,18 +38,20 @@ public class MetodologiaViewModel{
 	public MetodologiaViewModel(ServicioCuentas unServicioDeCuentas, ServicioIndicadores servicioIndicadores) {
 		this.servicioCuentas = unServicioDeCuentas;
 		this.servicioIndicadores = servicioIndicadores;
+		this.condicionesTotales = new ServicioCondiciones().obtenerCondiciones();
+		//this.metodologias = new ServicioMetodologias().obtenerMetodologias();
 		
 		this.metodologias = new ArrayList<Metodologia>();
 		
 		this.condicionesTotales = new ArrayList<Condicion>();
+		condicionesTotales = new ServicioCondiciones().obtenerCondiciones();
 		CondicionSuperaValor condicionValor = new CondicionSuperaValor();
 		condicionValor.setInicioPeriodo("20170100");
 		condicionValor.setFinPeriodo("20170100");
 		condicionValor.setComparador(Comparador.IGUAL);
 		condicionValor.setValorSuperar(30000);
 		condicionValor.setNombreCondicion("supera EBITDA 30000");
-		condicionesTotales.add(condicionValor);
-		System.out.println(condicionesTotales);
+		//condicionesTotales.add(condicionValor);
 		
 		CondicionAntiguedad condicionAntiguedad = new CondicionAntiguedad();
 		List<Condicion> condiciones = new ArrayList<Condicion>();
@@ -121,6 +126,16 @@ public class MetodologiaViewModel{
 			JOptionPane.showMessageDialog(null,"No selecciono condicion");
 		}
 		ObservableUtils.firePropertyChanged(this, "condicionesMetodologia");
+	}
+
+	public void aceptarMetodologia() {
+		// TODO Auto-generated method stub
+		try {
+			new ServicioMetodologias().guardarMetodologia(metodologiaSeleccionada);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 

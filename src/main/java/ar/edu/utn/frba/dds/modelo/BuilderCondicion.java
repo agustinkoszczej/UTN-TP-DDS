@@ -8,9 +8,11 @@ import ar.edu.utn.frba.dds.metodologia.ComparadorAntiguedad;
 import ar.edu.utn.frba.dds.metodologia.ComparadorDesempenio;
 import ar.edu.utn.frba.dds.metodologia.Condicion;
 import ar.edu.utn.frba.dds.metodologia.CondicionAntiguedad;
+import ar.edu.utn.frba.dds.metodologia.CondicionComparativa;
 import ar.edu.utn.frba.dds.metodologia.CondicionConsistenciaTiempo;
 import ar.edu.utn.frba.dds.metodologia.CondicionGeneral;
 import ar.edu.utn.frba.dds.metodologia.CondicionSuperaValor;
+import ar.edu.utn.frba.dds.metodologia.CondicionTaxativa;
 import ar.edu.utn.frba.dds.metodologia.TipoOperacion;
 
 public class BuilderCondicion {
@@ -25,7 +27,7 @@ public class BuilderCondicion {
 		private String periodoFin;
 		private TipoOperacion tipoOperacion;
 		private Boolean esComparativa = false;
-		private Boolean comparaAntiguedad;
+		private Boolean comparaAntiguedad = false;
 
 
 
@@ -43,7 +45,7 @@ public class BuilderCondicion {
 			return antiguedadRequerida;
 		}
 
-		public void setAntiguedadRequerida(int antiguedadRequerida) {
+		public void setAntiguedadRequerida(Integer antiguedadRequerida) {
 			this.antiguedadRequerida = antiguedadRequerida;
 		}
 
@@ -57,7 +59,7 @@ public class BuilderCondicion {
 
 
 
-		public void setValorNumericoAComparar(int valorNumericoAComparar) {
+		public void setValorNumericoAComparar(Integer valorNumericoAComparar) {
 			this.valorNumericoAComparar = valorNumericoAComparar;
 		}		
 		
@@ -100,6 +102,7 @@ public class BuilderCondicion {
 
 		public void setIndicador(Indicador indicador) {
 			this.indicador = indicador;
+			System.out.println(indicador);
 		}
 
 
@@ -114,6 +117,7 @@ public class BuilderCondicion {
 
 		public void setComparador(Comparador comparador) {
 			this.comparador = comparador;
+			System.out.println(comparador);
 		}
 
 
@@ -156,26 +160,26 @@ public class BuilderCondicion {
 
 		public void setPeriodoFin(String periodoFin) {
 			this.periodoFin = periodoFin;
+			
 		}
 
 
-
+		
 
 		public Condicion devolverCondicion(){
-			try{
-			condicion.setNombreCondicion(nombre);
-			condicion.setComparador(comparador);
-			condicion.setIndicador(indicador);			
-			} catch(NullPointerException e){
-				JOptionPane.showMessageDialog(null, "Faltan datos para crear la condicion");
-			}
-
-			condicion.setFinPeriodo(periodoFin);
-			condicion.setInicioPeriodo(periodoInicio);
-			
-			if(antiguedadRequerida != 0)
+			if(hayDatosVacios())
+				throw new NullPointerException("Ningun tipo de condicion pudo ser creado en base a lo ingresado. Faltan datos para crear la condicion");
+					
+			if(esComparativa)
+				condicion = new CondicionComparativa();
+			else
+				condicion = new CondicionTaxativa();
+		
+			if(antiguedadRequerida != null){
 				condicion = new CondicionAntiguedad();
-				
+				((CondicionAntiguedad) condicion).setAniosNecesarios(antiguedadRequerida);
+			}
+			
 			if(tipoOperacion != null){
 				condicion = new CondicionGeneral();
 				((CondicionGeneral) condicion).setTipoOperacion(tipoOperacion);
@@ -184,7 +188,7 @@ public class BuilderCondicion {
 				condicion = new CondicionSuperaValor();
 				((CondicionSuperaValor) condicion).setValorSuperar(valorNumericoAComparar);
 		}
-			if(valorNumericoAComparar == null && periodoInicio != null && periodoFin != null)
+			if(valorNumericoAComparar == null && periodoInicio != null && periodoFin != null && !esComparativa)
 				condicion = new CondicionConsistenciaTiempo();
 			
 			if(esComparativa && periodoInicio != null && periodoFin != null)
@@ -192,17 +196,36 @@ public class BuilderCondicion {
 			
 			if(comparaAntiguedad)
 				condicion = new ComparadorAntiguedad();
+		
 			
-			
-			if(condicion == null)
+			if(condicion == null || condicion.getClass().getSuperclass() == Condicion.class)
 				throw new NullPointerException("Ningun tipo de condicion pudo ser creado en base a lo ingresado. Faltan datos para crear la condicion");
 			
+			
+			condicion.setNombreCondicion(nombre);
+			condicion.setComparador(comparador);
+			condicion.setIndicador(indicador);	
+			condicion.setFinPeriodo(periodoFin);
+			condicion.setInicioPeriodo(periodoInicio);
 			
 			return condicion;
 		}
 
+		private void setearValores(Condicion condicion2) {
+			
+		}
+
+		private boolean hayDatosVacios() {
+			
+			return nombre == null;// || indicador == null || comparador == null;
+		}
+
 		public void setEsComparativa(Boolean esComparativa) {
 			this.esComparativa = esComparativa;
+		}
+
+		public void setComparaAntiguedad(Boolean comparaAntiguedad) {
+			this.comparaAntiguedad = comparaAntiguedad;
 		}
 		
 }

@@ -81,11 +81,8 @@ public class Metodologia {
 	
 	
 	public void agregarCondicion(Condicion condicion){
-		System.out.println(condicion.getClass());
 		//condiciones = new ArrayList<Condicion>();
 		condiciones.add(condicion);
-		//System.out.println(condicion.getClass() == CondicionAntiguedad.class);
-		//System.out.println(condicion instanceof CondicionTaxativa);
 	}
 	/*
 	public void setCondicionesComparativas(List<CondicionComparativa> condicionesComparativas) {

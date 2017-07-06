@@ -1,10 +1,14 @@
 package ar.edu.utn.frba.dds.controlador;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
+import org.uqbar.commons.model.ObservableUtils;
 import org.uqbar.commons.utils.Observable;
 
 import com.ibm.icu.util.Calendar;
@@ -13,8 +17,10 @@ import ar.edu.utn.frba.dds.metodologia.Comparador;
 import ar.edu.utn.frba.dds.metodologia.Condicion;
 import ar.edu.utn.frba.dds.metodologia.CondicionAntiguedad;
 import ar.edu.utn.frba.dds.metodologia.CondicionSuperaValor;
+import ar.edu.utn.frba.dds.metodologia.TipoOperacion;
 import ar.edu.utn.frba.dds.modelo.BuilderCondicion;
 import ar.edu.utn.frba.dds.modelo.Indicador;
+import ar.edu.utn.frba.dds.servicio.ServicioCondiciones;
 import ar.edu.utn.frba.dds.servicio.ServicioIndicadores;
 
 @Observable
@@ -27,8 +33,8 @@ public class CondicionViewModel {
 
 	private String nombreCondicion;
 
-	private String stringCondicion;
-	private List<String> tipoClases;
+	private TipoOperacion tipoOperacion;
+	private List<TipoOperacion> operaciones;
 	private String claseSeleccionada;
 	private Condicion condicionSeleccionada;
 	private List<Condicion> condicionesDisponibles;
@@ -37,19 +43,29 @@ public class CondicionViewModel {
 	private List<Comparador> comparadores;
 	private Comparador comparador;
 	private List<Condicion> condiciones;
-	private Boolean comparaEmpresas;
+	private Boolean comparaEmpresas = false;
+	private String periodoInicio;
+	private String periodoFin;
+	private Boolean periodoInicioActual = false;
+	private Boolean periodoFinActual = false;
+	private Integer valorSuperar;
+	private Integer valorAntiguedad;
+	private Boolean comparadorAntiguedad = false;
 	//private String condicionSeleccionada;
 	private BuilderCondicion builder;
+		
 	
 	
-	public CondicionViewModel() {
+	
+	
+public CondicionViewModel() {
 		Calendar cal = Calendar.getInstance();
 		cal.get(Calendar.EXTENDED_YEAR);
 		SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
-		System.out.println(format.format(cal.getTime()));
 		
 		
 		this.servicioIndicadores = new ServicioIndicadores();
+		indicadoresDisponibles = servicioIndicadores.obtenerIndicadores();
 		
 		this.condicionesTotales = new ArrayList<Condicion>();
 		CondicionSuperaValor condicionValor = new CondicionSuperaValor();
@@ -62,10 +78,8 @@ public class CondicionViewModel {
 		condiciones = new ArrayList<Condicion>();
 
 		condiciones.addAll(Arrays.asList(new CondicionAntiguedad(), new CondicionSuperaValor()));
-		//condiciones.add(Condicion.devolverCondicionDesdeNombre("CondicionTaxativa"));
-		//condiciones.add("CondicionTaxativa");
 
-		BuilderCondicion builder = new BuilderCondicion();
+		builder = new BuilderCondicion();
 	}
 	
 	public List<Condicion> getCondicionesTotales() {
@@ -88,6 +102,8 @@ public class CondicionViewModel {
 
 	public void setNombreCondicion(String nombreCondicion) {
 		this.nombreCondicion = nombreCondicion;
+		System.out.println(nombreCondicion);
+		builder.setNombre(nombreCondicion);
 	}
 
 
@@ -101,6 +117,7 @@ public class CondicionViewModel {
 
 	public void setCondicionSeleccionada(Condicion condicionSeleccionada) {
 		this.condicionSeleccionada = condicionSeleccionada;
+		builder.setCondicion(condicionSeleccionada);
 	}
 
 
@@ -125,6 +142,8 @@ public class CondicionViewModel {
 
 	public void setIndicadorSeleccionado(Indicador indicadorSeleccionado) {
 		this.indicadorSeleccionado = indicadorSeleccionado;
+		System.out.println(indicadorSeleccionado);
+		builder.setIndicador(indicadorSeleccionado);
 	}
 
 
@@ -142,7 +161,7 @@ public class CondicionViewModel {
 
 
 	public List<Comparador> getComparadores() {
-		return comparadores;
+		return Arrays.asList(Comparador.values());
 	}
 
 
@@ -161,11 +180,26 @@ public class CondicionViewModel {
 
 	public void setComparador(Comparador comparador) {
 		this.comparador = comparador;
+		builder.setComparador(comparador);
 	}
 
-	public void guardarCondicion() {
-		//TODO Aca tiene que guardar la condicion al archivo (persistencia)
+	public String getPeriodoFin() {
+		return periodoFin;
 	}
+
+	public void setPeriodoFin(String periodoFin) {
+		this.periodoFin = periodoFin;
+		builder.setPeriodoFin(periodoFin);
+	}
+
+	public Boolean getPeriodoInicioActual() {
+		return periodoInicioActual;
+	}
+
+	public Boolean getPeriodoFinActual() {
+		return periodoFinActual;
+	}
+	
 
 	public List<Condicion> getCondiciones() {
 		
@@ -177,12 +211,20 @@ public class CondicionViewModel {
 		this.condiciones = condiciones;
 	}
 
-	public List<String> getTipoClases() {
-		return Arrays.asList("Taxativa","Comparativa","Combinada");
+	public TipoOperacion getTipoOperacion() {
+		return this.tipoOperacion;
 	}
 
-	public void setTipoClases(List<String> tipoClase) {
-		this.tipoClases = tipoClase;
+	public void setTipoOperacion(TipoOperacion tipoOperacion) {
+		this.tipoOperacion = tipoOperacion;
+	}
+
+	public List<TipoOperacion> getOperaciones() {
+		return Arrays.asList(TipoOperacion.values());
+	}
+
+	public void setOperaciones(List<TipoOperacion> operaciones) {
+		this.operaciones = operaciones;
 	}
 
 	public String getClaseSeleccionada() {
@@ -199,19 +241,24 @@ public class CondicionViewModel {
 
 	public void setComparaEmpresas(Boolean comparaEmpresas) {
 		this.comparaEmpresas = comparaEmpresas;
-		builder.setEsComparativa(comparaEmpresas);
+		builder.setEsComparativa(this.comparaEmpresas);
 	}
 	
 	public void setPeriodoInicioActual(Boolean periodoInicioActual)
 	{
-		if(periodoInicioActual)
+		if(periodoInicioActual){
 			builder.setPeriodoInicio(getPeriodoActual());
+			setPeriodoInicio(getPeriodoActual());
+		}
+		
 	}
 
 	public void setPeriodoFinActual(Boolean periodoFinActual)
 	{
-		if(periodoFinActual)
+		if(periodoFinActual){
 			builder.setPeriodoFin(getPeriodoActual());
+			setPeriodoFin(getPeriodoActual());
+		}
 	}
 
 	
@@ -222,5 +269,57 @@ public class CondicionViewModel {
 		return format.format(cal.getTime());
 	}
 
+	public String getPeriodoInicio() {
+		return periodoInicio;
+	}
+
+	public void setPeriodoInicio(String periodoInicio) {
+		this.periodoInicio = periodoInicio;
+		builder.setPeriodoFin(periodoInicio);
+	}
+
+	public Integer getValorSuperar(){
+		return valorSuperar;
+	}
+	
+	public void setValorSuperar(Integer valor){
+		this.valorSuperar = valor;
+		builder.setValorNumericoAComparar(valor);
+	}
+
+	public Integer getValorAntiguedad() {
+		return valorAntiguedad;
+		
+	}
+
+	public void setValorAntiguedad(Integer valorAntiguedad) {
+		this.valorAntiguedad = valorAntiguedad;
+		builder.setAntiguedadRequerida(valorAntiguedad);
+	}
+	
+
+	public void guardarCondicion() {
+		//TODO Aca tiene que guardar la condicion al archivo (persistencia)
+		
+		System.out.println(builder.devolverCondicion());
+		Condicion condicion = builder.devolverCondicion();
+		try {
+			new ServicioCondiciones().guardarCondicion(condicion);
+		} catch (IOException e) {
+			JOptionPane.showMessageDialog(null, "Error al guardar la condicion");
+			}catch(NullPointerException e){
+			JOptionPane.showMessageDialog(null, "Ningun tipo de condicion pudo ser creado en base a lo ingresado. Faltan datos para crear la condicion");
+		}
+		//ObservableUtils.firePropertyChanged(model, property);
+	}
+
+	public Boolean getComparadorAntiguedad() {
+		return comparadorAntiguedad;
+	}
+
+	public void setComparadorAntiguedad(Boolean comparadorAntiguedad) {
+		this.comparadorAntiguedad = comparadorAntiguedad;
+		builder.setComparaAntiguedad(comparadorAntiguedad);
+	}
 	
 }

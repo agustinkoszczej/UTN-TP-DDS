@@ -8,6 +8,7 @@ import org.uqbar.commons.utils.Observable;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 import ar.edu.utn.frba.dds.modelo.Balance;
@@ -15,10 +16,11 @@ import ar.edu.utn.frba.dds.modelo.Empresa;
 import ar.edu.utn.frba.dds.modelo.Indicador;
 
 @Observable
+@JsonIgnoreProperties(value = { "changeSupport" })
 @JsonTypeInfo(
-	    use = JsonTypeInfo.Id.MINIMAL_CLASS,
+	    use = JsonTypeInfo.Id.CLASS,
 	    include = JsonTypeInfo.As.PROPERTY,
-	    property = "@class")
+	    property = "claseCondicion")
 public abstract class Condicion {
 	@JsonProperty("nombreCondicion")
 	protected String nombreCondicion;
@@ -83,7 +85,7 @@ public abstract class Condicion {
 	}
 	
 	public String getClaseCondicion() {
-		return this.getClass().getSimpleName();
+		return this.getClass().getName();
 	}
 	
 	public void setClaseCondicion() {
