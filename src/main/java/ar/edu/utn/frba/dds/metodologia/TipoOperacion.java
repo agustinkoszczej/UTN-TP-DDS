@@ -14,6 +14,7 @@ public class TipoOperacion {
 	public enum Operaciones {PROMEDIO, MEDIANA, SUMATORIA};
 	
 	public Operaciones tipoOperacion;
+	public String nombre;
 	
 	public Operaciones getTipoOperacion() {
 		return tipoOperacion;
@@ -21,6 +22,11 @@ public class TipoOperacion {
 
 	public void setTipoOperacion(Operaciones tipoOperacion) {
 		this.tipoOperacion = tipoOperacion;
+		this.nombre = tipoOperacion.name();
+	}
+	
+	public String getNombre(){
+		return nombre;
 	}
 
 	public double valor(Empresa empresa, CondicionTaxativa condicion){

@@ -58,7 +58,7 @@ public class NuevaCondicionWindow extends SimpleWindow<CondicionViewModel>  {
 		new Label(form2).setText("Tipo Comparacion:");
 		Selector<Comparador> selectorComparador = new Selector<Comparador>(form2).allowNull(true);
 		selectorComparador.bindValueToProperty("comparador");
-		selectorComparador.bindItemsToProperty("comparadores");
+		selectorComparador.bindItemsToProperty("comparadores").adaptWith(Comparador.class, "nombre");
 		selectorComparador.setWidth(280);
 		
 		new Label(form2).setText("Compara Empresas:");
@@ -68,7 +68,7 @@ public class NuevaCondicionWindow extends SimpleWindow<CondicionViewModel>  {
 		new Label(form2).setText("Operador a todos los balances:");
 		Selector<TipoOperacion> selectorTipoOperacion = new Selector<TipoOperacion>(form2).allowNull(true);
 		selectorTipoOperacion.bindValueToProperty("tipoOperacion");
-		selectorTipoOperacion.bindItemsToProperty("operaciones");
+		selectorTipoOperacion.bindItemsToProperty("operaciones").adaptWith(TipoOperacion.class, "nombre");
 		selectorTipoOperacion.setWidth(280);
 				
 		new Label(form2).setText("Fecha periodo inicio (YYYYMMDD)");

@@ -10,6 +10,7 @@ public class Comparador {
 	public enum Comparadores {MAYOR, MENOR, IGUAL, MAYOREIGUAL, MENOREIGUAL};
 	
 	public Comparadores comparador;
+	public String nombre;
 	
 	public Comparadores getComparador() {
 		return comparador;
@@ -17,6 +18,11 @@ public class Comparador {
 
 	public void setComparador(Comparadores comparador) {
 		this.comparador = comparador;
+		this.nombre = comparador.name();
+	}
+	
+	public String getNombre(){
+		return nombre;
 	}
 
 	public Boolean cumpleCondicion(double valor, double valorASuperar) {

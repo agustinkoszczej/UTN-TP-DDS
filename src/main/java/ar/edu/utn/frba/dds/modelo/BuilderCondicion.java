@@ -1,6 +1,9 @@
 package ar.edu.utn.frba.dds.modelo;
 
 
+import java.util.Arrays;
+import java.util.List;
+
 import javax.swing.JOptionPane;
 
 import ar.edu.utn.frba.dds.metodologia.Comparador;
@@ -14,6 +17,8 @@ import ar.edu.utn.frba.dds.metodologia.CondicionGeneral;
 import ar.edu.utn.frba.dds.metodologia.CondicionSuperaValor;
 import ar.edu.utn.frba.dds.metodologia.CondicionTaxativa;
 import ar.edu.utn.frba.dds.metodologia.TipoOperacion;
+import ar.edu.utn.frba.dds.metodologia.TipoOperacion.Operaciones;
+import ar.edu.utn.frba.dds.metodologia.Comparador.Comparadores;
 
 public class BuilderCondicion {
 
@@ -163,5 +168,33 @@ public class BuilderCondicion {
 
 		public void setComparaAntiguedad(Boolean comparaAntiguedad) {
 			this.comparaAntiguedad = comparaAntiguedad;
+		}
+
+		public List<Comparador> traerComparadores() {
+			//List<Comparador> comparadores = null;
+			Comparador mayor = new Comparador();
+			Comparador menor = new Comparador();
+			Comparador mayorIgual = new Comparador();
+			Comparador menorIgual = new Comparador();
+			Comparador igual = new Comparador();
+			mayor.setComparador(Comparadores.MAYOR);
+			menor.setComparador(Comparadores.MENOR);
+			igual.setComparador(Comparadores.IGUAL);
+			mayorIgual.setComparador(Comparadores.MAYOREIGUAL);
+			menorIgual.setComparador(Comparadores.MENOREIGUAL);
+			return Arrays.asList(mayor,menor,igual,mayorIgual,menorIgual);
+			//return comparadores;
+		}
+
+		public List<TipoOperacion> traerTipoOperaciones() {
+			// TODO Auto-generated method stub
+			TipoOperacion promedio = new TipoOperacion();
+			promedio.setTipoOperacion(Operaciones.PROMEDIO);
+			TipoOperacion sumatoria = new TipoOperacion();
+			sumatoria.setTipoOperacion(Operaciones.SUMATORIA);
+			TipoOperacion mediana = new TipoOperacion();
+			mediana.setTipoOperacion(Operaciones.MEDIANA);
+			
+			return Arrays.asList(promedio,sumatoria,mediana);
 		}	
 }

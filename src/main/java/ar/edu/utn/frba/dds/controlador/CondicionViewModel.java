@@ -48,6 +48,9 @@ public class CondicionViewModel {
 	
 	private TipoOperacion tipoOperacion;
 	private Comparador comparador;
+	private List<TipoOperacion> operaciones;
+	//private List<Comparadores> comparadores;
+	private List<Comparador> comparadores;
 	
 public CondicionViewModel() {
 		Calendar cal = Calendar.getInstance();
@@ -56,6 +59,9 @@ public CondicionViewModel() {
 		this.indicadoresDisponibles = servicioIndicadores.obtenerIndicadores();
 		this.condicionesTotales = new ArrayList<Condicion>();
 		builder = new BuilderCondicion();
+		
+		comparadores = builder.traerComparadores();
+		operaciones = builder.traerTipoOperaciones();
 	}
 	
 	public List<Condicion> getCondicionesTotales() {
@@ -144,17 +150,19 @@ public CondicionViewModel() {
 		TipoOperacion tipo = new TipoOperacion();
 		tipo.setTipoOperacion(tipoOperacion);
 		this.tipoOperacion = tipo;
+		builder.setTipoOperacion(this.tipoOperacion);
 	}
 
-	public List<Operaciones> getOperaciones() {
-		return Arrays.asList(TipoOperacion.Operaciones.values());
+	public List<TipoOperacion> getOperaciones() {
+		return operaciones;
 	}
 
 	public void setOperaciones(List<TipoOperacion> operaciones) {
 	}
 	
-	public List<Comparadores> getComparadores() {
-		return Arrays.asList(Comparador.Comparadores.values());
+	public List<Comparador> getComparadores() {
+		//return Arrays.asList(Comparador.Comparadores.values());
+		return comparadores;
 	}
 
 	public void setComparadores(List<Comparador> comparadores) {
@@ -163,9 +171,22 @@ public CondicionViewModel() {
 	public Comparador getComparador() {
 		return this.comparador;
 	}
+	public void setTipoOperacion(TipoOperacion tipoOperacion) {
+		this.tipoOperacion = tipoOperacion;
+	}
+
+	public void setComparador(Comparador comparador) {
+		this.comparador = comparador;
+	}
+
 	public void setComparador(Comparadores comparador) {
+		this.comparador = new Comparador();
 		this.comparador.setComparador(comparador);
+		//Comparador unComparador = new Comparador();
+		//unComparador.setComparador(comparador);
+		//this.comparador = unComparador;
 		builder.setComparador(this.comparador);
+		
 	}
 
 	public String getClaseSeleccionada() {
