@@ -61,7 +61,7 @@ public class MainMenuWindow<T> extends SimpleWindow<T> {
 	}
 	
 	public void consultarMetodologias() {
-		ConsultaMetodologiaWindow dialog = new ConsultaMetodologiaWindow(this, new MetodologiaViewModel(servicioCuentas,new ServicioIndicadores()));
+		ConsultaMetodologiaWindow dialog = new ConsultaMetodologiaWindow(this, new MetodologiaViewModel(servicioCuentas, new ServicioIndicadores()));
 
 		dialog.open();
 	}

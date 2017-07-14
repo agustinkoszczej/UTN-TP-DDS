@@ -29,10 +29,6 @@ public class BuilderCondicion {
 		private Boolean esComparativa = false;
 		private Boolean comparaAntiguedad = false;
 
-
-
-		
-		
 		public TipoOperacion getTipoOperacion() {
 			return tipoOperacion;
 		}
@@ -49,122 +45,63 @@ public class BuilderCondicion {
 			this.antiguedadRequerida = antiguedadRequerida;
 		}
 
-
-
-
 		public int getValorNumericoAComparar() {
 			return valorNumericoAComparar;
 		}
 
-
-
-
 		public void setValorNumericoAComparar(Integer valorNumericoAComparar) {
 			this.valorNumericoAComparar = valorNumericoAComparar;
 		}		
-		
-		
-	
+
 		public String getNombre() {
 			return nombre;
 		}
 
-
-
-
 		public void setNombre(String nombre) {
 			this.nombre = nombre;
 		}
-
-
-
-
 		public Condicion getCondicion() {
 			return condicion;
 		}
-
-
-
-
 		public void setCondicion(Condicion condicion) {
 			this.condicion = condicion;
 		}
-
-
-
-
 		public Indicador getIndicador() {
 			return indicador;
 		}
-
-
-
-
 		public void setIndicador(Indicador indicador) {
 			this.indicador = indicador;
-			System.out.println(indicador);
 		}
-
-
-
-
 		public Comparador getComparador() {
 			return comparador;
 		}
-
-
-
-
 		public void setComparador(Comparador comparador) {
 			this.comparador = comparador;
-			System.out.println(comparador);
 		}
-
-
-
-
 		public int getValorASetear() {
 			return valorNumericoAComparar;
 		}
-
-
-
 
 		public void setValorASetear(int valorASetear) {
 			this.valorNumericoAComparar = valorASetear;
 		}
 
-
-
-
 		public String getPeriodoInicio() {
 			return periodoInicio;
 		}
-
-
-
 
 		public void setPeriodoInicio(String periodoInicio) {
 			this.periodoInicio = periodoInicio;
 		}
 
-
-
-
 		public String getPeriodoFin() {
 			return periodoFin;
 		}
-
-
-
 
 		public void setPeriodoFin(String periodoFin) {
 			this.periodoFin = periodoFin;
 			
 		}
-
-
-		
 
 		public Condicion devolverCondicion(){
 			if(hayDatosVacios())
@@ -217,7 +154,7 @@ public class BuilderCondicion {
 
 		private boolean hayDatosVacios() {
 			
-			return nombre == null;// || indicador == null || comparador == null;
+			return nombre == null;	// || indicador == null || comparador == null;
 		}
 
 		public void setEsComparativa(Boolean esComparativa) {
@@ -226,6 +163,5 @@ public class BuilderCondicion {
 
 		public void setComparaAntiguedad(Boolean comparaAntiguedad) {
 			this.comparaAntiguedad = comparaAntiguedad;
-		}
-		
+		}	
 }

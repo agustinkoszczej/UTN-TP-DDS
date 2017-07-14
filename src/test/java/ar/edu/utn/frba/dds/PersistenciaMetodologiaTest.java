@@ -1,8 +1,5 @@
 package ar.edu.utn.frba.dds;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
-
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -14,13 +11,17 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
-import ar.edu.utn.frba.dds.metodologia.Condicion;
-import ar.edu.utn.frba.dds.metodologia.CondicionSuperaValor;
-import ar.edu.utn.frba.dds.modelo.RepositorioCondiciones;
-import ar.edu.utn.frba.dds.servicio.ServicioCondiciones;
+import ar.edu.utn.frba.dds.metodologia.Metodologia;
+import ar.edu.utn.frba.dds.modelo.RepositorioMetodologias;
+import ar.edu.utn.frba.dds.servicio.ServicioMetodologias;
 
-public class PersistenciaCondicion {
-	List<Condicion> TEST_listaCondiciones; 
+import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.MatcherAssert.assertThat;
+
+
+public class PersistenciaMetodologiaTest {
+
+	List<Metodologia> TEST_listaMetodologias; 
 	
 	@Before
 	public void init() {
@@ -32,70 +33,70 @@ public class PersistenciaCondicion {
 	
 	private void clearSingleton(String fileName) {
 		String archivoJSON = folder.toString() + "\\" + fileName;
-		ServicioCondiciones nuevoServicio = new ServicioCondiciones(archivoJSON);
+		ServicioMetodologias nuevoServicio = new ServicioMetodologias(archivoJSON);
 			
 		// Aplico reflection para limpiar las instancias de la singleton entre test
-		Field repositorioCondiciones;
-		Field servicioCondiciones;
+		Field repositorioMetodologias;
+		Field servicioMetodologias;
 		try {
-			repositorioCondiciones = RepositorioCondiciones.class.getDeclaredField("repositorioCondiciones");
-			repositorioCondiciones.setAccessible(true);
-			repositorioCondiciones.set(null, null);
-			servicioCondiciones = RepositorioCondiciones.class.getDeclaredField("servicioCondiciones");
-			servicioCondiciones.setAccessible(true);
-			servicioCondiciones.set(null, nuevoServicio);
+			repositorioMetodologias = RepositorioMetodologias.class.getDeclaredField("repositorioMetodologias");
+			repositorioMetodologias.setAccessible(true);
+			repositorioMetodologias.set(null, null);
+			servicioMetodologias = RepositorioMetodologias.class.getDeclaredField("servicioMetodologias");
+			servicioMetodologias.setAccessible(true);
+			servicioMetodologias.set(null, nuevoServicio);
 		} catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException e) {
 			e.printStackTrace();
 		}
 	}
 
 	@Test
-	public void instanciarRepositorioCondiciones() {
-		RepositorioCondiciones repoCondiciones = RepositorioCondiciones.getInstance();
+	public void instanciarRepositorioMetodologias() {
+		RepositorioMetodologias repoMetod = RepositorioMetodologias.getInstance();
 		// TODO: Ver que pasa si el archivo no existe o esta vacio
-		Assert.assertNotEquals(null, repoCondiciones); 
+		Assert.assertNotEquals(null, repoMetod); 
 	}
 
 	@Test
-	public void instanciarDosRepositorioCondicionesYValidarQueSeanLaMismaInstacia() {
-		RepositorioCondiciones repoCond1 = RepositorioCondiciones.getInstance();
-		RepositorioCondiciones repoCond2 = RepositorioCondiciones.getInstance();
-		Assert.assertEquals(true, repoCond1 == repoCond2); 
+	public void instanciarDosRepositorioMetodologiasYValidarQueSeanLaMismaInstacia() {
+		RepositorioMetodologias repoMetod1 = RepositorioMetodologias.getInstance();
+		RepositorioMetodologias repoMetod2 = RepositorioMetodologias.getInstance();
+		Assert.assertEquals(true, repoMetod1 == repoMetod2); 
 	}
 	
 	@Test
-	public void agregarCondicionesAlRepositorio() throws IOException {
+	public void agregarMetodologiaAlRepositorio() throws IOException {
 		clearSingleton("test1.json");
-		RepositorioCondiciones repoCondiciones = RepositorioCondiciones.getInstance();
-		CondicionSuperaValor unaCondicion = new CondicionSuperaValor();
-		unaCondicion.setNombreCondicion("prueba");
-		TEST_listaCondiciones = new ArrayList<Condicion>();
-		TEST_listaCondiciones.add(unaCondicion);
-		repoCondiciones.agregarCondicion(unaCondicion);
-		assertThat(repoCondiciones.getCondiciones(), is(TEST_listaCondiciones));
+		RepositorioMetodologias repoMetod = RepositorioMetodologias.getInstance();
+		Metodologia unaMetodologia = new Metodologia();
+		unaMetodologia.setNombre("prueba");
+		TEST_listaMetodologias = new ArrayList<Metodologia>();
+		TEST_listaMetodologias.add(unaMetodologia);
+		repoMetod.agregarMetodologia(unaMetodologia);
+		assertThat(repoMetod.getMetodologias(), is(TEST_listaMetodologias));
 	}
 
 	
 	@Test
-	public void agregarDosCondicionesAlRepositorio() throws IOException {
+	public void agregarDosMetodologiasAlRepositorio() throws IOException {
 		clearSingleton("test2.json");
-		RepositorioCondiciones repoCondiciones = RepositorioCondiciones.getInstance();
-		CondicionSuperaValor unaCondicion = new CondicionSuperaValor();
-		unaCondicion.setNombreCondicion("prueba");
-		CondicionSuperaValor otraCondicion = new CondicionSuperaValor();
-		otraCondicion.setNombreCondicion("test");
-		TEST_listaCondiciones = new ArrayList<Condicion>();
-		TEST_listaCondiciones.add(unaCondicion);
-		TEST_listaCondiciones.add(otraCondicion);
-		repoCondiciones.agregarCondicion(unaCondicion);
-		repoCondiciones.agregarCondicion(otraCondicion);
-		assertThat(repoCondiciones.getCondiciones(), is(TEST_listaCondiciones));
+		RepositorioMetodologias repoMetod = RepositorioMetodologias.getInstance();
+		Metodologia unaMetodologia = new Metodologia();
+		unaMetodologia.setNombre("prueba");
+		Metodologia otraMetodologia = new Metodologia();
+		otraMetodologia.setNombre("test");
+		TEST_listaMetodologias = new ArrayList<Metodologia>();
+		TEST_listaMetodologias.add(unaMetodologia);
+		TEST_listaMetodologias.add(otraMetodologia);
+		repoMetod.agregarMetodologia(unaMetodologia);
+		repoMetod.agregarMetodologia(otraMetodologia);
+		assertThat(repoMetod.getMetodologias(), is(TEST_listaMetodologias));
 	}
-/*
+
 	@Test
 	public void encontrarMetodologiaEnLista() throws IOException {
 		clearSingleton("test3.json");
-		RepositorioCondiciones repoMetod = RepositorioCondiciones.getInstance();
+		RepositorioMetodologias repoMetod = RepositorioMetodologias.getInstance();
 		Metodologia unaMetodologia = new Metodologia();
 		unaMetodologia.setNombre("primera");
 		Metodologia dosMetodologia = new Metodologia();
@@ -111,7 +112,7 @@ public class PersistenciaCondicion {
 	@Test
 	public void reemplazarMetodologiaEnLista() throws IOException {
 		clearSingleton("test4.json");
-		RepositorioCondiciones repoMetod = RepositorioCondiciones.getInstance();
+		RepositorioMetodologias repoMetod = RepositorioMetodologias.getInstance();
 		Metodologia unaMetodologia = new Metodologia();
 		unaMetodologia.setNombre("primera");
 		Metodologia dosMetodologia = new Metodologia();
@@ -127,10 +128,10 @@ public class PersistenciaCondicion {
 
 	// TODO: Que pasa con dos metodologias con igual nombre y distinto hash 
 	
-	@Test
+	@Test // Este test esta fallando
 	public void leerMetodologiasGuardadasDesdeArchivo() throws IOException {
 		clearSingleton("test5.json");
-		RepositorioCondiciones repoMetod = RepositorioCondiciones.getInstance();
+		RepositorioMetodologias repoMetod = RepositorioMetodologias.getInstance();
 		Metodologia unaMetodologia = new Metodologia();
 		unaMetodologia.setNombre("primera");
 		Metodologia dosMetodologia = new Metodologia();
@@ -141,8 +142,8 @@ public class PersistenciaCondicion {
 		repoMetod.agregarMetodologia(dosMetodologia);
 		repoMetod.agregarMetodologia(tresMetodologia);
 		clearSingleton("test5.json");
-		repoMetod = RepositorioCondiciones.getInstance();
+		repoMetod = RepositorioMetodologias.getInstance();
 		Assert.assertEquals(repoMetod.obtenerMetodologia("segundo"), dosMetodologia);
 	}
-*/
+
 }

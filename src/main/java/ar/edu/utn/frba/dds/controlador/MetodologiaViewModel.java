@@ -1,20 +1,14 @@
 package ar.edu.utn.frba.dds.controlador;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JOptionPane;
 
-import org.junit.Assert;
 import org.uqbar.commons.model.ObservableUtils;
 import org.uqbar.commons.utils.Observable;
 
-import ar.edu.utn.frba.dds.metodologia.Comparador;
 import ar.edu.utn.frba.dds.metodologia.Condicion;
-import ar.edu.utn.frba.dds.metodologia.CondicionAntiguedad;
-import ar.edu.utn.frba.dds.metodologia.CondicionSuperaValor;
-import ar.edu.utn.frba.dds.metodologia.CondicionTaxativa;
 import ar.edu.utn.frba.dds.metodologia.Metodologia;
 import ar.edu.utn.frba.dds.servicio.ServicioCondiciones;
 import ar.edu.utn.frba.dds.servicio.ServicioCuentas;
@@ -28,8 +22,6 @@ public class MetodologiaViewModel{
 	public ServicioIndicadores servicioIndicadores;
 	private List<Metodologia> metodologias;
 	private Metodologia metodologiaSeleccionada;
-	private String nombreCondicion;
-	private List<Condicion> condicionesMetodologia;
 	private List<Condicion> condicionesTotales;
 	private Condicion condicionSeleccionada;
 	private Condicion condicionAAgregarSeleccionada;
@@ -39,29 +31,8 @@ public class MetodologiaViewModel{
 		this.servicioCuentas = unServicioDeCuentas;
 		this.servicioIndicadores = servicioIndicadores;
 		this.condicionesTotales = new ServicioCondiciones().obtenerCondiciones();
-		//this.metodologias = new ServicioMetodologias().obtenerMetodologias();
-		
-		this.metodologias = new ArrayList<Metodologia>();
-		
-		this.condicionesTotales = new ArrayList<Condicion>();
-		condicionesTotales = new ServicioCondiciones().obtenerCondiciones();
-		CondicionSuperaValor condicionValor = new CondicionSuperaValor();
-		condicionValor.setInicioPeriodo("20170100");
-		condicionValor.setFinPeriodo("20170100");
-		condicionValor.setComparador(Comparador.IGUAL);
-		condicionValor.setValorSuperar(30000);
-		condicionValor.setNombreCondicion("supera EBITDA 30000");
-		//condicionesTotales.add(condicionValor);
-		
-		CondicionAntiguedad condicionAntiguedad = new CondicionAntiguedad();
-		List<Condicion> condiciones = new ArrayList<Condicion>();
-		condicionAntiguedad.setAniosNecesarios(10);
-		condicionAntiguedad.setNombreCondicion("longetividad");
-		Metodologia metodologia = new Metodologia();
-		metodologia.setNombre("metodo1");
-		metodologia.agregarCondicion(condicionAntiguedad);
-		metodologias.add(metodologia);
-		metodologiaSeleccionada = metodologias.get(0);
+		this.metodologias = new ServicioMetodologias().obtenerMetodologias();
+		this.metodologiaSeleccionada = new Metodologia();
 	}
 
 	public List<Metodologia> getMetodologias() {
@@ -91,7 +62,6 @@ public class MetodologiaViewModel{
 	}
 
 	public void setCondicionesMetodologia(List<Condicion> condicionesMetodologia) {
-		this.condicionesMetodologia = condicionesMetodologia;
 	}
 
 	public Condicion getCondicionSeleccionada() {
@@ -129,16 +99,10 @@ public class MetodologiaViewModel{
 	}
 
 	public void aceptarMetodologia() {
-		// TODO Auto-generated method stub
 		try {
 			new ServicioMetodologias().guardarMetodologia(metodologiaSeleccionada);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-
-
-
-
 }

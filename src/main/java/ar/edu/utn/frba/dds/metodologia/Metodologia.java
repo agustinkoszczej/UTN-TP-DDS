@@ -19,8 +19,6 @@ public class Metodologia {
 	//TODO ver si se puede poner local y que no me pida final
 	@JsonProperty("nombre")
 	protected String nombre;
-	//protected List<CondicionTaxativa> condicionesTaxativas;
-	//protected List<CondicionComparativa> condicionesComparativas;
 	@JsonProperty("condiciones")
 	protected List<Condicion> condiciones;
 	
@@ -29,7 +27,6 @@ public class Metodologia {
 	}
 	
 	public List<CondicionComparativa> getCondicionesComparativas() {
-		//return condiciones.stream().filter(condicion -> condicion instanceof CondicionComparativa).collect(Collectors.toList());
 		List<CondicionComparativa> condiciones2 = condiciones.stream().
 				filter(condicion -> condicion instanceof CondicionComparativa)
 				.map(condicion -> (CondicionComparativa) condicion).

@@ -1,7 +1,5 @@
 package ar.edu.utn.frba.dds.vista;
 
-import javax.swing.JOptionPane;
-
 import org.uqbar.arena.widgets.Button;
 import org.uqbar.arena.widgets.Label;
 import org.uqbar.arena.widgets.Panel;
@@ -11,27 +9,18 @@ import org.uqbar.arena.widgets.tables.Table;
 import org.uqbar.arena.windows.SimpleWindow;
 import org.uqbar.arena.windows.WindowOwner;
 
-import ar.edu.utn.frba.dds.controlador.CuentaViewModel;
-import ar.edu.utn.frba.dds.controlador.IndicadorViewModel;
 import ar.edu.utn.frba.dds.controlador.MetodologiaViewModel;
 import ar.edu.utn.frba.dds.metodologia.Condicion;
-import ar.edu.utn.frba.dds.metodologia.CondicionTaxativa;
 import ar.edu.utn.frba.dds.metodologia.Metodologia;
-import ar.edu.utn.frba.dds.modelo.Balance;
-import ar.edu.utn.frba.dds.modelo.Empresa;
-import ar.edu.utn.frba.dds.modelo.Indicador;
-import ar.edu.utn.frba.dds.servicio.ServicioIndicadores;
 
 public class ConsultaMetodologiaWindow extends SimpleWindow<MetodologiaViewModel> {
 
 	public ConsultaMetodologiaWindow(WindowOwner parent, MetodologiaViewModel metodologiaViewModel) {
 		super(parent, metodologiaViewModel);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	protected void addActions(Panel panel) {
-		// TODO Auto-generated method stub
 		new Button(panel)
 		.setCaption("Agregar condicion")
 		.onClick(this::abrirCondicionWindow);
@@ -57,7 +46,6 @@ public class ConsultaMetodologiaWindow extends SimpleWindow<MetodologiaViewModel
 
 	@Override
 	protected void createFormPanel(Panel form) {
-		// TODO Auto-generated method stub
 		this.setTitle("Consulta Metodologias");
 		
 		new Label(form).setText("Metodologia");

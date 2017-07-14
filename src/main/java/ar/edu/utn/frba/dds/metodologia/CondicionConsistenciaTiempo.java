@@ -30,16 +30,8 @@ public class CondicionConsistenciaTiempo extends CondicionTaxativa {
 
 
 	private Boolean esConsistente(Empresa empresa, String periodo) {
-
-		Boolean cumple;
 		int valor = obtenerValorIndicador(empresa, periodo);
-		if(comparador.name() == "MAYOR")
-			cumple = valor > valorInicio;
-		else if(comparador.name() == "MENOR")
-			cumple = valor < valorInicio;
-		else throw new NullPointerException("No es posible comparar con el comparador usado");
-			valorInicio = valor;
-		return cumple;
+		return comparador.cumpleCondicion(valor, valorInicio);
 	}
 
 }

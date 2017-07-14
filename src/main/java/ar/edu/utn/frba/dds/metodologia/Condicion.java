@@ -115,6 +115,4 @@ public abstract class Condicion {
 			   .filter(balance -> balance.getPeriodo().compareTo(inicioPeriodo) >= 0 && 
 			   						balance.getPeriodo().compareTo(finPeriodo) <= 0).collect(Collectors.toList());
 	}
-	
-	
 }

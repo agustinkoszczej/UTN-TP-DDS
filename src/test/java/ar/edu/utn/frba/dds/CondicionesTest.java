@@ -18,6 +18,8 @@ import ar.edu.utn.frba.dds.metodologia.CondicionSuperaValor;
 import ar.edu.utn.frba.dds.metodologia.CondicionTaxativa;
 import ar.edu.utn.frba.dds.metodologia.Metodologia;
 import ar.edu.utn.frba.dds.metodologia.TipoOperacion;
+import ar.edu.utn.frba.dds.metodologia.Comparador.Comparadores;
+import ar.edu.utn.frba.dds.metodologia.TipoOperacion.Operaciones;
 import ar.edu.utn.frba.dds.modelo.Balance;
 import ar.edu.utn.frba.dds.modelo.Empresa;
 import ar.edu.utn.frba.dds.modelo.Indicador;
@@ -50,7 +52,9 @@ public class CondicionesTest {
 		CondicionSuperaValor condicionValor = new CondicionSuperaValor();
 		condicionValor.setInicioPeriodo("20170100");
 		condicionValor.setFinPeriodo("20170100");
-		condicionValor.setComparador(Comparador.MAYOR);
+		Comparador comparador = new Comparador();
+		comparador.setComparador(Comparadores.MAYOR);
+		condicionValor.setComparador(comparador);
 		condicionValor.setValorSuperar(20000);
 		Indicador indicador = new Indicador("indicador", new ExpresionCuenta(TipoDeCuenta.EBITDA));
 		condicionValor.setIndicador(indicador);
@@ -64,25 +68,13 @@ public class CondicionesTest {
 		CondicionSuperaValor condicionValor = new CondicionSuperaValor();
 		condicionValor.setInicioPeriodo("20170100");
 		condicionValor.setFinPeriodo("20170100");
-		condicionValor.setComparador(Comparador.MENOR);
+		Comparador comparador = new Comparador();
+		comparador.setComparador(Comparadores.MENOR);
+		condicionValor.setComparador(comparador);
 		condicionValor.setValorSuperar(30000);
 		condicionValor.setIndicador(indicador);
 		
 		Assert.assertEquals(true, condicionValor.deberiaInvertirEn(empresa));
-	}
-
-	//TODO: ver porque falla
-	@Test(expected = Exception.class)
-	public void noEsPosibleDefinirCondicionValorConComparadorIgual() {
-		
-		CondicionSuperaValor condicionValor = new CondicionSuperaValor();
-		condicionValor.setInicioPeriodo("20170100");
-		condicionValor.setFinPeriodo("20170100");
-		condicionValor.setComparador(Comparador.IGUAL);
-		condicionValor.setValorSuperar(30000);
-		condicionValor.setIndicador(indicador);
-		condicionValor.deberiaInvertirEn(empresa);
-		
 	}
 	
 	@Test
@@ -97,7 +89,9 @@ public class CondicionesTest {
 		empresa2.setBalances(listaBalances);
 		
 		ComparadorDesempenio comparadorDesempenio = new ComparadorDesempenio();
-		comparadorDesempenio.setComparador(Comparador.MAYOR);
+		Comparador comparador = new Comparador();
+		comparador.setComparador(Comparadores.MAYOR);
+		comparadorDesempenio.setComparador(comparador);
 		comparadorDesempenio.setIndicador(indicador);
 		comparadorDesempenio.setInicioPeriodo("20170100");
 		Assert.assertEquals(empresa, comparadorDesempenio.cualEmpresaInvertir(empresa, empresa2));
@@ -115,29 +109,34 @@ public class CondicionesTest {
 		empresa2.setBalances(listaBalances);
 		
 		ComparadorDesempenio comparadorDesempenio = new ComparadorDesempenio();
-		comparadorDesempenio.setComparador(Comparador.MENOR);
+		Comparador comparador = new Comparador();
+		comparador.setComparador(Comparadores.MENOR);
+		comparadorDesempenio.setComparador(comparador);
 		comparadorDesempenio.setIndicador(indicador);
 		comparadorDesempenio.setInicioPeriodo("20170100");
 		Assert.assertEquals(empresa2, comparadorDesempenio.cualEmpresaInvertir(empresa, empresa2));
 	}
 	
-	@Test(expected = Exception.class)
-	public void noDefineQueEmpresaConviene() {
+	@Test
+	public void compararDesempenioEmpresasIgualesDevuelvePrimera() {
 		Empresa empresa2 = new Empresa();
 		Balance balance2 = new Balance();
 		balance2.setPeriodo("20170100");
 		balance2.setTipoCuenta(TipoDeCuenta.EBITDA);
-		balance2.setValor(new Double(20000));
+		balance2.setValor(new Double(25000));
 		List<Balance> listaBalances = new ArrayList<Balance>();
 		listaBalances.add(balance2);
 		empresa2.setBalances(listaBalances);
 		
 		
 		ComparadorDesempenio comparadorDesempenio = new ComparadorDesempenio();
-		comparadorDesempenio.setComparador(Comparador.IGUAL);
+		Comparador comparador = new Comparador();
+		comparador.setComparador(Comparadores.IGUAL);
+		comparadorDesempenio.setComparador(comparador);
 		comparadorDesempenio.setIndicador(indicador);
 		comparadorDesempenio.setInicioPeriodo("20170100");
 		comparadorDesempenio.cualEmpresaInvertir(empresa, empresa2);
+		Assert.assertEquals(empresa, comparadorDesempenio.cualEmpresaInvertir(empresa, empresa2));
 	}
 	
 	@Test
@@ -152,7 +151,9 @@ public class CondicionesTest {
 		CondicionConsistenciaTiempo condicionCreciente = new CondicionConsistenciaTiempo();
 		condicionCreciente.setInicioPeriodo("20170100");
 		condicionCreciente.setFinPeriodo("20170600");
-		condicionCreciente.setComparador(Comparador.MAYOR);
+		Comparador comparador = new Comparador();
+		comparador.setComparador(Comparadores.MAYOR);
+		condicionCreciente.setComparador(comparador);
 		Indicador indicador = new Indicador("indicador", new ExpresionCuenta(TipoDeCuenta.EBITDA));
 		condicionCreciente.setIndicador(indicador);
 		Assert.assertTrue(condicionCreciente.deberiaInvertirEn(empresa));
@@ -180,7 +181,9 @@ public class CondicionesTest {
 		listaBalances2.add(balance2);
 		empresa2.setBalances(listaBalances2);
 		ComparadorAntiguedad comparadorAntiguedad = new ComparadorAntiguedad();
-		comparadorAntiguedad.setComparador(Comparador.MAYOR);
+		Comparador comparador = new Comparador();
+		comparador.setComparador(Comparadores.MAYOR);
+		comparadorAntiguedad.setComparador(comparador);
 		Assert.assertEquals(empresa2, comparadorAntiguedad.cualEmpresaInvertir(empresa, empresa2));
 	}
 	
@@ -189,11 +192,14 @@ public class CondicionesTest {
 		listaBalances.add(balance);
 		empresa.setBalances(listaBalances);
 		CondicionGeneral condicionGeneral = new CondicionGeneral();
-
-		condicionGeneral.setComparador(Comparador.MAYOR);
+		Comparador comparador = new Comparador();
+		comparador.setComparador(Comparadores.MAYOR);
+		condicionGeneral.setComparador(comparador);
 		condicionGeneral.setValorASuperar(40000);
 		condicionGeneral.setIndicador(indicador);
-		condicionGeneral.setTipoOperacion(TipoOperacion.SUMATORIA);
+		TipoOperacion tipo = new TipoOperacion();
+		tipo.setTipoOperacion(Operaciones.SUMATORIA);
+		condicionGeneral.setTipoOperacion(tipo);
 		Assert.assertTrue(condicionGeneral.deberiaInvertirEn(empresa));
 	}
 	
@@ -208,10 +214,14 @@ public class CondicionesTest {
 		empresa.setBalances(listaBalances);
 		CondicionGeneral condicionGeneral = new CondicionGeneral();
 
-		condicionGeneral.setComparador(Comparador.MAYOR);
+		Comparador comparador = new Comparador();
+		comparador.setComparador(Comparadores.MAYOR);
+		condicionGeneral.setComparador(comparador);
 		condicionGeneral.setValorASuperar(19999);
 		condicionGeneral.setIndicador(indicador);
-		condicionGeneral.setTipoOperacion(TipoOperacion.PROMEDIO);
+		TipoOperacion tipo = new TipoOperacion();
+		tipo.setTipoOperacion(Operaciones.PROMEDIO);
+		condicionGeneral.setTipoOperacion(tipo);
 		Assert.assertTrue(condicionGeneral.deberiaInvertirEn(empresa));
 	}
 	
@@ -230,27 +240,26 @@ public class CondicionesTest {
 		empresa.setBalances(listaBalances);
 		CondicionGeneral condicionGeneral = new CondicionGeneral();
 
-		condicionGeneral.setComparador(Comparador.MAYOR);
+		Comparador comparador = new Comparador();
+		comparador.setComparador(Comparadores.MAYOR);
+		condicionGeneral.setComparador(comparador);
 		condicionGeneral.setValorASuperar(19999); //deberia dar 20000 la mediana de los tres valores
 		condicionGeneral.setIndicador(indicador);
-		condicionGeneral.setTipoOperacion(TipoOperacion.MEDIANA);
+		TipoOperacion tipo = new TipoOperacion();
+		tipo.setTipoOperacion(Operaciones.MEDIANA);
+		condicionGeneral.setTipoOperacion(tipo);
 		Assert.assertTrue(condicionGeneral.deberiaInvertirEn(empresa));
 	}
 	
 	@Test
 	public void esMetodologia() {
 		Metodologia metodologia = new Metodologia();
-
 		CondicionAntiguedad condicionAntiguedad = new CondicionAntiguedad();
-		List<CondicionTaxativa> condicionesTaxativas = new ArrayList<CondicionTaxativa>();
 		condicionAntiguedad.setAniosNecesarios(10);
 		condicionAntiguedad.setNombreCondicion("longetividad");
 		metodologia.setNombre("metodo1");
 		metodologia.agregarCondicion(condicionAntiguedad);
-		System.out.println(metodologia.getCondicionesTaxativas());
-		Assert.assertEquals(1, metodologia.getCondicionesTaxativas().size());
-		
-		
+		Assert.assertEquals(1, metodologia.getCondicionesTaxativas().size());	
 	}
 	
 }

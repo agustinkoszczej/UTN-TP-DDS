@@ -1,26 +1,18 @@
 package ar.edu.utn.frba.dds.vista;
 
-import java.awt.Checkbox;
-
-import org.apache.commons.collections15.Closure;
 import org.uqbar.arena.layout.ColumnLayout;
-import org.uqbar.arena.layout.HorizontalLayout;
 import org.uqbar.arena.widgets.Button;
 import org.uqbar.arena.widgets.CheckBox;
 import org.uqbar.arena.widgets.Label;
 import org.uqbar.arena.widgets.NumericField;
 import org.uqbar.arena.widgets.Panel;
-import org.uqbar.arena.widgets.RadioSelector;
 import org.uqbar.arena.widgets.Selector;
 import org.uqbar.arena.widgets.TextBox;
 import org.uqbar.arena.windows.SimpleWindow;
 import org.uqbar.arena.windows.WindowOwner;
-import org.uqbar.lacar.ui.model.WidgetBuilder;
 
 import ar.edu.utn.frba.dds.controlador.CondicionViewModel;
 import ar.edu.utn.frba.dds.metodologia.Comparador;
-import ar.edu.utn.frba.dds.metodologia.Condicion;
-import ar.edu.utn.frba.dds.metodologia.Metodologia;
 import ar.edu.utn.frba.dds.metodologia.TipoOperacion;
 import ar.edu.utn.frba.dds.modelo.Indicador;
 
@@ -29,10 +21,6 @@ public class NuevaCondicionWindow extends SimpleWindow<CondicionViewModel>  {
 	public NuevaCondicionWindow(WindowOwner parent, CondicionViewModel model) {
 		super(parent, model);
 	}
-
-	
-
-
 
 	@Override
 	protected void addActions(Panel panel) {
@@ -47,6 +35,7 @@ public class NuevaCondicionWindow extends SimpleWindow<CondicionViewModel>  {
 
 	private void guardarCondicion(){
 		this.getModel().getSource().guardarCondicion();
+		this.close();
 	}
 
 	@Override
@@ -56,8 +45,6 @@ public class NuevaCondicionWindow extends SimpleWindow<CondicionViewModel>  {
 		textBoxNombreCondicion.bindValueToProperty("nombreCondicion");
 		textBoxNombreCondicion.setWidth(200);
 		
-		
-
 		Panel form2 = new Panel(form);
 		form2.setLayout(new ColumnLayout(2));
 		
@@ -77,17 +64,13 @@ public class NuevaCondicionWindow extends SimpleWindow<CondicionViewModel>  {
 		new Label(form2).setText("Compara Empresas:");
 		CheckBox checkEmpresa = new CheckBox(form2);
 		checkEmpresa.bindValueToProperty("comparaEmpresas");
-
-		new Label(form).setText("Otras opciones");
 		
 		new Label(form2).setText("Operador a todos los balances:");
 		Selector<TipoOperacion> selectorTipoOperacion = new Selector<TipoOperacion>(form2).allowNull(true);
 		selectorTipoOperacion.bindValueToProperty("tipoOperacion");
 		selectorTipoOperacion.bindItemsToProperty("operaciones");
 		selectorTipoOperacion.setWidth(280);
-		
-		
-		
+				
 		new Label(form2).setText("Fecha periodo inicio (YYYYMMDD)");
 		TextBox textBoxPeriodoInicio = new TextBox(form2);
 		textBoxPeriodoInicio.bindValueToProperty("periodoInicio");
@@ -99,7 +82,6 @@ public class NuevaCondicionWindow extends SimpleWindow<CondicionViewModel>  {
 		TextBox textBoxPeriodoFin = new TextBox(form2);
 		textBoxPeriodoFin.bindValueToProperty("periodoFin");
 		
-		
 		new Label(form2).setText("Tomar fecha actual como periodo final");
 		new CheckBox(form2).bindValueToProperty("periodoFinActual");
 	
@@ -110,13 +92,9 @@ public class NuevaCondicionWindow extends SimpleWindow<CondicionViewModel>  {
 		new Label(form2).setText("Ingresar antiguedad requerida de ser necesario");
 		NumericField numericValorAntiguedad = new NumericField(form2);
 		numericValorAntiguedad.bindValueToProperty("valorAntiguedad");
-		//numericValorAntiguedad.bindEnabledToProperty("comparadorAntiguedad");
-
-		
 		
 		new Label(form2).setText("Compara antiguedad");
 		CheckBox checkAnti = new CheckBox(form2);
-		checkAnti.bindValueToProperty("comparadorAntiguedad");
-		
+		checkAnti.bindValueToProperty("comparadorAntiguedad");	
 	}
 }

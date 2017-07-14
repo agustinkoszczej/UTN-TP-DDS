@@ -18,9 +18,8 @@ public class AgregarCondicionWindow extends SimpleWindow<MetodologiaViewModel>  
 
 	@Override
 	protected void addActions(Panel panel) {
-		// TODO Auto-generated method stub
 		new Button(panel)
-		.setCaption("crear nueva condicion")
+		.setCaption("Crear nueva condicion")
 		.onClick(this::abrirNuevaCondicionWindow);
 		
 		new Button(panel)
@@ -44,7 +43,6 @@ public class AgregarCondicionWindow extends SimpleWindow<MetodologiaViewModel>  
 
 	@Override
 	protected void createFormPanel(Panel form) {
-		// TODO Auto-generated method stub
 		Selector<Condicion> selectorMetodologia = new Selector<Condicion>(form).allowNull(true);
 		
 		selectorMetodologia.bindValueToProperty("condicionAAgregarSeleccionada");
