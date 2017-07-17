@@ -5,7 +5,7 @@ import java.util.List;
 import ar.edu.utn.frba.dds.modelo.Balance;
 import ar.edu.utn.frba.dds.modelo.Empresa;
 
-public class CondicionSuperaValor extends CondicionTaxativa {
+public class CondicionCompararValor extends CondicionTaxativa {
 
 	private double valorSuperar;
 	

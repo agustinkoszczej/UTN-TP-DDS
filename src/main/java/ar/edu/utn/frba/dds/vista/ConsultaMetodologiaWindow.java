@@ -22,12 +22,12 @@ public class ConsultaMetodologiaWindow extends SimpleWindow<MetodologiaViewModel
 	@Override
 	protected void addActions(Panel panel) {
 		new Button(panel)
-		.setCaption("Agregar condicion")
+		.setCaption("Agregar Condicion")
 		.onClick(this::abrirCondicionWindow);
 		
 		new Button(panel)
-		.setCaption("Aceptar metodologia")
-		.onClick(this::aceptarMetodologia);
+		.setCaption("Guardar Metodologia seleccionada")
+		.onClick(this::guardarMetodologia);
 		new Button(panel)
 		.setCaption("Salir")
 		.onClick(this::close)
@@ -40,8 +40,8 @@ public class ConsultaMetodologiaWindow extends SimpleWindow<MetodologiaViewModel
 
 	}
 	
-	private void aceptarMetodologia(){
-		this.getModel().getSource().aceptarMetodologia();
+	private void guardarMetodologia(){
+		this.getModel().getSource().guardarMetodologia();
 	}
 
 	@Override

@@ -15,7 +15,7 @@ import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
 import ar.edu.utn.frba.dds.metodologia.Condicion;
-import ar.edu.utn.frba.dds.metodologia.CondicionSuperaValor;
+import ar.edu.utn.frba.dds.metodologia.CondicionCompararValor;
 import ar.edu.utn.frba.dds.modelo.RepositorioCondiciones;
 import ar.edu.utn.frba.dds.servicio.ServicioCondiciones;
 
@@ -67,7 +67,7 @@ public class PersistenciaCondicionTest {
 	public void agregarCondicionesAlRepositorio() throws IOException {
 		clearSingleton("test1.json");
 		RepositorioCondiciones repoCondiciones = RepositorioCondiciones.getInstance();
-		CondicionSuperaValor unaCondicion = new CondicionSuperaValor();
+		CondicionCompararValor unaCondicion = new CondicionCompararValor();
 		unaCondicion.setNombreCondicion("prueba");
 		TEST_listaCondiciones = new ArrayList<Condicion>();
 		TEST_listaCondiciones.add(unaCondicion);
@@ -80,9 +80,9 @@ public class PersistenciaCondicionTest {
 	public void agregarDosCondicionesAlRepositorio() throws IOException {
 		clearSingleton("test2.json");
 		RepositorioCondiciones repoCondiciones = RepositorioCondiciones.getInstance();
-		CondicionSuperaValor unaCondicion = new CondicionSuperaValor();
+		CondicionCompararValor unaCondicion = new CondicionCompararValor();
 		unaCondicion.setNombreCondicion("prueba");
-		CondicionSuperaValor otraCondicion = new CondicionSuperaValor();
+		CondicionCompararValor otraCondicion = new CondicionCompararValor();
 		otraCondicion.setNombreCondicion("test");
 		TEST_listaCondiciones = new ArrayList<Condicion>();
 		TEST_listaCondiciones.add(unaCondicion);

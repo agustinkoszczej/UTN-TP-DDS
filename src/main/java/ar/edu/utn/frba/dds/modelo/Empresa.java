@@ -3,7 +3,6 @@ package ar.edu.utn.frba.dds.modelo;
 import java.util.Calendar;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.OptionalDouble;
 
 import org.uqbar.commons.utils.Observable;
 

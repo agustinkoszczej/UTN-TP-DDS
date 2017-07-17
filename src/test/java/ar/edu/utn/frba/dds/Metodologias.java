@@ -7,7 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import ar.edu.utn.frba.dds.metodologia.Condicion;
-import ar.edu.utn.frba.dds.metodologia.CondicionSuperaValor;
+import ar.edu.utn.frba.dds.metodologia.CondicionCompararValor;
 import ar.edu.utn.frba.dds.metodologia.Metodologia;
 import ar.edu.utn.frba.dds.modelo.Balance;
 import ar.edu.utn.frba.dds.modelo.Empresa;
@@ -107,7 +107,7 @@ public class Metodologias {
 	public void crearUnaMetodologiaTaxativaDeUnaEmpresa() {
 		Metodologia unaMetodologia = new Metodologia();
 		unaMetodologia.setNombre("metodologiaPrueba");
-		CondicionSuperaValor unaCondicion = new CondicionSuperaValor();
+		CondicionCompararValor unaCondicion = new CondicionCompararValor();
 		unaCondicion.setNombreCondicion("prueba");
 		List<Condicion> condiciones = new ArrayList<Condicion>();
 		condiciones.add(unaCondicion);
@@ -118,7 +118,7 @@ public class Metodologias {
 	public void crearUnaMetodologiaTaxativaDeVariasEmpresa() {
 		Metodologia unaMetodologia = new Metodologia();
 		unaMetodologia.setNombre("metodologiaPrueba");
-		CondicionSuperaValor unaCondicion = new CondicionSuperaValor();
+		CondicionCompararValor unaCondicion = new CondicionCompararValor();
 		unaCondicion.setNombreCondicion("prueba");
 		List<Condicion> condiciones = new ArrayList<Condicion>();
 		condiciones.add(unaCondicion);
@@ -129,7 +129,7 @@ public class Metodologias {
 	public void crearUnaMetodologiaEvolutivaDeUnaEmpresa() {
 		Metodologia unaMetodologia = new Metodologia();
 		unaMetodologia.setNombre("metodologiaPrueba");
-		CondicionSuperaValor unaCondicion = new CondicionSuperaValor();
+		CondicionCompararValor unaCondicion = new CondicionCompararValor();
 		unaCondicion.setNombreCondicion("prueba");
 		List<Condicion> condiciones = new ArrayList<Condicion>();
 		condiciones.add(unaCondicion);
@@ -140,7 +140,7 @@ public class Metodologias {
 	public void crearUnaMetodologiaEvolutivaDeVariasEmpresa() {
 		Metodologia unaMetodologia = new Metodologia();
 		unaMetodologia.setNombre("metodologiaPrueba");
-		CondicionSuperaValor unaCondicion = new CondicionSuperaValor();
+		CondicionCompararValor unaCondicion = new CondicionCompararValor();
 		unaCondicion.setNombreCondicion("prueba");
 		List<Condicion> condiciones = new ArrayList<Condicion>();
 		condiciones.add(unaCondicion);
@@ -151,7 +151,7 @@ public class Metodologias {
 	public void crearUnaMetodologiaTaxativaEvolutivaDeUnaEmpresa() {
 		Metodologia unaMetodologia = new Metodologia();
 		unaMetodologia.setNombre("metodologiaPrueba");
-		CondicionSuperaValor unaCondicion = new CondicionSuperaValor();
+		CondicionCompararValor unaCondicion = new CondicionCompararValor();
 		unaCondicion.setNombreCondicion("prueba");
 		List<Condicion> condiciones = new ArrayList<Condicion>();
 		condiciones.add(unaCondicion);
@@ -162,7 +162,7 @@ public class Metodologias {
 	public void crearUnaMetodologiaTaxativaEvolutivaDeVariasEmpresa() {
 		Metodologia unaMetodologia = new Metodologia();
 		unaMetodologia.setNombre("metodologiaPrueba");
-		CondicionSuperaValor unaCondicion = new CondicionSuperaValor();
+		CondicionCompararValor unaCondicion = new CondicionCompararValor();
 		unaCondicion.setNombreCondicion("prueba");
 		List<Condicion> condiciones = new ArrayList<Condicion>();
 		condiciones.add(unaCondicion);
@@ -173,7 +173,7 @@ public class Metodologias {
 	public void ROEDurante10AnosMejorQueOtras1() {
 		Metodologia unaMetodologia = new Metodologia();
 		unaMetodologia.setNombre("metodologiaPrueba");
-		CondicionSuperaValor unaCondicion = new CondicionSuperaValor();
+		CondicionCompararValor unaCondicion = new CondicionCompararValor();
 		unaCondicion.setNombreCondicion("prueba");
 		List<Condicion> condiciones = new ArrayList<Condicion>();
 		condiciones.add(unaCondicion);
@@ -184,7 +184,7 @@ public class Metodologias {
 	public void MenorNivelDeDeuda() {
 		Metodologia unaMetodologia = new Metodologia();
 		unaMetodologia.setNombre("metodologiaPrueba");
-		CondicionSuperaValor unaCondicion = new CondicionSuperaValor();
+		CondicionCompararValor unaCondicion = new CondicionCompararValor();
 		unaCondicion.setNombreCondicion("prueba");
 		List<Condicion> condiciones = new ArrayList<Condicion>();
 		condiciones.add(unaCondicion);
@@ -195,7 +195,7 @@ public class Metodologias {
 	public void MargenesCrecientesDurante10Anos() {
 		Metodologia unaMetodologia = new Metodologia();
 		unaMetodologia.setNombre("metodologiaPrueba");
-		CondicionSuperaValor unaCondicion = new CondicionSuperaValor();
+		CondicionCompararValor unaCondicion = new CondicionCompararValor();
 		unaCondicion.setNombreCondicion("prueba");
 		List<Condicion> condiciones = new ArrayList<Condicion>();
 		condiciones.add(unaCondicion);
@@ -206,7 +206,7 @@ public class Metodologias {
 	public void Longevidad() {
 		Metodologia unaMetodologia = new Metodologia();
 		unaMetodologia.setNombre("metodologiaPrueba");
-		CondicionSuperaValor unaCondicion = new CondicionSuperaValor();
+		CondicionCompararValor unaCondicion = new CondicionCompararValor();
 		unaCondicion.setNombreCondicion("prueba");
 		List<Condicion> condiciones = new ArrayList<Condicion>();
 		condiciones.add(unaCondicion);
@@ -217,7 +217,7 @@ public class Metodologias {
 	public void MetodologiaWarrenBuffet() {
 		Metodologia unaMetodologia = new Metodologia();
 		unaMetodologia.setNombre("metodologiaPrueba");
-		CondicionSuperaValor unaCondicion = new CondicionSuperaValor();
+		CondicionCompararValor unaCondicion = new CondicionCompararValor();
 		unaCondicion.setNombreCondicion("prueba");
 		List<Condicion> condiciones = new ArrayList<Condicion>();
 		condiciones.add(unaCondicion);

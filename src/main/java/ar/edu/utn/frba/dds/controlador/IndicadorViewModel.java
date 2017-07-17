@@ -26,10 +26,8 @@ public class IndicadorViewModel {
 	private Indicador indicadorSeleccionado;
 	
 	private Balance balanceSeleccionado;
-	//private Collection<Indicador> indicadoresRegistrados;
 	private Integer valorIndicador;
-	
-	//IngresoWindow
+
 	private String nombreIndicadorAIngresar;
 	private String cadenaIndicadorAIngresar;
 	
@@ -85,10 +83,8 @@ public IndicadorViewModel(ServicioCuentas servicioCuentas, ServicioIndicadores s
 		ObservableUtils.firePropertyChanged(this, "balancesEmpresaSeleccionada");
 	}
 	
-	public List<Balance> getBalancesEmpresaSeleccionada() {
-		
-		//return empresaSeleccionada.getBalances();
-		return null;
+	public List<Balance> getBalancesEmpresaSeleccionada() {	
+		return empresaSeleccionada.getBalances();
 	}
 	
 	public Balance getBalanceSeleccionado() {
@@ -99,9 +95,6 @@ public IndicadorViewModel(ServicioCuentas servicioCuentas, ServicioIndicadores s
 		this.balanceSeleccionado = balanceSeleccionado;
 	}
 	
-	/*public Collection<Indicador> getRepositorioIndicadores() {
-		return indicadoresRegistrados;
-	}*/
 	
 	public Indicador getIndicadorSeleccionado() {
 		return indicadorSeleccionado;

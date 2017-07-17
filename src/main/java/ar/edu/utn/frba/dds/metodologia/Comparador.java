@@ -2,8 +2,6 @@ package ar.edu.utn.frba.dds.metodologia;
 
 import org.uqbar.commons.utils.Observable;
 
-import ar.edu.utn.frba.dds.metodologia.Comparador.Comparadores;
-
 @Observable
 public class Comparador {
 	

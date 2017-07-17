@@ -14,7 +14,7 @@ import ar.edu.utn.frba.dds.metodologia.ComparadorDesempenio;
 import ar.edu.utn.frba.dds.metodologia.CondicionAntiguedad;
 import ar.edu.utn.frba.dds.metodologia.CondicionConsistenciaTiempo;
 import ar.edu.utn.frba.dds.metodologia.CondicionGeneral;
-import ar.edu.utn.frba.dds.metodologia.CondicionSuperaValor;
+import ar.edu.utn.frba.dds.metodologia.CondicionCompararValor;
 import ar.edu.utn.frba.dds.metodologia.CondicionTaxativa;
 import ar.edu.utn.frba.dds.metodologia.Metodologia;
 import ar.edu.utn.frba.dds.metodologia.TipoOperacion;
@@ -49,7 +49,7 @@ public class CondicionesTest {
 	@Test
 	public void unaEmpresaEsInvertibleConValorSuperior(){
 		
-		CondicionSuperaValor condicionValor = new CondicionSuperaValor();
+		CondicionCompararValor condicionValor = new CondicionCompararValor();
 		condicionValor.setInicioPeriodo("20170100");
 		condicionValor.setFinPeriodo("20170100");
 		Comparador comparador = new Comparador();
@@ -65,7 +65,7 @@ public class CondicionesTest {
 	@Test
 	public void unaEmpresaEsInvertibleConValorInferior(){
 		
-		CondicionSuperaValor condicionValor = new CondicionSuperaValor();
+		CondicionCompararValor condicionValor = new CondicionCompararValor();
 		condicionValor.setInicioPeriodo("20170100");
 		condicionValor.setFinPeriodo("20170100");
 		Comparador comparador = new Comparador();

@@ -8,7 +8,5 @@ public class CondicionTaxativa extends Condicion {
 	
 	public Boolean deberiaInvertirEn(Empresa empresa) {
 		return null;
-	};
-
-	
+	};	
 }

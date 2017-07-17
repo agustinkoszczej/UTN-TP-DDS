@@ -98,7 +98,7 @@ public class MetodologiaViewModel{
 		ObservableUtils.firePropertyChanged(this, "condicionesMetodologia");
 	}
 
-	public void aceptarMetodologia() {
+	public void guardarMetodologia() {
 		try {
 			new ServicioMetodologias().guardarMetodologia(metodologiaSeleccionada);
 		} catch (IOException e) {

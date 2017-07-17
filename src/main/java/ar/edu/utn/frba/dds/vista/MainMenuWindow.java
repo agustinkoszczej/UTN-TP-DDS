@@ -7,9 +7,8 @@ import org.uqbar.arena.widgets.Panel;
 import org.uqbar.arena.windows.SimpleWindow;
 import org.uqbar.arena.windows.WindowOwner;
 
-import ar.edu.utn.frba.dds.controlador.IndicadorViewModel;
-import ar.edu.utn.frba.dds.controlador.MetodologiaViewModel;
 import ar.edu.utn.frba.dds.controlador.CuentaViewModel;
+import ar.edu.utn.frba.dds.controlador.MetodologiaViewModel;
 import ar.edu.utn.frba.dds.servicio.ServicioCuentas;
 import ar.edu.utn.frba.dds.servicio.ServicioIndicadores;
 

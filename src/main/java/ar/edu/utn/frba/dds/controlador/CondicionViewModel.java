@@ -18,12 +18,16 @@ import ar.edu.utn.frba.dds.metodologia.Condicion;
 import ar.edu.utn.frba.dds.metodologia.TipoOperacion;
 import ar.edu.utn.frba.dds.metodologia.TipoOperacion.Operaciones;
 import ar.edu.utn.frba.dds.modelo.BuilderCondicion;
+import ar.edu.utn.frba.dds.modelo.EnumCondiciones;
 import ar.edu.utn.frba.dds.modelo.Indicador;
 import ar.edu.utn.frba.dds.servicio.ServicioCondiciones;
 import ar.edu.utn.frba.dds.servicio.ServicioIndicadores;
 
 @Observable
 public class CondicionViewModel {
+	
+	public EnumCondiciones enumCondicionSeleccionada;
+	public  List<EnumCondiciones> enumCondiciones;
 
 	public ServicioIndicadores servicioIndicadores;
 	private List<Condicion> condicionesTotales;
@@ -44,12 +48,11 @@ public class CondicionViewModel {
 	private Integer valorSuperar;
 	private Integer valorAntiguedad;
 	private Boolean comparadorAntiguedad = false;
-	private BuilderCondicion builder;
+	//private BuilderCondicion builder;
 	
 	private TipoOperacion tipoOperacion;
 	private Comparador comparador;
 	private List<TipoOperacion> operaciones;
-	//private List<Comparadores> comparadores;
 	private List<Comparador> comparadores;
 	
 public CondicionViewModel() {
@@ -58,10 +61,26 @@ public CondicionViewModel() {
 		this.servicioIndicadores = new ServicioIndicadores();
 		this.indicadoresDisponibles = servicioIndicadores.obtenerIndicadores();
 		this.condicionesTotales = new ArrayList<Condicion>();
-		builder = new BuilderCondicion();
+		//builder = new BuilderCondicion();
 		
-		comparadores = builder.traerComparadores();
-		operaciones = builder.traerTipoOperaciones();
+		comparadores = traerComparadores();
+		operaciones = traerTipoOperaciones();
+	}
+
+	public EnumCondiciones getEnumCondicionSeleccionada() {
+		return this.enumCondicionSeleccionada;
+	}	
+	
+	public void setEnumCondicionSeleccionada(EnumCondiciones enumCondicionSeleccionada) {
+		this.enumCondicionSeleccionada = enumCondicionSeleccionada;
+	}
+	
+	public List<EnumCondiciones> getEnumCondiciones() {
+		return Arrays.asList(EnumCondiciones.values());
+	}
+
+	public void setEnumCondiciones(List<EnumCondiciones> enumCondiciones) {
+		this.enumCondiciones = enumCondiciones;
 	}
 	
 	public List<Condicion> getCondicionesTotales() {
@@ -78,7 +97,7 @@ public CondicionViewModel() {
 
 	public void setNombreCondicion(String nombreCondicion) {
 		this.nombreCondicion = nombreCondicion;
-		builder.setNombre(nombreCondicion);
+		//builder.setNombre(nombreCondicion);
 	}
 
 	public Condicion getCondicionSeleccionada() {
@@ -88,7 +107,7 @@ public CondicionViewModel() {
 
 	public void setCondicionSeleccionada(Condicion condicionSeleccionada) {
 		this.condicionSeleccionada = condicionSeleccionada;
-		builder.setCondicion(condicionSeleccionada);
+		//builder.setCondicion(condicionSeleccionada);
 	}
 
 	public List<Condicion> getCondicionesDisponibles() {
@@ -105,7 +124,7 @@ public CondicionViewModel() {
 
 	public void setIndicadorSeleccionado(Indicador indicadorSeleccionado) {
 		this.indicadorSeleccionado = indicadorSeleccionado;
-		builder.setIndicador(indicadorSeleccionado);
+		//builder.setIndicador(indicadorSeleccionado);
 	}
 
 	public List<Indicador> getIndicadoresDisponibles() {
@@ -122,7 +141,7 @@ public CondicionViewModel() {
 
 	public void setPeriodoFin(String periodoFin) {
 		this.periodoFin = periodoFin;
-		builder.setPeriodoFin(periodoFin);
+		//builder.setPeriodoFin(periodoFin);
 	}
 
 	public Boolean getPeriodoInicioActual() {
@@ -150,7 +169,7 @@ public CondicionViewModel() {
 		TipoOperacion tipo = new TipoOperacion();
 		tipo.setTipoOperacion(tipoOperacion);
 		this.tipoOperacion = tipo;
-		builder.setTipoOperacion(this.tipoOperacion);
+		//builder.setTipoOperacion(this.tipoOperacion);
 	}
 
 	public List<TipoOperacion> getOperaciones() {
@@ -161,7 +180,6 @@ public CondicionViewModel() {
 	}
 	
 	public List<Comparador> getComparadores() {
-		//return Arrays.asList(Comparador.Comparadores.values());
 		return comparadores;
 	}
 
@@ -185,7 +203,7 @@ public CondicionViewModel() {
 		//Comparador unComparador = new Comparador();
 		//unComparador.setComparador(comparador);
 		//this.comparador = unComparador;
-		builder.setComparador(this.comparador);
+		//builder.setComparador(this.comparador);
 		
 	}
 
@@ -203,13 +221,13 @@ public CondicionViewModel() {
 
 	public void setComparaEmpresas(Boolean comparaEmpresas) {
 		this.comparaEmpresas = comparaEmpresas;
-		builder.setEsComparativa(this.comparaEmpresas);
+		//builder.setEsComparativa(this.comparaEmpresas);
 	}
 	
 	public void setPeriodoInicioActual(Boolean periodoInicioActual)
 	{
 		if(periodoInicioActual){
-			builder.setPeriodoInicio(getPeriodoActual());
+			//builder.setPeriodoInicio(getPeriodoActual());
 			setPeriodoInicio(getPeriodoActual());
 		}
 		
@@ -218,7 +236,7 @@ public CondicionViewModel() {
 	public void setPeriodoFinActual(Boolean periodoFinActual)
 	{
 		if(periodoFinActual){
-			builder.setPeriodoFin(getPeriodoActual());
+			//builder.setPeriodoFin(getPeriodoActual());
 			setPeriodoFin(getPeriodoActual());
 		}
 	}
@@ -236,16 +254,16 @@ public CondicionViewModel() {
 
 	public void setPeriodoInicio(String periodoInicio) {
 		this.periodoInicio = periodoInicio;
-		builder.setPeriodoFin(periodoInicio);
+		//builder.setPeriodoFin(periodoInicio);
 	}
 
 	public Integer getValorSuperar(){
 		return valorSuperar;
 	}
 	
-	public void setValorSuperar(Integer valor){
-		this.valorSuperar = valor;
-		builder.setValorNumericoAComparar(valor);
+	public void setValorSuperar(Integer valorSuperar){
+		this.valorSuperar = valorSuperar;
+		//builder.setValorNumericoAComparar(valorSuperar);
 	}
 
 	public Integer getValorAntiguedad() {
@@ -255,12 +273,21 @@ public CondicionViewModel() {
 
 	public void setValorAntiguedad(Integer valorAntiguedad) {
 		this.valorAntiguedad = valorAntiguedad;
-		builder.setAntiguedadRequerida(valorAntiguedad);
+		//builder.setAntiguedadRequerida(valorAntiguedad);
 	}
 	
 
-	public void guardarCondicion() {	
-		Condicion condicion = builder.devolverCondicion();
+	public void guardarCondicion() {
+		if(nombreCondicion == null)
+			throw new NullPointerException("Ningun tipo de condicion pudo ser creado en base a lo ingresado. Faltan datos para crear la condicion");
+		Condicion condicion;
+		BuilderCondicion builder = new BuilderCondicion();
+		if(comparaEmpresas)
+			condicion = builder.devolverCondicionComparativa(nombreCondicion, comparador, comparadorAntiguedad, periodoInicio, periodoFin, indicadorSeleccionado);
+		else
+			condicion = builder.devolverCondicionTaxativa(nombreCondicion, comparador, periodoInicio, periodoFin, valorAntiguedad, tipoOperacion, valorSuperar, indicadorSeleccionado);
+		
+		//Condicion condicion = builder.devolverCondicion();
 		try {
 			new ServicioCondiciones().guardarCondicion(condicion);
 		} catch (IOException e) {
@@ -277,7 +304,35 @@ public CondicionViewModel() {
 
 	public void setComparadorAntiguedad(Boolean comparadorAntiguedad) {
 		this.comparadorAntiguedad = comparadorAntiguedad;
-		builder.setComparaAntiguedad(comparadorAntiguedad);
+		//builder.setComparaAntiguedad(comparadorAntiguedad);
 	}
+	
+	public List<Comparador> traerComparadores() {
+		//List<Comparador> comparadores = null;
+		Comparador mayor = new Comparador();
+		Comparador menor = new Comparador();
+		Comparador mayorIgual = new Comparador();
+		Comparador menorIgual = new Comparador();
+		Comparador igual = new Comparador();
+		mayor.setComparador(Comparadores.MAYOR);
+		menor.setComparador(Comparadores.MENOR);
+		igual.setComparador(Comparadores.IGUAL);
+		mayorIgual.setComparador(Comparadores.MAYOREIGUAL);
+		menorIgual.setComparador(Comparadores.MENOREIGUAL);
+		return Arrays.asList(mayor,menor,igual,mayorIgual,menorIgual);
+		//return comparadores;
+	}
+
+	public List<TipoOperacion> traerTipoOperaciones() {
+		// TODO Auto-generated method stub
+		TipoOperacion promedio = new TipoOperacion();
+		promedio.setTipoOperacion(Operaciones.PROMEDIO);
+		TipoOperacion sumatoria = new TipoOperacion();
+		sumatoria.setTipoOperacion(Operaciones.SUMATORIA);
+		TipoOperacion mediana = new TipoOperacion();
+		mediana.setTipoOperacion(Operaciones.MEDIANA);
+		
+		return Arrays.asList(promedio,sumatoria,mediana);
+	}	
 	
 }

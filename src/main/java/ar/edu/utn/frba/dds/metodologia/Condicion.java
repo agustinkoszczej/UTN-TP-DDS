@@ -8,7 +8,6 @@ import org.uqbar.commons.utils.Observable;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 import ar.edu.utn.frba.dds.modelo.Balance;

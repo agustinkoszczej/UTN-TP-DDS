@@ -40,7 +40,7 @@ public class NuevaCondicionWindow extends SimpleWindow<CondicionViewModel>  {
 
 	@Override
 	protected void createFormPanel(Panel form) {
-		new Label(form).setText("Nombre de la condicion");
+		new Label(form).setText("Nombre de la condicion:");
 		TextBox textBoxNombreCondicion = new TextBox(form);
 		textBoxNombreCondicion.bindValueToProperty("nombreCondicion");
 		textBoxNombreCondicion.setWidth(200);
@@ -48,22 +48,28 @@ public class NuevaCondicionWindow extends SimpleWindow<CondicionViewModel>  {
 		Panel form2 = new Panel(form);
 		form2.setLayout(new ColumnLayout(2));
 		
+		/*new Label(form2).setText("Seleccione Condicion:");
+		Selector<EnumCondiciones> selectorCondicion= new Selector<EnumCondiciones>(form2).allowNull(true);
+		selectorCondicion.bindValueToProperty("enumCondicionSeleccionada");
+		selectorCondicion.bindItemsToProperty("enumCondiciones");
+		selectorCondicion.setWidth(280);*/
+		
+		
+		new Label(form2).setText("Comparar Empresas:");
+		CheckBox checkEmpresa = new CheckBox(form2);
+		checkEmpresa.bindValueToProperty("comparaEmpresas");
+		
 		new Label(form2).setText("Seleccione indicador");
 		Selector<Indicador> selectorIndicador = new Selector<Indicador>(form2).allowNull(true);
 		
 		selectorIndicador.bindValueToProperty("indicadorSeleccionado");
 		selectorIndicador.bindItemsToProperty("indicadoresDisponibles").adaptWith(Indicador.class, "nombreIndicador");
 		selectorIndicador.setWidth(280);
-		
 		new Label(form2).setText("Tipo Comparacion:");
 		Selector<Comparador> selectorComparador = new Selector<Comparador>(form2).allowNull(true);
 		selectorComparador.bindValueToProperty("comparador");
 		selectorComparador.bindItemsToProperty("comparadores").adaptWith(Comparador.class, "nombre");
 		selectorComparador.setWidth(280);
-		
-		new Label(form2).setText("Compara Empresas:");
-		CheckBox checkEmpresa = new CheckBox(form2);
-		checkEmpresa.bindValueToProperty("comparaEmpresas");
 		
 		new Label(form2).setText("Operador a todos los balances:");
 		Selector<TipoOperacion> selectorTipoOperacion = new Selector<TipoOperacion>(form2).allowNull(true);
@@ -95,6 +101,6 @@ public class NuevaCondicionWindow extends SimpleWindow<CondicionViewModel>  {
 		
 		new Label(form2).setText("Compara antiguedad");
 		CheckBox checkAnti = new CheckBox(form2);
-		checkAnti.bindValueToProperty("comparadorAntiguedad");	
+		checkAnti.bindValueToProperty("comparadorAntiguedad");
 	}
 }
