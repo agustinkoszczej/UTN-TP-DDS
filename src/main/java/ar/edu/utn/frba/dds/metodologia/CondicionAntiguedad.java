@@ -17,11 +17,8 @@ public class CondicionAntiguedad extends CondicionTaxativa {
 	}
 
 	@Override
-	public Boolean deberiaInvertirEn(Empresa empresa) {
-		
-		int antiguedadEmpresa = empresa.getAntiguedad();
-		
-		
+	public Boolean deberiaInvertirEn(Empresa empresa) {	
+		double antiguedadEmpresa = empresa.getAntiguedad();		
 		return antiguedadEmpresa >= aniosNecesarios;
 	}
 

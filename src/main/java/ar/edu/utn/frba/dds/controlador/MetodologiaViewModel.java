@@ -10,6 +10,7 @@ import org.uqbar.commons.utils.Observable;
 
 import ar.edu.utn.frba.dds.metodologia.Condicion;
 import ar.edu.utn.frba.dds.metodologia.Metodologia;
+import ar.edu.utn.frba.dds.modelo.Empresa;
 import ar.edu.utn.frba.dds.servicio.ServicioCondiciones;
 import ar.edu.utn.frba.dds.servicio.ServicioCuentas;
 import ar.edu.utn.frba.dds.servicio.ServicioIndicadores;
@@ -25,12 +26,13 @@ public class MetodologiaViewModel{
 	private List<Condicion> condicionesTotales;
 	private Condicion condicionSeleccionada;
 	private Condicion condicionAAgregarSeleccionada;
+	public List<Empresa> empresasOrdenadas;
 	
 
 	public MetodologiaViewModel(ServicioCuentas unServicioDeCuentas, ServicioIndicadores servicioIndicadores) {
 		this.servicioCuentas = unServicioDeCuentas;
 		this.servicioIndicadores = servicioIndicadores;
-		this.condicionesTotales = new ServicioCondiciones().obtenerCondiciones();
+		//this.condicionesTotales = new ServicioCondiciones().obtenerCondiciones();
 		this.metodologias = new ServicioMetodologias().obtenerMetodologias();
 		this.metodologiaSeleccionada = new Metodologia();
 	}
@@ -49,6 +51,7 @@ public class MetodologiaViewModel{
 
 	public void setMetodologiaSeleccionada(Metodologia metodologiaSeleccionada) {
 		this.metodologiaSeleccionada = metodologiaSeleccionada;
+		ObservableUtils.firePropertyChanged(this, "condicionesMetodologia");
 	}
 
 	public String getNombreCondicion() {
@@ -74,11 +77,11 @@ public class MetodologiaViewModel{
 
 	public List<Condicion> getCondicionesTotales() {
 		//Tiene que traer todas las condiciones que existan en el programa (x json o repo)
-		return condicionesTotales;
+		return new ServicioCondiciones().obtenerCondiciones();
 	}
 
 	public void setCondicionesTotales(List<Condicion> condicionesTotales) {
-		this.condicionesTotales = condicionesTotales;
+		//this.condicionesTotales = condicionesTotales;
 	}
 
 	public Condicion getCondicionAAgregarSeleccionada() {
@@ -99,10 +102,30 @@ public class MetodologiaViewModel{
 	}
 
 	public void guardarMetodologia() {
+		if(metodologiaSeleccionada.getNombre() == null)
+		{
+			String nombre = JOptionPane.showInputDialog("ingrese nombre para la metodologia");
+			metodologiaSeleccionada.setNombre(nombre);
+		}
 		try {
-			new ServicioMetodologias().guardarMetodologia(metodologiaSeleccionada);
+			new ServicioMetodologias().guardarMetodologia(metodologiaSeleccionada); 
+			JOptionPane.showMessageDialog(null, "Metodologia guardada");
+			//TODO: si ya existe, guarda una nueva en lugar de "actualizarla"
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public List<Empresa> getEmpresasOrdenadas() {
+		return empresasOrdenadas;
+	}
+
+	public void setEmpresasOrdenadas(List<Empresa> empresasOrdenadas) {
+		this.empresasOrdenadas = empresasOrdenadas;
+	}
+
+	public void aplicarMetodologia() {
+		List<Empresa> empresas = new ServicioCuentas().obtenerEmpresas();
+		empresasOrdenadas = metodologiaSeleccionada.aplicar(empresas);
 	}
 }

@@ -36,6 +36,7 @@ public class NuevaCondicionWindow extends SimpleWindow<CondicionViewModel>  {
 	private void guardarCondicion(){
 		this.getModel().getSource().guardarCondicion();
 		this.close();
+		
 	}
 
 	@Override
@@ -47,13 +48,6 @@ public class NuevaCondicionWindow extends SimpleWindow<CondicionViewModel>  {
 		
 		Panel form2 = new Panel(form);
 		form2.setLayout(new ColumnLayout(2));
-		
-		/*new Label(form2).setText("Seleccione Condicion:");
-		Selector<EnumCondiciones> selectorCondicion= new Selector<EnumCondiciones>(form2).allowNull(true);
-		selectorCondicion.bindValueToProperty("enumCondicionSeleccionada");
-		selectorCondicion.bindItemsToProperty("enumCondiciones");
-		selectorCondicion.setWidth(280);*/
-		
 		
 		new Label(form2).setText("Comparar Empresas:");
 		CheckBox checkEmpresa = new CheckBox(form2);

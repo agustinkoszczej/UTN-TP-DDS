@@ -32,19 +32,19 @@ public class AgregarCondicionWindow extends SimpleWindow<MetodologiaViewModel>  
 	}
 
 	public void abrirNuevaCondicionWindow() {
-		NuevaCondicionWindow dialog = new NuevaCondicionWindow(this, new CondicionViewModel());
+		NuevaCondicionWindow dialog = new NuevaCondicionWindow(this, new CondicionViewModel(this.getModelObject()));
 		dialog.open();
 	}
 	
 	public void agregarCondicion() {
 		this.getModel().getSource().agregarCondicionSeleccionadaAMetodologia();
+		this.close();
 	}
 
 
 	@Override
 	protected void createFormPanel(Panel form) {
-		Selector<Condicion> selectorMetodologia = new Selector<Condicion>(form).allowNull(true);
-		
+		Selector<Condicion> selectorMetodologia = new Selector<Condicion>(form).allowNull(true);	
 		selectorMetodologia.bindValueToProperty("condicionAAgregarSeleccionada");
 		selectorMetodologia.bindItemsToProperty("condicionesTotales").adaptWith(Condicion.class, "nombreCondicion");
 		selectorMetodologia.setWidth(280);

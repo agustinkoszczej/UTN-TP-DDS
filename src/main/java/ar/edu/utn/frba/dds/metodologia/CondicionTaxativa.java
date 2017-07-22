@@ -4,9 +4,12 @@ import org.uqbar.commons.utils.Observable;
 
 import ar.edu.utn.frba.dds.modelo.Empresa;
 @Observable
-public class CondicionTaxativa extends Condicion {
+public abstract class CondicionTaxativa extends Condicion {
 	
-	public Boolean deberiaInvertirEn(Empresa empresa) {
-		return null;
+	public abstract Boolean deberiaInvertirEn(Empresa empresa);
+
+	@Override
+	public boolean esTaxativa() {
+		return true;
 	};	
 }

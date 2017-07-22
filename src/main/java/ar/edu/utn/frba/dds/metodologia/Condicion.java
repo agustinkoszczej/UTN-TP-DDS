@@ -3,22 +3,19 @@ package ar.edu.utn.frba.dds.metodologia;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
-
 import org.uqbar.commons.utils.Observable;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-
 import ar.edu.utn.frba.dds.modelo.Balance;
 import ar.edu.utn.frba.dds.modelo.Empresa;
 import ar.edu.utn.frba.dds.modelo.Indicador;
 
 @Observable
-@JsonIgnoreProperties(value = { "changeSupport" })
+@JsonIgnoreProperties(value = { "changeSupport", "nombreClaseCondicion" })
 @JsonTypeInfo(
 	    use = JsonTypeInfo.Id.CLASS,
-	    include = JsonTypeInfo.As.PROPERTY,
+	    include = JsonTypeInfo.As.EXISTING_PROPERTY,
 	    property = "claseCondicion")
 public abstract class Condicion {
 	@JsonProperty("nombreCondicion")
@@ -38,17 +35,14 @@ public abstract class Condicion {
 	}
 	
 	protected int valorBalance(Empresa empresa, Balance balance) {
-		
-		
 		try {
 			return indicador.calcular(empresa, balance.getPeriodo());
 		} catch (Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 		return 0;
 	}
 	
-
 	public String getInicioPeriodo() {
 		return inicioPeriodo;
 	}
@@ -87,8 +81,8 @@ public abstract class Condicion {
 		return this.getClass().getName();
 	}
 	
-	public void setClaseCondicion() {
-		//nada
+	public String getNombreClaseCondicion() {
+		return this.getClass().getSimpleName();
 	}
 	
 	public Comparador getComparador() {
@@ -103,7 +97,7 @@ public abstract class Condicion {
 		try{
 		return empresa.getBalances().stream().filter(balance -> balance.getPeriodo().equals(getInicioPeriodo())).findFirst().get();
 		}catch(NoSuchElementException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 		return null;
 	}
@@ -114,4 +108,7 @@ public abstract class Condicion {
 			   .filter(balance -> balance.getPeriodo().compareTo(inicioPeriodo) >= 0 && 
 			   						balance.getPeriodo().compareTo(finPeriodo) <= 0).collect(Collectors.toList());
 	}
+
+	public abstract boolean esTaxativa();
+	public void setClaseCondicion() {}
 }

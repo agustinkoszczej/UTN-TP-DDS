@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
+import org.uqbar.commons.model.ObservableUtils;
 import org.uqbar.commons.utils.Observable;
 
 import com.ibm.icu.util.Calendar;
@@ -22,6 +23,7 @@ import ar.edu.utn.frba.dds.modelo.EnumCondiciones;
 import ar.edu.utn.frba.dds.modelo.Indicador;
 import ar.edu.utn.frba.dds.servicio.ServicioCondiciones;
 import ar.edu.utn.frba.dds.servicio.ServicioIndicadores;
+import ar.edu.utn.frba.dds.vista.AgregarCondicionWindow;
 
 @Observable
 public class CondicionViewModel {
@@ -54,8 +56,9 @@ public class CondicionViewModel {
 	private Comparador comparador;
 	private List<TipoOperacion> operaciones;
 	private List<Comparador> comparadores;
+	private MetodologiaViewModel condicionWindow;
 	
-public CondicionViewModel() {
+public CondicionViewModel(MetodologiaViewModel condicionWindow) {
 		Calendar cal = Calendar.getInstance();
 		cal.get(Calendar.EXTENDED_YEAR);
 		this.servicioIndicadores = new ServicioIndicadores();
@@ -65,6 +68,7 @@ public CondicionViewModel() {
 		
 		comparadores = traerComparadores();
 		operaciones = traerTipoOperaciones();
+		this.condicionWindow = condicionWindow;
 	}
 
 	public EnumCondiciones getEnumCondicionSeleccionada() {
@@ -290,12 +294,13 @@ public CondicionViewModel() {
 		//Condicion condicion = builder.devolverCondicion();
 		try {
 			new ServicioCondiciones().guardarCondicion(condicion);
+			JOptionPane.showMessageDialog(null, "Se creo condicion "+condicion.getNombreClaseCondicion()+": "+condicion.getNombreCondicion());
 		} catch (IOException e) {
 			JOptionPane.showMessageDialog(null, "Error al guardar la condicion");
 			}catch(NullPointerException e){
 			JOptionPane.showMessageDialog(null, "Ningun tipo de condicion pudo ser creado en base a lo ingresado. Faltan datos para crear la condicion");
 		}
-		//ObservableUtils.firePropertyChanged(model, property);
+		ObservableUtils.firePropertyChanged(condicionWindow, "condicionesTotales");
 	}
 
 	public Boolean getComparadorAntiguedad() {

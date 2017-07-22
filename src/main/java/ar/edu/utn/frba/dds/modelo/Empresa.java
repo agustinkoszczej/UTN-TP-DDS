@@ -17,6 +17,9 @@ public class Empresa {
 	@JsonProperty("balances")
 	private List<Balance> balances;
 	
+	public Empresa() {
+		super();
+	}
 
 	public int getAnioCreacion() {
 		return anioCreacion;
@@ -63,22 +66,19 @@ public class Empresa {
 				.sum();
 	}
 	
-	public int getAntiguedad() {
+	public double getAntiguedad() {
 		Calendar cal= Calendar.getInstance(); 
 		int anioActual = cal.get(Calendar.YEAR); 
-		/*
-		OptionalDouble antiguedad = balances
+		if(balances != null){
+		Double antiguedad =  balances
 				.stream()
 				.mapToDouble(balance -> Integer.parseInt(balance.getPeriodo().substring(0, 4)))
-				.min();
-		
-		return anioActual - (int)antiguedad.getAsDouble();
-		*/
-		return anioActual - anioCreacion;
+				.min().getAsDouble();
+		return anioActual - antiguedad;
+		}
+		return 0;
+		//return anioActual - anioCreacion;
 	}
 
-	public Empresa() {
-		super();
-	}
 
 }

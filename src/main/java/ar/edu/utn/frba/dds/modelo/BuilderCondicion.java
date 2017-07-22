@@ -48,7 +48,7 @@ public class BuilderCondicion {
 			condicion = new CondicionCompararValor();
 			((CondicionCompararValor) condicion).setValorSuperar(valorNumericoAComparar);
 		}
-		if(valorNumericoAComparar == null && periodoInicio != null && periodoFin != null)
+		if(valorNumericoAComparar == null && periodoInicio != null && periodoFin != null && comparador != null)
 			condicion = new CondicionConsistenciaTiempo();
 		
 		if(condicion == null)

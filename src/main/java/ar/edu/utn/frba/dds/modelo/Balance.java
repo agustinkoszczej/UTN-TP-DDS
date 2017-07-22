@@ -10,7 +10,17 @@ public class Balance {
 	private String periodo;
 	@JsonProperty("frecuencia")
 	private Frecuencia frecuencia;
+	@JsonProperty("periodicidad")
+	private String periodicidad;
+	@JsonProperty("tipoCuenta")
+	private TipoDeCuenta tipoCuenta;
+	@JsonProperty("valor")
+	private Double valor;
 
+	public Balance() {
+		super();
+	}
+	
 	public String getPeriodo() {
 		return periodo;
 	}
@@ -43,15 +53,6 @@ public class Balance {
 		this.valor = valor;
 	}
 
-	@JsonProperty("periodicidad")
-	private String periodicidad;
-	@JsonProperty("tipoCuenta")
-	private TipoDeCuenta tipoCuenta;
-	@JsonProperty("valor")
-	private Double valor;
 
-	public Balance() {
-		super();
-	}
 
 }
