@@ -56,9 +56,9 @@ public class Metodologia {
 			// con el contador positivo,
 			// significa que conviene la empresa2
 			if (empresa1 == condicion.cualEmpresaInvertir(empresa1, empresa2))
-				contador--;
+				contador-=condicion.getPeso();
 			else if (empresa2 == condicion.cualEmpresaInvertir(empresa1, empresa2))
-				contador++;
+				contador+=condicion.getPeso();
 		});
 		System.out.println(empresa1.getNombre() + ", " + empresa2.getNombre() + ": " + contador);
 		return contador; 

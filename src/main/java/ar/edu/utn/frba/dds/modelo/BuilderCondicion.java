@@ -7,6 +7,7 @@ import ar.edu.utn.frba.dds.metodologia.ComparadorDesempenio;
 import ar.edu.utn.frba.dds.metodologia.Condicion;
 import ar.edu.utn.frba.dds.metodologia.CondicionAntiguedad;
 import ar.edu.utn.frba.dds.metodologia.CondicionCompararValor;
+import ar.edu.utn.frba.dds.metodologia.CondicionComparativa;
 import ar.edu.utn.frba.dds.metodologia.CondicionConsistenciaTiempo;
 import ar.edu.utn.frba.dds.metodologia.CondicionGeneral;
 import ar.edu.utn.frba.dds.metodologia.TipoOperacion;
@@ -14,7 +15,7 @@ import ar.edu.utn.frba.dds.metodologia.TipoOperacion;
 public class BuilderCondicion {
 	private Condicion condicion;
 		
-	public Condicion devolverCondicionComparativa(String nombre, Comparador comparador, Boolean comparaAntiguedad, String periodoInicio, String periodoFin, Indicador indicador){
+	public Condicion devolverCondicionComparativa(String nombre, Comparador comparador, Boolean comparaAntiguedad, int peso, String periodoInicio, String periodoFin, Indicador indicador){
 		if(periodoInicio != null && periodoFin != null)
 			condicion = new ComparadorDesempenio();
 		
@@ -30,6 +31,7 @@ public class BuilderCondicion {
 		condicion.setIndicador(indicador);	
 		condicion.setFinPeriodo(periodoFin);
 		condicion.setInicioPeriodo(periodoInicio);
+		((CondicionComparativa) condicion).setPeso(peso);
 		
 		return condicion;
 	}

@@ -43,6 +43,7 @@ public class CondicionViewModel {
 	private List<Indicador> indicadoresDisponibles;
 	private List<Condicion> condiciones;
 	private Boolean comparaEmpresas = false;
+	private int peso;
 	private String periodoInicio;
 	private String periodoFin;
 	private Boolean periodoInicioActual = false;
@@ -287,7 +288,7 @@ public CondicionViewModel(MetodologiaViewModel condicionWindow) {
 		Condicion condicion;
 		BuilderCondicion builder = new BuilderCondicion();
 		if(comparaEmpresas)
-			condicion = builder.devolverCondicionComparativa(nombreCondicion, comparador, comparadorAntiguedad, periodoInicio, periodoFin, indicadorSeleccionado);
+			condicion = builder.devolverCondicionComparativa(nombreCondicion, comparador, comparadorAntiguedad, peso, periodoInicio, periodoFin, indicadorSeleccionado);
 		else
 			condicion = builder.devolverCondicionTaxativa(nombreCondicion, comparador, periodoInicio, periodoFin, valorAntiguedad, tipoOperacion, valorSuperar, indicadorSeleccionado);
 		
@@ -338,6 +339,14 @@ public CondicionViewModel(MetodologiaViewModel condicionWindow) {
 		mediana.setTipoOperacion(Operaciones.MEDIANA);
 		
 		return Arrays.asList(promedio,sumatoria,mediana);
+	}
+
+	public int getPeso() {
+		return peso;
+	}
+
+	public void setPeso(int peso) {
+		this.peso = peso;
 	}	
 	
 }

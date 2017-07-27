@@ -96,5 +96,9 @@ public class NuevaCondicionWindow extends SimpleWindow<CondicionViewModel>  {
 		new Label(form2).setText("Compara antiguedad");
 		CheckBox checkAnti = new CheckBox(form2);
 		checkAnti.bindValueToProperty("comparadorAntiguedad");
+		
+		new Label(form2).setText("Ingrese el peso para ponderar la condición");
+		NumericField numericPeso = new NumericField(form2);
+		numericPeso.bindValueToProperty("peso");
 	}
 }
