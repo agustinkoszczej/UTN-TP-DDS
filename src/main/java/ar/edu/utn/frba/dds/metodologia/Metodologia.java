@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import ar.edu.utn.frba.dds.modelo.Empresa;
+import ar.edu.utn.frba.dds.servicio.ServicioCuentas;
 
 @Observable
 @JsonIgnoreProperties(value = { "changeSupport", "claseCondicion" })
@@ -42,12 +43,20 @@ public class Metodologia {
 	}
 
 	public List<Empresa> aplicar(List<Empresa> empresas) {
+		contador = 0;
 		List<Empresa> empresasInvertibles = empresas.stream().filter(empresa -> aplicaCondicionesTaxativas(empresa))
 				.collect(Collectors.toList());
+		return empresasInvertibles.stream().sorted((empresa1, empresa2) -> (comparaAtodasLasEmpresas(empresa2) - comparaAtodasLasEmpresas(empresa1))).collect(Collectors.toList());
 		
-		return empresasInvertibles.stream()
-				.sorted((empresa1, empresa2) -> aplicaCondicionesComparativas(empresa1, empresa2))
-				.collect(Collectors.toList());
+		//return empresasInvertibles.stream()
+			//	.sorted((empresa1, empresa2) -> aplicaCondicionesComparativas(empresa1, empresa2))
+				//.collect(Collectors.toList());
+	}
+
+	private int comparaAtodasLasEmpresas(Empresa empresa1) {
+		List<Empresa> empresasAComparar = new ServicioCuentas().obtenerEmpresas();
+		empresasAComparar.remove(empresa1);
+		return empresasAComparar.stream().mapToInt(empresa -> aplicaCondicionesComparativas(empresa, empresa1)).sum();
 	}
 
 	private int aplicaCondicionesComparativas(Empresa empresa1, Empresa empresa2) {
@@ -60,7 +69,6 @@ public class Metodologia {
 			else if (empresa2 == condicion.cualEmpresaInvertir(empresa1, empresa2))
 				contador+=condicion.getPeso();
 		});
-		System.out.println(empresa1.getNombre() + ", " + empresa2.getNombre() + ": " + contador);
 		return contador; 
 	}
 
