@@ -1,6 +1,7 @@
 package ar.edu.utn.frba.dds.metodologia;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -43,7 +44,7 @@ public class Metodologia {
 	}
 
 	public List<Empresa> aplicar(List<Empresa> empresas) {
-		contador = 0;
+		//contador = 0;
 		List<Empresa> empresasInvertibles = empresas.stream().filter(empresa -> aplicaCondicionesTaxativas(empresa))
 				.collect(Collectors.toList());
 		return empresasInvertibles.stream().sorted((empresa1, empresa2) -> (comparaAtodasLasEmpresas(empresa2) - comparaAtodasLasEmpresas(empresa1))).collect(Collectors.toList());
@@ -54,8 +55,9 @@ public class Metodologia {
 	}
 
 	private int comparaAtodasLasEmpresas(Empresa empresa1) {
+		contador = 0;
 		List<Empresa> empresasAComparar = new ServicioCuentas().obtenerEmpresas();
-		empresasAComparar.remove(empresa1);
+		empresasAComparar.removeIf(empresa -> empresa.getNombre().equals(empresa1.getNombre()));
 		return empresasAComparar.stream().mapToInt(empresa -> aplicaCondicionesComparativas(empresa, empresa1)).sum();
 	}
 
