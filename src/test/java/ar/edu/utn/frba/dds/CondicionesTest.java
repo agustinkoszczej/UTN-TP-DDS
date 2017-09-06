@@ -15,7 +15,6 @@ import ar.edu.utn.frba.dds.metodologia.CondicionAntiguedad;
 import ar.edu.utn.frba.dds.metodologia.CondicionConsistenciaTiempo;
 import ar.edu.utn.frba.dds.metodologia.CondicionGeneral;
 import ar.edu.utn.frba.dds.metodologia.CondicionCompararValor;
-import ar.edu.utn.frba.dds.metodologia.CondicionTaxativa;
 import ar.edu.utn.frba.dds.metodologia.Metodologia;
 import ar.edu.utn.frba.dds.metodologia.TipoOperacion;
 import ar.edu.utn.frba.dds.metodologia.Comparador.Comparadores;

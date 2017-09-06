@@ -18,7 +18,6 @@ import ar.edu.utn.frba.dds.util.ExpressionParser;
 import ar.edu.utn.frba.dds.util.exceptions.InvalidTokenException;
 import ar.edu.utn.frba.dds.util.exceptions.SyntaxErrorException;
 import ar.edu.utn.frba.dds.util.exceptions.TypeExpresionException;
-import scala.Console;
 
 public class Metodologias {
 

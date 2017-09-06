@@ -23,7 +23,6 @@ public class MetodologiaViewModel{
 	public ServicioIndicadores servicioIndicadores;
 	private List<Metodologia> metodologias;
 	private Metodologia metodologiaSeleccionada;
-	private List<Condicion> condicionesTotales;
 	private Condicion condicionSeleccionada;
 	private Condicion condicionAAgregarSeleccionada;
 	public List<Empresa> empresasOrdenadas;

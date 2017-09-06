@@ -1,10 +1,5 @@
 package ar.edu.utn.frba.dds;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,21 +7,13 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.fasterxml.jackson.core.JsonGenerationException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import ar.edu.utn.frba.dds.expresion.ExpresionCompuesta;
 import ar.edu.utn.frba.dds.expresion.ExpresionConstante;
 import ar.edu.utn.frba.dds.expresion.ExpresionCuenta;
 import ar.edu.utn.frba.dds.expresion.Operacion;
 import ar.edu.utn.frba.dds.modelo.Balance;
-import ar.edu.utn.frba.dds.modelo.TipoDeCuenta;
 import ar.edu.utn.frba.dds.modelo.Empresa;
-import ar.edu.utn.frba.dds.modelo.Indicador;
-import ar.edu.utn.frba.dds.modelo.RepositorioIndicadores;
+import ar.edu.utn.frba.dds.modelo.TipoDeCuenta;
 
 public class ExpresionesTest {
 

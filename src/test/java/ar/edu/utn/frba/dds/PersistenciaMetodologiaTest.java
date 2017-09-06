@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
@@ -22,12 +21,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class PersistenciaMetodologiaTest {
 
 	List<Metodologia> TEST_listaMetodologias; 
-	
-	@Before
-	public void init() {
-		
-	}
-	
+
 	@Rule
 	public TemporaryFolder folder = new TemporaryFolder();
 	

@@ -7,7 +7,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -20,11 +19,14 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import ar.edu.utn.frba.dds.expresion.*;
+import ar.edu.utn.frba.dds.expresion.ExpresionCompuesta;
+import ar.edu.utn.frba.dds.expresion.ExpresionConstante;
+import ar.edu.utn.frba.dds.expresion.ExpresionCuenta;
+import ar.edu.utn.frba.dds.expresion.ExpresionIndicador;
+import ar.edu.utn.frba.dds.expresion.Operacion;
 import ar.edu.utn.frba.dds.modelo.Balance;
 import ar.edu.utn.frba.dds.modelo.Empresa;
 import ar.edu.utn.frba.dds.modelo.Indicador;
-import ar.edu.utn.frba.dds.modelo.RepositorioIndicadores;
 import ar.edu.utn.frba.dds.modelo.TipoDeCuenta;
 
 public class IndicadoresTest {
@@ -147,8 +149,8 @@ public class IndicadoresTest {
 		
 		List<Indicador> indicadoresActualizados = new ArrayList<Indicador>();
 		//Creamos una lista vacia que seria como el archivo que leimos si estuviera vacio,
-		//Por ende, nuestro indicador2, que contiene al indicador1, deberia detectar que éste
-		//no está en la lista, y deberia romper al tratar de calcularse
+		//Por ende, nuestro indicador2, que contiene al indicador1, deberia detectar que ï¿½ste
+		//no estï¿½ en la lista, y deberia romper al tratar de calcularse
 		
 		indicador2.validarYActualizarVariables(indicadoresActualizados);
 		
@@ -164,8 +166,8 @@ public class IndicadoresTest {
 		
 		List<Indicador> indicadoresActualizados = new ArrayList<Indicador>();
 		//Creamos una lista vacia que seria como el archivo que leimos si estuviera vacio,
-		//Por ende, nuestro indicador2, que contiene al indicador1, deberia detectar que éste
-		//no está en la lista, y deberia romper al tratar de calcularse
+		//Por ende, nuestro indicador2, que contiene al indicador1, deberia detectar que ï¿½ste
+		//no estï¿½ en la lista, y deberia romper al tratar de calcularse
 		
 		indicador2.validarYActualizarVariables(indicadoresActualizados);
 		

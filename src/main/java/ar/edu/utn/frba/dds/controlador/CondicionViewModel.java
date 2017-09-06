@@ -23,7 +23,6 @@ import ar.edu.utn.frba.dds.modelo.EnumCondiciones;
 import ar.edu.utn.frba.dds.modelo.Indicador;
 import ar.edu.utn.frba.dds.servicio.ServicioCondiciones;
 import ar.edu.utn.frba.dds.servicio.ServicioIndicadores;
-import ar.edu.utn.frba.dds.vista.AgregarCondicionWindow;
 
 @Observable
 public class CondicionViewModel {
