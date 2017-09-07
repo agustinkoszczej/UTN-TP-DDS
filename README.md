@@ -38,11 +38,11 @@ aplicaciones, procesos calendarizados, colas de mensajes
 
 | Legajo | Apellido | Nombre | Curso | Github |
 | -------- | -------- | -------- | -------- | -------- |
-| 155.878-0 | Centeno | Nicolás | K3003 | [centenonicolas](https://github.com/centenonicolas) |
+| 155.878-0 | Centeno | Nicolás | K3003 | [centenonicolas](https://github.com/cs)entenonicolas) |
 | 150.163-0 | Latasa | Julián | K3003 | [julianlatasa](https://github.com/julianlatasa) |
 | 156.102-9 | Koszczej | Agustín | K3003 | [agustinkoszczej](https://github.com/agustinkoszczej) |
 | 156.385-3 | Polonuer | Lucas | K3003 | [lucaspolonuer](https://github.com/lucaspolonuer) |
-| ????????? | ~~Valentin~~ | ~~Víctor~~ | ~~K3003~~ | [~~victorvalentin~~](https://github.com/victorvalentin) |
+| ~~?????????~~ | ~~Valentin~~ | ~~Víctor~~ | ~~K3003~~ | [~~victorvalentin~~](https://github.com/victorvalentin) |
 
 ### **Comandos Útiles**
 
