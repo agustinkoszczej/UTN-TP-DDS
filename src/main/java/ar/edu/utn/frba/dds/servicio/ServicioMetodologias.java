@@ -8,6 +8,7 @@ import java.util.List;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import ar.edu.utn.frba.dds.metodologia.Metodologia;
+import ar.edu.utn.frba.dds.modelo.BaseDeDatos;
 import ar.edu.utn.frba.dds.util.ConversorJson;
 import ar.edu.utn.frba.dds.util.ServidorDeConsultas;
 
@@ -23,8 +24,11 @@ public class ServicioMetodologias {
 	}
 	
 	public ServicioMetodologias() {
-		unConversorDeMetodologias = new ConversorJson();
-		unServidorParaConsultar = new ServidorDeConsultas();
+		BaseDeDatos db = new BaseDeDatos();
+		if(db.isBdEnabled()){
+			unConversorDeMetodologias = new ConversorJson();
+			unServidorParaConsultar = new ServidorDeConsultas();
+		}
 	}
 	
 	public List<Metodologia> obtenerMetodologias() {

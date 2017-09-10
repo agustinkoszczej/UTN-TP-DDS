@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import ar.edu.utn.frba.dds.modelo.BaseDeDatos;
 import ar.edu.utn.frba.dds.modelo.Indicador;
 import ar.edu.utn.frba.dds.util.ConversorJson;
 import ar.edu.utn.frba.dds.util.ServidorDeConsultas;
@@ -18,9 +19,12 @@ public class ServicioIndicadores {
 	
 	public ServicioIndicadores() {
 		// Inicializo el conversor
-		conversorJson = new ConversorJson();
-		// Inicializo el servidor de consultas para leer los datos JSON
-		servidor = new ServidorDeConsultas();
+		BaseDeDatos db = new BaseDeDatos();
+		if(!db.isBdEnabled()){
+			conversorJson = new ConversorJson();
+			// Inicializo el servidor de consultas para leer los datos JSON
+			servidor = new ServidorDeConsultas();
+		}
 	}
 	
 	public List<Indicador> obtenerIndicadores() {
@@ -40,5 +44,5 @@ public class ServicioIndicadores {
 		
 		indicadoresActuales.add(indicador);
 		mapper.writeValue(JSONFile, indicadoresActuales);
-	}
+	}	
 }

@@ -8,6 +8,7 @@ import java.util.List;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import ar.edu.utn.frba.dds.metodologia.Condicion;
+import ar.edu.utn.frba.dds.modelo.BaseDeDatos;
 import ar.edu.utn.frba.dds.util.ConversorJson;
 import ar.edu.utn.frba.dds.util.ServidorDeConsultas;
 
@@ -24,9 +25,12 @@ public class ServicioCondiciones {
 
 	public ServicioCondiciones() {
 		// Inicializo el conversor
-		unConversorDeCondiciones = new ConversorJson();
+		BaseDeDatos db = new BaseDeDatos();
+		if(!db.isBdEnabled()){
+			unConversorDeCondiciones = new ConversorJson();
 		// Inicializo el servidor de consultas para leer los datos JSON
-		unServidorParaConsultar = new ServidorDeConsultas();
+			unServidorParaConsultar = new ServidorDeConsultas();
+		}	
 	}
 	
 	public List<Condicion> obtenerCondiciones() {

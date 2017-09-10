@@ -329,7 +329,6 @@ public CondicionViewModel(MetodologiaViewModel condicionWindow) {
 	}
 
 	public List<TipoOperacion> traerTipoOperaciones() {
-		// TODO Auto-generated method stub
 		TipoOperacion promedio = new TipoOperacion();
 		promedio.setTipoOperacion(Operaciones.PROMEDIO);
 		TipoOperacion sumatoria = new TipoOperacion();

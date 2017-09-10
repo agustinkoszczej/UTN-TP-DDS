@@ -5,6 +5,7 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
@@ -138,6 +139,11 @@ public class PersistenciaMetodologiaTest {
 		clearSingleton("test5.json");
 		repoMetod = RepositorioMetodologias.getInstance();
 		Assert.assertEquals(repoMetod.obtenerMetodologia("segundo"), dosMetodologia);
+	}
+	
+	@After
+	public void borrarTemporaryFolder() throws IOException {
+		folder.delete();
 	}
 
 }

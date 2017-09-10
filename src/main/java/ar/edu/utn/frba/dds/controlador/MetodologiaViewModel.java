@@ -27,7 +27,6 @@ public class MetodologiaViewModel{
 	private Condicion condicionAAgregarSeleccionada;
 	public List<Empresa> empresasOrdenadas;
 	
-
 	public MetodologiaViewModel(ServicioCuentas unServicioDeCuentas, ServicioIndicadores servicioIndicadores) {
 		this.servicioCuentas = unServicioDeCuentas;
 		this.servicioIndicadores = servicioIndicadores;

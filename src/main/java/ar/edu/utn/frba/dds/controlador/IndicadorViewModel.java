@@ -30,8 +30,6 @@ public class IndicadorViewModel {
 
 	private String nombreIndicadorAIngresar;
 	private String cadenaIndicadorAIngresar;
-	
-
 
 public String getNombreIndicadorAIngresar() {
 		return nombreIndicadorAIngresar;
