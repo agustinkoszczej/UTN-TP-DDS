@@ -12,9 +12,9 @@ public class CondicionConsistenciaTiempo extends CondicionTaxativa {
 	@Override
 	public Boolean deberiaInvertirEn(Empresa empresa) {
 		List<Balance> balancesAceptados = devolverBalancesDentroDelPeriodo(empresa);
-		valorInicio = obtenerValorIndicador(empresa, balancesAceptados.get(0).getPeriodo());
+		valorInicio = obtenerValorIndicador(empresa, balancesAceptados.get(0).getBalance_periodo());
 		balancesAceptados.remove(0);
-		return balancesAceptados.stream().allMatch(balance -> esConsistente(empresa,balance.getPeriodo()));
+		return balancesAceptados.stream().allMatch(balance -> esConsistente(empresa,balance.getBalance_periodo()));
 		
 	}
 

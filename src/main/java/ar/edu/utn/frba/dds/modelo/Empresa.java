@@ -7,6 +7,7 @@ import java.util.NoSuchElementException;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 
 import org.uqbar.commons.utils.Observable;
 
@@ -15,23 +16,41 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Observable @Entity
 public class Empresa {
 	
-	@Id
-	@GeneratedValue
-	private int id;
+	@Id @GeneratedValue
+	private int empresa_id;
 	
 	@JsonProperty("empresa")
-	private String nombre;
+	private String empresa_nombre;
 	
-	@JsonProperty("balances")
+	@JsonProperty("anioCreacion")
+	private int empresa_anioCreacion; 
+	
+	@JsonProperty("balances")@Transient
 	private List<Balance> balances;
 	
 	public Empresa() {
 		super();
 	}
+	
+	public int getEmpresa_id() {
+		return empresa_id;
+	}
+
+	public void setEmpresa_id(int empresa_id) {
+		this.empresa_id = empresa_id;
+	}
+
+	public int getEmpresa_anioCreacion() {
+		return empresa_anioCreacion;
+		}
+		
+	public void setEmpresa_anioCreacion(int anioCreacion) {
+		this.empresa_anioCreacion = anioCreacion;
+	}
 
 	public Balance obtenerBalance(TipoDeCuenta tipoCuenta, String periodo){
 		try{
-			Balance bal = balances.stream().filter(balance -> balance.getPeriodo().equals(periodo) && balance.getTipoCuenta().equals(tipoCuenta)).findFirst().get();
+			Balance bal = balances.stream().filter(balance -> balance.getBalance_periodo().equals(periodo) && balance.getBalance_tipoCuenta().equals(tipoCuenta)).findFirst().get();
 			return bal;
 		}catch(NoSuchElementException e){
 			//TODO: hacer algo si no tiene el balance que buscamos
@@ -40,15 +59,15 @@ public class Empresa {
 	}
 	
 	public Double valorCuenta(TipoDeCuenta tipoCuenta, String periodo){
-		return this.obtenerBalance(tipoCuenta, periodo).getValor();
+		return this.obtenerBalance(tipoCuenta, periodo).getBalance_valor();
 	}
 	
-	public String getNombre() {
-		return nombre;
+	public String getEmpresa_nombre() {
+		return empresa_nombre;
 	}
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setEmpresa_nombre(String nombre) {
+		this.empresa_nombre = nombre;
 	}
 	
 	public List<Balance> getBalances() {
@@ -62,7 +81,7 @@ public class Empresa {
 	public double valorBalances() {
 		return balances
 				.stream()
-				.mapToDouble(cuenta -> cuenta.getValor())
+				.mapToDouble(cuenta -> cuenta.getBalance_valor())
 				.sum();
 	}
 	
@@ -72,13 +91,10 @@ public class Empresa {
 		if(balances != null){
 		Double antiguedad =  balances
 				.stream()
-				.mapToDouble(balance -> Integer.parseInt(balance.getPeriodo().substring(0, 4)))
+				.mapToDouble(balance -> Integer.parseInt(balance.getBalance_periodo().substring(0, 4)))
 				.min().getAsDouble();
 		return anioActual - antiguedad;
 		}
 		return 0;
-		//return anioActual - anioCreacion;
 	}
-
-
 }

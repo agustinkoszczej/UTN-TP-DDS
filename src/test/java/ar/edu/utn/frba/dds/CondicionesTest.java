@@ -35,12 +35,13 @@ public class CondicionesTest {
 
 		empresa = new Empresa();
 		balance = new Balance();
-		balance.setPeriodo("20170100");
-		balance.setTipoCuenta(TipoDeCuenta.EBITDA);
-		balance.setValor(new Double(25000));
+		balance.setBalance_periodo("20170100");
+		balance.setBalance_tipoCuenta(TipoDeCuenta.EBITDA);
+		balance.setBalance_valor(new Double(25000));
 		listaBalances = new ArrayList<Balance>();
 		listaBalances.add(balance);
 		empresa.setBalances(listaBalances);
+		empresa.setEmpresa_anioCreacion(2006);
 		indicador = new Indicador("indicador", new ExpresionCuenta(TipoDeCuenta.EBITDA));
 	}
 	
@@ -79,9 +80,9 @@ public class CondicionesTest {
 	public void convieneEmpresaConIndicadorMasAlto() {
 		Empresa empresa2 = new Empresa();
 		Balance balance2 = new Balance();
-		balance2.setPeriodo("20170100");
-		balance2.setTipoCuenta(TipoDeCuenta.EBITDA);
-		balance2.setValor(new Double(20000));
+		balance2.setBalance_periodo("20170100");
+		balance2.setBalance_tipoCuenta(TipoDeCuenta.EBITDA);
+		balance2.setBalance_valor(new Double(20000));
 		List<Balance> listaBalances = new ArrayList<Balance>();
 		listaBalances.add(balance2);
 		empresa2.setBalances(listaBalances);
@@ -99,9 +100,9 @@ public class CondicionesTest {
 	public void convieneEmpresaConIndicadorMasBajo() {
 		Empresa empresa2 = new Empresa();
 		Balance balance2 = new Balance();
-		balance2.setPeriodo("20170100");
-		balance2.setTipoCuenta(TipoDeCuenta.EBITDA);
-		balance2.setValor(new Double(20000));
+		balance2.setBalance_periodo("20170100");
+		balance2.setBalance_tipoCuenta(TipoDeCuenta.EBITDA);
+		balance2.setBalance_valor(new Double(20000));
 		List<Balance> listaBalances = new ArrayList<Balance>();
 		listaBalances.add(balance2);
 		empresa2.setBalances(listaBalances);
@@ -119,9 +120,9 @@ public class CondicionesTest {
 	public void compararDesempenioEmpresasIgualesDevuelvePrimera() {
 		Empresa empresa2 = new Empresa();
 		Balance balance2 = new Balance();
-		balance2.setPeriodo("20170100");
-		balance2.setTipoCuenta(TipoDeCuenta.EBITDA);
-		balance2.setValor(new Double(25000));
+		balance2.setBalance_periodo("20170100");
+		balance2.setBalance_tipoCuenta(TipoDeCuenta.EBITDA);
+		balance2.setBalance_valor(new Double(25000));
 		List<Balance> listaBalances = new ArrayList<Balance>();
 		listaBalances.add(balance2);
 		empresa2.setBalances(listaBalances);
@@ -140,9 +141,9 @@ public class CondicionesTest {
 	@Test
 	public void esConsistentementeCrecienteEnPeriodo(){
 		Balance balance2 = new Balance();
-		balance2.setPeriodo("20170600");
-		balance2.setTipoCuenta(TipoDeCuenta.EBITDA);
-		balance2.setValor(new Double(26000));
+		balance2.setBalance_periodo("20170600");
+		balance2.setBalance_tipoCuenta(TipoDeCuenta.EBITDA);
+		balance2.setBalance_valor(new Double(26000));
 		listaBalances.add(balance2);
 		empresa.setBalances(listaBalances);
 		
@@ -160,7 +161,7 @@ public class CondicionesTest {
 	@Test
 	public void cumpleLongevidadTaxativa(){
 		CondicionAntiguedad condicionAntiguedad = new CondicionAntiguedad();
-		balance.setPeriodo("200706");
+		balance.setBalance_periodo("200706");
 		listaBalances.add(balance);
 		empresa.setBalances(listaBalances);
 		condicionAntiguedad.setAniosNecesarios(10);
@@ -171,9 +172,10 @@ public class CondicionesTest {
 	public void cumpleLongetividadComparativa(){
 		Empresa empresa2 = new Empresa();
 		Balance balance2 = new Balance();
-		balance2.setPeriodo("20130600");
-		balance2.setTipoCuenta(TipoDeCuenta.EBITDA);
-		balance2.setValor(new Double(26000));
+		empresa2.setEmpresa_anioCreacion(2003);
+		balance2.setBalance_periodo("20130600");
+		balance2.setBalance_tipoCuenta(TipoDeCuenta.EBITDA);
+		balance2.setBalance_valor(new Double(26000));
 		List<Balance> listaBalances2 = new ArrayList<Balance>();
 		listaBalances2.add(balance2);
 		empresa2.setBalances(listaBalances2);
@@ -204,9 +206,9 @@ public class CondicionesTest {
 	public void cumpleCondicionPromedio(){
 		Balance balance2 = new Balance();
 
-		balance2.setPeriodo("20130600");
-		balance2.setTipoCuenta(TipoDeCuenta.EBITDA);
-		balance2.setValor((double)15000);
+		balance2.setBalance_periodo("20130600");
+		balance2.setBalance_tipoCuenta(TipoDeCuenta.EBITDA);
+		balance2.setBalance_valor((double)15000);
 		listaBalances.add(balance2);
 		empresa.setBalances(listaBalances);
 		CondicionGeneral condicionGeneral = new CondicionGeneral();
@@ -225,13 +227,13 @@ public class CondicionesTest {
 	@Test
 	public void cumpleCondicionMediana(){
 		Balance balance2 = new Balance();
-		balance2.setPeriodo("20130600");
-		balance2.setTipoCuenta(TipoDeCuenta.EBITDA);
-		balance2.setValor((double)15000);
+		balance2.setBalance_periodo("20130600");
+		balance2.setBalance_tipoCuenta(TipoDeCuenta.EBITDA);
+		balance2.setBalance_valor((double)15000);
 		Balance balance3 = new Balance();
-		balance3.setPeriodo("20150600");
-		balance3.setTipoCuenta(TipoDeCuenta.EBITDA);
-		balance3.setValor((double)20000);
+		balance3.setBalance_periodo("20150600");
+		balance3.setBalance_tipoCuenta(TipoDeCuenta.EBITDA);
+		balance3.setBalance_valor((double)20000);
 		listaBalances.add(balance2);
 		listaBalances.add(balance3);
 		empresa.setBalances(listaBalances);

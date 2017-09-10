@@ -3,8 +3,8 @@ package ar.edu.utn.frba.dds.servicio;
 import java.util.List;
 
 import ar.edu.utn.frba.dds.util.ServidorDeConsultas;
-import ar.edu.utn.frba.dds.modelo.BaseDeDatos;
 import ar.edu.utn.frba.dds.modelo.Empresa;
+import ar.edu.utn.frba.dds.util.BaseDeDatos;
 import ar.edu.utn.frba.dds.util.ConversorJson;
 
 public class ServicioCuentas {
@@ -23,7 +23,11 @@ public class ServicioCuentas {
 	}
 	
 	public List<Empresa> obtenerEmpresas() {
+		BaseDeDatos db = new BaseDeDatos();
+		if(!db.isBdEnabled()){
 		String jsonCuentas = unServidorParaConsultar.obtenerDatosDeCuentas();
 		return unConversorDeCuentas.mapearEmpresas(jsonCuentas);
+		}
+		return db.obtenerEmpresas();
 	}
 }

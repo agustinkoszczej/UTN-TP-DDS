@@ -30,39 +30,40 @@ public class EmpresaTest {
 	}
 	@Test
 	public void empresasActualesCargadas(){
-			Assert.assertEquals(empresas.get(0).getNombre(),"Facebook");
-			Assert.assertEquals(empresas.get(1).getNombre(),"Fibertel");
-			Assert.assertEquals(empresas.get(2).getNombre(),"Arena");
-			Assert.assertEquals(empresas.get(3).getNombre(),"Balances Negativos");
-			Assert.assertEquals(empresas.get(4).getNombre(),"Vacia");
+			Assert.assertEquals(empresas.get(0).getEmpresa_nombre(),"Facebook");
+			Assert.assertEquals(empresas.get(1).getEmpresa_nombre(),"Fibertel");
+			Assert.assertEquals(empresas.get(2).getEmpresa_nombre(),"Arena");
+			Assert.assertEquals(empresas.get(3).getEmpresa_nombre(),"Balances Negativos");
+			Assert.assertEquals(empresas.get(4).getEmpresa_nombre(),"Vacia");
 	}
 	@Test
 	public void valorDeBalancesFacebook(){
-		Assert.assertEquals(empresas.get(0).getNombre(), "Facebook");
+		Assert.assertEquals(empresas.get(0).getEmpresa_nombre(), "Facebook");
 		double valorBalancesFacebook = 135000000+140000000;
 		Assert.assertEquals(empresas.get(0).valorBalances(), valorBalancesFacebook, DELTA);
 	}
 	@Test
 	public void valorDeBalancesFibertel(){
-		Assert.assertEquals(empresas.get(1).getNombre(), "Fibertel");
+		Assert.assertEquals(empresas.get(1).getEmpresa_nombre(), "Fibertel");
 		double valorBalancesFibertel = 134000000;
 		Assert.assertEquals(empresas.get(1).valorBalances(), valorBalancesFibertel, DELTA);
 	}
 	@Test(expected = Exception.class)
 	public void valorDeBalancesVaciaRompe(){
-		Assert.assertEquals(empresas.get(4).getNombre(), "Vacia");
+		Assert.assertEquals(empresas.get(4).getEmpresa_nombre(), "Vacia");
 		empresas.get(4).valorBalances();
 	}
 	@Test(expected = Exception.class)
 	public void rompeCuandoSeleccionoEmpresaVacia(){
 		CuentaViewModel cuentaVM = new CuentaViewModel(serv);
 		Empresa rota = empresas.get(4);
-		Assert.assertEquals(rota.getNombre(), "Vacia");
+		Assert.assertEquals(rota.getEmpresa_nombre(), "Vacia");
 		cuentaVM.setEmpresaSeleccionada(rota);
 	}
 	@Test
 	public void sumaBienAPesarDeSerNegativoUnValorDeLosBalances(){
 		Empresa negativa = empresas.get(3);
+		System.out.println(negativa.getEmpresa_nombre());
 		double valorBalancesNegativos = 5-20;
 		Assert.assertEquals(negativa.valorBalances(), valorBalancesNegativos, DELTA);
 		
@@ -74,14 +75,14 @@ public class EmpresaTest {
 		Balance balanceNormal = new Balance();
 		Balance balanceSinValor = new Balance();
 		
-		balanceNormal.setFrecuencia(Frecuencia.Mensual);
-		balanceNormal.setPeriodo("201705");
-		balanceNormal.setTipoCuenta(TipoDeCuenta.FDS);
-		balanceNormal.setValor((double) 100);
+		balanceNormal.setBalance_frecuencia(Frecuencia.Mensual);
+		balanceNormal.setBalance_periodo("201705");
+		balanceNormal.setBalance_tipoCuenta(TipoDeCuenta.FDS);
+		balanceNormal.setBalance_valor((double) 100);
 		
-		balanceSinValor.setFrecuencia(Frecuencia.Mensual);
-		balanceSinValor.setPeriodo("201705");
-		balanceSinValor.setTipoCuenta(TipoDeCuenta.FDS);
+		balanceSinValor.setBalance_frecuencia(Frecuencia.Mensual);
+		balanceSinValor.setBalance_periodo("201705");
+		balanceSinValor.setBalance_tipoCuenta(TipoDeCuenta.FDS);
 		
 		List<Balance> balances;
 		balances = new ArrayList<Balance>();
@@ -89,7 +90,7 @@ public class EmpresaTest {
 		balances.add(balanceNormal);
 		balances.add(balanceSinValor);
 		
-		empresaRota.setNombre("EmpresaRota");
+		empresaRota.setEmpresa_nombre("EmpresaRota");
 		empresaRota.setBalances(balances);
 		empresaRota.valorBalances();
 	}

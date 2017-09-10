@@ -23,9 +23,9 @@ public class ExpresionesTest {
 	public void init() {
 		empresaPrueba = new Empresa();
 		Balance balance = new Balance();
-		balance.setPeriodo("20170100");
-		balance.setTipoCuenta(TipoDeCuenta.EBITDA);
-		balance.setValor(new Double(25000));
+		balance.setBalance_periodo("20170100");
+		balance.setBalance_tipoCuenta(TipoDeCuenta.EBITDA);
+		balance.setBalance_valor(new Double(25000));
 		
 		List<Balance> listaBalances = new ArrayList<Balance>();
 		listaBalances.add(balance);

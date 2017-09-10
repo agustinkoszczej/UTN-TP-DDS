@@ -41,16 +41,4 @@ public class ServidorDeConsultas {
 		}
 		return json;
 	}
-	/*
-	public String obtenerJson(String archivo) {
-		Path path = (Path) FileSystems.getDefault().getPath(archivo);
-		//Paths.get("unArchivo.json");
-		
-		try {
-			return String.join("", Files.readAllLines(path));
-		} catch (IOException e) {
-			return "";
-		}
-	}
-	*/
 }

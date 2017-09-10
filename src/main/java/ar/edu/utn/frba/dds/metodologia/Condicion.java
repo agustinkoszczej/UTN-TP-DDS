@@ -44,7 +44,7 @@ public abstract class Condicion {
 	
 	protected int valorBalance(Empresa empresa, Balance balance) {
 		try {
-			return indicador.calcular(empresa, balance.getPeriodo());
+			return indicador.calcular(empresa, balance.getBalance_periodo());
 		} catch (Exception e) {
 			//e.printStackTrace();
 		}
@@ -103,7 +103,7 @@ public abstract class Condicion {
 
 	protected Balance buscarBalanceEnPeriodo(Empresa empresa) {
 		try{
-		return empresa.getBalances().stream().filter(balance -> balance.getPeriodo().equals(getInicioPeriodo())).findFirst().get();
+		return empresa.getBalances().stream().filter(balance -> balance.getBalance_periodo().equals(getInicioPeriodo())).findFirst().get();
 		}catch(NoSuchElementException e) {
 			//e.printStackTrace();
 		}
@@ -113,8 +113,8 @@ public abstract class Condicion {
 	protected List<Balance> devolverBalancesDentroDelPeriodo(Empresa empresa) {
 		return (List<Balance>) empresa.getBalances()
 			   .stream()
-			   .filter(balance -> balance.getPeriodo().compareTo(inicioPeriodo) >= 0 && 
-			   						balance.getPeriodo().compareTo(finPeriodo) <= 0).collect(Collectors.toList());
+			   .filter(balance -> balance.getBalance_periodo().compareTo(inicioPeriodo) >= 0 && 
+			   						balance.getBalance_periodo().compareTo(finPeriodo) <= 0).collect(Collectors.toList());
 	}
 
 	public abstract boolean esTaxativa();

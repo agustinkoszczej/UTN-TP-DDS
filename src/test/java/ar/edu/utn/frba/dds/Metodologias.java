@@ -28,34 +28,34 @@ public class Metodologias {
 		Balance unBalance;
 		for (int i = 2005; i != 2017; i++) {
 			unBalance = new Balance();
-			unBalance.setTipoCuenta(TipoDeCuenta.IngresoNeto);
-			unBalance.setFrecuencia(Frecuencia.Anual);
-			unBalance.setPeriodo("01" + String.valueOf(i));
-			unBalance.setValor(valorBase * (i-2004));
+			unBalance.setBalance_tipoCuenta(TipoDeCuenta.IngresoNeto);
+			unBalance.setBalance_frecuencia(Frecuencia.Anual);
+			unBalance.setBalance_periodo("01" + String.valueOf(i));
+			unBalance.setBalance_valor(valorBase * (i-2004));
 			listaBalances.add(unBalance);
 			unBalance = new Balance();
-			unBalance.setTipoCuenta(TipoDeCuenta.Dividendos);
-			unBalance.setFrecuencia(Frecuencia.Anual);
-			unBalance.setPeriodo("01" + String.valueOf(i));
-			unBalance.setValor(valorBase * (i-2004));
+			unBalance.setBalance_tipoCuenta(TipoDeCuenta.Dividendos);
+			unBalance.setBalance_frecuencia(Frecuencia.Anual);
+			unBalance.setBalance_periodo("01" + String.valueOf(i));
+			unBalance.setBalance_valor(valorBase * (i-2004));
 			listaBalances.add(unBalance);
 			unBalance = new Balance();
-			unBalance.setTipoCuenta(TipoDeCuenta.CapitalTotal);
-			unBalance.setFrecuencia(Frecuencia.Anual);
-			unBalance.setPeriodo("01" + String.valueOf(i));
-			unBalance.setValor(valorBase * (i-2004));
+			unBalance.setBalance_tipoCuenta(TipoDeCuenta.CapitalTotal);
+			unBalance.setBalance_frecuencia(Frecuencia.Anual);
+			unBalance.setBalance_periodo("01" + String.valueOf(i));
+			unBalance.setBalance_valor(valorBase * (i-2004));
 			listaBalances.add(unBalance);
 			unBalance = new Balance();
-			unBalance.setTipoCuenta(TipoDeCuenta.Deuda);
-			unBalance.setFrecuencia(Frecuencia.Anual);
-			unBalance.setPeriodo("01" + String.valueOf(i));
-			unBalance.setValor(valorBase * (i-2004));
+			unBalance.setBalance_tipoCuenta(TipoDeCuenta.Deuda);
+			unBalance.setBalance_frecuencia(Frecuencia.Anual);
+			unBalance.setBalance_periodo("01" + String.valueOf(i));
+			unBalance.setBalance_valor(valorBase * (i-2004));
 			listaBalances.add(unBalance);
 			unBalance = new Balance();
-			unBalance.setTipoCuenta(TipoDeCuenta.CostoTotal);
-			unBalance.setFrecuencia(Frecuencia.Anual);
-			unBalance.setPeriodo("01" + String.valueOf(i));
-			unBalance.setValor(valorBase * (i-2004));
+			unBalance.setBalance_tipoCuenta(TipoDeCuenta.CostoTotal);
+			unBalance.setBalance_frecuencia(Frecuencia.Anual);
+			unBalance.setBalance_periodo("01" + String.valueOf(i));
+			unBalance.setBalance_valor(valorBase * (i-2004));
 			listaBalances.add(unBalance);
 		}
 	}
@@ -63,7 +63,7 @@ public class Metodologias {
 	@Before
 	public void init() {
 		Empresa unaEmpresa = new Empresa();
-		unaEmpresa.setNombre("Empresa A");
+		unaEmpresa.setEmpresa_nombre("Empresa A");
 		List<Balance> unaListaDeBalances = new ArrayList<Balance>(); 
 		addValoresBalances(unaListaDeBalances, 10000d);
 		unaEmpresa.setBalances(unaListaDeBalances);
@@ -71,7 +71,7 @@ public class Metodologias {
 		empresas.add(unaEmpresa);
 
 		unaEmpresa = new Empresa();
-		unaEmpresa.setNombre("Empresa B");
+		unaEmpresa.setEmpresa_nombre("Empresa B");
 		unaListaDeBalances = new ArrayList<Balance>(); 
 		addValoresBalances(unaListaDeBalances, 5000d);
 		unaEmpresa.setBalances(unaListaDeBalances);
@@ -79,7 +79,7 @@ public class Metodologias {
 		empresas.add(unaEmpresa);
 
 		unaEmpresa = new Empresa();
-		unaEmpresa.setNombre("Empresa C");
+		unaEmpresa.setEmpresa_nombre("Empresa C");
 		unaListaDeBalances = new ArrayList<Balance>(); 
 		addValoresBalances(unaListaDeBalances, 15000d);
 		unaEmpresa.setBalances(unaListaDeBalances);

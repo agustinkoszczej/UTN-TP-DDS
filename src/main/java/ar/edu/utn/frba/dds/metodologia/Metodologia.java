@@ -62,7 +62,7 @@ public class Metodologia {
 	private int comparaAtodasLasEmpresas(Empresa empresa1) {
 		contador = 0;
 		List<Empresa> empresasAComparar = new ServicioCuentas().obtenerEmpresas();
-		empresasAComparar.removeIf(empresa -> empresa.getNombre().equals(empresa1.getNombre()));
+		empresasAComparar.removeIf(empresa -> empresa.getEmpresa_nombre().equals(empresa1.getEmpresa_nombre()));
 		return empresasAComparar.stream().mapToInt(empresa -> aplicaCondicionesComparativas(empresa, empresa1)).sum();
 	}
 

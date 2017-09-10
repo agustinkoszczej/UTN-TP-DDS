@@ -123,7 +123,7 @@ public IndicadorViewModel(ServicioCuentas servicioCuentas, ServicioIndicadores s
 	}
 	
 	public void aplicarIndicador() throws Exception {
-		this.setValorIndicador(indicadorSeleccionado.calcular(empresaSeleccionada, balanceSeleccionado.getPeriodo()));
+		this.setValorIndicador(indicadorSeleccionado.calcular(empresaSeleccionada, balanceSeleccionado.getBalance_periodo()));
 	}
 	
 	public void guardarIndicador() {
