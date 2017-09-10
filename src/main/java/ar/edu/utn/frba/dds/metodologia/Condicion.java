@@ -3,6 +3,10 @@ package ar.edu.utn.frba.dds.metodologia;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
+
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
 import org.uqbar.commons.utils.Observable;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -18,6 +22,10 @@ import ar.edu.utn.frba.dds.modelo.Indicador;
 	    include = JsonTypeInfo.As.EXISTING_PROPERTY,
 	    property = "claseCondicion")
 public abstract class Condicion {
+	
+	@Id	@GeneratedValue
+	private int id;
+	
 	@JsonProperty("nombreCondicion")
 	protected String nombreCondicion;
 	@JsonProperty("comparador")

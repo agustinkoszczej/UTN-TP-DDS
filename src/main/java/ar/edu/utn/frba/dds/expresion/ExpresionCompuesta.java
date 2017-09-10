@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import ar.edu.utn.frba.dds.modelo.Empresa;
 
-public class ExpresionCompuesta implements Expresion{
+public class ExpresionCompuesta extends Expresion{
 
 	private Expresion operando1;
 	private Operacion op;

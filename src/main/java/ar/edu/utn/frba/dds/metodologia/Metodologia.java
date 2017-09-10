@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
 import org.uqbar.commons.utils.Observable;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -16,6 +19,9 @@ import ar.edu.utn.frba.dds.servicio.ServicioCuentas;
 @JsonIgnoreProperties(value = { "changeSupport", "claseCondicion" })
 public class Metodologia {
 
+	@Id	@GeneratedValue
+	private int id;
+	
 	public String getNombre() {
 		return nombre;
 	}

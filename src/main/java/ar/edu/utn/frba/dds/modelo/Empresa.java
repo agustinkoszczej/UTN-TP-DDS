@@ -4,29 +4,29 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
 import org.uqbar.commons.utils.Observable;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-@Observable
+@Observable @Entity
 public class Empresa {
+	
+	@Id
+	@GeneratedValue
+	private int id;
+	
 	@JsonProperty("empresa")
 	private String nombre;
-	@JsonProperty("anioCreacion")
-	private int anioCreacion; 
+	
 	@JsonProperty("balances")
 	private List<Balance> balances;
 	
 	public Empresa() {
 		super();
-	}
-
-	public int getAnioCreacion() {
-		return anioCreacion;
-	}
-
-	public void setAnioCreacion(int anioCreacion) {
-		this.anioCreacion = anioCreacion;
 	}
 
 	public Balance obtenerBalance(TipoDeCuenta tipoCuenta, String periodo){

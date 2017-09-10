@@ -10,11 +10,11 @@ import ar.edu.utn.frba.dds.modelo.Empresa;
 	    use = JsonTypeInfo.Id.MINIMAL_CLASS,
 	    include = JsonTypeInfo.As.PROPERTY,
 	    property = "@class")
-public interface Expresion{
-	public Integer calculate(Empresa empresa, String periodo);
+public abstract class Expresion{
+	public abstract Integer calculate(Empresa empresa, String periodo);
 	
-	public String toString();
+	public abstract String toString();
 	
-	public List<Object> listaDeElementos();
+	public abstract List<Object> listaDeElementos();
 	
 }
