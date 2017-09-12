@@ -1,6 +1,7 @@
 package ar.edu.utn.frba.dds.modelo;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -10,7 +11,7 @@ import org.uqbar.commons.utils.Observable;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-@Observable
+@Observable @Entity
 public class Balance {
 	
 	@Id @GeneratedValue
@@ -19,10 +20,10 @@ public class Balance {
 	@JsonProperty("periodo")
 	private String balance_periodo;
 	@JsonProperty("frecuencia")
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+	//@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
 	private Frecuencia balance_frecuencia;
 	@JsonProperty("tipoCuenta") 
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+	//@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
 	private TipoDeCuenta balance_tipoCuenta;
 	@JsonProperty("valor")
 	private Double balance_valor;

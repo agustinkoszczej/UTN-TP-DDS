@@ -23,7 +23,7 @@ public class Empresa {
 	private String empresa_nombre;
 	
 	@JsonProperty("anioCreacion")
-	private int empresa_anioCreacion; 
+	private Integer empresa_anioCreacion;
 	
 	@JsonProperty("balances")@Transient
 	private List<Balance> balances;

@@ -12,7 +12,6 @@
 	<class>jacklow.model.Frecuencia</class>
 	<class>jacklow.model.Empresa</class>
 	<class>jacklow.model.Balance</class>
-	<class>jacklow.model.BalancesEmpresa</class>
     	 
         <properties> 
 	    <property name="hibernate.archive.autodetection" value="class"/>        
