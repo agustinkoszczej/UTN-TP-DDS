@@ -1,11 +1,10 @@
 package ar.edu.utn.frba.dds.modelo;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 
 import org.uqbar.commons.utils.Observable;
 
@@ -21,12 +20,16 @@ public class Balance {
 	private String balance_periodo;
 	@JsonProperty("frecuencia")
 	//@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+	@Enumerated(EnumType.STRING)
 	private Frecuencia balance_frecuencia;
 	@JsonProperty("tipoCuenta") 
 	//@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+	@Enumerated(EnumType.STRING)
 	private TipoDeCuenta balance_tipoCuenta;
 	@JsonProperty("valor")
 	private Double balance_valor;
+
+	private int balance_empresa;
 
 	public Balance() {
 		super();

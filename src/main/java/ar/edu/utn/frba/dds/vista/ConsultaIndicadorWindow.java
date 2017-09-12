@@ -66,14 +66,14 @@ public class ConsultaIndicadorWindow extends SimpleWindow<IndicadorViewModel> {
 		
 		Selector<Empresa> selectorEmpresa = new Selector<Empresa>(form).allowNull(true);
 		selectorEmpresa.bindValueToProperty("empresaSeleccionada");
-		selectorEmpresa.bindItemsToProperty("empresas").adaptWith(Empresa.class, "nombre");
+		selectorEmpresa.bindItemsToProperty("empresas").adaptWith(Empresa.class, "empresa_nombre");
 		selectorEmpresa.setWidth(280);
 		
 		new Label(form).setText("Periodo");
 		
 		Selector<Balance> selectorPeriodo = new Selector<Balance>(form).allowNull(true);
 		selectorPeriodo.bindValueToProperty("balanceSeleccionado");
-		selectorPeriodo.bindItemsToProperty("balancesEmpresaSeleccionada").adaptWith(Balance.class, "periodo");
+		selectorPeriodo.bindItemsToProperty("balancesEmpresaSeleccionada").adaptWith(Balance.class, "balance_periodo");
 		selectorPeriodo.setWidth(280);
 		
 		new Label(form).setText("Indicador");

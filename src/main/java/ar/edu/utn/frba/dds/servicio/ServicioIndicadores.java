@@ -28,8 +28,13 @@ public class ServicioIndicadores {
 	}
 	
 	public List<Indicador> obtenerIndicadores() {
-		String jsonIndicadores = null;
+		String jsonIndicadores = null;		
+		BaseDeDatos db = new BaseDeDatos();
+		if(!db.isBdEnabled()){
 		jsonIndicadores = servidor.obtenerJson(JSONFile);
+		}else{
+			//jsonIndicadores = db.obtenerJson();
+		}
 		return conversorJson.mapearIndicadores(jsonIndicadores);
 	}
 	

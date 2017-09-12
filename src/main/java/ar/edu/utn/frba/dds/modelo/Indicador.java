@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
@@ -15,7 +16,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import ar.edu.utn.frba.dds.expresion.Expresion;
 
-@Observable
+@Observable @Entity
 @JsonIgnoreProperties(value = { "changeSupport" })
 public class Indicador {
 	
@@ -33,7 +34,7 @@ public class Indicador {
 		this.expresion = expresion;
 		this.indicadoresCorruptos = new ArrayList<Indicador>();
 	}
-
+	
 	private String nombreIndicador;
 	private Expresion expresion;
 	private List<Indicador> indicadoresCorruptos;
