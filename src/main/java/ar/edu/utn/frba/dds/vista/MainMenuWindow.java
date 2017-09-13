@@ -11,6 +11,7 @@ import ar.edu.utn.frba.dds.controlador.CuentaViewModel;
 import ar.edu.utn.frba.dds.controlador.MetodologiaViewModel;
 import ar.edu.utn.frba.dds.servicio.ServicioCuentas;
 import ar.edu.utn.frba.dds.servicio.ServicioIndicadores;
+import ar.edu.utn.frba.dds.util.BaseDeDatos;
 
 public class MainMenuWindow<T> extends SimpleWindow<T> {
 
@@ -18,7 +19,7 @@ public class MainMenuWindow<T> extends SimpleWindow<T> {
 	@SuppressWarnings("unchecked")
 	public MainMenuWindow(WindowOwner parent) {
 		super(parent, (T) new Object());
-		servicioCuentas = new ServicioCuentas();
+		servicioCuentas = new ServicioCuentas(new BaseDeDatos());
 	}
 
 	@Override
@@ -49,7 +50,7 @@ public class MainMenuWindow<T> extends SimpleWindow<T> {
 	}
 
 	public void consultarIndicadores() {
-		ServicioIndicadores servicioIndicadores = new ServicioIndicadores();
+		ServicioIndicadores servicioIndicadores = new ServicioIndicadores(new BaseDeDatos());
 		ConsultaIndicadorWindow dialog = new ConsultaIndicadorWindow(this, servicioCuentas, servicioIndicadores);
 		dialog.open();
 	}
@@ -60,7 +61,7 @@ public class MainMenuWindow<T> extends SimpleWindow<T> {
 	}
 	
 	public void consultarMetodologias() {
-		ConsultaMetodologiaWindow dialog = new ConsultaMetodologiaWindow(this, new MetodologiaViewModel(servicioCuentas, new ServicioIndicadores()));
+		ConsultaMetodologiaWindow dialog = new ConsultaMetodologiaWindow(this, new MetodologiaViewModel(servicioCuentas, new ServicioIndicadores(new BaseDeDatos())));
 
 		dialog.open();
 	}

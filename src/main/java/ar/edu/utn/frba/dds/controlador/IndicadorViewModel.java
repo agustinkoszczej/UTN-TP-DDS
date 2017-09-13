@@ -14,6 +14,7 @@ import ar.edu.utn.frba.dds.modelo.Indicador;
 import ar.edu.utn.frba.dds.modelo.RepositorioIndicadores;
 import ar.edu.utn.frba.dds.servicio.ServicioCuentas;
 import ar.edu.utn.frba.dds.servicio.ServicioIndicadores;
+import ar.edu.utn.frba.dds.util.BaseDeDatos;
 import ar.edu.utn.frba.dds.util.ExpressionParser;
 
 @Observable
@@ -133,7 +134,7 @@ public IndicadorViewModel(ServicioCuentas servicioCuentas, ServicioIndicadores s
 				Expresion expresion = parser.buildExpressionFrom(cadenaIndicadorAIngresar);
 				Indicador ind = new Indicador(nombreIndicadorAIngresar, expresion);
 				RepositorioIndicadores.agregarYguardarIndicador(ind);
-				this.indicadores = new ServicioIndicadores().obtenerIndicadores();
+				this.indicadores = new ServicioIndicadores(new BaseDeDatos()).obtenerIndicadores();
 			} catch (Exception e) {
 				JOptionPane.showMessageDialog(null,"ERROR al cargar indicador"); 
 				//e.printStackTrace();

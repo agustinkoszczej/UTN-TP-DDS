@@ -10,9 +10,9 @@ import org.uqbar.arena.windows.SimpleWindow;
 import org.uqbar.arena.windows.WindowOwner;
 import ar.edu.utn.frba.dds.controlador.IndicadorViewModel;
 
-public class IngresoIndicadorWindow extends SimpleWindow<IndicadorViewModel> {
+public class AgregarIndicadorWindow extends SimpleWindow<IndicadorViewModel> {
 	
-	public IngresoIndicadorWindow(WindowOwner parent, IndicadorViewModel model) {
+	public AgregarIndicadorWindow(WindowOwner parent, IndicadorViewModel model) {
 		super(parent, model);
 	}
 
@@ -24,8 +24,6 @@ public class IngresoIndicadorWindow extends SimpleWindow<IndicadorViewModel> {
 	}
 	
 	private void guardarExpresionRegular() {
-		//no hace nada aun
-		// Se comento porque sigue sin hacer nada
 		getModel().getSource().guardarIndicador();
 		this.close();
 	}

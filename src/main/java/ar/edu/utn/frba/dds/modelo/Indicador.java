@@ -21,8 +21,10 @@ import ar.edu.utn.frba.dds.expresion.Expresion;
 @Observable @Entity
 @JsonIgnoreProperties(value = { "changeSupport" })
 public class Indicador {
-
-	@Column(name="indicador_nombre") @Id
+	@Id @GeneratedValue
+	private int indicador_id;
+	
+	@Column(name="indicador_nombre")
 	private String nombreIndicador;
 	@Transient
 	private Expresion expresion;
@@ -126,6 +128,10 @@ public class Indicador {
 
 	public void setIndicador_expresion(String indicador_expresion) {
 		this.indicador_expresion = indicador_expresion;
+	}
+	
+	public void inicializarIndicadoresCorruptos(){
+		this.indicadoresCorruptos = new ArrayList<Indicador>();
 	}
 	
 }

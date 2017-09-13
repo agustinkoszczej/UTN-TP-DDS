@@ -6,10 +6,11 @@ import java.util.stream.Collectors;
 
 import ar.edu.utn.frba.dds.metodologia.Condicion;
 import ar.edu.utn.frba.dds.servicio.ServicioCondiciones;
+import ar.edu.utn.frba.dds.util.BaseDeDatos;
 
 public class RepositorioCondiciones {
 	private static RepositorioCondiciones repositorioCondiciones = null;
-	private static ServicioCondiciones servicioCondiciones = new ServicioCondiciones();
+	private static ServicioCondiciones servicioCondiciones = new ServicioCondiciones(new BaseDeDatos());
 	private static List<Condicion> condiciones;
 	
 	private RepositorioCondiciones() { }

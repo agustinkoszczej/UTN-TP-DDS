@@ -12,8 +12,10 @@ public class ServicioCuentas {
 	private ServidorDeConsultas unServidorParaConsultar;
 	private ConversorJson unConversorDeCuentas;
 	
-	public ServicioCuentas() {
-		BaseDeDatos db = new BaseDeDatos();
+	private BaseDeDatos db;
+	
+	public ServicioCuentas(BaseDeDatos base) {
+		this.db = base;
 		if(!db.isBdEnabled()){
 			// Inicializo el conversor
 			unConversorDeCuentas = new ConversorJson();
@@ -23,7 +25,6 @@ public class ServicioCuentas {
 	}
 	
 	public List<Empresa> obtenerEmpresas() {
-		BaseDeDatos db = new BaseDeDatos();
 		if(!db.isBdEnabled()){
 		String jsonCuentas = unServidorParaConsultar.obtenerDatosDeCuentas();
 		return unConversorDeCuentas.mapearEmpresas(jsonCuentas);

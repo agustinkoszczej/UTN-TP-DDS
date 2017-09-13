@@ -13,6 +13,7 @@ import ar.edu.utn.frba.dds.modelo.Empresa;
 import ar.edu.utn.frba.dds.modelo.Frecuencia;
 import ar.edu.utn.frba.dds.modelo.TipoDeCuenta;
 import ar.edu.utn.frba.dds.servicio.ServicioCuentas;
+import ar.edu.utn.frba.dds.util.BaseDeDatos;
 
 public class EmpresaTest {
 	//El delta es para comprar doubles (es el margen de diferencia entre cada valor)
@@ -23,7 +24,7 @@ public class EmpresaTest {
 	
 	@Before
 	public void init() {
-		serv = new ServicioCuentas();
+		serv = new ServicioCuentas(new BaseDeDatos());
 		empresas = new ArrayList<Empresa>();	
 		empresas = serv.obtenerEmpresas();
 		

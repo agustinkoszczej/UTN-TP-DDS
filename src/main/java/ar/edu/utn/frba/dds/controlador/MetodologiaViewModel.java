@@ -15,6 +15,7 @@ import ar.edu.utn.frba.dds.servicio.ServicioCondiciones;
 import ar.edu.utn.frba.dds.servicio.ServicioCuentas;
 import ar.edu.utn.frba.dds.servicio.ServicioIndicadores;
 import ar.edu.utn.frba.dds.servicio.ServicioMetodologias;
+import ar.edu.utn.frba.dds.util.BaseDeDatos;
 
 @Observable
 public class MetodologiaViewModel{
@@ -75,7 +76,7 @@ public class MetodologiaViewModel{
 
 	public List<Condicion> getCondicionesTotales() {
 		//Tiene que traer todas las condiciones que existan en el programa (x json o repo)
-		return new ServicioCondiciones().obtenerCondiciones();
+		return new ServicioCondiciones(new BaseDeDatos()).obtenerCondiciones();
 	}
 
 	public void setCondicionesTotales(List<Condicion> condicionesTotales) {
@@ -123,7 +124,7 @@ public class MetodologiaViewModel{
 	}
 
 	public void aplicarMetodologia() {
-		List<Empresa> empresas = new ServicioCuentas().obtenerEmpresas();
+		List<Empresa> empresas = new ServicioCuentas(new BaseDeDatos()).obtenerEmpresas();
 		empresasOrdenadas = metodologiaSeleccionada.aplicar(empresas);
 	}
 }

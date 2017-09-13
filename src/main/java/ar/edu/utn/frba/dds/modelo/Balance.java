@@ -35,16 +35,13 @@ public class Balance {
 		super();
 	}
 	
-	
 	public int getBalance_id() {
 		return balance_id;
 	}
 
-
 	public void setBalance_id(int balance_id) {
 		this.balance_id = balance_id;
 	}
-
 
 	public String getBalance_periodo() {
 		return balance_periodo;

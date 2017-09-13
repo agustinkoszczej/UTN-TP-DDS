@@ -51,21 +51,22 @@ INSERT INTO Balance (balance_periodo, balance_frecuencia, balance_tipoCuenta, ba
 
 /*Indicador*/
 CREATE TABLE Indicador (
+indicador_id INT NOT NULL AUTO_INCREMENT,
 indicador_nombre VARCHAR (50) NOT NULL,
 indicador_expresion VARCHAR(100),
 PRIMARY KEY(indicador_nombre));
 
 
 INSERT INTO Indicador (indicador_nombre, indicador_expresion) 
-			VALUES('pep', '5');
+			VALUES('pep', '5'); /*id=1*/
 INSERT INTO Indicador (indicador_nombre, indicador_expresion) 
-			VALUES('juli', 'pepe*2');
+			VALUES('juli', 'pep*2'); /*id=2*/
 INSERT INTO Indicador (indicador_nombre, indicador_expresion) 
-			VALUES('ROE','IngresoNetoOperacionesContinuas');
-INSERT INTO Indicador (indicador_nombre, indicador_expresion);
-			VALUES('ROE','IngresoNetoOperacionesContinuas');
+			VALUES('IngresoNetoOperacionesContinuas','IngresoNetoOperacionesContinuas'); /*id=3*/
+INSERT INTO Indicador (indicador_nombre, indicador_expresion)
+			VALUES('ROE','IngresoNetoOperacionesContinuas'); /*id=4*/
 INSERT INTO Indicador (indicador_nombre, indicador_expresion) 
-			VALUES('EBITDAAA','EBITDA');
+			VALUES('EBITDAAA','EBITDA'); /*id=5*/
 
 
 /*ENTREGA 3*/

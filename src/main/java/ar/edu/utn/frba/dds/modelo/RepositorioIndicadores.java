@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 import javax.swing.JOptionPane;
 
 import ar.edu.utn.frba.dds.servicio.ServicioIndicadores;
+import ar.edu.utn.frba.dds.util.BaseDeDatos;
 
 public class RepositorioIndicadores {
 	
@@ -46,6 +47,6 @@ public class RepositorioIndicadores {
 			JOptionPane.showMessageDialog(null,"Se sobrescribira el indicador"); 
 		}	
 		agregarIndicador(in);
-		new ServicioIndicadores().guardarIndicador(in);
+		new ServicioIndicadores(new BaseDeDatos()).guardarIndicador(in);
 	}
 }

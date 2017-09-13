@@ -16,16 +16,18 @@ public class ServicioCondiciones {
 	private File JSONFile = new File("condiciones.json");
 	private ServidorDeConsultas unServidorParaConsultar;
 	private ConversorJson unConversorDeCondiciones;
-
+	
+	private BaseDeDatos db;
+	
 	public ServicioCondiciones(String fileName) {
 		JSONFile = new File(fileName);
 		unConversorDeCondiciones = new ConversorJson();
 		unServidorParaConsultar = new ServidorDeConsultas();
 	}
 
-	public ServicioCondiciones() {
+	public ServicioCondiciones(BaseDeDatos base) {
 		// Inicializo el conversor
-		BaseDeDatos db = new BaseDeDatos();
+		this.db = base;
 		if(!db.isBdEnabled()){
 			unConversorDeCondiciones = new ConversorJson();
 		// Inicializo el servidor de consultas para leer los datos JSON

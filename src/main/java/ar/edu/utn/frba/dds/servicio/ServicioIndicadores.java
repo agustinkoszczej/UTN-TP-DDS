@@ -4,6 +4,10 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+import javax.persistence.EntityTransaction;
+
+import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import ar.edu.utn.frba.dds.modelo.Indicador;
@@ -17,9 +21,11 @@ public class ServicioIndicadores {
 
 	private File JSONFile = new File("indicadores.json");
 	
-	public ServicioIndicadores() {
+	private BaseDeDatos db;
+	
+	public ServicioIndicadores(BaseDeDatos base) {
 		// Inicializo el conversor
-		BaseDeDatos db = new BaseDeDatos();
+		this.db = base;
 		if(!db.isBdEnabled()){
 			conversorJson = new ConversorJson();
 			// Inicializo el servidor de consultas para leer los datos JSON
@@ -28,8 +34,6 @@ public class ServicioIndicadores {
 	}
 	
 	public List<Indicador> obtenerIndicadores() {
-			
-		BaseDeDatos db = new BaseDeDatos();
 		if(!db.isBdEnabled()){
 			String jsonIndicadores = null;	
 		jsonIndicadores = servidor.obtenerJson(JSONFile);
@@ -48,6 +52,16 @@ public class ServicioIndicadores {
 			indicadoresActuales.remove(indicador);
 		
 		indicadoresActuales.add(indicador);
-		mapper.writeValue(JSONFile, indicadoresActuales);
+		
+		if(!db.isBdEnabled()){
+			mapper.writeValue(JSONFile, indicadoresActuales);
+		} else{
+			indicador.setIndicador_expresion(indicador.formula());
+			EntityTransaction tx = PerThreadEntityManagers.getEntityManager().getTransaction();
+			tx.begin();
+			Indicador ind = indicador;
+			db.getEntityManager().persist(ind);
+			tx.commit();
+		}
 	}	
 }

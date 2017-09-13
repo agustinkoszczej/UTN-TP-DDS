@@ -43,7 +43,7 @@ public class ConsultaIndicadorWindow extends SimpleWindow<IndicadorViewModel> {
 	}
 
 	public void ingresarIndicador() {
-		IngresoIndicadorWindow dialog = new IngresoIndicadorWindow(this, getModel().getSource());
+		AgregarIndicadorWindow dialog = new AgregarIndicadorWindow(this, getModel().getSource());
 		getModel().getSource().limpiarIngreso();	
 		dialog.open();
 	}
