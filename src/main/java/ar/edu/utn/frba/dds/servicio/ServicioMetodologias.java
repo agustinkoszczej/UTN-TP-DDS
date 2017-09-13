@@ -25,7 +25,7 @@ public class ServicioMetodologias {
 	
 	public ServicioMetodologias() {
 		BaseDeDatos db = new BaseDeDatos();
-		if(db.isBdEnabled()){
+		if(!db.isBdEnabled()){
 			unConversorDeMetodologias = new ConversorJson();
 			unServidorParaConsultar = new ServidorDeConsultas();
 		}

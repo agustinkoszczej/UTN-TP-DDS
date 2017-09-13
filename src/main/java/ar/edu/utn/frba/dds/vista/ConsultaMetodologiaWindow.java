@@ -83,6 +83,6 @@ public class ConsultaMetodologiaWindow extends SimpleWindow<MetodologiaViewModel
 	
 		Column<Empresa> columnaEmpresa = new Column<Empresa>(empresasMetodologia);
 		columnaEmpresa.setTitle("nombre");
-		columnaEmpresa.bindContentsToProperty("nombre");
+		columnaEmpresa.bindContentsToProperty("empresa_nombre");
 	}
 }

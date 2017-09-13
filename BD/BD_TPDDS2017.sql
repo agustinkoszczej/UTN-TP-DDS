@@ -54,7 +54,7 @@ CREATE TABLE Indicador (
 indicador_id INT NOT NULL AUTO_INCREMENT,
 indicador_nombre VARCHAR (50) NOT NULL,
 indicador_expresion VARCHAR(100),
-PRIMARY KEY(indicador_nombre));
+PRIMARY KEY(indicador_id));
 
 
 INSERT INTO Indicador (indicador_nombre, indicador_expresion) 
