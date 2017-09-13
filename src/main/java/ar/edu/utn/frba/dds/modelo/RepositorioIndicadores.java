@@ -12,14 +12,14 @@ import ar.edu.utn.frba.dds.servicio.ServicioIndicadores;
 
 public class RepositorioIndicadores {
 	
-	public static void CargarYValidarIndicadores(){
+	/*public static void CargarYValidarIndicadores(){
 		indicadores = new ServicioIndicadores().obtenerIndicadores();
 		indicadores.stream().forEach(indicador -> indicador.validarYActualizarVariables(indicadores.stream().collect(Collectors.toList())));
 	}
 	
 	public void setIndicadores(List<Indicador> indicadores){
 		RepositorioIndicadores.indicadores = indicadores;
-	}
+	}*/
 	
 	public static Collection<Indicador> indicadores = new ArrayList<Indicador>();
 	
@@ -35,7 +35,7 @@ public class RepositorioIndicadores {
 		}
 	}
 	
-	private static void agregarIndicador(Indicador in){
+	public static void agregarIndicador(Indicador in){
 		indicadores.add(in);
 	}
 

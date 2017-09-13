@@ -8,10 +8,9 @@
     <persistence-unit name="db" transaction-type="RESOURCE_LOCAL">
     	<provider>org.hibernate.ejb.HibernatePersistence</provider>
     	
-    	<class>jacklow.model.TipoCuenta</class>
-	<class>jacklow.model.Frecuencia</class>
 	<class>jacklow.model.Empresa</class>
 	<class>jacklow.model.Balance</class>
+	<class>jacklow.model.Indicador</class>
     	 
         <properties> 
 	    <property name="hibernate.archive.autodetection" value="class"/>        

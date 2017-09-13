@@ -57,13 +57,15 @@ PRIMARY KEY(indicador_nombre));
 
 
 INSERT INTO Indicador (indicador_nombre, indicador_expresion) 
-			VALUES('pep', '{"expresion":{"@class":".ExpresionConstante","constante":5},"nombreIndicador":"pep"}')
+			VALUES('pep', '5');
 INSERT INTO Indicador (indicador_nombre, indicador_expresion) 
-			VALUES('juli', '{"expresion":{"@class":".ExpresionCompuesta","operando1":{"@class":".ExpresionIndicador","indicador":{"expresion":{"@class":".ExpresionConstante","constante":5},"nombreIndicador":"pep"}},"operando2":{"@class":".ExpresionConstante","constante":2},"op":{"operador":"MULTIPLY"}},"nombreIndicador":"juli"}')
+			VALUES('juli', 'pepe*2');
 INSERT INTO Indicador (indicador_nombre, indicador_expresion) 
-			VALUES('ROE','{"expresion":{"@class":".ExpresionCuenta","cuenta":"IngresoNetoOperacionesContinuas"},"nombreIndicador":"ROE"}')
+			VALUES('ROE','IngresoNetoOperacionesContinuas');
+INSERT INTO Indicador (indicador_nombre, indicador_expresion);
+			VALUES('ROE','IngresoNetoOperacionesContinuas');
 INSERT INTO Indicador (indicador_nombre, indicador_expresion) 
-			VALUES('EBITDAAA','{"expresion":{"@class":".ExpresionCuenta","cuenta":"EBITDA"},"nombreIndicador":"EBITDAAA"}')
+			VALUES('EBITDAAA','EBITDA');
 
 
 /*ENTREGA 3*/

@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 
 import org.uqbar.commons.utils.Observable;
 
@@ -19,14 +21,20 @@ import ar.edu.utn.frba.dds.expresion.Expresion;
 @Observable @Entity
 @JsonIgnoreProperties(value = { "changeSupport" })
 public class Indicador {
+
+	@Column(name="indicador_nombre") @Id
+	private String nombreIndicador;
+	@Transient
+	private Expresion expresion;
+	@Transient
+	private List<Indicador> indicadoresCorruptos;
 	
-	// Se agrego el metodo para generar un indicador vacio
+	//FIXME
+	private String indicador_expresion;
+	
 	public Indicador() {
 		super();
 	}
-
-	@Id	@GeneratedValue
-	private int id;
 	
 	@JsonCreator
 	public Indicador(@JsonProperty("nombre")String nombreIndicador, @JsonProperty("expresion")Expresion expresion){
@@ -34,10 +42,6 @@ public class Indicador {
 		this.expresion = expresion;
 		this.indicadoresCorruptos = new ArrayList<Indicador>();
 	}
-	
-	private String nombreIndicador;
-	private Expresion expresion;
-	private List<Indicador> indicadoresCorruptos;
 	
 	public Integer calcular(Empresa empresa, String periodo) throws Exception{
 		if(!tieneIndicadoresCorruptos())
@@ -115,4 +119,13 @@ public class Indicador {
 	public boolean tieneIndicadoresCorruptos() {
 		return !indicadoresCorruptos.isEmpty();
 	}
+
+	public String getIndicador_expresion() {
+		return indicador_expresion;
+	}
+
+	public void setIndicador_expresion(String indicador_expresion) {
+		this.indicador_expresion = indicador_expresion;
+	}
+	
 }
