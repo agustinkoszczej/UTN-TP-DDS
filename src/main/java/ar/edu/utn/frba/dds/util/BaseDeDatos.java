@@ -74,7 +74,7 @@ public class BaseDeDatos {
 	}
 
 	public List<Condicion> obtenerCondiciones(){
-		//TODO: aca traer las cosas
-		return new ArrayList<Condicion>();
+		List<Condicion> condiciones = entityManager.createQuery("FROM Condicion").getResultList();
+		return condiciones;
 	}
 }
