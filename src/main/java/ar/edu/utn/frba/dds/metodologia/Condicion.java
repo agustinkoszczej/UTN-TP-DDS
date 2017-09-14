@@ -4,17 +4,26 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.OneToOne;
 
 import org.uqbar.commons.utils.Observable;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
 import ar.edu.utn.frba.dds.modelo.Balance;
 import ar.edu.utn.frba.dds.modelo.Empresa;
 import ar.edu.utn.frba.dds.modelo.Indicador;
 
+@Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Observable
 @JsonIgnoreProperties(value = { "changeSupport", "nombreClaseCondicion" })
 @JsonTypeInfo(
@@ -23,17 +32,22 @@ import ar.edu.utn.frba.dds.modelo.Indicador;
 	    property = "claseCondicion")
 public abstract class Condicion {
 	
-	@Id	@GeneratedValue
+	@Id	//@GeneratedValue
 	private int id;
 	
+	@Column
 	@JsonProperty("nombreCondicion")
 	protected String nombreCondicion;
+	@OneToOne
 	@JsonProperty("comparador")
 	protected Comparador comparador;
+	@OneToOne
 	@JsonProperty("indicador")
 	protected Indicador indicador;
+	@Column
 	@JsonProperty("inicioPeriodo")
 	protected String inicioPeriodo; //tambien usado como periodo cuando es uno solo
+	@Column
 	@JsonProperty("finPeriodo")
 	protected String finPeriodo;
 

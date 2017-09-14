@@ -2,11 +2,15 @@ package ar.edu.utn.frba.dds.metodologia;
 
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+
 import ar.edu.utn.frba.dds.modelo.Balance;
 import ar.edu.utn.frba.dds.modelo.Empresa;
 
+@Entity
 public class CondicionCompararValor extends CondicionTaxativa {
-
+	@Column
 	private double valorSuperar;
 	
 	@Override

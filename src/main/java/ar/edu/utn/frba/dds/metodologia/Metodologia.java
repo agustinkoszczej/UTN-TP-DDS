@@ -4,8 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 import org.uqbar.commons.utils.Observable;
 
@@ -18,6 +21,7 @@ import ar.edu.utn.frba.dds.util.BaseDeDatos;
 
 @Observable
 @JsonIgnoreProperties(value = { "changeSupport", "claseCondicion" })
+@Entity
 public class Metodologia {
 
 	@Id	@GeneratedValue
@@ -34,8 +38,10 @@ public class Metodologia {
 	private int contador; // la unica forma que encontre para que no rompa la funcion aplicaCondicionesComparativas
 	// TODO ver si se puede poner local sin que sea un final
 	@JsonProperty("nombre")
+	@Column
 	protected String nombre;
 	@JsonProperty("condiciones")
+	@OneToMany
 	protected List<Condicion> condiciones;
 
 	public Metodologia() {

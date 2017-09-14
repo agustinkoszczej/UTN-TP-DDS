@@ -1,13 +1,19 @@
 package ar.edu.utn.frba.dds.metodologia;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+
 import org.uqbar.commons.utils.Observable;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import ar.edu.utn.frba.dds.modelo.Empresa;
 
+@Entity
 @Observable
 public abstract class CondicionComparativa extends Condicion {
+	
+	@Column
 	@JsonProperty("peso")
 	private int peso = 1;
 	

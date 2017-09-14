@@ -1,5 +1,6 @@
 package ar.edu.utn.frba.dds.util;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -7,13 +8,14 @@ import javax.persistence.EntityManager;
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import ar.edu.utn.frba.dds.expresion.Expresion;
+import ar.edu.utn.frba.dds.metodologia.Metodologia;
 import ar.edu.utn.frba.dds.modelo.Empresa;
 import ar.edu.utn.frba.dds.modelo.Indicador;
 import ar.edu.utn.frba.dds.modelo.RepositorioIndicadores;
 
 public class BaseDeDatos {
 
-	private static boolean bdEnabled = false; //Cambiar atributo a False si se quiere cargar desde JSON
+	private static boolean bdEnabled = true; //Cambiar atributo a False si se quiere cargar desde JSON
 	private EntityManager entityManager;
 	
 	public BaseDeDatos (){
@@ -64,5 +66,9 @@ public class BaseDeDatos {
 			}
 		}
 		return indicadores;
+	}
+	public List<Metodologia> obtenerMetodologias(){
+		//TODO: aca traer las cosas 
+		return new ArrayList<Metodologia>();
 	}
 }

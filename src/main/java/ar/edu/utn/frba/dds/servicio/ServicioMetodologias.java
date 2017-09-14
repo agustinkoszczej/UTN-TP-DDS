@@ -16,7 +16,8 @@ public class ServicioMetodologias {
 	private File JSONFile = new File("metodologias.json");
 	private ServidorDeConsultas unServidorParaConsultar;
 	private ConversorJson unConversorDeMetodologias;
-
+	private BaseDeDatos db;
+	
 	public ServicioMetodologias(String archivoJSON) {
 		JSONFile = new File(archivoJSON);
 		unConversorDeMetodologias = new ConversorJson();
@@ -24,7 +25,7 @@ public class ServicioMetodologias {
 	}
 	
 	public ServicioMetodologias() {
-		BaseDeDatos db = new BaseDeDatos();
+		this.db = new BaseDeDatos();
 		if(!db.isBdEnabled()){
 			unConversorDeMetodologias = new ConversorJson();
 			unServidorParaConsultar = new ServidorDeConsultas();
@@ -32,11 +33,14 @@ public class ServicioMetodologias {
 	}
 	
 	public List<Metodologia> obtenerMetodologias() {
-		String jsonMetodologias = unServidorParaConsultar.obtenerJson(JSONFile);
-		if ((jsonMetodologias == null) || jsonMetodologias.isEmpty()) 
-			return new ArrayList<Metodologia>();
-		else
-			return unConversorDeMetodologias.mapearMetodologias(jsonMetodologias);
+		if(!db.isBdEnabled()){
+			String jsonMetodologias = unServidorParaConsultar.obtenerJson(JSONFile);
+			if ((jsonMetodologias == null) || jsonMetodologias.isEmpty()) 
+				return new ArrayList<Metodologia>();
+			else
+				return unConversorDeMetodologias.mapearMetodologias(jsonMetodologias);
+		}
+		return db.obtenerMetodologias();
 	}
 	
 	public void guardarMetodologia(Metodologia unaMetodologia) throws IOException{

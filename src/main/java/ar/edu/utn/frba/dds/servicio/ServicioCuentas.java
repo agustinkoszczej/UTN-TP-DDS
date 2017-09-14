@@ -26,8 +26,8 @@ public class ServicioCuentas {
 	
 	public List<Empresa> obtenerEmpresas() {
 		if(!db.isBdEnabled()){
-		String jsonCuentas = unServidorParaConsultar.obtenerDatosDeCuentas();
-		return unConversorDeCuentas.mapearEmpresas(jsonCuentas);
+			String jsonCuentas = unServidorParaConsultar.obtenerDatosDeCuentas();
+			return unConversorDeCuentas.mapearEmpresas(jsonCuentas);
 		}
 		return db.obtenerEmpresas();
 	}

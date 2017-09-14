@@ -1,10 +1,17 @@
 package ar.edu.utn.frba.dds.metodologia;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.OneToOne;
+
 import ar.edu.utn.frba.dds.modelo.Empresa;
 
+@Entity
 public class CondicionGeneral extends CondicionTaxativa {
 
+	@OneToOne
 	private TipoOperacion tipoOperacion;
+	@Column
 	private double valorASuperar;
 	
 

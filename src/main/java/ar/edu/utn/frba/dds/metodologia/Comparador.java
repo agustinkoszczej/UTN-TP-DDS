@@ -1,16 +1,30 @@
 package ar.edu.utn.frba.dds.metodologia;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+
 import org.uqbar.commons.utils.Observable;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+@Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Observable
 @JsonIgnoreProperties(value = { "changeSupport" })
 public class Comparador {
 	
+	@Id	@GeneratedValue
+	private int id;
+	
 	public enum Comparadores {MAYOR, MENOR, IGUAL, MAYOREIGUAL, MENOREIGUAL};
 	
+	@Column
 	public Comparadores comparador;
+	@Column
 	public String nombre;
 	
 	public Comparadores getComparador() {

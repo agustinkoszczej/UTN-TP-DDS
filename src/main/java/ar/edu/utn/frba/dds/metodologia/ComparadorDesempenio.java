@@ -1,10 +1,12 @@
 package ar.edu.utn.frba.dds.metodologia;
 
+import javax.persistence.Entity;
+
 import ar.edu.utn.frba.dds.modelo.Balance;
 import ar.edu.utn.frba.dds.modelo.Empresa;
-public class ComparadorDesempenio extends CondicionComparativa{
 
-	
+@Entity
+public class ComparadorDesempenio extends CondicionComparativa{
 	public Empresa cualEmpresaInvertir(Empresa emp1, Empresa emp2) {
 	
 		double valorEmpresa1 = 0;

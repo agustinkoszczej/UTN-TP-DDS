@@ -4,16 +4,27 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
 import org.uqbar.commons.utils.Observable;
 
 import ar.edu.utn.frba.dds.modelo.Empresa;
 
+@Entity
 @Observable
 public class TipoOperacion {
 	
+	@Id	@GeneratedValue
+	private int id;
+	
 	public enum Operaciones {PROMEDIO, MEDIANA, SUMATORIA};
 	
+	@Column
 	public Operaciones tipoOperacion;
+	@Column
 	public String nombre;
 	
 	public Operaciones getTipoOperacion() {
