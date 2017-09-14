@@ -16,7 +16,6 @@ public class ServicioCondiciones {
 	private File JSONFile = new File("condiciones.json");
 	private ServidorDeConsultas unServidorParaConsultar;
 	private ConversorJson unConversorDeCondiciones;
-	
 	private BaseDeDatos db;
 	
 	public ServicioCondiciones(String fileName) {
@@ -36,11 +35,14 @@ public class ServicioCondiciones {
 	}
 	
 	public List<Condicion> obtenerCondiciones() {
-		String jsonCondiciones = unServidorParaConsultar.obtenerJson(JSONFile);
-		if ((jsonCondiciones == null) || jsonCondiciones.isEmpty()) 
-			return new ArrayList<Condicion>();
-		else
-			return unConversorDeCondiciones.mapearCondiciones(jsonCondiciones);
+		if(!db.isBdEnabled()){
+			String jsonCondiciones = unServidorParaConsultar.obtenerJson(JSONFile);
+			if ((jsonCondiciones == null) || jsonCondiciones.isEmpty())
+				return new ArrayList<Condicion>();
+			else
+				return unConversorDeCondiciones.mapearCondiciones(jsonCondiciones);
+		}
+		return db.obtenerCondiciones();
 	}
 	
 	public void guardarCondicion(Condicion unaCondicion) throws IOException{

@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
+import ar.edu.utn.frba.dds.metodologia.Condicion;
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import ar.edu.utn.frba.dds.expresion.Expresion;
@@ -70,5 +71,10 @@ public class BaseDeDatos {
 	public List<Metodologia> obtenerMetodologias(){
 		//TODO: aca traer las cosas 
 		return new ArrayList<Metodologia>();
+	}
+
+	public List<Condicion> obtenerCondiciones(){
+		//TODO: aca traer las cosas
+		return new ArrayList<Condicion>();
 	}
 }
