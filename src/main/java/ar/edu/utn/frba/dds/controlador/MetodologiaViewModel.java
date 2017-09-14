@@ -76,7 +76,7 @@ public class MetodologiaViewModel{
 
 	public List<Condicion> getCondicionesTotales() {
 		//Tiene que traer todas las condiciones que existan en el programa (x json o repo)
-		return new ServicioCondiciones(new BaseDeDatos()).obtenerCondiciones();
+		return new ServicioCondiciones().obtenerCondiciones();
 	}
 
 	public void setCondicionesTotales(List<Condicion> condicionesTotales) {

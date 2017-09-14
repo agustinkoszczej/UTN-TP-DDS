@@ -5,9 +5,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.EntityTransaction;
+
+import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import ar.edu.utn.frba.dds.metodologia.Condicion;
+import ar.edu.utn.frba.dds.metodologia.Metodologia;
 import ar.edu.utn.frba.dds.util.BaseDeDatos;
 import ar.edu.utn.frba.dds.util.ConversorJson;
 import ar.edu.utn.frba.dds.util.ServidorDeConsultas;
@@ -24,9 +29,9 @@ public class ServicioCondiciones {
 		unServidorParaConsultar = new ServidorDeConsultas();
 	}
 
-	public ServicioCondiciones(BaseDeDatos base) {
+	public ServicioCondiciones() {
 		// Inicializo el conversor
-		this.db = base;
+		this.db = new BaseDeDatos();
 		if(!db.isBdEnabled()){
 			unConversorDeCondiciones = new ConversorJson();
 		// Inicializo el servidor de consultas para leer los datos JSON
@@ -46,13 +51,21 @@ public class ServicioCondiciones {
 	}
 	
 	public void guardarCondicion(Condicion unaCondicion) throws IOException{
-		ObjectMapper mapper = new ObjectMapper();
-		List<Condicion> condiciones = obtenerCondiciones();
-
-		if(condiciones.contains(unaCondicion))
-			condiciones.remove(unaCondicion);
-		
-		condiciones.add(unaCondicion);
-		mapper.writeValue(JSONFile, condiciones);
+		if(!db.isBdEnabled()){
+			ObjectMapper mapper = new ObjectMapper();
+			List<Condicion> condiciones = obtenerCondiciones();
+	
+			if(condiciones.contains(unaCondicion))
+				condiciones.remove(unaCondicion);
+			
+			condiciones.add(unaCondicion);
+			mapper.writeValue(JSONFile, condiciones);
+		}else{
+			EntityTransaction tx = PerThreadEntityManagers.getEntityManager().getTransaction();
+			tx.begin();
+			Condicion unaCondi = unaCondicion;
+			db.getEntityManager().persist(unaCondi);
+			tx.commit();
+		}
 	}
 }

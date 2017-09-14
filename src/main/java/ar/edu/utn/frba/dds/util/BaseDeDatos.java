@@ -69,8 +69,8 @@ public class BaseDeDatos {
 		return indicadores;
 	}
 	public List<Metodologia> obtenerMetodologias(){
-		//TODO: aca traer las cosas 
-		return new ArrayList<Metodologia>();
+		List<Metodologia> metodologias = entityManager.createQuery("FROM Metodologia").getResultList(); 
+		return metodologias;
 	}
 
 	public List<Condicion> obtenerCondiciones(){

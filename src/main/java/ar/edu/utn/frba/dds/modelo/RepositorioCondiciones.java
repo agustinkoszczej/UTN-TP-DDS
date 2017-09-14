@@ -10,7 +10,7 @@ import ar.edu.utn.frba.dds.util.BaseDeDatos;
 
 public class RepositorioCondiciones {
 	private static RepositorioCondiciones repositorioCondiciones = null;
-	private static ServicioCondiciones servicioCondiciones = new ServicioCondiciones(new BaseDeDatos());
+	private static ServicioCondiciones servicioCondiciones = new ServicioCondiciones();
 	private static List<Condicion> condiciones;
 	
 	private RepositorioCondiciones() { }

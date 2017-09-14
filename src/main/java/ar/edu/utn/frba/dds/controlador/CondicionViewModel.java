@@ -294,7 +294,7 @@ public CondicionViewModel(MetodologiaViewModel condicionWindow) {
 		
 		//Condicion condicion = builder.devolverCondicion();
 		try {
-			new ServicioCondiciones(new BaseDeDatos()).guardarCondicion(condicion);
+			new ServicioCondiciones().guardarCondicion(condicion);
 			JOptionPane.showMessageDialog(null, "Se creo condicion "+condicion.getNombreClaseCondicion()+": "+condicion.getNombreCondicion());
 		} catch (IOException e) {
 			JOptionPane.showMessageDialog(null, "Error al guardar la condicion");

@@ -4,9 +4,9 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
@@ -23,7 +23,7 @@ import ar.edu.utn.frba.dds.modelo.Empresa;
 import ar.edu.utn.frba.dds.modelo.Indicador;
 
 @Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Observable
 @JsonIgnoreProperties(value = { "changeSupport", "nombreClaseCondicion" })
 @JsonTypeInfo(
@@ -38,7 +38,7 @@ public abstract class Condicion {
 	@Column
 	@JsonProperty("nombreCondicion")
 	protected String nombreCondicion;
-	@OneToOne
+	@OneToOne(cascade = {CascadeType.ALL})
 	@JsonProperty("comparador")
 	protected Comparador comparador;
 	@OneToOne
