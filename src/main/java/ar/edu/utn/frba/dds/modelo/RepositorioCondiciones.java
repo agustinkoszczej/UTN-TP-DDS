@@ -7,6 +7,9 @@ import java.util.stream.Collectors;
 import ar.edu.utn.frba.dds.metodologia.Condicion;
 import ar.edu.utn.frba.dds.servicio.ServicioCondiciones;
 import ar.edu.utn.frba.dds.util.BaseDeDatos;
+import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
+
+import javax.persistence.EntityTransaction;
 
 public class RepositorioCondiciones {
 	private static RepositorioCondiciones repositorioCondiciones = null;
@@ -38,6 +41,7 @@ public class RepositorioCondiciones {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+
 	}
 
 	public Condicion obtenerCondicion(String nombreCondicion) {

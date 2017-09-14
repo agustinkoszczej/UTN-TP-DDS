@@ -6,21 +6,17 @@
     version="1.0"> 
   
     <persistence-unit name="db" transaction-type="RESOURCE_LOCAL">
-    	<provider>org.hibernate.ejb.HibernatePersistence</provider>
-    	
-	<class>jacklow.model.Empresa</class>
-	<class>jacklow.model.Balance</class>
-	<class>jacklow.model.Indicador</class>
-    	 
+    	<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
         <properties> 
 	    <property name="hibernate.archive.autodetection" value="class"/>        
         
             <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" /> 
             <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/TPDDS2017" /> 
             <property name="hibernate.connection.username" value="root" /> 
-            <property name="hibernate.connection.password" value="root"/>
+            <property name="hibernate.connection.password" value="teknoman"/>
 
-            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect" />
 
                             
             <property name="hibernate.show_sql" value="true" /> 

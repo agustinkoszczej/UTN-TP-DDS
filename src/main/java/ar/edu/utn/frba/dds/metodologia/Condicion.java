@@ -4,13 +4,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 import org.uqbar.commons.utils.Observable;
 
@@ -32,7 +26,7 @@ import ar.edu.utn.frba.dds.modelo.Indicador;
 	    property = "claseCondicion")
 public abstract class Condicion {
 	
-	@Id	//@GeneratedValue
+	@Id	@GeneratedValue
 	private int id;
 	
 	@Column
