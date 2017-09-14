@@ -1,14 +1,13 @@
 package ar.edu.utn.frba.dds.util;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 
-import ar.edu.utn.frba.dds.metodologia.Condicion;
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import ar.edu.utn.frba.dds.expresion.Expresion;
+import ar.edu.utn.frba.dds.metodologia.Condicion;
 import ar.edu.utn.frba.dds.metodologia.Metodologia;
 import ar.edu.utn.frba.dds.modelo.Empresa;
 import ar.edu.utn.frba.dds.modelo.Indicador;

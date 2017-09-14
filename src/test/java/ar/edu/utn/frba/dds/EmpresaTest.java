@@ -49,30 +49,22 @@ public class EmpresaTest {
 		double valorBalancesFibertel = 134000000;
 		Assert.assertEquals(empresas.get(1).valorBalances(), valorBalancesFibertel, DELTA);
 	}
-	@Test(expected = Exception.class)
-	public void valorDeBalancesVaciaRompe(){
-		Assert.assertEquals(empresas.get(4).getEmpresa_nombre(), "Vacia");
-		empresas.get(4).valorBalances();
-	}
-	@Test(expected = Exception.class)
-	public void rompeCuandoSeleccionoEmpresaVacia(){
+	@Test
+	public void devuelveCeroCuandoSeleccionoEmpresaVacia(){
 		CuentaViewModel cuentaVM = new CuentaViewModel(serv);
-		Empresa rota = empresas.get(4);
-		Assert.assertEquals(rota.getEmpresa_nombre(), "Vacia");
-		cuentaVM.setEmpresaSeleccionada(rota);
+		Empresa emp = empresas.get(4);
+		Assert.assertEquals(emp.valorBalances(), 0, DELTA);
 	}
 	@Test
 	public void sumaBienAPesarDeSerNegativoUnValorDeLosBalances(){
 		Empresa negativa = empresas.get(3);
-		System.out.println(negativa.getEmpresa_nombre());
 		double valorBalancesNegativos = 5-20;
 		Assert.assertEquals(negativa.valorBalances(), valorBalancesNegativos, DELTA);
-		
 	}
 	
-	@Test(expected = Exception.class)
-	public void rompeCuandoSeObtienenBalancesQueLeFaltaValor(){
-		Empresa empresaRota = new Empresa();
+	@Test
+	public void devuelveCeroCuandoSeObtienenBalancesQueLeFaltaValor(){
+		Empresa empresaCero = new Empresa();
 		Balance balanceNormal = new Balance();
 		Balance balanceSinValor = new Balance();
 		
@@ -91,9 +83,10 @@ public class EmpresaTest {
 		balances.add(balanceNormal);
 		balances.add(balanceSinValor);
 		
-		empresaRota.setEmpresa_nombre("EmpresaRota");
-		empresaRota.setBalances(balances);
-		empresaRota.valorBalances();
+		empresaCero.setEmpresa_nombre("EmpresaCero");
+		empresaCero.setBalances(balances);
+		empresaCero.valorBalances();
+		Assert.assertEquals(empresaCero.valorBalances(), 0, DELTA);
 	}
 	
 }

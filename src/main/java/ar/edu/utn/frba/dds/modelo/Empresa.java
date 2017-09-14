@@ -80,10 +80,16 @@ public class Empresa {
 	}
 
 	public double valorBalances() {
-		return balances
-				.stream()
-				.mapToDouble(cuenta -> cuenta.getBalance_valor())
-				.sum();
+		double result;
+		try{
+			result = balances
+					.stream()
+					.mapToDouble(cuenta -> cuenta.getBalance_valor())
+					.sum();
+		}catch(NullPointerException e){
+			result = 0;
+		}
+		return result; 
 	}
 	
 	public double getAntiguedad() {
