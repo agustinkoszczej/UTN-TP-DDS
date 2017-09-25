@@ -60,7 +60,11 @@ public class Empresa {
 	}
 	
 	public Double valorCuenta(TipoDeCuenta tipoCuenta, String periodo){
+		try{
 		return this.obtenerBalance(tipoCuenta, periodo).getBalance_valor();
+		}catch(NullPointerException e){
+			return (double) 0;
+		}
 	}
 	
 	public String getEmpresa_nombre() {
@@ -103,5 +107,9 @@ public class Empresa {
 		return anioActual - antiguedad;
 		}
 		return 0;
+	}
+	
+	public boolean tieneBalances(){
+		return this.getBalances() != null;
 	}
 }

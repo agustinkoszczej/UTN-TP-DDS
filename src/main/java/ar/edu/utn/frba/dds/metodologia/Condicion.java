@@ -101,6 +101,10 @@ public abstract class Condicion {
 		return this.getClass().getSimpleName();
 	}
 	
+	public Boolean nameEquals(String nombreCondicion){
+		return this.getNombreCondicion().equals(nombreCondicion);
+	}
+	
 	public Comparador getComparador() {
 		return comparador;
 	}
@@ -119,10 +123,14 @@ public abstract class Condicion {
 	}
 	
 	protected List<Balance> devolverBalancesDentroDelPeriodo(Empresa empresa) {
-		return (List<Balance>) empresa.getBalances()
+		List<Balance> balances = (List<Balance>) empresa.getBalances();
+		if(balances!=null){
+		return balances
 			   .stream()
 			   .filter(balance -> balance.getBalance_periodo().compareTo(inicioPeriodo) >= 0 && 
 			   						balance.getBalance_periodo().compareTo(finPeriodo) <= 0).collect(Collectors.toList());
+		}else
+			return null;
 	}
 
 	public abstract boolean esTaxativa();

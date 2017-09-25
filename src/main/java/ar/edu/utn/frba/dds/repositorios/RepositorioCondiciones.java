@@ -1,4 +1,4 @@
-package ar.edu.utn.frba.dds.modelo;
+package ar.edu.utn.frba.dds.repositorios;
 
 import java.io.IOException;
 import java.util.List;

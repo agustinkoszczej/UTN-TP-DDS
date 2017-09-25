@@ -11,11 +11,11 @@ import ar.edu.utn.frba.dds.metodologia.Condicion;
 import ar.edu.utn.frba.dds.metodologia.Metodologia;
 import ar.edu.utn.frba.dds.modelo.Empresa;
 import ar.edu.utn.frba.dds.modelo.Indicador;
-import ar.edu.utn.frba.dds.modelo.RepositorioIndicadores;
+import ar.edu.utn.frba.dds.repositorios.RepositorioIndicadores;
 
 public class BaseDeDatos {
 
-	private static boolean bdEnabled = true; //Cambiar atributo a False si se quiere cargar desde JSON
+	private static boolean bdEnabled = false; //Cambiar atributo a False si se quiere cargar desde JSON
 	private EntityManager entityManager;
 	
 	public BaseDeDatos (){

@@ -1,4 +1,4 @@
-package ar.edu.utn.frba.dds.modelo;
+package ar.edu.utn.frba.dds.repositorios;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 
 import javax.swing.JOptionPane;
 
+import ar.edu.utn.frba.dds.modelo.Indicador;
 import ar.edu.utn.frba.dds.servicio.ServicioIndicadores;
 import ar.edu.utn.frba.dds.util.BaseDeDatos;
 
