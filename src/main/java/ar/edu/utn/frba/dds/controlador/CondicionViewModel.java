@@ -21,9 +21,7 @@ import ar.edu.utn.frba.dds.metodologia.TipoOperacion.Operaciones;
 import ar.edu.utn.frba.dds.modelo.BuilderCondicion;
 import ar.edu.utn.frba.dds.modelo.EnumCondiciones;
 import ar.edu.utn.frba.dds.modelo.Indicador;
-import ar.edu.utn.frba.dds.servicio.ServicioCondiciones;
-import ar.edu.utn.frba.dds.servicio.ServicioIndicadores;
-import ar.edu.utn.frba.dds.util.BaseDeDatos;
+import ar.edu.utn.frba.dds.util.ProveedorAcceso;
 
 @Observable
 public class CondicionViewModel {
@@ -31,7 +29,7 @@ public class CondicionViewModel {
 	public EnumCondiciones enumCondicionSeleccionada;
 	public  List<EnumCondiciones> enumCondiciones;
 
-	public ServicioIndicadores servicioIndicadores;
+	public ProveedorAcceso servicio;
 	private List<Condicion> condicionesTotales;
 	private String nombreCondicion;
 
@@ -62,8 +60,8 @@ public class CondicionViewModel {
 public CondicionViewModel(MetodologiaViewModel condicionWindow) {
 		Calendar cal = Calendar.getInstance();
 		cal.get(Calendar.EXTENDED_YEAR);
-		this.servicioIndicadores = new ServicioIndicadores(new BaseDeDatos());
-		this.indicadoresDisponibles = servicioIndicadores.obtenerIndicadores();
+		this.servicio = new ProveedorAcceso();
+		this.indicadoresDisponibles = servicio.obtenerIndicadores();
 		this.condicionesTotales = new ArrayList<Condicion>();
 		//builder = new BuilderCondicion();
 		
@@ -294,7 +292,7 @@ public CondicionViewModel(MetodologiaViewModel condicionWindow) {
 		
 		//Condicion condicion = builder.devolverCondicion();
 		try {
-			new ServicioCondiciones().guardarCondicion(condicion);
+			new ProveedorAcceso().guardarCondicion(condicion);
 			JOptionPane.showMessageDialog(null, "Se creo condicion "+condicion.getNombreClaseCondicion()+": "+condicion.getNombreCondicion());
 		} catch (IOException e) {
 			JOptionPane.showMessageDialog(null, "Error al guardar la condicion");

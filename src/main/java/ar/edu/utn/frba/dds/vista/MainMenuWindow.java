@@ -9,17 +9,21 @@ import org.uqbar.arena.windows.WindowOwner;
 
 import ar.edu.utn.frba.dds.controlador.CuentaViewModel;
 import ar.edu.utn.frba.dds.controlador.MetodologiaViewModel;
+import ar.edu.utn.frba.dds.servicio.BaseDeDatos;
+import ar.edu.utn.frba.dds.servicio.ServicioJson;
 import ar.edu.utn.frba.dds.servicio.ServicioCuentas;
 import ar.edu.utn.frba.dds.servicio.ServicioIndicadores;
-import ar.edu.utn.frba.dds.util.BaseDeDatos;
+import ar.edu.utn.frba.dds.util.ProveedorAcceso;
 
 public class MainMenuWindow<T> extends SimpleWindow<T> {
 
-	private ServicioCuentas servicioCuentas;
+	private ServicioJson servicioCuentas;
+	private ProveedorAcceso proveedor;
+	
 	@SuppressWarnings("unchecked")
 	public MainMenuWindow(WindowOwner parent) {
 		super(parent, (T) new Object());
-		servicioCuentas = new ServicioCuentas(new BaseDeDatos());
+		proveedor = new ProveedorAcceso();
 	}
 
 	@Override
@@ -50,18 +54,17 @@ public class MainMenuWindow<T> extends SimpleWindow<T> {
 	}
 
 	public void consultarIndicadores() {
-		ServicioIndicadores servicioIndicadores = new ServicioIndicadores(new BaseDeDatos());
-		ConsultaIndicadorWindow dialog = new ConsultaIndicadorWindow(this, servicioCuentas, servicioIndicadores);
+		ConsultaIndicadorWindow dialog = new ConsultaIndicadorWindow(this, proveedor);
 		dialog.open();
 	}
 
 	public void consultarCuentas() {
-		ConsultaCuentaWindow dialog = new ConsultaCuentaWindow(this, new CuentaViewModel(servicioCuentas));
+		ConsultaCuentaWindow dialog = new ConsultaCuentaWindow(this, new CuentaViewModel(proveedor));
 		dialog.open();
 	}
 	
 	public void consultarMetodologias() {
-		ConsultaMetodologiaWindow dialog = new ConsultaMetodologiaWindow(this, new MetodologiaViewModel(servicioCuentas, new ServicioIndicadores(new BaseDeDatos())));
+		ConsultaMetodologiaWindow dialog = new ConsultaMetodologiaWindow(this, new MetodologiaViewModel(proveedor));
 
 		dialog.open();
 	}

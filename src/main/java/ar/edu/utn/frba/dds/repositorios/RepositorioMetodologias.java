@@ -6,13 +6,14 @@ import java.util.stream.Collectors;
 
 import ar.edu.utn.frba.dds.metodologia.Metodologia;
 import ar.edu.utn.frba.dds.servicio.ServicioMetodologias;
+import ar.edu.utn.frba.dds.util.ProveedorAcceso;
 
 public class RepositorioMetodologias {
 	private static RepositorioMetodologias repositorioMetodologias = null;
 	
 	private static List<Metodologia> metodologias;
 	
-	private static ServicioMetodologias servicioMetodologias = new ServicioMetodologias();
+	private static ProveedorAcceso ProveedorServicio = new ProveedorAcceso();
 	
 	private RepositorioMetodologias() { }
 	
@@ -21,7 +22,7 @@ public class RepositorioMetodologias {
 			return repositorioMetodologias;
 		else {
 			repositorioMetodologias = new RepositorioMetodologias();
-			metodologias = servicioMetodologias.obtenerMetodologias();
+			metodologias = ProveedorServicio.obtenerMetodologias();
 			return repositorioMetodologias;
 		}
 	}
@@ -44,7 +45,7 @@ public class RepositorioMetodologias {
 		
 		metodologias.add(unaMetodologia);
 		try {
-			servicioMetodologias.guardarMetodologia(unaMetodologia);
+			ProveedorServicio.guardarMetodologia(unaMetodologia);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

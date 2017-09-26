@@ -6,14 +6,12 @@ import java.util.stream.Collectors;
 
 import ar.edu.utn.frba.dds.metodologia.Condicion;
 import ar.edu.utn.frba.dds.servicio.ServicioCondiciones;
-import ar.edu.utn.frba.dds.util.BaseDeDatos;
-import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
+import ar.edu.utn.frba.dds.util.ProveedorAcceso;
 
-import javax.persistence.EntityTransaction;
 
 public class RepositorioCondiciones {
 	private static RepositorioCondiciones repositorioCondiciones = null;
-	private static ServicioCondiciones servicioCondiciones = new ServicioCondiciones();
+	private static ProveedorAcceso proveedorServicio = new ProveedorAcceso();
 	private static List<Condicion> condiciones;
 	
 	private RepositorioCondiciones() { }
@@ -23,7 +21,7 @@ public class RepositorioCondiciones {
 			return repositorioCondiciones;
 		else {
 			repositorioCondiciones = new RepositorioCondiciones();
-			condiciones = servicioCondiciones.obtenerCondiciones();
+			condiciones = proveedorServicio.obtenerCondiciones();
 			return repositorioCondiciones;
 		}
 	}
@@ -37,7 +35,7 @@ public class RepositorioCondiciones {
 			condiciones.remove(unaCondicion);
 		condiciones.add(unaCondicion);
 		try {
-			servicioCondiciones.guardarCondicion(unaCondicion);
+			proveedorServicio.guardarCondicion(unaCondicion);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -45,7 +43,7 @@ public class RepositorioCondiciones {
 	}
 
 	public Condicion obtenerCondicion(String nombreCondicion) {
-		return condiciones.stream().filter(unaCondicion -> unaCondicion.getNombreCondicion().equals(nombreCondicion)).collect(Collectors.toList()).get(0);
+		return condiciones.stream().filter(unaCondicion -> unaCondicion.nameEquals(nombreCondicion)).collect(Collectors.toList()).get(0);
 	}
 	
 

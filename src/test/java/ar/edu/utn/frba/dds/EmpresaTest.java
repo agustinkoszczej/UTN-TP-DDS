@@ -12,19 +12,21 @@ import ar.edu.utn.frba.dds.modelo.Balance;
 import ar.edu.utn.frba.dds.modelo.Empresa;
 import ar.edu.utn.frba.dds.modelo.Frecuencia;
 import ar.edu.utn.frba.dds.modelo.TipoDeCuenta;
+import ar.edu.utn.frba.dds.servicio.BaseDeDatos;
+import ar.edu.utn.frba.dds.servicio.ServicioJson;
 import ar.edu.utn.frba.dds.servicio.ServicioCuentas;
-import ar.edu.utn.frba.dds.util.BaseDeDatos;
+import ar.edu.utn.frba.dds.util.ProveedorAcceso;
 
 public class EmpresaTest {
 	//El delta es para comprar doubles (es el margen de diferencia entre cada valor)
 	private static final double DELTA = 1e-15;
 	
-	ServicioCuentas serv;
+	ProveedorAcceso serv;
 	List<Empresa> empresas;
 	
 	@Before
 	public void init() {
-		serv = new ServicioCuentas(new BaseDeDatos());
+		serv = new ProveedorAcceso();
 		empresas = new ArrayList<Empresa>();	
 		empresas = serv.obtenerEmpresas();
 		

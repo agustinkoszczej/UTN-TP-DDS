@@ -11,16 +11,18 @@ import org.uqbar.commons.utils.Observable;
 import ar.edu.utn.frba.dds.metodologia.Condicion;
 import ar.edu.utn.frba.dds.metodologia.Metodologia;
 import ar.edu.utn.frba.dds.modelo.Empresa;
+import ar.edu.utn.frba.dds.servicio.BaseDeDatos;
+import ar.edu.utn.frba.dds.servicio.ServicioJson;
 import ar.edu.utn.frba.dds.servicio.ServicioCondiciones;
 import ar.edu.utn.frba.dds.servicio.ServicioCuentas;
 import ar.edu.utn.frba.dds.servicio.ServicioIndicadores;
 import ar.edu.utn.frba.dds.servicio.ServicioMetodologias;
-import ar.edu.utn.frba.dds.util.BaseDeDatos;
+import ar.edu.utn.frba.dds.util.ProveedorAcceso;
 
 @Observable
 public class MetodologiaViewModel{
 	
-	public ServicioCuentas servicioCuentas;
+	public ProveedorAcceso servicio;
 	public ServicioIndicadores servicioIndicadores;
 	private List<Metodologia> metodologias;
 	private Metodologia metodologiaSeleccionada;
@@ -28,11 +30,10 @@ public class MetodologiaViewModel{
 	private Condicion condicionAAgregarSeleccionada;
 	public List<Empresa> empresasOrdenadas;
 	
-	public MetodologiaViewModel(ServicioCuentas unServicioDeCuentas, ServicioIndicadores servicioIndicadores) {
-		this.servicioCuentas = unServicioDeCuentas;
-		this.servicioIndicadores = servicioIndicadores;
+	public MetodologiaViewModel(ProveedorAcceso servicio) {
+		this.servicio = servicio;
 		//this.condicionesTotales = new ServicioCondiciones().obtenerCondiciones();
-		this.metodologias = new ServicioMetodologias().obtenerMetodologias();
+		this.metodologias = servicio.obtenerMetodologias();
 		this.metodologiaSeleccionada = new Metodologia();
 	}
 
@@ -76,7 +77,7 @@ public class MetodologiaViewModel{
 
 	public List<Condicion> getCondicionesTotales() {
 		//Tiene que traer todas las condiciones que existan en el programa (x json o repo)
-		return new ServicioCondiciones().obtenerCondiciones();
+		return new ProveedorAcceso().obtenerCondiciones();
 	}
 
 	public void setCondicionesTotales(List<Condicion> condicionesTotales) {
@@ -107,7 +108,7 @@ public class MetodologiaViewModel{
 			metodologiaSeleccionada.setNombre(nombre);
 		}
 		try {
-			new ServicioMetodologias().guardarMetodologia(metodologiaSeleccionada); 
+			new ServicioJson().guardarMetodologia(metodologiaSeleccionada); 
 			JOptionPane.showMessageDialog(null, "Metodologia guardada");
 			//TODO: si ya existe, guarda una nueva en lugar de "actualizarla"
 		} catch (IOException e) {
@@ -124,7 +125,7 @@ public class MetodologiaViewModel{
 	}
 
 	public void aplicarMetodologia() {
-		List<Empresa> empresas = new ServicioCuentas(new BaseDeDatos()).obtenerEmpresas();
+		List<Empresa> empresas = servicio.obtenerEmpresas();
 		empresasOrdenadas = metodologiaSeleccionada.aplicar(empresas);
 	}
 }

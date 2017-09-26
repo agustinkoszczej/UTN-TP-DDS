@@ -9,7 +9,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Transient;
 
-import org.apache.commons.collections.bag.SynchronizedSortedBag;
 import org.uqbar.commons.utils.Observable;
 
 import com.fasterxml.jackson.annotation.JsonProperty;

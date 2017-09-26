@@ -3,14 +3,13 @@ package ar.edu.utn.frba.dds.repositorios;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.swing.JOptionPane;
 
 import ar.edu.utn.frba.dds.modelo.Indicador;
 import ar.edu.utn.frba.dds.servicio.ServicioIndicadores;
-import ar.edu.utn.frba.dds.util.BaseDeDatos;
+import ar.edu.utn.frba.dds.util.ProveedorAcceso;
 
 public class RepositorioIndicadores {
 	
@@ -48,6 +47,8 @@ public class RepositorioIndicadores {
 			JOptionPane.showMessageDialog(null,"Se sobrescribira el indicador"); 
 		}	
 		agregarIndicador(in);
-		new ServicioIndicadores(new BaseDeDatos()).guardarIndicador(in);
+		//new ServicioIndicadores(new BaseDeDatos()).guardarIndicador(in);
+		ProveedorAcceso proveedor = new ProveedorAcceso();
+		proveedor.guardarIndicador(in);
 	}
 }

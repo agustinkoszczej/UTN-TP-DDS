@@ -12,10 +12,9 @@ import ar.edu.utn.frba.dds.modelo.Balance;
 import ar.edu.utn.frba.dds.modelo.Empresa;
 import ar.edu.utn.frba.dds.modelo.Indicador;
 import ar.edu.utn.frba.dds.repositorios.RepositorioIndicadores;
-import ar.edu.utn.frba.dds.servicio.ServicioCuentas;
-import ar.edu.utn.frba.dds.servicio.ServicioIndicadores;
-import ar.edu.utn.frba.dds.util.BaseDeDatos;
+import ar.edu.utn.frba.dds.servicio.ServicioJson;
 import ar.edu.utn.frba.dds.util.ExpressionParser;
+import ar.edu.utn.frba.dds.util.ProveedorAcceso;
 
 @Observable
 public class IndicadorViewModel {
@@ -56,9 +55,9 @@ public String getNombreIndicadorAIngresar() {
 
 
 
-public IndicadorViewModel(ServicioCuentas servicioCuentas, ServicioIndicadores servicioIndicadores) {
-	this.empresas = servicioCuentas.obtenerEmpresas();
-	this.indicadores = servicioIndicadores.obtenerIndicadores();
+public IndicadorViewModel(ProveedorAcceso proveedor) {
+	this.empresas = proveedor.obtenerEmpresas();
+	this.indicadores = proveedor.obtenerIndicadores();
 	
 	this.empresaSeleccionada = empresas.get(0);
 	this.balanceSeleccionado = empresaSeleccionada.getBalances().get(0);
@@ -134,7 +133,7 @@ public IndicadorViewModel(ServicioCuentas servicioCuentas, ServicioIndicadores s
 				Expresion expresion = parser.buildExpressionFrom(cadenaIndicadorAIngresar);
 				Indicador ind = new Indicador(nombreIndicadorAIngresar, expresion);
 				RepositorioIndicadores.agregarYguardarIndicador(ind);
-				this.indicadores = new ServicioIndicadores(new BaseDeDatos()).obtenerIndicadores();
+				this.indicadores = new ProveedorAcceso().obtenerIndicadores();
 			} catch (Exception e) {
 				JOptionPane.showMessageDialog(null,"ERROR al cargar indicador"); 
 				//e.printStackTrace();

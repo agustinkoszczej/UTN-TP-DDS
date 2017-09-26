@@ -7,7 +7,9 @@ import org.uqbar.commons.utils.Observable;
 
 import  ar.edu.utn.frba.dds.modelo.Balance;
 import  ar.edu.utn.frba.dds.modelo.Empresa;
+import ar.edu.utn.frba.dds.servicio.ServicioJson;
 import  ar.edu.utn.frba.dds.servicio.ServicioCuentas;
+import ar.edu.utn.frba.dds.util.ProveedorAcceso;
 
 @Observable
 public class CuentaViewModel {
@@ -19,10 +21,11 @@ public class CuentaViewModel {
 	private String valorBalances;
 
 	private Balance balanceSeleccionadoEmpresaSeleccionada;
+	private ProveedorAcceso servicio;
 	
-	public CuentaViewModel(ServicioCuentas unServicioDeCuentas) {
-		this.unServicioDeCuentas = unServicioDeCuentas;
-		this.empresas = unServicioDeCuentas.obtenerEmpresas();
+	public CuentaViewModel(ProveedorAcceso proveedor) {
+		this.servicio = proveedor;
+		this.empresas = servicio.obtenerEmpresas();
 		this.empresaSeleccionada = empresas.get(0);
 	}
 

@@ -18,7 +18,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import ar.edu.utn.frba.dds.modelo.Empresa;
 import ar.edu.utn.frba.dds.servicio.ServicioCuentas;
-import ar.edu.utn.frba.dds.util.BaseDeDatos;
+import ar.edu.utn.frba.dds.servicio.BaseDeDatos;
+import ar.edu.utn.frba.dds.servicio.ServicioJson;
 
 @Observable
 @JsonIgnoreProperties(value = { "changeSupport", "claseCondicion" })
@@ -69,7 +70,7 @@ public class Metodologia {
 
 	private int comparaAtodasLasEmpresas(Empresa empresa1) {
 		contador = 0;
-		List<Empresa> empresasAComparar = new ServicioCuentas(new BaseDeDatos()).obtenerEmpresas();
+		List<Empresa> empresasAComparar = new ServicioJson().obtenerEmpresas();
 		empresasAComparar.removeIf(empresa -> empresa.getEmpresa_nombre().equals(empresa1.getEmpresa_nombre()));
 		return empresasAComparar.stream().mapToInt(empresa -> aplicaCondicionesComparativas(empresa, empresa1)).sum();
 	}
