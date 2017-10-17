@@ -18,7 +18,7 @@ import ar.edu.utn.frba.dds.util.ExpressionParser;
 
 public class BaseDeDatos implements Servicio {
 
-	private static boolean bdEnabled = true; //Cambiar atributo a False si se quiere cargar desde JSON
+	public static boolean bdEnabled = true; //Cambiar atributo a False si se quiere cargar desde JSON
 	private EntityManager entityManager;
 	
 	public BaseDeDatos (){

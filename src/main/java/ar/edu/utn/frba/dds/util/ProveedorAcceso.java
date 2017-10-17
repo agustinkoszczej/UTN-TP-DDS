@@ -19,7 +19,10 @@ public class ProveedorAcceso {
 		//TODO Este pasaria a definir como arranca la app por default.
 		//new ServicioJson para levantar de un Json
 		//new BaseDeDatos para levantar de mysql
-		this.proveedorDeDatos = new ServicioJson(); 
+		if(BaseDeDatos.bdEnabled)
+			this.proveedorDeDatos = new BaseDeDatos(); 
+		else
+			this.proveedorDeDatos = new ServicioJson();
 	}
 	
 	public void setProveedorBD(){
