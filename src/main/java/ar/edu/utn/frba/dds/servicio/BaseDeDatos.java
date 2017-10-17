@@ -8,8 +8,6 @@ import javax.persistence.EntityTransaction;
 
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import ar.edu.utn.frba.dds.expresion.Expresion;
 import ar.edu.utn.frba.dds.metodologia.Condicion;
 import ar.edu.utn.frba.dds.metodologia.Metodologia;
