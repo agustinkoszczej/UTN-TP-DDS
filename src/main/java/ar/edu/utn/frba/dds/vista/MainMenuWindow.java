@@ -9,15 +9,11 @@ import org.uqbar.arena.windows.WindowOwner;
 
 import ar.edu.utn.frba.dds.controlador.CuentaViewModel;
 import ar.edu.utn.frba.dds.controlador.MetodologiaViewModel;
-import ar.edu.utn.frba.dds.servicio.BaseDeDatos;
 import ar.edu.utn.frba.dds.servicio.ServicioJson;
-import ar.edu.utn.frba.dds.servicio.ServicioCuentas;
-import ar.edu.utn.frba.dds.servicio.ServicioIndicadores;
 import ar.edu.utn.frba.dds.util.ProveedorAcceso;
 
 public class MainMenuWindow<T> extends SimpleWindow<T> {
 
-	private ServicioJson servicioCuentas;
 	private ProveedorAcceso proveedor;
 	
 	@SuppressWarnings("unchecked")

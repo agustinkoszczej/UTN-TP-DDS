@@ -16,7 +16,7 @@ import org.junit.rules.TemporaryFolder;
 
 import ar.edu.utn.frba.dds.metodologia.Condicion;
 import ar.edu.utn.frba.dds.metodologia.CondicionCompararValor;
-import ar.edu.utn.frba.dds.modelo.RepositorioCondiciones;
+import ar.edu.utn.frba.dds.repositorios.RepositorioCondiciones;
 import ar.edu.utn.frba.dds.servicio.ServicioCondiciones;
 
 public class PersistenciaCondicionTest {

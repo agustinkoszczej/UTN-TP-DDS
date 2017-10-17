@@ -12,7 +12,7 @@ import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
 import ar.edu.utn.frba.dds.metodologia.Metodologia;
-import ar.edu.utn.frba.dds.modelo.RepositorioMetodologias;
+import ar.edu.utn.frba.dds.repositorios.RepositorioMetodologias;
 import ar.edu.utn.frba.dds.servicio.ServicioMetodologias;
 
 import static org.hamcrest.CoreMatchers.*;
