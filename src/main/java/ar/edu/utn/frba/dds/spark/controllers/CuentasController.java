@@ -1,6 +1,5 @@
 package ar.edu.utn.frba.dds.spark.controllers;
 
-import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,20 +7,31 @@ import java.util.Map;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 
+import ar.edu.utn.frba.dds.modelo.Balance;
+import ar.edu.utn.frba.dds.modelo.Empresa;
+import ar.edu.utn.frba.dds.util.ProveedorAcceso;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
-public class ProyectosController implements WithGlobalEntityManager, TransactionalOps{
-	/*
-	public ModelAndView listar(Request req, Response res){
-		Map<String, List<Proyecto>> model = new HashMap<>();
-		List<Proyecto> proyectos = RepositorioProyectos.instancia.listar();
-		
-		model.put("proyectos", proyectos);
-		return new ModelAndView(model, "proyectos/index.hbs");
-	}
+public class CuentasController implements WithGlobalEntityManager, TransactionalOps{
 	
+	public ModelAndView obtenerBalances(Request req, Response res){
+		
+		String nombre_empresa = req.params("nombre");
+
+		ProveedorAcceso proveedor = new ProveedorAcceso();
+		List<Empresa> empresas = proveedor.obtenerEmpresas();
+		
+
+		Empresa empresa = empresas.stream().filter(e->e.getEmpresa_nombre().equals(nombre_empresa)).findFirst().get();
+		
+		Map<String, List<Balance>> model = new HashMap<>();
+
+		model.put("balances", empresa.getBalances());
+		return new ModelAndView(model, "cuentas/show.hbs");	
+	}
+	/*
 	public ModelAndView mostrar(Request req, Response res){
 		Map<String, Proyecto> model = new HashMap<>();
 		String id = req.params("id");

@@ -1,0 +1,34 @@
+{{#partial "cuentas"}}
+
+<table class="table">
+            <thead>
+              <tr>
+                <th>Periodo</th>
+                <th>Frecuencia</th>
+                <th>Valor</th>
+                <th>Cuenta</th>
+              </tr>
+            </thead>
+	
+	{{#each balances}}
+	<tbody>
+              <tr>
+                <td>{{balance_periodo}}</td>
+                <td>{{balance_frecuencia}}</td>
+                <td>{{balance_valor}}</td>
+                <td>{{balance_tipoCuenta}}</td>
+              </tr>
+    </tbody>
+	{{/each}}
+</table>
+
+{{/partial}}
+
+{{>cuentas.hbs}}
+
+
+{{#partial "valor_balances"}}
+<h3 class="card-subtitle text-success">{{valorBalances}}</h3>
+{{/partial}}
+
+{{>cuentas.hbs}}

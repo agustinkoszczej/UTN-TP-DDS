@@ -50,54 +50,8 @@
       </div>
       <div class="row">
         <div class="col-md-9 py-2">
-          <table class="table">
-            <thead>
-              <tr>
-                <th>Periodo</th>
-                <th>Frecuencia</th>
-                <th>Valor</th>
-                <th>Cuenta</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>201706</td>
-                <td>Semestral</td>
-                <td>$140000000</td>
-                <td>EBITDA</td>
-              </tr>
-              <tr>
-                <td>201705</td>
-                <td>Semestral</td>
-                <td>$130000000</td>
-                <td>EBITDA</td>
-              </tr>
-              <tr>
-                <td>201704</td>
-                <td>Semestral</td>
-                <td>$120000000</td>
-                <td>EBITDA</td>
-              </tr>
-              <tr>
-                <td>201703</td>
-                <td>Semestral</td>
-                <td>$120000000</td>
-                <td>EBITDA</td>
-              </tr>
-              <tr>
-                <td>201702</td>
-                <td>Semestral</td>
-                <td>$120000000</td>
-                <td>EBITDA</td>
-              </tr>
-              <tr>
-                <td>201701</td>
-                <td>Semestral</td>
-                <td>$120000000</td>
-                <td>EBITDA</td>
-              </tr>
-            </tbody>
-          </table>
+									{{#block "cuentas"}}
+									{{/block}}
           <ul class="pagination">
             <li class="page-item">
               <a class="page-link" href="#" aria-label="Previous"> <span aria-hidden="true">«</span> <span class="sr-only">Previous</span> </a>
@@ -123,7 +77,8 @@
           <div class="card">
             <div class="card-body">
               <h4 class="card-title">Balance</h4>
-              <h3 class="card-subtitle text-success">$ 390.000.000</h3>
+              						{{#block "valor_balances"}}
+									{{/block}}
               <a class="btn w-100 my-3 btn-lg btn-primary" href=""><i class="fa d-inline fa-lg fa-line-chart"></i> Aplicar Indicador</a>
             </div>
           </div>
