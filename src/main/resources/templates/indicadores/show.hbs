@@ -1,0 +1,36 @@
+{{#partial "empresas"}}
+<select>
+	{{#each empresas}}
+	<option value="{{nombre}}">{{nombre}}</option>
+	{{/each}}
+</select>
+{{/partial}}
+
+
+{{#partial "indicadores"}}
+
+<table class="table">
+            <thead>
+              <tr>
+                <th>nombre</th>
+                <th>expresion</th>
+              </tr>
+            </thead>
+            <tbody>
+	{{#each indicadores}}
+              <tr>
+                <td>{{nombreIndicador}}</td>
+                <td>{{expresion}}</td>
+              </tr>
+	{{/each}}
+	    </tbody>
+</table>
+
+{{/partial}}
+
+
+{{#partial "valor_balances"}}
+<h3 class="card-subtitle text-success">{{empresa.valorBalances}}</h3>
+{{/partial}}
+
+{{>indicadores.hbs}}
