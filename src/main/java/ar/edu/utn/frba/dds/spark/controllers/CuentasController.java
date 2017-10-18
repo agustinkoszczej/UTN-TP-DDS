@@ -28,7 +28,7 @@ public class CuentasController implements WithGlobalEntityManager, Transactional
 		model.put("empresa", empresa);
 		
 		Map<String, List<Empresa>> model_all_empresas = new HashMap<>();
-		model_all_empresas.put("allEmpresas", allEmpresas);
+		model_all_empresas.put("allEmpresa", allEmpresas);
 		
 		return new ModelAndView(model, "cuentas/show.hbs");	
 	}
