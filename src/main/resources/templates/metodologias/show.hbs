@@ -4,13 +4,21 @@
 <table class="table">
             <thead>
               <tr>
-                <th>nombre</th>
+                <th>Nombre</th>
+                <th>Condiciones</th>
               </tr>
             </thead>
             <tbody>
-	{{#each indicadores}}
+	{{#each controllerMetodologias.metodologias}}
               <tr>
                 <td>{{nombre}}</td>
+                <td>
+                 <ul>
+                	{{#each condiciones}}
+            			<li>{{nombreCondicion}}</li>
+             	 	{{/each}}
+                 </ul>
+                </td>
               </tr>
 	{{/each}}
 	    </tbody>
