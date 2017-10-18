@@ -18,6 +18,9 @@
           <li class="nav-item">
             <a class="nav-link" href="#"><i class="fa d-inline fa-lg fa-briefcase"></i> Empresas</a>
           </li>
+	  <li class="nav-item">
+            <a class="nav-link" href="#"><i class="fa d-inline fa-lg fa-line-chart"></i> Indicadores</a>
+          </li>
           <li class="nav-item">
             <a class="nav-link" href="#"><i class="fa d-inline fa-lg fa-sort-amount-asc"></i> Metodologías</a>
           </li>
@@ -46,26 +49,6 @@
         <div class="col-md-9 py-2">
 									{{#block "cuentas"}}
 									{{/block}}
-          <ul class="pagination">
-            <li class="page-item">
-              <a class="page-link" href="#" aria-label="Previous"> <span aria-hidden="true">«</span> <span class="sr-only">Previous</span> </a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#">1</a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#">2</a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#">3</a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#">4</a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#" aria-label="Next"> <span aria-hidden="true">»</span> <span class="sr-only">Next</span> </a>
-            </li>
-          </ul>
         </div>
         <div class="col-md-3">
           <div class="card">
@@ -73,7 +56,6 @@
               <h4 class="card-title">Balance</h4>
               						{{#block "valor_balances"}}
 									{{/block}}
-              <a class="btn w-100 my-3 btn-lg btn-primary" href=""><i class="fa d-inline fa-lg fa-line-chart"></i> Aplicar Indicador</a>
             </div>
           </div>
         </div>

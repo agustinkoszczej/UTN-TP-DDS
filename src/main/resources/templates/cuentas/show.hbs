@@ -1,7 +1,7 @@
 {{#partial "empresas"}}
-<select>
-	{{#each allEmpresa}}
-	<option value="{{nombre}}">{{nombre}}</option>
+<select name="nombre" onchange=" location = this.value;">
+	{{#each controllerCuentas.AllEmpresas}}
+	<option value="{{empresa_nombre}}">{{empresa_nombre}}</option>
 	{{/each}}
 </select>
 {{/partial}}
@@ -19,7 +19,7 @@
               </tr>
             </thead>
             <tbody>
-	{{#each empresa.balances}}
+	{{#each controllerCuentas.empresa.balances}}
               <tr>
                 <td>{{balance_periodo}}</td>
                 <td>{{balance_frecuencia}}</td>
@@ -34,7 +34,7 @@
 
 
 {{#partial "valor_balances"}}
-<h3 class="card-subtitle text-success">{{empresa.valorBalances}}</h3>
+<h3 class="card-subtitle text-success">${{controllerCuentas.empresa.valorBalances}}</h3>
 {{/partial}}
 
 {{>cuentas.html}}

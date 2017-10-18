@@ -7,7 +7,6 @@ import org.uqbar.commons.utils.Observable;
 
 import  ar.edu.utn.frba.dds.modelo.Balance;
 import  ar.edu.utn.frba.dds.modelo.Empresa;
-import ar.edu.utn.frba.dds.servicio.ServicioJson;
 import  ar.edu.utn.frba.dds.servicio.ServicioCuentas;
 import ar.edu.utn.frba.dds.util.ProveedorAcceso;
 

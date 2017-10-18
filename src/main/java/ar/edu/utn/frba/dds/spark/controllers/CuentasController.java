@@ -15,21 +15,45 @@ import spark.Response;
 
 public class CuentasController implements WithGlobalEntityManager, TransactionalOps{
 	
+	private Empresa empresa;
+	private List<Empresa> allEmpresas;
+	
 	public ModelAndView mostrarEmpresa(Request req, Response res){
 		
 		String nombre_empresa = req.queryParams("nombre");
 	
 		ProveedorAcceso proveedor = new ProveedorAcceso();
-		List<Empresa> allEmpresas = proveedor.obtenerEmpresas();
-
-		Empresa empresa = allEmpresas.stream().filter(e->e.getEmpresa_nombre().equals(nombre_empresa)).findFirst().get();
-
-		Map<String, Empresa> model = new HashMap<>();
-		model.put("empresa", empresa);
 		
-		Map<String, List<Empresa>> model_all_empresas = new HashMap<>();
-		model_all_empresas.put("allEmpresa", allEmpresas);
+		List<Empresa> allEmpresas = proveedor.obtenerEmpresas();
+		
+		Map<String, CuentasController> model = new HashMap<>();
+		CuentasController controllerCuentas = new CuentasController();
+		
+		if(nombre_empresa != null){
+			Empresa empresa = allEmpresas.stream().filter(e->e.getEmpresa_nombre().equals(nombre_empresa)).findFirst().get();
+			controllerCuentas.setEmpresa(empresa);
+		}
+		controllerCuentas.setAllEmpresas(allEmpresas);
+		
+		model.put("controllerCuentas", controllerCuentas);
 		
 		return new ModelAndView(model, "cuentas/show.hbs");	
 	}
+
+	public Empresa getEmpresa() {
+		return empresa;
+	}
+
+	public void setEmpresa(Empresa empresa) {
+		this.empresa = empresa;
+	}
+
+	public List<Empresa> getAllEmpresas() {
+		return allEmpresas;
+	}
+
+	public void setAllEmpresas(List<Empresa> allEmpresas) {
+		this.allEmpresas = allEmpresas;
+	}
+	
 }
