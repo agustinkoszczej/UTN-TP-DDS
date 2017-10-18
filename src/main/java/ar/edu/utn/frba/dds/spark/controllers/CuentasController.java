@@ -37,7 +37,7 @@ public class CuentasController implements WithGlobalEntityManager, Transactional
 		
 		model.put("controllerCuentas", controllerCuentas);
 		
-		return new ModelAndView(model, "cuentas/show.hbs");	
+		return new ModelAndView(model, "cuentas/show_cuentas.hbs");	
 	}
 
 	public Empresa getEmpresa() {

@@ -127,8 +127,7 @@ public IndicadorViewModel(ProveedorAcceso proveedor) {
 	}
 	
 	public void guardarIndicador() {
-		ExpressionParser parser = new ExpressionParser();
-			
+		ExpressionParser parser = new ExpressionParser();	
 		try {
 				Expresion expresion = parser.buildExpressionFrom(cadenaIndicadorAIngresar);
 				Indicador ind = new Indicador(nombreIndicadorAIngresar, expresion);
