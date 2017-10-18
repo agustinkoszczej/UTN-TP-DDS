@@ -43,25 +43,25 @@ public class EmpresaTest {
 	public void valorDeBalancesFacebook(){
 		Assert.assertEquals(empresas.get(0).getEmpresa_nombre(), "Facebook");
 		double valorBalancesFacebook = 135000000+140000000;
-		Assert.assertEquals(empresas.get(0).valorBalances(), valorBalancesFacebook, DELTA);
+		Assert.assertEquals(empresas.get(0).getValorBalances(), valorBalancesFacebook, DELTA);
 	}
 	@Test
 	public void valorDeBalancesFibertel(){
 		Assert.assertEquals(empresas.get(1).getEmpresa_nombre(), "Fibertel");
 		double valorBalancesFibertel = 134000000;
-		Assert.assertEquals(empresas.get(1).valorBalances(), valorBalancesFibertel, DELTA);
+		Assert.assertEquals(empresas.get(1).getValorBalances(), valorBalancesFibertel, DELTA);
 	}
 	@Test
 	public void devuelveCeroCuandoSeleccionoEmpresaVacia(){
 		CuentaViewModel cuentaVM = new CuentaViewModel(serv);
 		Empresa emp = empresas.get(4);
-		Assert.assertEquals(emp.valorBalances(), 0, DELTA);
+		Assert.assertEquals(emp.getValorBalances(), 0, DELTA);
 	}
 	@Test
 	public void sumaBienAPesarDeSerNegativoUnValorDeLosBalances(){
 		Empresa negativa = empresas.get(3);
 		double valorBalancesNegativos = 5-20;
-		Assert.assertEquals(negativa.valorBalances(), valorBalancesNegativos, DELTA);
+		Assert.assertEquals(negativa.getValorBalances(), valorBalancesNegativos, DELTA);
 	}
 	
 	@Test
@@ -87,8 +87,8 @@ public class EmpresaTest {
 		
 		empresaCero.setEmpresa_nombre("EmpresaCero");
 		empresaCero.setBalances(balances);
-		empresaCero.valorBalances();
-		Assert.assertEquals(empresaCero.valorBalances(), 0, DELTA);
+		empresaCero.getValorBalances();
+		Assert.assertEquals(empresaCero.getValorBalances(), 0, DELTA);
 	}
 	
 }

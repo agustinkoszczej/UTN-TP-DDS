@@ -56,7 +56,7 @@ public class CuentaViewModel {
 	}
 	
 	public Double getValorBalances(){
-		return empresaSeleccionada.valorBalances();
+		return empresaSeleccionada.getValorBalances();
 	}
 	public void setValorBalances(String valorBalances){
 		this.valorBalances = valorBalances;

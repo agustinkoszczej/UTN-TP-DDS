@@ -20,14 +20,8 @@ public class Router {
 		Spark.staticFiles.location("/public");
 		
 		CuentasController cuentasController = new CuentasController();
-		Spark.get("consultar/cuentas/:nombre", cuentasController::obtenerBalances, engine);
+		Spark.get("consultar/cuentas", cuentasController::mostrarEmpresa, engine);
 		
 		Spark.get("/", HomeController::home, engine);
-		/*Spark.get("/login", HomeController::login, engine);
-		Spark.get("/proyectos", proyectosController::listar, engine);
-		Spark.get("/proyectos/new", proyectosController::nuevo, engine);
-		Spark.get("/proyectos/:id", proyectosController::mostrar, engine);
-		Spark.post("/", HomeController::accederDesdeLogin);
-		Spark.post("/proyectos", proyectosController::crear);*/
 	}
 }

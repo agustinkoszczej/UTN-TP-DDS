@@ -82,7 +82,7 @@ public class Empresa {
 		this.balances = balances;
 	}
 
-	public double valorBalances() {
+	public double getValorBalances() {
 		double result;
 		try{
 			result = balances
