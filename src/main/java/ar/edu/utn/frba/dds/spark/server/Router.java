@@ -24,7 +24,7 @@ public class Router {
 		CuentasController cuentasController = new CuentasController();
 		MetodologiasController metodologiasController = new MetodologiasController();
 		
-		Spark.get("consultar/cuentas", cuentasController::mostrarEmpresa, engine);
+		Spark.get("consultar/empresas", cuentasController::mostrarEmpresa, engine);
 		Spark.get("consultar/indicadores", IndicadorController::mostrarIndicadores, engine);
 		Spark.get("consultar/metodologias", metodologiasController::mostrarMetodologias, engine);
 		

@@ -6,7 +6,7 @@
 <select required="required" onchange=" location = this.value;">
 	<option hidden selected>Empresas</option>
 	{{#each controllerCuentas.AllEmpresas}}
-	<option value="cuentas?nombre={{empresa_nombre}}">{{empresa_nombre}}</option>
+	<option value="empresas?nombre={{empresa_nombre}}">{{empresa_nombre}}</option>
 	{{/each}}
 </select>
 {{/partial}}
