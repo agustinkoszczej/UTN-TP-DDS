@@ -13,7 +13,7 @@ import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
-public class CuentasController implements WithGlobalEntityManager, TransactionalOps{
+public class EmpresasController implements WithGlobalEntityManager, TransactionalOps{
 	
 	private Empresa empresa;
 	private List<Empresa> allEmpresas;
@@ -26,8 +26,8 @@ public class CuentasController implements WithGlobalEntityManager, Transactional
 		
 		List<Empresa> allEmpresas = proveedor.obtenerEmpresas();
 		
-		Map<String, CuentasController> model = new HashMap<>();
-		CuentasController controllerCuentas = new CuentasController();
+		Map<String, EmpresasController> model = new HashMap<>();
+		EmpresasController controllerCuentas = new EmpresasController();
 		
 		if(nombre_empresa != null){
 			Empresa empresa = allEmpresas.stream().filter(e->e.getEmpresa_nombre().equals(nombre_empresa)).findFirst().get();

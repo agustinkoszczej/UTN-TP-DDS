@@ -1,6 +1,6 @@
 package ar.edu.utn.frba.dds.spark.server;
 
-import ar.edu.utn.frba.dds.spark.controllers.CuentasController;
+import ar.edu.utn.frba.dds.spark.controllers.EmpresasController;
 import ar.edu.utn.frba.dds.spark.controllers.HomeController;
 import ar.edu.utn.frba.dds.spark.controllers.IndicadorController;
 import ar.edu.utn.frba.dds.spark.controllers.MetodologiasController;
@@ -21,7 +21,7 @@ public class Router {
 
 		Spark.staticFiles.location("/public");
 		
-		CuentasController cuentasController = new CuentasController();
+		EmpresasController cuentasController = new EmpresasController();
 		MetodologiasController metodologiasController = new MetodologiasController();
 		IndicadorController indicadorController = new IndicadorController();
 		

@@ -22,13 +22,29 @@ import spark.Response;
 
 public class IndicadorController implements WithGlobalEntityManager, TransactionalOps{
 	
+	private Empresa empresa_indicador;
+	private List<Indicador> indicadores;
+	
 	public static ModelAndView mostrarIndicadores(Request req, Response res){
 		
+		String nombre_empresa = req.queryParams("nombre");
+		String periodo = req.queryParams("periodo");
+		
 		ProveedorAcceso proveedor = new ProveedorAcceso();
-		List<Indicador> indicadores = proveedor.obtenerIndicadores();
+		List<Empresa> allEmpresas = proveedor.obtenerEmpresas();
+		
+		Map<String, IndicadorController> model = new HashMap<>();
+		IndicadorController controllerIndicador = new IndicadorController();
 
-		Map<String, List<Indicador>> model = new HashMap<>();
-		model.put("indicadores", indicadores);
+		if(nombre_empresa != null && periodo != null){
+			Empresa empresa = allEmpresas.stream().filter(e->e.getEmpresa_nombre().equals(nombre_empresa)).findFirst().get();
+			controllerIndicador.setEmpresa_indicador(empresa);
+		}
+		
+		List<Indicador> indicadores = proveedor.obtenerIndicadores();
+		controllerIndicador.setIndicadores(indicadores);
+
+		model.put("controllerIndicador", controllerIndicador);
 
 		return new ModelAndView(model, "indicadores/show_indicadores.hbs");	
 	}
@@ -63,8 +79,30 @@ public class IndicadorController implements WithGlobalEntityManager, Transaction
 	}
 	
 	public ModelAndView aplicarIndicador(Request req, Response res){
-	
+		String nombre_ind = req.queryParams("nombre");
 		
+		ProveedorAcceso proveedor = new ProveedorAcceso();
+		
+		
+		
+		return null;
 	}
+
+	public Empresa getEmpresa_indicador() {
+		return empresa_indicador;
 	}
+
+	public void setEmpresa_indicador(Empresa empresa_indicador) {
+		this.empresa_indicador = empresa_indicador;
+	}
+
+	public List<Indicador> getIndicadores() {
+		return indicadores;
+	}
+
+	public void setIndicadores(List<Indicador> indicadores) {
+		this.indicadores = indicadores;
+	}
+	
+	
 }
