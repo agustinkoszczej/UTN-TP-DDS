@@ -1,12 +1,3 @@
-{{#partial "empresas"}}
-<select>
-	{{#each empresas}}
-	<option value="{{nombre}}">{{nombre}}</option>
-	{{/each}}
-</select>
-{{/partial}}
-
-
 {{#partial "indicadores"}}
 
 <table class="table">
@@ -28,9 +19,5 @@
 
 {{/partial}}
 
-
-{{#partial "valor_balances"}}
-<h3 class="card-subtitle text-success">{{empresa.valorBalances}}</h3>
-{{/partial}}
 
 {{>indicadores.html}}

@@ -28,6 +28,6 @@ public class MetodologiasController implements WithGlobalEntityManager, Transact
 		Map<String, List<Metodologia>> model = new HashMap<>();
 		model.put("metodologias", metodologias);
 
-		return new ModelAndView(model, "indicadores/show.hbs");	
+		return new ModelAndView(model, "metodologias/show.hbs");	
 	}
 }

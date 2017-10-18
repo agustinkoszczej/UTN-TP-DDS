@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
-  <link rel="stylesheet" href="theme.css" type="text/css"> </head>
+  <link rel="stylesheet" href="/theme.css" type="text/css"> </head>
 
 <body>
   <nav class="navbar navbar-expand-md bg-primary navbar-dark">
@@ -33,32 +33,10 @@
           <h1 class="">Metodologías</h1>
         </div>
       </div>
-      <div class="row">
-        <div class="col-md-12">
-          <p class="my-1 lead">Seleccione una metodología</p>
-          <div class="col-md-12 text-center">
-            <div class="btn-group w-50" style="">
-              <button class="btn btn-outline-primary dropdown-toggle w-100" data-toggle="dropdown"> Warren Buffet</button>
-              <div class="dropdown-menu">
-                <a class="dropdown-item" href="#">Action</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Separated link</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-12">
-          <p class="lead">Condiciones de Warren Buffet:</p>
-          <ol class="">
-            <li>CONDICIONMAYOREBITDA</li>
-            <li>CONDICIONPATRIMONIOMAYORATRES</li>
-            <li>CONDICIONMEJORTIR</li>
-          </ol>
-        </div>
-      </div>
-      <div class="row">
+      
+      								{{#block "metodologias"}}
+									{{/block}}
+      
         <div class="col-md-12 py-2">
           <p class="lead">Resultados:</p>
           <table class="table">
@@ -85,11 +63,7 @@
           </table>
         </div>
       </div>
-      <div class="row">
-        <div class="col-md-12 text-right">
-          <a href="#" class="btn btn-outline-primary"><i class="fa d-inline fa-lg fa-plus-circle"></i> Crear nueva metodología</a>
-        </div>
-      </div>
+      
     </div>
   </div>
   <div class="bg-dark text-white">
