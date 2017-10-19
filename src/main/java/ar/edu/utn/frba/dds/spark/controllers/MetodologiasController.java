@@ -21,13 +21,18 @@ public class MetodologiasController implements WithGlobalEntityManager, Transact
 	
 	private List<Condicion> condiciones;
 	private List<Metodologia> metodologias;
-	
+	private Metodologia metodologiaAplicada;
+	private List<Empresa> empresasOrdenadas;
 	
 	
 	public ModelAndView mostrarMetodologias(Request req, Response res){
 		
+		String nombre_meto = req.queryParams("nombre");
+		
+		
 		ProveedorAcceso proveedor = new ProveedorAcceso();
 		List<Metodologia> metodologias = proveedor.obtenerMetodologias();
+		List<Empresa> empresas = proveedor.obtenerEmpresas();
 		
 		//Map<String, List<Metodologia>> model = new HashMap<>();
 		Map<String, MetodologiasController> model = new HashMap<>();
@@ -35,9 +40,19 @@ public class MetodologiasController implements WithGlobalEntityManager, Transact
 		MetodologiasController controllerMetodologia = new MetodologiasController();
 		controllerMetodologia.setMetodologias(metodologias);
 		
+		
+		if(!nombre_meto.isEmpty()){
+			Metodologia meto = metodologias.stream().filter(e->e.getNombre().equals(nombre_meto)).findFirst().get();
+			
+			controllerMetodologia.setEmpresasOrdenadas(meto.aplicar(empresas));
+			
+			//controllerMetodologia.setMetodologiaAplicada(meto);
+		}
+		
+
 		model.put("controllerMetodologias", controllerMetodologia);
 		
-		return new ModelAndView(model, "metodologias/show.hbs");	
+		return new ModelAndView(model, "metodologias/apply_metodologias.hbs");	
 	}
 
 	public List<Metodologia> getMetodologias() {
@@ -54,5 +69,21 @@ public class MetodologiasController implements WithGlobalEntityManager, Transact
 
 	public void setCondiciones(List<Condicion> condiciones) {
 		this.condiciones = condiciones;
+	}
+
+	public Metodologia getMetodologiaAplicada() {
+		return metodologiaAplicada;
+	}
+
+	public void setMetodologiaAplicada(Metodologia metodologiaAplicada) {
+		this.metodologiaAplicada = metodologiaAplicada;
+	}
+
+	public List<Empresa> getEmpresasOrdenadas() {
+		return empresasOrdenadas;
+	}
+
+	public void setEmpresasOrdenadas(List<Empresa> empresasOrdenadas) {
+		this.empresasOrdenadas = empresasOrdenadas;
 	}
 }
