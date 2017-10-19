@@ -108,7 +108,7 @@ public class MetodologiaViewModel{
 			metodologiaSeleccionada.setNombre(nombre);
 		}
 		try {
-			new ServicioJson().guardarMetodologia(metodologiaSeleccionada); 
+			new ProveedorAcceso().guardarMetodologia(metodologiaSeleccionada); 
 			JOptionPane.showMessageDialog(null, "Metodologia guardada");
 			//TODO: si ya existe, guarda una nueva en lugar de "actualizarla"
 		} catch (IOException e) {

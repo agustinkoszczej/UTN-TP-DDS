@@ -1,0 +1,89 @@
+package ar.edu.utn.frba.dds.spark.controllers;
+
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
+import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
+
+import ar.edu.utn.frba.dds.metodologia.Condicion;
+import ar.edu.utn.frba.dds.metodologia.Metodologia;
+import ar.edu.utn.frba.dds.modelo.Empresa;
+import ar.edu.utn.frba.dds.modelo.Indicador;
+import ar.edu.utn.frba.dds.util.ProveedorAcceso;
+import spark.ModelAndView;
+import spark.Request;
+import spark.Response;
+
+public class MetodologiasController implements WithGlobalEntityManager, TransactionalOps{
+	
+	private List<Condicion> condiciones;
+	private List<Metodologia> metodologias;
+	private Metodologia metodologiaAplicada;
+	private List<Empresa> empresasOrdenadas;
+	
+	
+	public ModelAndView mostrarMetodologias(Request req, Response res){
+		
+		String nombre_meto = req.queryParams("nombre");
+		
+		
+		ProveedorAcceso proveedor = new ProveedorAcceso();
+		List<Metodologia> metodologias = proveedor.obtenerMetodologias();
+		List<Empresa> empresas = proveedor.obtenerEmpresas();
+		
+		//Map<String, List<Metodologia>> model = new HashMap<>();
+		Map<String, MetodologiasController> model = new HashMap<>();
+		
+		MetodologiasController controllerMetodologia = new MetodologiasController();
+		controllerMetodologia.setMetodologias(metodologias);
+		
+		
+		if(!nombre_meto.isEmpty()){
+			Metodologia meto = metodologias.stream().filter(e->e.getNombre().equals(nombre_meto)).findFirst().get();
+			
+			controllerMetodologia.setEmpresasOrdenadas(meto.aplicar(empresas));
+			
+			//controllerMetodologia.setMetodologiaAplicada(meto);
+		}
+		
+
+		model.put("controllerMetodologias", controllerMetodologia);
+		
+		return new ModelAndView(model, "metodologias/apply_metodologias.hbs");	
+	}
+
+	public List<Metodologia> getMetodologias() {
+		return metodologias;
+	}
+
+	public void setMetodologias(List<Metodologia> metodologias) {
+		this.metodologias = metodologias;
+	}
+
+	public List<Condicion> getCondiciones() {
+		return condiciones;
+	}
+
+	public void setCondiciones(List<Condicion> condiciones) {
+		this.condiciones = condiciones;
+	}
+
+	public Metodologia getMetodologiaAplicada() {
+		return metodologiaAplicada;
+	}
+
+	public void setMetodologiaAplicada(Metodologia metodologiaAplicada) {
+		this.metodologiaAplicada = metodologiaAplicada;
+	}
+
+	public List<Empresa> getEmpresasOrdenadas() {
+		return empresasOrdenadas;
+	}
+
+	public void setEmpresasOrdenadas(List<Empresa> empresasOrdenadas) {
+		this.empresasOrdenadas = empresasOrdenadas;
+	}
+}

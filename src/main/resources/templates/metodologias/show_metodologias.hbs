@@ -1,0 +1,30 @@
+
+{{#partial "metodologias"}}
+
+<table class="table">
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>Condiciones</th>
+              </tr>
+            </thead>
+            <tbody>
+	{{#each controllerMetodologias.metodologias}}
+              <tr>
+                <td>{{nombre}}</td>
+                <td>
+                 <ul>
+                	{{#each condiciones}}
+            			<li>{{nombreCondicion}}</li>
+             	 	{{/each}}
+                 </ul>
+                </td>
+              </tr>
+	{{/each}}
+	    </tbody>
+</table>
+
+{{/partial}}
+
+
+{{>metodologias.html}}

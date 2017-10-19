@@ -1,0 +1,44 @@
+{{#partial "nombre_empresa"}}
+<h2 class="">{{controllerCuentas.empresa.empresa_nombre}}</h2>
+{{/partial}}
+
+{{#partial "empresas"}}
+<select required="required" onchange=" location = this.value;">
+	<option hidden selected>Empresas</option>
+	{{#each controllerCuentas.AllEmpresas}}
+	<option value="empresas?nombre={{empresa_nombre}}">{{empresa_nombre}}</option>
+	{{/each}}
+</select>
+{{/partial}}
+
+{{#partial "cuentas"}}
+<table class="table">
+            <thead>
+              <tr>
+                <th>Periodo</th>
+                <th>Frecuencia</th>
+                <th>Valor</th>
+                <th>Cuenta</th>
+              </tr>
+            </thead>
+            <tbody>
+	{{#each controllerCuentas.empresa.balances}}
+              <tr>
+                <td>{{balance_periodo}}</td>
+                <td>{{balance_frecuencia}}</td>
+                <td>{{balance_valor}}</td>
+                <td>{{balance_tipoCuenta}}</td>
+              </tr>
+	{{/each}}
+	    </tbody>
+</table>
+{{/partial}}
+
+
+{{#partial "valor_balances"}}
+<h3 class="card-subtitle text-success">${{controllerCuentas.empresa.valorBalances}}</h3>
+<a class="btn w-100 my-3 btn-lg btn-primary" href="/consultar/indicadores?nombre={{controllerCuentas.empresa.empresa_nombre}}"><i class="fa d-inline fa-lg fa-line-chart"></i> Aplicar Indicador</a>
+<a class="btn w-100 my-3 btn-lg btn-primary" href="/consultar/metodologias?nombre={{controllerCuentas.empresa.empresa_nombre}}"><i class="fa d-inline fa-lg fa-sort-amount-asc"></i> Aplicar Metodología</a>
+{{/partial}}
+
+{{>cuentas.html}}

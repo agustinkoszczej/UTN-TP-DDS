@@ -33,33 +33,32 @@
     <div class="container">
       <div class="row">
         <div class="col-md-12">
-          <h1 class="">Empresas</h1>
-          							{{#block "nombre_empresa"}}
-									{{/block}}
+          <h1 class="">Indicadores</h1>
         </div>
       </div>
       <div class="row">
-        <div class="col-md-6">
-          <p class="my-1 lead">Seleccione una empresa</p>
-        </div>
-        <div class="col-md-3 text-right">
-       								{{#block "empresas"}}
+        <div class="col-md-12">
+          							{{#block "indicadores"}}
 									{{/block}}
         </div>
       </div>
-      <div class="row">
-        <div class="col-md-9 py-2">
-									{{#block "cuentas"}}
-									{{/block}}
-        </div>
-        <div class="col-md-3">
-          <div class="card">
-            <div class="card-body">
-              <h4 class="card-title">Balance</h4>
-              						{{#block "valor_balances"}}
-									{{/block}}
-            </div>
-          </div>
+      <br>
+      	<h2 class="">Crear Indicador</h2>
+      <div class="row my-3">
+        <div class="col-md-3 text-right py-4">
+		<form action="/crear/indicador" method="POST">
+		
+        <div class="form-group">
+          <p class="">Nombre de indicador</p>
+          <input type="text" name="nombre" class="form-control" placeholder="EJEMPLO">
+		  </div>
+		  
+		  <div class="form-group">
+          <p class="">Expresión</p>
+          <input type="text" name="expresion" class="form-control" placeholder="A + B - 5">
+		  </div>
+          <input class="btn btn-outline-primary w-100 text-center my-3" type="submit" value="Crear nuevo indicador">
+       </form>
         </div>
       </div>
     </div>

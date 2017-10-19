@@ -8,19 +8,9 @@ import java.util.stream.Collectors;
 import javax.swing.JOptionPane;
 
 import ar.edu.utn.frba.dds.modelo.Indicador;
-import ar.edu.utn.frba.dds.servicio.ServicioIndicadores;
 import ar.edu.utn.frba.dds.util.ProveedorAcceso;
 
 public class RepositorioIndicadores {
-	
-	/*public static void CargarYValidarIndicadores(){
-		indicadores = new ServicioIndicadores().obtenerIndicadores();
-		indicadores.stream().forEach(indicador -> indicador.validarYActualizarVariables(indicadores.stream().collect(Collectors.toList())));
-	}
-	
-	public void setIndicadores(List<Indicador> indicadores){
-		RepositorioIndicadores.indicadores = indicadores;
-	}*/
 	
 	public static Collection<Indicador> indicadores = new ArrayList<Indicador>();
 	

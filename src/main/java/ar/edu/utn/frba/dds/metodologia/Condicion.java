@@ -19,7 +19,7 @@ import ar.edu.utn.frba.dds.modelo.Indicador;
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Observable
-@JsonIgnoreProperties(value = { "changeSupport", "nombreClaseCondicion" })
+@JsonIgnoreProperties(value = {"changeSupport", "nombreClaseCondicion" })
 @JsonTypeInfo(
 	    use = JsonTypeInfo.Id.CLASS,
 	    include = JsonTypeInfo.As.EXISTING_PROPERTY,
