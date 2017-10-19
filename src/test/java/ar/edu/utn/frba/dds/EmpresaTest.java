@@ -17,17 +17,27 @@ import ar.edu.utn.frba.dds.servicio.ServicioJson;
 import ar.edu.utn.frba.dds.servicio.ServicioCuentas;
 import ar.edu.utn.frba.dds.util.ProveedorAcceso;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
 public class EmpresaTest {
 	//El delta es para comprar doubles (es el margen de diferencia entre cada valor)
 	private static final double DELTA = 1e-15;
-	
+
+	EntityManagerFactory emf;
+	EntityManager em;
+	BaseDeDatos proveedorDeDatos;
 	ProveedorAcceso serv;
 	List<Empresa> empresas;
-	
+
 	@Before
 	public void init() {
-		serv = new ProveedorAcceso();
-		empresas = new ArrayList<Empresa>();	
+		emf = Persistence.createEntityManagerFactory("db-test");
+		em = emf.createEntityManager();
+		proveedorDeDatos = new BaseDeDatos(em);
+		serv = new ProveedorAcceso(proveedorDeDatos);
+		empresas = new ArrayList<Empresa>();
 		empresas = serv.obtenerEmpresas();
 		
 	}

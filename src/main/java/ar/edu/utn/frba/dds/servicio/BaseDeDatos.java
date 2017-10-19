@@ -20,7 +20,11 @@ public class BaseDeDatos implements Servicio {
 
 	public static boolean bdEnabled = true; //Cambiar atributo a False si se quiere cargar desde JSON
 	private EntityManager entityManager;
-	
+
+	public BaseDeDatos (EntityManager entityManager){
+		this.entityManager = entityManager;
+	}
+
 	public BaseDeDatos (){
 		this.entityManager = PerThreadEntityManagers.getEntityManager();
 		entityManager.clear();

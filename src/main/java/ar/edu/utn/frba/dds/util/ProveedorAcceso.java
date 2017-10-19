@@ -14,7 +14,15 @@ import ar.edu.utn.frba.dds.servicio.ServicioJson;
 public class ProveedorAcceso {
 
 	private Servicio proveedorDeDatos;
-	
+
+	public ProveedorAcceso(BaseDeDatos _proveedorDeDatos){
+		if(BaseDeDatos.bdEnabled)
+			this.proveedorDeDatos = _proveedorDeDatos;
+		else
+			this.proveedorDeDatos = new ServicioJson();
+	}
+
+
 	public ProveedorAcceso(){
 		//TODO Este pasaria a definir como arranca la app por default.
 		//new ServicioJson para levantar de un Json
@@ -24,7 +32,7 @@ public class ProveedorAcceso {
 		else
 			this.proveedorDeDatos = new ServicioJson();
 	}
-	
+
 	public void setProveedorBD(){
 		proveedorDeDatos = new BaseDeDatos();
 	}
