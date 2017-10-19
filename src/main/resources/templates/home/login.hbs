@@ -1,15 +1,19 @@
 {{#partial "contenido"}}
 
-
-<div class="jumbotron">
-  <h1>Login</h1>
-</div>	
-
-<form action="/" method="POST">
-	  Usuario: <input type="text" autofocus="autofocus" required="required" name="user"> </br>
-	  Contrasena: <input type="password" autofocus="autofocus" required="required" name="password">
-	  <input type="submit" value="Aceptar">
-	</form>
+<div class="row">
+	<div class="jumbotron" style="width:100%">
+	  <h1>Login</h1>
+	</div>	
+	<div class="row" style="justify-content: center;width: 100%;">
+		<form action="/login" method="POST" class="form-group col-md-4">
+		  <div class="form-control">
+			  Usuario: <input class="form-control" type="text" autofocus="autofocus" required="required" name="username"> </br>
+			  Contrasena: <input class="form-control" type="password" autofocus="autofocus" required="required" name="password">
+			  <input class="btn w-100 my-3 btn-lg btn-primary" type="submit" value="Aceptar">
+			</div>
+		</form>
+	</div>
+</div>
 
 	{{/partial}}
 

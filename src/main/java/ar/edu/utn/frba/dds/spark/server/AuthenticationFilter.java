@@ -2,19 +2,20 @@ package ar.edu.utn.frba.dds.spark.server;
 
 import spark.Request;
 import spark.Response;
+import spark.Filter;
 
-public class AuthenticationFilter {
-
-	
-	public void isAuthorized(Request req, Response res){
-		boolean authenticated = req.session().attribute("usuario") != null;
-		if(!isPublic(req.pathInfo()) && !authenticated){
-			res.redirect("/login");
-		}
-	}
+public class AuthenticationFilter implements Filter{
 
 	private boolean isPublic(String pathInfo) {
 		// TODO Auto-generated method stub
 		return pathInfo.equals("/login");
+	}
+
+	@Override
+	public void handle(Request req, Response res) throws Exception {
+		boolean authenticated = req.session().attribute("username") != null;
+		if(!isPublic(req.pathInfo()) && !authenticated){
+			res.redirect("/login");
+		}
 	}
 }

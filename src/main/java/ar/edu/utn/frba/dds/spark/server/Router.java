@@ -6,6 +6,7 @@ import ar.edu.utn.frba.dds.spark.controllers.IndicadorController;
 import ar.edu.utn.frba.dds.spark.controllers.MetodologiasController;
 import ar.edu.utn.frba.dds.spark.utils.BooleanHelper;
 import ar.edu.utn.frba.dds.spark.utils.HandlebarsTemplateEngineBuilder;
+import spark.Filter;
 import spark.Spark;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 
@@ -21,6 +22,8 @@ public class Router {
 
 		Spark.staticFiles.location("/public");
 		
+		Spark.before((Filter) new AuthenticationFilter());
+		
 		EmpresasController cuentasController = new EmpresasController();
 		MetodologiasController metodologiasController = new MetodologiasController();
 		IndicadorController indicadorController = new IndicadorController();
@@ -33,6 +36,9 @@ public class Router {
 		
 		Spark.post("crear/indicador", indicadorController::crearIndicador);
 		
-		Spark.get("/", HomeController::home, engine);
+		Spark.get("login", HomeController::login, engine);
+		Spark.post("login", HomeController::accederDesdeLogin);
+		
+		Spark.get("/", HomeController::home);
 	}
 }

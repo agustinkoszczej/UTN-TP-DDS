@@ -68,5 +68,16 @@ INSERT INTO Indicador (indicador_nombre, indicador_expresion)
 INSERT INTO Indicador (indicador_nombre, indicador_expresion)
 			VALUES('EBITDAAA','EBITDA'); /*id=5*/
 
-
 /*ENTREGA 3*/
+
+CREATE TABLE User (
+user_id INT NOT NULL AUTO_INCREMENT,
+user_username VARCHAR(50) NOT NULL UNIQUE,
+user_password VARCHAR(50) NOT NULL,
+PRIMARY KEY(user_id));
+
+SET @username = 'polo';
+SET @password = 'polo';
+
+INSERT INTO User (user_username, user_password)
+			VALUES (@username, MD5(@password)); 

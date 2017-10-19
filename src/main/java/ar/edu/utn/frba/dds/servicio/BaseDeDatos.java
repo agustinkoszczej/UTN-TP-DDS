@@ -1,11 +1,15 @@
 package ar.edu.utn.frba.dds.servicio;
 
+import org.hibernate.*;
+import org.hibernate.criterion.*;
 import java.io.IOException;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.Query;
 
+import org.hibernate.type.IntegerType;
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import ar.edu.utn.frba.dds.expresion.Expresion;
@@ -13,6 +17,7 @@ import ar.edu.utn.frba.dds.metodologia.Condicion;
 import ar.edu.utn.frba.dds.metodologia.Metodologia;
 import ar.edu.utn.frba.dds.modelo.Empresa;
 import ar.edu.utn.frba.dds.modelo.Indicador;
+import ar.edu.utn.frba.dds.modelo.User;
 import ar.edu.utn.frba.dds.repositorios.RepositorioIndicadores;
 import ar.edu.utn.frba.dds.util.ExpressionParser;
 
@@ -84,6 +89,11 @@ public class BaseDeDatos implements Servicio {
 		return condiciones;
 	}
 	
+	public Boolean login(String username, String password){
+		List<User> loggedUsers = entityManager.createQuery("FROM User WHERE user_username = '" + username + "' AND user_password = MD5('" + password + "')").getResultList();
+		return !loggedUsers.isEmpty();
+	}
+	
 	public void guardarCondicion(Condicion unaCondicion) throws IOException{
 			EntityTransaction tx = PerThreadEntityManagers.getEntityManager().getTransaction();
 			tx.begin();
@@ -100,7 +110,7 @@ public class BaseDeDatos implements Servicio {
 			tx.commit();
 	}
 	
-public void guardarIndicador(Indicador indicador) throws IOException{
+	public void guardarIndicador(Indicador indicador) throws IOException{
 			indicador.setIndicador_expresion(indicador.formula());
 			EntityTransaction tx = PerThreadEntityManagers.getEntityManager().getTransaction();
 			tx.begin();
