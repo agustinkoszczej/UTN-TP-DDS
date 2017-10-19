@@ -109,4 +109,8 @@ public class Metodologia {
 	public void setCondiciones(List<Condicion> condiciones) {
 		this.condiciones = condiciones;
 	}
+
+	public boolean nombreEquals(String nombre_meto) {
+		return nombre_meto.equals(getNombre());
+	}
 }

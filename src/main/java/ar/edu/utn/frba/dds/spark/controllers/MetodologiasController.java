@@ -41,7 +41,7 @@ public class MetodologiasController implements WithGlobalEntityManager, Transact
 		controllerMetodologia.setMetodologias(metodologias);		
 		
 		if(nombre_meto != null){
-			Metodologia meto = metodologias.stream().filter(e->e.getNombre().equals(nombre_meto)).findFirst().get();
+			Metodologia meto = metodologias.stream().filter(e->e.nombreEquals(nombre_meto)).findFirst().get();
 			controllerMetodologia.setNombre_metodologia(nombre_meto);
 			controllerMetodologia.setEmpresasOrdenadas(meto.aplicar(empresas));
 		}
