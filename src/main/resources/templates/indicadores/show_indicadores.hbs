@@ -1,27 +1,13 @@
-{{#partial "empresaPeriodos"}}
-
-<h3>{{controllerIndicador.empresa_indicador.empresa_nombre}}</h3>
-<select required="required" onchange=" location = this.value;">
-	<option hidden selected>Periodos</option>
-	{{#each controllerIndicador.empresa_indicador.balances}}
-	<option value="indicadores?nombre={{balance_periodo}}">{{balance_periodo}}</option>
-	{{/each}}
-</select>
-</table>
-
-{{/partial}}
-
 {{#partial "indicadores"}}
-
 <table class="table">
             <thead>
               <tr>
-                <th>nombre</th>
-                <th>expresion</th>
+                <th>Nombre</th>
+                <th>Expresión</th>
               </tr>
             </thead>
             <tbody>
-	{{#each controllerIndicador}}
+	{{#each controllerIndicador.indicadores}}
               <tr>
                 <td>{{nombreIndicador}}</td>
                 <td>{{expresion}}</td>
@@ -31,6 +17,5 @@
 </table>
 
 {{/partial}}
-
 
 {{>indicadores.html}}

@@ -37,7 +37,7 @@
 
 {{#partial "valor_balances"}}
 <h3 class="card-subtitle text-success">${{controllerCuentas.empresa.valorBalances}}</h3>
-<a class="btn w-100 my-3 btn-lg btn-primary" href="/consultar/indicadores?nombre={{controllerCuentas.empresa.empresa_nombre}}"><i class="fa d-inline fa-lg fa-line-chart"></i> Aplicar Indicador</a>
+<a class="btn w-100 my-3 btn-lg btn-primary" href="/aplicar/indicador?empresa={{controllerCuentas.empresa.empresa_nombre}}"><i class="fa d-inline fa-lg fa-line-chart"></i> Aplicar Indicador</a>
 <a class="btn w-100 my-3 btn-lg btn-primary" href="/consultar/metodologias?nombre={{controllerCuentas.empresa.empresa_nombre}}"><i class="fa d-inline fa-lg fa-sort-amount-asc"></i> Aplicar Metodología</a>
 {{/partial}}
 

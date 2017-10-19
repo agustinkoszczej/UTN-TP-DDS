@@ -1,0 +1,34 @@
+{{#partial "aplicarIndicadores"}}
+<form action="/aplicar/indicador" method="GET">
+
+<div class="form-group">
+<input type="text" required="required" name="empresa" value={{controllerIndicador.empresa_indicador.empresa_nombre}}>
+</div>
+
+<div class="form-group">
+<select name="periodo" required="required">
+	<option hidden selected>Período</option>
+	{{#each controllerIndicador.empresa_indicador.balances}}
+	<option value="{{balance_periodo}}">{{balance_periodo}}</option>
+	{{/each}}
+</select>
+</div>
+
+<div class="form-group">
+<select name="indicador" required="required">
+	<option hidden selected>Indicador</option>
+	{{#each controllerIndicador.indicadores}}
+	<option value="{{nombreIndicador}}">{{nombreIndicador}}</option>
+	{{/each}}
+</select>
+</div>
+
+<input class="btn w-100 my-3 btn-lg btn-primary" type="submit" value="Aplicar Indicador">
+</form>
+{{/partial}}
+
+{{#partial "valorIndicador"}}
+<h3 class="card-subtitle text-success">${{controllerIndicador.valorIndicador}}</h3>
+{{/partial}}
+
+{{>indicadores.html}}
