@@ -23,6 +23,7 @@ public class MetodologiasController implements WithGlobalEntityManager, Transact
 	private List<Metodologia> metodologias;
 	private Metodologia metodologiaAplicada;
 	private List<Empresa> empresasOrdenadas;
+	private String nombre_metodologia;
 	
 	
 	public ModelAndView mostrarMetodologias(Request req, Response res){
@@ -34,25 +35,20 @@ public class MetodologiasController implements WithGlobalEntityManager, Transact
 		List<Metodologia> metodologias = proveedor.obtenerMetodologias();
 		List<Empresa> empresas = proveedor.obtenerEmpresas();
 		
-		//Map<String, List<Metodologia>> model = new HashMap<>();
 		Map<String, MetodologiasController> model = new HashMap<>();
 		
 		MetodologiasController controllerMetodologia = new MetodologiasController();
-		controllerMetodologia.setMetodologias(metodologias);
+		controllerMetodologia.setMetodologias(metodologias);		
 		
-		
-		if(!nombre_meto.isEmpty()){
-			Metodologia meto = metodologias.stream().filter(e->e.getNombre().equals(nombre_meto)).findFirst().get();
-			
+		if(nombre_meto != null){
+			Metodologia meto = metodologias.stream().filter(e->e.nombreEquals(nombre_meto)).findFirst().get();
+			controllerMetodologia.setNombre_metodologia(nombre_meto);
 			controllerMetodologia.setEmpresasOrdenadas(meto.aplicar(empresas));
-			
-			//controllerMetodologia.setMetodologiaAplicada(meto);
 		}
-		
 
 		model.put("controllerMetodologias", controllerMetodologia);
 		
-		return new ModelAndView(model, "metodologias/apply_metodologias.hbs");	
+		return new ModelAndView(model,"metodologias/show_metodologias.hbs");	
 	}
 
 	public List<Metodologia> getMetodologias() {
@@ -85,5 +81,13 @@ public class MetodologiasController implements WithGlobalEntityManager, Transact
 
 	public void setEmpresasOrdenadas(List<Empresa> empresasOrdenadas) {
 		this.empresasOrdenadas = empresasOrdenadas;
+	}
+
+	public String getNombre_metodologia() {
+		return nombre_metodologia;
+	}
+
+	public void setNombre_metodologia(String nombre_metodologia) {
+		this.nombre_metodologia = nombre_metodologia;
 	}
 }

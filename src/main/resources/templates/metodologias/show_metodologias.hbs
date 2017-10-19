@@ -1,3 +1,19 @@
+{{#partial "evaluarMetodologias"}}
+
+<div class="col-md-12">
+          <h1 class="">Seleccionar Metodología a evaluar</h1> <br>
+</div>
+<div class="col-md-12">
+<select required="required" onchange=" location = this.value;">
+	<option hidden selected>Seleccionar Metodologia</option> 
+	{{#each controllerMetodologias.metodologias}}
+	<option value="metodologias?nombre={{nombre}}">{{nombre}}</option>
+	{{/each}}
+</select> 
+<label for="{{controllerMetodologias.nombre_metodologia}}">  Metodologia Seleccionada: {{controllerMetodologias.nombre_metodologia}}</label>
+</div>
+
+{{/partial}}
 
 {{#partial "metodologias"}}
 
@@ -26,5 +42,18 @@
 
 {{/partial}}
 
+
+{{#partial "empresasOrdenadas"}}
+
+<p class="lead">Resultados:</p>
+<p><b>#. Empresa</b></p>
+<hr>
+<ol type="1">
+  {{#each controllerMetodologias.empresasOrdenadas}}	
+  <li><p>{{empresa_nombre}}</p></li>
+  {{/each}}
+</ol>
+
+{{/partial}}
 
 {{>metodologias.html}}

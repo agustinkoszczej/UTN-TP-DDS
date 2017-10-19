@@ -3,6 +3,9 @@ package ar.edu.utn.frba.dds.modelo;
 import java.util.Calendar;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.OptionalInt;
+import java.util.stream.DoubleStream;
+import java.util.stream.IntStream;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -98,11 +101,12 @@ public class Empresa {
 	public double getAntiguedad() {
 		Calendar cal= Calendar.getInstance(); 
 		int anioActual = cal.get(Calendar.YEAR); 
-		if(balances != null){
-		Double antiguedad =  balances
-				.stream()
-				.mapToDouble(balance -> Integer.parseInt(balance.getBalance_periodo().substring(0, 4)))
-				.min().getAsDouble();
+		if(balances != null && !(balances.isEmpty())){
+		double antiguedad =  balances
+					.stream()
+					.mapToInt(balance -> Integer.parseInt(balance.getBalance_periodo().substring(0, 4)))
+					.min()
+					.getAsInt();
 		return anioActual - antiguedad;
 		}
 		return 0;
