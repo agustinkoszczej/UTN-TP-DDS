@@ -29,8 +29,6 @@ public class Balance {
 	@JsonProperty("valor")
 	private Double balance_valor;
 
-	private int balance_empresa;
-
 	public Balance() {
 		super();
 	}

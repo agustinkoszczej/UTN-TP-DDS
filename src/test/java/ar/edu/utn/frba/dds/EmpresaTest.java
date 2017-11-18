@@ -3,23 +3,20 @@ package ar.edu.utn.frba.dds;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import ar.edu.utn.frba.dds.controlador.CuentaViewModel;
 import ar.edu.utn.frba.dds.modelo.Balance;
 import ar.edu.utn.frba.dds.modelo.Empresa;
 import ar.edu.utn.frba.dds.modelo.Frecuencia;
 import ar.edu.utn.frba.dds.modelo.TipoDeCuenta;
 import ar.edu.utn.frba.dds.servicio.BaseDeDatos;
-import ar.edu.utn.frba.dds.servicio.ServicioJson;
-import ar.edu.utn.frba.dds.servicio.ServicioCuentas;
 import ar.edu.utn.frba.dds.util.ProveedorAcceso;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 
 public class EmpresaTest {
 	//El delta es para comprar doubles (es el margen de diferencia entre cada valor)
@@ -63,7 +60,6 @@ public class EmpresaTest {
 	}
 	@Test
 	public void devuelveCeroCuandoSeleccionoEmpresaVacia(){
-		CuentaViewModel cuentaVM = new CuentaViewModel(serv);
 		Empresa emp = empresas.get(4);
 		Assert.assertEquals(emp.getValorBalances(), 0, DELTA);
 	}

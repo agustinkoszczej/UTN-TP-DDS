@@ -1,15 +1,11 @@
 package ar.edu.utn.frba.dds.servicio;
 
-import org.hibernate.*;
-import org.hibernate.criterion.*;
 import java.io.IOException;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-import javax.persistence.Query;
 
-import org.hibernate.type.IntegerType;
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import ar.edu.utn.frba.dds.expresion.Expresion;
@@ -17,6 +13,7 @@ import ar.edu.utn.frba.dds.metodologia.Condicion;
 import ar.edu.utn.frba.dds.metodologia.Metodologia;
 import ar.edu.utn.frba.dds.modelo.Empresa;
 import ar.edu.utn.frba.dds.modelo.Indicador;
+import ar.edu.utn.frba.dds.modelo.IndicadorPrecalculado;
 import ar.edu.utn.frba.dds.modelo.User;
 import ar.edu.utn.frba.dds.repositorios.RepositorioIndicadores;
 import ar.edu.utn.frba.dds.util.ExpressionParser;
@@ -31,10 +28,31 @@ public class BaseDeDatos implements Servicio {
 	}
 
 	public BaseDeDatos (){
+		if (this.entityManager != null){
+			if (this.entityManager.isOpen())
+					this.entityManager.close();
+		}
 		this.entityManager = PerThreadEntityManagers.getEntityManager();
-		entityManager.clear();
+		this.entityManager.clear();
+		//cargarValoresIndicadoresPrecalculados();
 	}
 
+	public void cargarValoresIndicadoresPrecalculados(){
+		List<IndicadorPrecalculado> indicadoresPrecalculados = entityManager
+				.createQuery("SELECT DISTINCT indicador_id as indPrecal_indicador, empresa_id as indPrecal_empresa, balance_periodo as indPrecal_periodo "
+				+ "FROM Empresa JOIN Balance ON (empresa_id = balance_empresa), Indicador "
+				+ "WHERE NOT EXISTS (SELECT 1 FROM IndicadorPrecalculado WHERE indPrecal_empresa=empresa_id AND indPrecal_indicador=indicador_id AND indPrecal_periodo=balance_periodo)")
+				.getResultList();
+		
+		for (int i =0; i<indicadoresPrecalculados.size(); i++){
+			EntityTransaction tx = PerThreadEntityManagers.getEntityManager().getTransaction();
+			tx.begin();
+			IndicadorPrecalculado ind = indicadoresPrecalculados.get(i);
+			entityManager.persist(ind);
+			tx.commit();
+		}
+	}
+	
 	public boolean isBdEnabled() {
 		return bdEnabled;
 	}

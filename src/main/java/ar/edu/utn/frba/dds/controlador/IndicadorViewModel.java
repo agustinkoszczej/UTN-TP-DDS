@@ -12,7 +12,6 @@ import ar.edu.utn.frba.dds.modelo.Balance;
 import ar.edu.utn.frba.dds.modelo.Empresa;
 import ar.edu.utn.frba.dds.modelo.Indicador;
 import ar.edu.utn.frba.dds.repositorios.RepositorioIndicadores;
-import ar.edu.utn.frba.dds.servicio.ServicioJson;
 import ar.edu.utn.frba.dds.util.ExpressionParser;
 import ar.edu.utn.frba.dds.util.ProveedorAcceso;
 

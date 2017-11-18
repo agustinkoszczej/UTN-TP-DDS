@@ -31,8 +31,6 @@ public class PersistenciaCondicionTest {
 	public TemporaryFolder folder = new TemporaryFolder();
 	
 	private void clearSingleton(String fileName) {
-		String archivoJSON = folder.toString() + "\\" + fileName;
-//		ServicioCondiciones nuevoServicio = new ServicioCondiciones(archivoJSON);
 		ServicioCondiciones nuevoServicio = new ServicioCondiciones();
 
 		// Aplico reflection para limpiar las instancias de la singleton entre test

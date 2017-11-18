@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import ar.edu.utn.frba.dds.metodologia.Condicion;
-import ar.edu.utn.frba.dds.servicio.ServicioCondiciones;
 import ar.edu.utn.frba.dds.util.ProveedorAcceso;
 
 

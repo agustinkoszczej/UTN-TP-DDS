@@ -68,7 +68,7 @@ INSERT INTO Indicador (indicador_nombre, indicador_expresion)
 INSERT INTO Indicador (indicador_nombre, indicador_expresion)
 			VALUES('EBITDAAA','EBITDA'); /*id=5*/
 
-/*ENTREGA 3*/
+/*LOGIN*/
 
 CREATE TABLE User (
 user_id INT NOT NULL AUTO_INCREMENT,
@@ -76,8 +76,22 @@ user_username VARCHAR(50) NOT NULL UNIQUE,
 user_password VARCHAR(50) NOT NULL,
 PRIMARY KEY(user_id));
 
-SET @username = 'polo';
-SET @password = 'polo';
+SET @username = 'admin';
+SET @password = 'admin';
 
 INSERT INTO User (user_username, user_password)
 			VALUES (@username, MD5(@password)); 
+
+/*Entrega 6*/
+
+CREATE TABLE IndicadorPrecalculado(
+indPrecal_id INT NOT NULL AUTO_INCREMENT,
+indPrecal_indicador INT NOT NULL,
+indPrecal_empresa INT NOT NULL,
+indPrecal_periodo VARCHAR (50),
+indPrecal_valor DOUBLE,
+FOREIGN KEY (indPrecal_indicador) references Indicador(indicador_id),
+FOREIGN KEY (indPrecal_empresa) references Empresa(empresa_id),
+PRIMARY KEY(indPrecal_id));
+
+

@@ -11,7 +11,6 @@ import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 import ar.edu.utn.frba.dds.metodologia.Condicion;
 import ar.edu.utn.frba.dds.metodologia.Metodologia;
 import ar.edu.utn.frba.dds.modelo.Empresa;
-import ar.edu.utn.frba.dds.modelo.Indicador;
 import ar.edu.utn.frba.dds.util.ProveedorAcceso;
 import spark.ModelAndView;
 import spark.Request;

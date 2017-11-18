@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import ar.edu.utn.frba.dds.metodologia.Metodologia;
-import ar.edu.utn.frba.dds.servicio.ServicioMetodologias;
 import ar.edu.utn.frba.dds.util.ProveedorAcceso;
 
 public class RepositorioMetodologias {

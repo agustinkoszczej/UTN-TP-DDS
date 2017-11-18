@@ -17,8 +17,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import ar.edu.utn.frba.dds.modelo.Empresa;
-import ar.edu.utn.frba.dds.servicio.ServicioCuentas;
-import ar.edu.utn.frba.dds.servicio.BaseDeDatos;
 import ar.edu.utn.frba.dds.servicio.ServicioJson;
 
 @Observable
