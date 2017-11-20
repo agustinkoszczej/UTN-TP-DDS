@@ -21,7 +21,7 @@ import ar.edu.utn.frba.dds.util.ExpressionParser;
 public class BaseDeDatos implements Servicio {
 
 	public static boolean bdEnabled = true; //Cambiar atributo a False si se quiere cargar desde JSON
-	private EntityManager entityManager;
+	private static EntityManager entityManager;
 
 	public BaseDeDatos (EntityManager entityManager){
 		this.entityManager = entityManager;
@@ -34,21 +34,29 @@ public class BaseDeDatos implements Servicio {
 		}
 		this.entityManager = PerThreadEntityManagers.getEntityManager();
 		this.entityManager.clear();
-		//cargarValoresIndicadoresPrecalculados();
+		cargarValoresIndicadoresPrecalculados();
 	}
 
 	public void cargarValoresIndicadoresPrecalculados(){
-		List<IndicadorPrecalculado> indicadoresPrecalculados = entityManager
-				.createQuery("SELECT DISTINCT indicador_id as indPrecal_indicador, empresa_id as indPrecal_empresa, balance_periodo as indPrecal_periodo "
-				+ "FROM Empresa JOIN Balance ON (empresa_id = balance_empresa), Indicador "
-				+ "WHERE NOT EXISTS (SELECT 1 FROM IndicadorPrecalculado WHERE indPrecal_empresa=empresa_id AND indPrecal_indicador=indicador_id AND indPrecal_periodo=balance_periodo)")
-				.getResultList();
+		EntityTransaction tx = PerThreadEntityManagers.getEntityManager().getTransaction();
+		tx.begin();
+		entityManager
+				.createNativeQuery("INSERT INTO IndicadorPrecalculado (indPrecal_indicador, indPrecal_empresa, indPrecal_periodo) (SELECT DISTINCT indicador_id, empresa_id, balance_periodo "
+				+ "FROM Empresa JOIN Balance ON (empresa_id=balance_empresa), Indicador "
+				+ "WHERE NOT EXISTS (SELECT 1 FROM IndicadorPrecalculado WHERE indPrecal_empresa=empresa_id AND indPrecal_indicador=indicador_id AND indPrecal_periodo=balance_periodo))").executeUpdate();
+		tx.commit();
+		
+		List<IndicadorPrecalculado> indicadoresPrecalculados =  
+        entityManager.createQuery("FROM IndicadorPrecalculado WHERE indPrecal_valor IS NULL").getResultList();
 		
 		for (int i =0; i<indicadoresPrecalculados.size(); i++){
-			EntityTransaction tx = PerThreadEntityManagers.getEntityManager().getTransaction();
 			tx.begin();
-			IndicadorPrecalculado ind = indicadoresPrecalculados.get(i);
-			entityManager.persist(ind);
+			try {
+				indicadoresPrecalculados.get(i).calcularValor(entityManager);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			tx.commit();
 		}
 	}
@@ -65,6 +73,13 @@ public class BaseDeDatos implements Servicio {
 		this.entityManager = entityManager;
 	}
 
+	public static Integer obtenerValorIndicadorPrecalculado(Indicador indicador, Empresa empresa, String periodo){
+		Object valor = entityManager.createNativeQuery("SELECT indPrecal_valor FROM IndicadorPrecalculado WHERE indPrecal_empresa = "
+				+empresa.getEmpresa_id()+" AND indPrecal_indicador = "+indicador.getIndicador_id()+" AND indPrecal_periodo = "+periodo).getSingleResult();
+		Double num = Double.parseDouble(valor.toString());
+		return num.intValue();
+	}
+	
 	public List<Empresa> obtenerEmpresas() {
 	
 		List<Empresa> empresas = entityManager.createQuery("FROM Empresa").getResultList();

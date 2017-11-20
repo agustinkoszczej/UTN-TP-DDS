@@ -1,20 +1,24 @@
 package ar.edu.utn.frba.dds.modelo;
 
 import javax.persistence.Entity;
+import javax.persistence.EntityManager;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
+import ar.edu.utn.frba.dds.expresion.Expresion;
+import ar.edu.utn.frba.dds.util.ExpressionParser;
+
 @Entity
 public class IndicadorPrecalculado {
 	@Id @GeneratedValue
 	private int indPrecal_id;
-	@OneToOne(fetch=FetchType.LAZY) @JoinColumn(name="indicador_id")
+	@OneToOne(fetch=FetchType.EAGER) @JoinColumn(name="indPrecal_indicador")
 	private Indicador indPrecal_indicador;
 	
-	@OneToOne(fetch=FetchType.LAZY) @JoinColumn(name="empresa_id")
+	@OneToOne(fetch=FetchType.EAGER) @JoinColumn(name="indPrecal_empresa")
 	private Empresa indPrecal_empresa;
 	
 	private String indPrecal_periodo;
@@ -25,11 +29,11 @@ public class IndicadorPrecalculado {
 		super();
 	}
 
-	public IndicadorPrecalculado(Indicador ind, Empresa emp, String periodo) throws Exception{
+	public IndicadorPrecalculado(Indicador ind, Empresa emp, String periodo, Integer valor) throws Exception{
 		this.indPrecal_indicador = ind;
 		this.indPrecal_empresa = emp;
 		this.indPrecal_periodo = periodo;
-		this.indPrecal_valor = ind.calcular(emp, periodo);
+		this.indPrecal_valor = valor;
 	}
 
 	public int getIndPrecal_id() {
@@ -72,5 +76,28 @@ public class IndicadorPrecalculado {
 		this.indPrecal_valor = indPrecal_valor;
 	}
 	
+	public void calcularValor(EntityManager entityManager) throws Exception{
+		ExpressionParser parser = new ExpressionParser();
+		
+		indPrecal_empresa.setBalances(
+				(entityManager.createQuery(
+						"FROM Balance "
+						+ "WHERE balance_empresa = "
+						+ indPrecal_empresa.getEmpresa_id()).
+						getResultList())
+		);
+		
+		try {
+			Expresion expresion = parser.buildExpressionFrom(indPrecal_indicador.getIndicador_expresion());
+			indPrecal_indicador.setExpresion(expresion);
+			indPrecal_indicador.inicializarIndicadoresCorruptos();
+			//RepositorioIndicadores.agregarIndicador(indPrecal_indicador);
+			} catch (Exception e) {
+				System.out.println("ERROR al cargar indicador"); 
+			}
+		this.setIndPrecal_valor(this.indPrecal_indicador.calcular(this.indPrecal_empresa, this.indPrecal_periodo));
+		indPrecal_indicador.setExpresion(null);
+		indPrecal_empresa.setBalances(null);
+	}
 	
 }

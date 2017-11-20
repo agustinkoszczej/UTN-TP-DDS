@@ -11,6 +11,7 @@ import ar.edu.utn.frba.dds.expresion.Expresion;
 import ar.edu.utn.frba.dds.modelo.Empresa;
 import ar.edu.utn.frba.dds.modelo.Indicador;
 import ar.edu.utn.frba.dds.repositorios.RepositorioIndicadores;
+import ar.edu.utn.frba.dds.servicio.BaseDeDatos;
 import ar.edu.utn.frba.dds.util.ExpressionParser;
 import ar.edu.utn.frba.dds.util.ProveedorAcceso;
 import spark.ModelAndView;
@@ -69,6 +70,9 @@ public class IndicadorController implements WithGlobalEntityManager, Transaction
 				Indicador indicador = indicadores.stream().filter(i -> i.getNombreIndicador().equals(nombre_indicador))
 						.findFirst().get();
 				try {
+					//TODO hay que obtenerlo de la tabla de indicadores pre calculados no calcularlo de nuevo
+					//controllerIndicador.setValorIndicador(BaseDeDatos.obtenerValorIndicadorPrecalculado(indicador, empresa, periodo));
+					
 					controllerIndicador.setValorIndicador(indicador.calcular(empresa, periodo));
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
@@ -129,6 +133,6 @@ public class IndicadorController implements WithGlobalEntityManager, Transaction
 	}
 
 	public void setValorIndicador(Integer valorIndicador) {
-		this.valorIndicador = valorIndicador;
+		this.valorIndicador = valorIndicador.intValue();
 	}	
 }

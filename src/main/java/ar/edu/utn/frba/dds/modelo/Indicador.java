@@ -29,7 +29,7 @@ public class Indicador {
 	@Transient
 	private Expresion expresion;
 	@Transient
-	private List<Indicador> indicadoresCorruptos;
+	private List<Indicador> indicadoresCorruptos = new ArrayList<Indicador>();
 	
 	//FIXME
 	private String indicador_expresion;
@@ -132,6 +132,22 @@ public class Indicador {
 	
 	public void inicializarIndicadoresCorruptos(){
 		this.indicadoresCorruptos = new ArrayList<Indicador>();
+	}
+
+	public int getIndicador_id() {
+		return indicador_id;
+	}
+
+	public void setIndicador_id(int indicador_id) {
+		this.indicador_id = indicador_id;
+	}
+
+	public List<Indicador> getIndicadoresCorruptos() {
+		return indicadoresCorruptos;
+	}
+
+	public void setIndicadoresCorruptos(List<Indicador> indicadoresCorruptos) {
+		this.indicadoresCorruptos = indicadoresCorruptos;
 	}
 	
 }
