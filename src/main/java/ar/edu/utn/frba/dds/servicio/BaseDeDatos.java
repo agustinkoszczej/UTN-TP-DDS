@@ -37,6 +37,7 @@ public class BaseDeDatos implements Servicio {
 		cargarValoresIndicadoresPrecalculados();
 	}
 
+	
 	public void cargarValoresIndicadoresPrecalculados(){
 		EntityTransaction tx = PerThreadEntityManagers.getEntityManager().getTransaction();
 		tx.begin();

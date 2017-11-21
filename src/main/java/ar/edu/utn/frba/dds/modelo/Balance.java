@@ -28,6 +28,8 @@ public class Balance {
 	private TipoDeCuenta balance_tipoCuenta;
 	@JsonProperty("valor")
 	private Double balance_valor;
+	
+	private int balance_empresa;
 
 	public Balance() {
 		super();
@@ -72,4 +74,13 @@ public class Balance {
 	public void setBalance_valor(Double valor) {
 		this.balance_valor = valor;
 	}
+
+	public int getBalance_empresa() {
+		return balance_empresa;
+	}
+
+	public void setBalance_empresa(int balance_empresa) {
+		this.balance_empresa = balance_empresa;
+	}
+	
 }

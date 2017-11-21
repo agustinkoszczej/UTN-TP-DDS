@@ -6,7 +6,7 @@ import spark.debug.DebugScreen;
 
 public class Server {
 	public static void main(String[] args) {
-		//BatchCuentas.verificarCuentas();
+		BatchCuentas.verificarCuentas();
 		
 		Spark.port(9000);
 		DebugScreen.enableDebugScreen();
