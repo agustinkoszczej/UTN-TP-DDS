@@ -11,7 +11,6 @@ import ar.edu.utn.frba.dds.expresion.Expresion;
 import ar.edu.utn.frba.dds.modelo.Empresa;
 import ar.edu.utn.frba.dds.modelo.Indicador;
 import ar.edu.utn.frba.dds.repositorios.RepositorioIndicadores;
-import ar.edu.utn.frba.dds.servicio.BaseDeDatos;
 import ar.edu.utn.frba.dds.util.ExpressionParser;
 import ar.edu.utn.frba.dds.util.ProveedorAcceso;
 import spark.ModelAndView;
