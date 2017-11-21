@@ -12,8 +12,7 @@ import ar.edu.utn.frba.dds.modelo.Empresa;
 import ar.edu.utn.frba.dds.servicio.ServicioCuentas;
 
 public class BatchCuentas {
-	//TODO falta que se persista, y validar que si ya existe lo updateo en vez de insertarlo de nuevo
-	// y tambien de borrar el archivo cada vez que lo lea, para asi evitar que lea lo mismo 2 veces (como dice enunciado)
+	//TODO falta que se borre el archivo cada vez que lo lea, para asi evitar que lea lo mismo 2 veces (como dice enunciado)
 	static ServicioCuentas batch;
 	static ProveedorAcceso proveedor;
 	static EntityManager entityManager;
@@ -61,7 +60,7 @@ public class BatchCuentas {
 				tx.begin();
 			entityManager.persist(empresaNueva);
 			tx.commit();
-			return -1;
+			return empresaNueva.getEmpresa_id();
 		}
 	}
 	
