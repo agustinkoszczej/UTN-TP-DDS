@@ -16,7 +16,44 @@
           <target>1.8</target>
         </configuration>
       </plugin>
-    </plugins>
+      <plugin>
+            <artifactId>maven-assembly-plugin</artifactId>
+            <executions>
+                <execution>
+                    <phase>package</phase>
+                    <goals>
+                        <goal>single</goal>
+                    </goals>
+                </execution>
+            </executions>
+            <configuration>
+                <descriptorRefs>
+                    <!-- This tells Maven to include all dependencies -->
+                    <descriptorRef>jar-with-dependencies</descriptorRef>
+                </descriptorRefs>
+                <archive>
+                    <manifest>
+                        <mainClass>ar.edu.utn.frba.dds.spark.server.Server</mainClass>
+                    </manifest>
+                </archive>
+            </configuration>
+        </plugin>
+        <plugin>
+          <groupId>com.heroku.sdk</groupId>
+          <artifactId>heroku-maven-plugin</artifactId>
+          <version>0.4.4</version>
+          <configuration>
+              <jdkVersion>1.8</jdkVersion>
+              <!-- Use your own application name -->
+              <appName>thawing-citadel-86311</appName> 
+              <processTypes>
+                  <!-- Tell Heroku how to launch your application -->
+                  <!-- You might have to remove the ./ in front   -->
+                  <web>java -jar ./target/TP-DDS-2017-0.0.1-SNAPSHOT-jar-with-dependencies.jar</web>
+              </processTypes>
+          </configuration>
+      </plugin>
+  </plugins>
   </build>
 
   <dependencies>
