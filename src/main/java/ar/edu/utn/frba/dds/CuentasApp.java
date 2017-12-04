@@ -5,7 +5,6 @@ import org.uqbar.arena.windows.Window;
 
 import ar.edu.utn.frba.dds.vista.MainMenuWindow;
 
-
 public class CuentasApp extends Application {
 
 	
