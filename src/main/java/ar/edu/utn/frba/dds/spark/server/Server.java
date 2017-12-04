@@ -33,7 +33,7 @@ public class Server {
                 .withIdentity("trigger1", "group1")
                 .startNow()
                 .withSchedule(simpleSchedule()
-                        .withIntervalInSeconds(2)
+                        .withIntervalInSeconds(60)
                         .repeatForever()) //CronScheduleBuilder.cronSchedule("0 * * * * ?")
                 .build();
 
