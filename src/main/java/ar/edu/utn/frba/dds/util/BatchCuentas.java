@@ -35,9 +35,9 @@ public class BatchCuentas {
 							.filter(empresa->empresa.seLlamaIgualQue(empresaBatch))
 							.findFirst();
 			if (empresa_bd.isPresent()){
-				List<Balance> balances_bd = new ArrayList<Balance>();
+				List<Balance> balances_bd;
 				if (!empresa_bd.get().tieneBalances()) {
-					empresa_bd.get().setBalances(balances_bd);
+					empresa_bd.get().setBalances(new ArrayList<Balance>());
 					EntityTransaction tx_upd_empresa = PerThreadEntityManagers.getEntityManager().getTransaction();
 					if(!tx_upd_empresa.isActive())
 						tx_upd_empresa.begin();

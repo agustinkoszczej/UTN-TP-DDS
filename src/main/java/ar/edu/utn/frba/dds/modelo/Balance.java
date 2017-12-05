@@ -84,6 +84,8 @@ public class Balance {
 	}
 
 	public boolean esDelMismoPeriodoQue(Balance otroBalance) {
+		if (otroBalance == null)
+			return false;
 		return this.getBalance_periodo().equals(otroBalance.getBalance_periodo());
 	}
 	
