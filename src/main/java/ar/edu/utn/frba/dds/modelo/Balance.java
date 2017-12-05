@@ -82,5 +82,9 @@ public class Balance {
 	public void setBalance_empresa(int balance_empresa) {
 		this.balance_empresa = balance_empresa;
 	}
+
+	public boolean esDelMismoPeriodoQue(Balance otroBalance) {
+		return this.getBalance_periodo().equals(otroBalance.getBalance_periodo());
+	}
 	
 }

@@ -17,9 +17,14 @@ public class ServicioCuentas {
 			// Inicializo el servidor de consultas para leer los datos JSON
 			unServidorParaConsultar = new ServidorDeConsultas();
 	}
-	
+
 	public List<Empresa> obtenerEmpresas() {
-			String jsonCuentas = unServidorParaConsultar.obtenerDatosDeCuentas();
+		String jsonCuentas = unServidorParaConsultar.obtenerDatosDeCuentas("");
+		return unConversorDeCuentas.mapearEmpresas(jsonCuentas);
+	}
+
+	public List<Empresa> obtenerEmpresas(String rutaArchivo) {
+			String jsonCuentas = unServidorParaConsultar.obtenerDatosDeCuentas(rutaArchivo);
 			return unConversorDeCuentas.mapearEmpresas(jsonCuentas);
 	}
 }

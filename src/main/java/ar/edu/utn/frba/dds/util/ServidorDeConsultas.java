@@ -9,13 +9,13 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 
 public class ServidorDeConsultas {
-	public String obtenerDatosDeCuentas() {
+	public String obtenerDatosDeCuentas(String rutaArchivo) {
 		FileReader fileReader = null; 
 		BufferedReader readBuffer = null;
 		String resultado = "";
 		String unaLinea = "";
 		try {
-			 fileReader = new FileReader("datos.json");
+			 fileReader = new FileReader(rutaArchivo + "datos.json");
 			 readBuffer = new BufferedReader(fileReader);
 			 while ((unaLinea = readBuffer.readLine()) != null) {
 				resultado += unaLinea; 

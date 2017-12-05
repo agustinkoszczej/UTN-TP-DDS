@@ -108,7 +108,10 @@ public class Empresa {
 		}
 		return 0;
 	}
-	
+	public boolean seLlamaIgualQue(Empresa otraEmpresa) {
+		return this.getEmpresa_nombre().equals(otraEmpresa.getEmpresa_nombre());
+	}
+
 	public boolean tieneBalances(){
 		return this.getBalances() != null;
 	}
