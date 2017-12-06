@@ -36,6 +36,8 @@ public class Router {
 		
 		Spark.post("crear/indicador", indicadorController::crearIndicador);
 		
+		Spark.get("error/indicador", indicadorController::errorIndicador, engine);
+		
 		Spark.get("login", HomeController::login, engine);
 		Spark.post("login", HomeController::accederDesdeLogin);
 		

@@ -1,0 +1,27 @@
+
+{{#partial "errorIndicador"}}
+<h3 class="card-subtitle text-warning">{{controllerIndicador.log}}</h3>
+{{/partial}}
+
+{{#partial "indicadores"}}
+<table class="table">
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>Expresión</th>
+              </tr>
+            </thead>
+            <tbody>
+	{{#each controllerIndicador.indicadores}}
+              <tr>
+                <td>{{nombreIndicador}}</td>
+                <td>{{expresion}}</td>
+              </tr>
+	{{/each}}
+	    </tbody>
+</table>
+
+{{/partial}}
+
+
+{{>indicadores.html}}

@@ -22,7 +22,9 @@ public class IndicadorController implements WithGlobalEntityManager, Transaction
 	private Empresa empresa_indicador;
 	private List<Indicador> indicadores;
 	private Integer valorIndicador;
-
+	private String log;
+	
+	
 	public ModelAndView mostrarIndicadores(Request req, Response res) {
 
 		ProveedorAcceso proveedor = new ProveedorAcceso();
@@ -60,6 +62,7 @@ public class IndicadorController implements WithGlobalEntityManager, Transaction
 			} catch(Exception e){
 				// TODO Auto-generated catch block
 				// e.printStackTrace();
+				
 				model.put("controllerIndicador", controllerIndicador);
 				return new ModelAndView(model, "indicadores/apply_indicadores.hbs");
 			}
@@ -86,7 +89,7 @@ public class IndicadorController implements WithGlobalEntityManager, Transaction
 	public ModelAndView crearIndicador(Request req, Response res) {
 		String nombre_ind = req.queryParams("nombre");
 		String expresion_ind = req.queryParams("expresion");
-
+		
 		ProveedorAcceso proveedor = new ProveedorAcceso();
 
 		if (nombre_ind != null && expresion_ind != null) {
@@ -97,18 +100,40 @@ public class IndicadorController implements WithGlobalEntityManager, Transaction
 				if (RepositorioIndicadores.indicadores.contains(ind)) {
 					// TODO Mostrar que el indicador ya existe
 					System.out.println("YA EXISTE INDICADOR");
+					log = "ERROR INDICADOR: EL INDICADOR INGRESADO YA EXISTE";
+					res.redirect("/error/indicador");
+					
+					return null;
+					//TODO  
 				} else {
 					RepositorioIndicadores.agregarIndicador(ind);
 					proveedor.guardarIndicador(ind);
 				}
 			} catch (Exception e) {
 				// TODO Mostrar que esta mal cargado el indicador
-				System.out.println("ESTA MAL CARGADO INDICADOR");
+				log = "ERROR INDICADOR: LA EXPRESION INGRESADA NO ES VALIDA";
+				res.redirect("/error/indicador");
+				return null;
 			}
 		}
 
 		res.redirect("/consultar/indicadores");
 		return null;
+	}
+	
+	public ModelAndView errorIndicador(Request req, Response res){
+		ProveedorAcceso proveedor = new ProveedorAcceso();
+
+		Map<String, IndicadorController> model = new HashMap<>();
+		IndicadorController controllerIndicador = new IndicadorController();
+
+		List<Indicador> indicadores = proveedor.obtenerIndicadores();
+		controllerIndicador.setIndicadores(indicadores);
+		controllerIndicador.setLog(log);
+		System.out.println(log);
+		
+		model.put("controllerIndicador", controllerIndicador);
+		return new ModelAndView(model, "indicadores/error_indicadores.hbs");
 	}
 
 	public Empresa getEmpresa_indicador() {
@@ -119,6 +144,14 @@ public class IndicadorController implements WithGlobalEntityManager, Transaction
 		this.empresa_indicador = empresa_indicador;
 	}
 
+	public void setLog(String log) {
+		this.log = log;
+	}
+	
+	public String getLog() {
+		return log;
+	}
+	
 	public List<Indicador> getIndicadores() {
 		return indicadores;
 	}
